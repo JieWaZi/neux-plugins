@@ -1,11 +1,11 @@
 # 第三方来源与许可
 
-本仓库根 MIT 许可只覆盖 NeuxAlly 自行编写的标准包封装、桥接与构建材料，不改变官方技能、CLI 依赖或商标的作者及许可。我们自行维护完整 OpenAI/Codex 标准包，官方开源项目与示例仅作为能力来源或封装参考，不维护两套原生来源引用。业务信息直接读取统一 `provenance.upstream`，本仓库实际封装者记录于 `wrapper`，不冒充官方发布。
+本仓库根 MIT 许可只覆盖 NeuxBot 自行编写的标准包封装、桥接与构建材料，不改变官方技能、CLI 依赖或商标的作者及许可。我们自行维护完整 OpenAI/Codex 标准包，官方开源项目与示例仅作为能力来源或封装参考，不维护两套原生来源引用。业务信息直接读取统一 `provenance.upstream`，本仓库实际封装者记录于 `wrapper`，不冒充官方发布。
 
 ## GitHub MCP 与自有封装
 
 - 业务服务：[github/github-mcp-server](https://github.com/github/github-mcp-server)，官方托管地址 `https://api.githubcopilot.com/mcp/`。本包只声明远程 MCP 地址，不分发其服务实现，也不虚构服务端固定版本。
-- `plugins/github` 的标准清单、MCP 配置和声明驱动 OAuth 桥接由 NeuxAlly contributors 维护，根 MIT 许可适用这些自编材料。设备流解释复用本项目既有应用授权实现的算法；不是 GitHub 官方发布的插件封装。
+- `plugins/github` 的标准清单、MCP 配置和声明驱动 OAuth 桥接由 NeuxBot contributors 维护，根 MIT 许可适用这些自编材料。设备流解释复用本项目既有应用授权实现的算法；不是 GitHub 官方发布的插件封装。
 - 元数据 `developerName: GitHub` 与 repository 指向业务能力的实际品牌与官方项目；清单 author 与 `provenance.wrapper` 如实记录实际封装者，`provenance.upstream.author: GitHub` 记录能力来源；项目 MIT 许可不等于托管服务或商标使用许可。
 
 ## GitHub CLI 隔离依赖
@@ -20,8 +20,8 @@
 
 - 上游：[larksuite/cli](https://github.com/larksuite/cli/tree/ac81f5056ab88f37d581d25916f3dab85abfca76)，提交 `ac81f5056ab88f37d581d25916f3dab85abfca76`，原版本 `1.0.98`。
 - 原作者 Lark Suite CLI contributors，源码版权包含 Lark Technologies Pte. Ltd.；[原始 MIT 许可](plugins/feishu-office/LICENSE.larksuite-cli)完整保留。官方 skills、相对资料与脚本保持原样。
-- NeuxAlly contributors 维护自有标准清单、私有授权桥接与包装，业务标题为飞书办公，信息面板直接显示上游作者 `Lark Suite CLI contributors` 与版本 `v1.0.98`，实际来源及改动见 [provenance](plugins/feishu-office/provenance.json)。
-- 既有隔离 CLI 构建 `1.0.98-neuxally.1` 保持不变；固定依赖与源码/补丁摘要见 [资产锁](plugins/feishu-office/.neuxally/auth/assets.lock.json)。[钥匙串补丁](patches/lark-keychain-isolation.patch)、[隔离回归](patches/lark-keychain-isolation_test.go)与 [macOS 私有存储回归](patches/lark-storage-isolation_darwin_test.go)如实交付。
+- NeuxBot contributors 维护自有标准清单、私有授权桥接与包装，业务标题为飞书办公，信息面板直接显示上游作者 `Lark Suite CLI contributors` 与版本 `v1.0.98`，实际来源及改动见 [provenance](plugins/feishu-office/provenance.json)。
+- 既有隔离 CLI 构建 `1.0.98-neuxbot.1` 保持不变；固定依赖与源码/补丁摘要见 [资产锁](plugins/feishu-office/.neuxally/auth/assets.lock.json)。[钥匙串补丁](patches/lark-keychain-isolation.patch)、[隔离回归](patches/lark-keychain-isolation_test.go)与 [macOS 私有存储回归](patches/lark-storage-isolation_darwin_test.go)如实交付。
 - 实际传递依赖与 runtime 原始许可见 [CLI 声明](plugins/feishu-office/.neuxally/auth/THIRD_PARTY_NOTICES.cli.txt)，同文另作为 Release 资源。新增 GitHub 依赖不重构建或替换这些既有资产。
 
 ## 品牌图标
@@ -37,6 +37,6 @@
 
 `plugins/wecom-office/skills/` contains the official [WecomTeam/wecom-cli](https://github.com/WecomTeam/wecom-cli) skills and relative resources at release commit `f9b28151dc8d42f703db624fc9b26723c3c93fc5` (1.3.4). Copyright (c) 2026 WeCom; MIT text is preserved in `plugins/wecom-office/LICENSE.wecom-cli`. The shared skill's installation and authorization instructions are adapted to the managed plugin lifecycle. Other upstream skill files are preserved unchanged.
 
-The authorization bridge and asset loader are maintained by NeuxAlly contributors under MIT. Official native binaries are distributed by the five `@wecom/cli-{platform}` npm packages, with independent archive SHA-256, npm SHA-512 integrity, binary size and SHA-256 recorded in the package lock. The macOS x64 binary reports version 1.3.4 and release commit f9b2815. This does not claim reproducible builds or verification of every platform's runtime behavior. No unofficial MCP service is included.
+The authorization bridge and asset loader are maintained by NeuxBot contributors under MIT. Official native binaries are distributed by the five `@wecom/cli-{platform}` npm packages, with independent archive SHA-256, npm SHA-512 integrity, binary size and SHA-256 recorded in the package lock. The macOS x64 binary reports version 1.3.4 and release commit f9b2815. This does not claim reproducible builds or verification of every platform's runtime behavior. No unofficial MCP service is included.
 
 `plugins/wecom-office/assets/icon.png` is losslessly re-encoded as RGBA PNG from the application's indexed WeCom brand asset, originally obtained from the [official WeCom CDN](https://wwcdn.weixin.qq.com/node/wework/images/wecom_20.c2xok7bh.png). WeCom names and marks belong to Tencent and their respective owners. No separate open-source brand license was found; the wrapper MIT license does not cover trademark rights and does not imply official endorsement.

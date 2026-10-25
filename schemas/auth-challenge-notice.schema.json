@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JieWaZi/NeuxAlly-Plugins/schemas/auth-challenge-notice.schema.json",
+  "$id": "https://github.com/JieWaZi/neux-plugins/schemas/auth-challenge-notice.schema.json",
   "title": "Optional current-challenge warning notice",
   "type": "object",
   "additionalProperties": false,

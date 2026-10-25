@@ -11,7 +11,7 @@ const sourceSHA256 = '78542f85b4c271bc641eba52c14257c9f388d793a114ce97d0fac2bd19
 const sourceURL = `https://github.com/cli/cli/archive/${commit}.tar.gz`;
 const version = '2.102.0-neuxally.2';
 const toolchain = 'go1.27.1';
-const releaseURL = 'https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0';
+const releaseURL = 'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0';
 const noticesName = `gh-${version}-NOTICES.txt`;
 const hash = value => createHash('sha256').update(value).digest('hex');
 export const targets = Object.freeze(['darwin-arm64', 'darwin-amd64', 'linux-arm64', 'linux-amd64', 'windows-arm64', 'windows-amd64']);
@@ -100,7 +100,7 @@ async function dependencyNotices(source, environment) {
 }
 
 export async function buildGitHubProvider({ root = repositoryRoot, sourceArchive, fetcher = fetch } = {}) {
-  const work = await mkdtemp(path.join(tmpdir(), 'neuxally-gh-build-'));
+  const work = await mkdtemp(path.join(tmpdir(), 'neuxbot-gh-build-'));
   const environment = { ...process.env, GOTOOLCHAIN: toolchain, GOWORK: 'off', CGO_ENABLED: '0', GOFLAGS: '', GOAMD64: 'v1', GOARM64: 'v8.0', GOEXPERIMENT: '', GOOS: process.platform === 'win32' ? 'windows' : process.platform, GOARCH: process.arch === 'x64' ? 'amd64' : process.arch };
   try {
     const archive = path.join(work, 'source.tar.gz'); await writeFile(archive, await loadSource(root, sourceArchive, fetcher));

@@ -2,7 +2,7 @@
 
 [English](AUTH-CHALLENGE-NOTICES.md) | [简体中文](AUTH-CHALLENGE-NOTICES.zh-CN.md)
 
-An authorization challenge may carry a temporary warning for its current step. The package declares the wording and its bridge selects the step; NeuxAlly handles validation, language selection, rendering and challenge lifecycle generically. Adding a provider must not add provider-specific text or stage detection to the host.
+An authorization challenge may carry a temporary warning for its current step. The package declares the wording and its bridge selects the step; NeuxBot handles validation, language selection, rendering and challenge lifecycle generically. Adding a provider must not add provider-specific text or stage detection to the host.
 
 The optional `notice` field extends `auth/challenge` parameters without changing `neuxally-auth/1`:
 

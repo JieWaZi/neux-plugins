@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Write Feishu documents, manage tables, schedule events and follow up on tasks.",
   "author": {
-    "name": "NeuxAlly contributors"
+    "name": "NeuxBot contributors"
   },
   "repository": "https://github.com/larksuite/cli",
   "license": "MIT",

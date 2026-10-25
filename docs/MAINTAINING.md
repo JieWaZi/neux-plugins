@@ -2,7 +2,7 @@
 
 [English](MAINTAINING.md) | [简体中文](MAINTAINING.zh-CN.md)
 
-The repository [development guide](../README.md) owns the canonical package layout, target adapters, authorization architecture and release builds. Plugin READMEs describe only the plugin’s native capabilities, access requirements and practical uses. Do not include host roles such as partners, NeuxAlly installation steps, chat prompts or “try asking” instructions. Keep vendor details, source versions, compatibility decisions, validation limits and maintenance instructions in the development guide or [third-party notices](../THIRD_PARTY_NOTICES.md).
+The repository [development guide](../README.md) owns the canonical package layout, target adapters, authorization architecture and release builds. Plugin READMEs describe only the plugin’s native capabilities, access requirements and practical uses. Do not include host roles such as partners, NeuxBot installation steps, chat prompts or “try asking” instructions. Keep vendor details, source versions, compatibility decisions, validation limits and maintenance instructions in the development guide or [third-party notices](../THIRD_PARTY_NOTICES.md).
 
 ## Standard manifest and localized presentation
 
@@ -44,7 +44,7 @@ Publication, CLI schema validation and automated tests do not constitute real ac
 
 ## Curation and system installation boundary
 
-Before a plugin enters this library, maintainers validate its standard package, authentication declaration, bilingual business content, icon, provenance, licenses, and supported CLI targets. Reusing upstream code does not turn this library into an unchecked third-party package relay. NeuxAlly accepts only published catalog entries with verified archive digests. It exposes no user upload or import path and no system-plugin installation operation to conversation agents.
+Before a plugin enters this library, maintainers validate its standard package, authentication declaration, bilingual business content, icon, provenance, licenses, and supported CLI targets. Reusing upstream code does not turn this library into an unchecked third-party package relay. NeuxBot accepts only published catalog entries with verified archive digests. It exposes no user upload or import path and no system-plugin installation operation to conversation agents.
 
 Native plugin installation shares the corresponding external CLI environment and is not synchronized into this library or the application resource database. Managed plugins are attached for the session without replacing native installation state or model accounts. Custom supplier authentication is handled by maintained package bridges and the generic host protocol; third-party native authentication remains the CLI’s responsibility.
 

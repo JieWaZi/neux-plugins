@@ -12,7 +12,7 @@ async function fixture(t) {
   t.after(() => rm(root, { recursive: true, force: true }));
   const put = async (name, value) => { await mkdir(path.dirname(path.join(root, name)), { recursive: true }); await writeFile(path.join(root, name), typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)); };
   await put('plugins/example/.codex-plugin/plugin.json', { name: 'example', version: '0.1.0', description: '示例' });
-  await put('plugins/example/provenance.json', { schemaVersion: 1, upstream: { author: 'Example contributors', repository: 'https://github.com/example/example', license: 'MIT', commit: 'a'.repeat(40), tag: 'v1.2.3', distribution: { mode: 'vendored-source' } }, wrapper: { maintainer: 'NeuxAlly contributors', repository: 'https://github.com/JieWaZi/NeuxAlly-Plugins', license: 'MIT', changes: ['Maintained package'] }, dependencies: [], assets: [] });
+  await put('plugins/example/provenance.json', { schemaVersion: 1, upstream: { author: 'Example contributors', repository: 'https://github.com/example/example', license: 'MIT', commit: 'a'.repeat(40), tag: 'v1.2.3', distribution: { mode: 'vendored-source' } }, wrapper: { maintainer: 'NeuxBot contributors', repository: 'https://github.com/JieWaZi/neux-plugins', license: 'MIT', changes: ['Maintained package'] }, dependencies: [], assets: [] });
   await put('plugins/example/.mcp.json', { mcpServers: { example: { type: 'http', url: 'https://example.com/mcp' } } });
   await put('plugins/example/assets/reference.txt', 'keep complete package files\n');
   await put('plugins/example/.neuxally/auth/authorize', '#!/bin/sh\nexit 0\n');
@@ -37,7 +37,7 @@ test('构建固定提交的完整可重现 ZIP，记录摘要并保留执行位'
   assert.equal(catalog.schemaVersion, 2);
   assert.equal(catalog.entries.length, 1);
   assert.equal(catalog.entries[0].sourceCommit, sourceCommit);
-  assert.equal(catalog.entries[0].archiveURL, 'https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/example.zip');
+  assert.equal(catalog.entries[0].archiveURL, 'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/example.zip');
   assert.equal(catalog.entries[0].packagePath, 'plugins/example');
   assert.equal(catalog.entries[0].archiveSHA256, createHash('sha256').update(archive).digest('hex'));
   const server = createServer(async (request, response) => { try { response.end(await readFile(path.join(out, path.basename(request.url)))); } catch { response.writeHead(404).end(); } });
@@ -182,7 +182,7 @@ test('固定快照独立生成只读资料侧车，目录校验绑定完整ZIP�
   await f.put('plugins/example/README.md','# Example\nEnglish.\n');await f.put('plugins/example/README.zh-CN.md','# 示例\n中文。\n');await f.put('plugins/example/skills/example/SKILL.md',skill);
   const sourceCommit=f.commit(),out=path.join(f.root,'out');const {buildCatalog}=await import('../build-catalog.mjs');
   const catalog=await buildCatalog({root:f.root,out,sourceCommit});const e=catalog.entries[0];
-  assert.equal(e.detailsURL,'https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/example.details.json');
+  assert.equal(e.detailsURL,'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/example.details.json');
   const raw=await readFile(path.join(out,'example.details.json'));assert.equal(e.detailsSize,raw.length);assert.equal(e.detailsSHA256,createHash('sha256').update(raw).digest('hex'));
   const d=JSON.parse(raw);assert.equal(d.sourceCommit,e.sourceCommit);assert.equal(d.archiveSHA256,e.archiveSHA256);assert.equal(d.packagePath,e.packagePath);assert.equal(d.package.manifest.name,e.name);assert.equal(d.package.manifest.version,e.version);
   assert.equal(d.readmes.en,'# Example\nEnglish.\n');assert.equal(d.readmes['zh-CN'],'# 示例\n中文。\n');assert.equal(d.skillContents['skills/example'],skill);

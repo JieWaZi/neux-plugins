@@ -33,8 +33,8 @@ Example shape (replace illustrative facts with verified values):
     "distribution": { "mode": "vendored-source" }
   },
   "wrapper": {
-    "maintainer": "NeuxAlly contributors",
-    "repository": "https://github.com/JieWaZi/NeuxAlly-Plugins",
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
     "license": "MIT",
     "changes": ["Maintained standard manifest and authorization bridge"]
   },

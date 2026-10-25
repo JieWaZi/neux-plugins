@@ -8,11 +8,11 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const commit = 'ac81f5056ab88f37d581d25916f3dab85abfca76';
 const sourceSHA256 = 'c8247b1364b6d56b068709c3ce29aa191fdbfff1ccc11ccc143a34d5df1f4936';
-const version = '1.0.98-neuxally.1';
+const version = '1.0.98-neuxbot.1';
 const hash = value => createHash('sha256').update(value).digest('hex');
 const targets = process.argv.slice(2);
 const selected = targets.length ? targets : ['darwin-arm64', 'darwin-amd64', 'linux-amd64', 'linux-arm64', 'windows-amd64', 'windows-arm64'];
-const work = await mkdtemp(path.join(tmpdir(), 'neuxally-lark-build-'));
+const work = await mkdtemp(path.join(tmpdir(), 'neuxbot-lark-build-'));
 const output = path.join(root, 'dist/providers'); await mkdir(output, { recursive: true });
 const env = { ...process.env, GOTOOLCHAIN: 'go1.25.8', CGO_ENABLED: '0', GOFLAGS: '', GOAMD64: 'v1', GOARM64: 'v8.0', GOEXPERIMENT: '' };
 try {
@@ -24,7 +24,7 @@ try {
   execFileSync('tar', ['-xzf', archivePath, '--strip-components=1', '-C', source]);
   execFileSync('git', ['apply', '--unidiff-zero', path.join(root, 'patches/lark-keychain-isolation.patch')], { cwd: source });
   await copyFile(path.join(root, 'patches/lark-keychain-isolation_test.go'), path.join(source, 'internal/keychain/neuxally_isolation_test.go'));
-  await copyFile(path.join(root, 'patches/lark-storage-isolation_darwin_test.go'), path.join(source, 'internal/keychain/neuxally_storage_darwin_test.go'));
+  await copyFile(path.join(root, 'patches/lark-storage-isolation_darwin_test.go'), path.join(source, 'internal/keychain/neuxbot_storage_darwin_test.go'));
   execFileSync('go', ['test', './internal/keychain', '-run', 'TestNeuxAllyPrivate(Service|Storage)', '-count=1'], { cwd: source, env, stdio: 'inherit' });
   // 从六平台真实依赖图收集原文许可；原始程序资产旁和插件快照内均交付声明。
   const modules = new Map();
@@ -63,10 +63,10 @@ try {
     const binary = path.join(output, name);
     execFileSync('go', ['build', '-trimpath', '-buildvcs=false', '-ldflags', `-s -w -X github.com/larksuite/cli/internal/build.Version=${version} -X github.com/larksuite/cli/internal/build.Date=2026-10-19`, '-o', binary, '.'], { cwd: source, env: { ...env, GOOS: platform, GOARCH: architecture }, stdio: 'inherit' });
     await chmod(binary, 0o755); const bytes = await readFile(binary);
-    assets[`${platform === 'windows' ? 'win32' : platform}-${architecture === 'amd64' ? 'x64' : architecture}`] = { url: `https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/${name}`, sha256: hash(bytes), size: bytes.length };
+    assets[`${platform === 'windows' ? 'win32' : platform}-${architecture === 'amd64' ? 'x64' : architecture}`] = { url: `https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/${name}`, sha256: hash(bytes), size: bytes.length };
     console.log(`Built ${target}: ${hash(bytes)}`);
   }
-  const lock = { schemaVersion: 1, version, notices: { url: `https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/${noticesName}`, sha256: hash(noticesText) }, source: { repository: 'https://github.com/larksuite/cli', commit, archiveURL: sourceURL, archiveSHA256: sourceSHA256, toolchain: 'go1.25.8', patchSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation.patch'))), verificationSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation_test.go'))), storageVerificationSHA256: hash(await readFile(path.join(root, 'patches/lark-storage-isolation_darwin_test.go'))) }, assets };
+  const lock = { schemaVersion: 1, version, notices: { url: `https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/${noticesName}`, sha256: hash(noticesText) }, source: { repository: 'https://github.com/larksuite/cli', commit, archiveURL: sourceURL, archiveSHA256: sourceSHA256, toolchain: 'go1.25.8', patchSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation.patch'))), verificationSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation_test.go'))), storageVerificationSHA256: hash(await readFile(path.join(root, 'patches/lark-storage-isolation_darwin_test.go'))) }, assets };
   const lockPath = path.join(root, 'plugins/feishu-office/.neuxally/auth/assets.lock.json');
   // 部分目标用于增量重建；完整发布必须提供六个平台，禁止伪造缺失摘要。
   let previous = {}; try { previous = JSON.parse(await readFile(lockPath, 'utf8')); } catch { /* 首次构建没有锁文件。 */ }

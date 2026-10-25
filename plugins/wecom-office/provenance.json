@@ -11,8 +11,8 @@
     }
   },
   "wrapper": {
-    "maintainer": "NeuxAlly contributors",
-    "repository": "https://github.com/JieWaZi/NeuxAlly-Plugins",
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
     "license": "MIT",
     "changes": [
       "Maintained standard manifest, bilingual descriptions and package-local QR authorization bridge",

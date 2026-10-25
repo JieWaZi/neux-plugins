@@ -11,8 +11,8 @@
     }
   },
   "wrapper": {
-    "maintainer": "NeuxAlly contributors",
-    "repository": "https://github.com/JieWaZi/NeuxAlly-Plugins",
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
     "license": "MIT",
     "changes": [
       "Maintained standard manifest and declaration-driven authorization bridge",
@@ -25,7 +25,7 @@
       "name": "lark-cli",
       "repository": "https://github.com/larksuite/cli",
       "commit": "ac81f5056ab88f37d581d25916f3dab85abfca76",
-      "version": "1.0.98-neuxally.1",
+      "version": "1.0.98-neuxbot.1",
       "license": "MIT",
       "lock": ".neuxally/auth/assets.lock.json"
     }

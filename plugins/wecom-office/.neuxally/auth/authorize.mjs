@@ -140,7 +140,7 @@ async function authorize(signal) {
   let temporary;
   try {
     await prepare(signal);
-    temporary = await mkdtemp(path.join(tmpdir(), 'neuxally-wecom-qr-'));
+    temporary = await mkdtemp(path.join(tmpdir(), 'neuxbot-wecom-qr-'));
     await chmod(temporary, 0o700);
     const filename = path.join(temporary, 'qrcode.png');
     let url, shown = false;

@@ -7,7 +7,7 @@ import { cp, mkdir, mkdtemp, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const repository = 'https://github.com/JieWaZi/NeuxAlly-Plugins';
+const repository = 'https://github.com/JieWaZi/neux-plugins';
 const safePath = value => typeof value === 'string' && value.length > 0 && !value.includes('\\') && !value.includes(':') && value.split('/').every(part => part && part !== '.' && part !== '..' && !part.includes('\0'));
 
 // 构建只读取 Git 对象，工作区改动与文件时间不影响指定提交的产物。

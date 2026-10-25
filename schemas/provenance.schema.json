@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JieWaZi/NeuxAlly-Plugins/schemas/provenance.schema.json",
-  "title": "NeuxAlly maintained plugin provenance",
+  "$id": "https://github.com/JieWaZi/neux-plugins/schemas/provenance.schema.json",
+  "title": "NeuxBot maintained plugin provenance",
   "type": "object",
   "additionalProperties": false,
   "required": [

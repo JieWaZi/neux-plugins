@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 const moduleURL = '../../plugins/feishu-office/.neuxally/auth/assets.mjs';
 const bytes = Buffer.from('#!/bin/sh\nexit 0\n');
 const sha256 = createHash('sha256').update(bytes).digest('hex');
-const lock = { schemaVersion: 1, assets: { 'linux-x64': { url: 'https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/lark-cli-example', sha256, size: bytes.length } } };
+const lock = { schemaVersion: 1, assets: { 'linux-x64': { url: 'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/lark-cli-example', sha256, size: bytes.length } } };
 
 test('按固定摘要下载可执行资产；缓存损坏时重新下载而不执行旧文件', async t => {
   const directory = await mkdtemp(path.join(tmpdir(), 'plugin-assets-')); t.after(() => rm(directory, { recursive: true, force: true }));

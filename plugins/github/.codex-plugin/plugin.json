@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Search GitHub repositories, issues and pull requests, and assist with code review and collaboration.",
   "author": {
-    "name": "NeuxAlly contributors"
+    "name": "NeuxBot contributors"
   },
   "repository": "https://github.com/github/github-mcp-server",
   "license": "MIT",

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JieWaZi/NeuxAlly-Plugins/schemas/details.schema.json",
-  "title": "NeuxAlly read-only plugin details",
+  "$id": "https://github.com/JieWaZi/neux-plugins/schemas/details.schema.json",
+  "title": "NeuxBot read-only plugin details",
   "type": "object",
   "additionalProperties": false,
   "required": [

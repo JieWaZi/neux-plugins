@@ -15,7 +15,7 @@ test('发布锁来自六个真实资产字节，缺少平台不生成完整锁',
  const lock=await buildAssetLock({root,output,notices:'original license text'});
  assert.equal(Object.keys(lock.assets).length,6);
  const bytes=await readFile(path.join(output,assetFilename('darwin-arm64')));
- assert.deepEqual(lock.assets['darwin-arm64'],{url:`https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/${assetFilename('darwin-arm64')}`,sha256:createHash('sha256').update(bytes).digest('hex'),size:bytes.length});
+ assert.deepEqual(lock.assets['darwin-arm64'],{url:`https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/${assetFilename('darwin-arm64')}`,sha256:createHash('sha256').update(bytes).digest('hex'),size:bytes.length});
  assert.equal(lock.version,'2.102.0-neuxally.2');
  assert.match(lock.assets['win32-x64'].url,/windows-amd64\.exe$/);
  assert.equal(lock.source.patchSHA256,createHash('sha256').update('actual patch').digest('hex'));
