@@ -21,14 +21,16 @@ function bind(params) {
   identity ??= next;
 }
 
-async function prepare() {
+async function prepare({ localOnly = false, checkVersion = true } = {}) {
   try {
     const lock = JSON.parse(await readFile(new URL('./assets.lock.json', import.meta.url), 'utf8'));
-    const binary = process.env.NEUXALLY_GH_CLI ? await ensureTrustedAsset({ dataDirectory: identity.dataDirectory, binary: process.env.NEUXALLY_GH_CLI }) : await ensureAsset({ dataDirectory: identity.dataDirectory, signal: controller?.signal, lock });
+    const binary = process.env.NEUXALLY_GH_CLI ? await ensureTrustedAsset({ dataDirectory: identity.dataDirectory, binary: process.env.NEUXALLY_GH_CLI }) : await ensureAsset({ dataDirectory: identity.dataDirectory, signal: controller?.signal, lock, download: !localOnly });
     for (const directory of [identity.dataDirectory, profile(), path.join(identity.dataDirectory, 'home')]) { await mkdir(directory, { recursive: true, mode: 0o700 }); await chmod(directory, 0o700); }
     runner = cliRunner(binary, identity.dataDirectory);
-    const version = await runner.run(['--version'], { signal: controller?.signal });
-    if (typeof lock.version !== 'string' || !version.startsWith(`gh version ${lock.version}\n`) && !version.startsWith(`gh version ${lock.version} `)) throw failure('plugin_not_ready');
+    if (checkVersion) {
+      const version = await runner.run(['--version'], { signal: controller?.signal });
+      if (typeof lock.version !== 'string' || !version.startsWith(`gh version ${lock.version}\n`) && !version.startsWith(`gh version ${lock.version} `)) throw failure('plugin_not_ready');
+    }
   } catch (error) { throw failure(error.code === 'cancelled' ? 'cancelled' : 'plugin_not_ready'); }
 }
 
@@ -93,14 +95,22 @@ async function dispatch(method, params) {
   if (method === 'auth/logout') { await stop(); await rm(profile(), { recursive: true, force: true }); state = 'unauthorized'; return { state }; }
   if (method === 'auth/status') { const current = await account(); return { state: state === 'pending' ? state : current.available ? 'authorized' : 'unauthorized', account: current }; }
   if (method === 'auth/resolve') {
-    if (['pending', 'cancelled', 'failed', 'expired'].includes(state)) throw failure('authorization_required');
-    const current = await account(); if (!current.available) throw failure('authorization_required');
     if (!Array.isArray(params.components) || !params.components.length) throw failure('invalid_components');
     const seen = new Set();
     for (const component of params.components) { if (component.target !== 'mcp' || component.key !== 'github' || component.url !== endpoint || !component.componentId || seen.has(component.componentId)) throw failure('invalid_components'); seen.add(component.componentId); }
-    const token = (await runner.run(['auth', 'token', '--hostname', 'github.com'])).trim();
-    if (!/^gho_[a-zA-Z0-9]{20,256}$/.test(token)) throw failure('authorization_failed');
-    return { bindings: params.components.map(component => ({ componentId: component.componentId, headers: { Authorization: 'Bearer ' + token } })) };
+    let token = '';
+    try {
+      const directory = await lstat(profile());
+      const credential = await lstat(path.join(profile(), 'hosts.yml'));
+      if (directory.isDirectory() && credential.isFile()) {
+        await prepare({ localOnly: true, checkVersion: false });
+        const local = (await runner.run(['auth', 'token', '--hostname', 'github.com'])).trim();
+        if (/^gho_[a-zA-Z0-9]{20,256}$/.test(local)) token = local;
+      }
+    } catch (error) {
+      if (error.code !== 'ENOENT' && error.code !== 'plugin_not_ready' && error.code !== 'authorization_failed') throw error;
+    }
+    return { bindings: params.components.map(component => ({ componentId: component.componentId, headers: { Authorization: token ? 'Bearer ' + token : '' } })) };
   }
   throw failure('method_not_found');
 }

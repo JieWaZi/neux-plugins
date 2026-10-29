@@ -36,8 +36,8 @@ function environment() {
   return result;
 }
 
-async function prepare() {
-  binary = await (trustedBinary ? ensureTrustedAsset({ dataDirectory: identity.dataDirectory, binary: trustedBinary }) : ensureAsset({ dataDirectory: identity.dataDirectory, signal: controller?.signal })).catch(() => { throw failure('plugin_not_ready'); });
+async function prepare({ localOnly = false } = {}) {
+  binary = await (trustedBinary ? ensureTrustedAsset({ dataDirectory: identity.dataDirectory, binary: trustedBinary }) : ensureAsset({ dataDirectory: identity.dataDirectory, signal: controller?.signal, download: !localOnly })).catch(() => { throw failure('plugin_not_ready'); });
   if (!path.isAbsolute(binary)) throw failure('plugin_not_ready');
   await access(binary);
   for (const directory of [identity.dataDirectory, path.join(identity.dataDirectory, 'profile'), path.join(identity.dataDirectory, 'credentials')]) { await mkdir(directory, { recursive: true, mode: 0o700 }); await chmod(directory, 0o700); }
@@ -128,8 +128,8 @@ async function dispatch(method, params) {
   if (method === 'auth/logout') { await stop(); const current = await account(); if (current.configured) await run(['auth', 'logout']); state = 'unauthorized'; return { state }; }
   if (method === 'auth/status') { const current = await account(); return { state: state === 'pending' ? state : current.available ? 'authorized' : 'unauthorized', account: current }; }
   if (method === 'auth/resolve') {
-    if (['pending', 'cancelled', 'failed', 'expired'].includes(state)) throw failure('authorization_required');
-    const current = await account(); if (!current.available) throw failure('authorization_required');
+    // 加载只投射当前插件私有环境；在线身份与范围由显式状态查询和真实业务调用核验。
+    await prepare({ localOnly: true });
     if (!Array.isArray(params.components) || !params.components.length) throw failure('invalid_components');
     const seen = new Set(); const bindings = [];
     for (const component of params.components) {

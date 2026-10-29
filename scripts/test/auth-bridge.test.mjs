@@ -18,6 +18,7 @@ if (process.env.LARKSUITE_CLI_ACCESS_TOKEN) process.exit(19);
 fs.mkdirSync(p,{recursive:true});
 const flag=path.join(p,'authorized');
 if(args[0]==='config'){process.stderr.write('https://open.feishu.cn.evil.example/page/cli?user_code=bad\\n');process.stderr.write('https://open.feishu.cn/page/cli?user_code=APP-EXAMPLE\\n');${scenario === 'cancel-initial' ? "setInterval(()=>{},1000);process.on('SIGTERM',()=>{fs.writeFileSync(path.join(p,'stopped-initial'),'yes');process.exit(0)});" : "fs.writeFileSync(path.join(p,'config.json'),'{}');"}}
+else if(args[1]==='status' && ${scenario === 'offline-resolve'}){fs.writeFileSync(path.join(p,'unexpected-status'),'yes');process.exit(74);}
 else if(args[1]==='status' && ${['app-only', 'two-stage-app-only'].includes(scenario)} && !fs.existsSync(flag)){console.log(JSON.stringify({appId:'cli_example',identities:{}}));}
 else if(args[1]==='status'){console.log(JSON.stringify({appId:'cli_example',identities:{user:{available:fs.existsSync(flag),verified:${scenario !== 'unverified'},openId:'ou_example',userName:'示例账号',scope:${JSON.stringify(scenario === 'missing-scope' ? 'offline_access' : 'offline_access docx:document')}}}}));}
 else if(args.includes('--no-wait'))console.log(JSON.stringify({verification_url:'https://open.feishu.cn/auth/device?code=USER-EXAMPLE',device_code:'PRIVATE-DEVICE-TOKEN',expires_in:${scenario === 'expired' ? 1 : 600}}));
@@ -46,7 +47,7 @@ else process.exit(20);
     await writeFile(preload, `import { readFile } from 'node:fs/promises';globalThis.fetch=async()=>new Response(await readFile(${JSON.stringify(binary)}));`);
     script = path.join(authDirectory, 'authorize.mjs'); nodeArgs = ['--import', preload];
   }
-  if (scenario === 'app-only') { await mkdir(path.join(directory, 'private/profile'), { recursive: true }); await writeFile(path.join(directory, 'private/profile/config.json'), '{}'); }
+  if (['app-only', 'offline-resolve'].includes(scenario)) { await mkdir(path.join(directory, 'private/profile'), { recursive: true }); await writeFile(path.join(directory, 'private/profile/config.json'), '{}'); }
   const child = spawn(process.execPath, [...nodeArgs, script], { env: { ...process.env, PATH: `${foreignDirectory}${path.delimiter}${process.env.PATH ?? ''}`, NEUXALLY_LARK_CLI: options.downloaded ? '' : binary, LARKSUITE_CLI_ACCESS_TOKEN: 'INHERITED-SECRET', LARKSUITE_CLI_CONFIG_DIR: '/do-not-touch' }, stdio: ['pipe', 'pipe', 'pipe'] });
   t.after(() => child.kill());
   const messages = [], pending = new Map(); let next = 1; let stderr = '';
@@ -91,7 +92,8 @@ for (const scenario of ['unverified', 'missing-scope']) {
   test(`CLI 退出成功但 ${scenario} 时不能标记已授权`, async t => {
     const f = await bridge(t, scenario); await f.request('auth/start'); await f.waitState('failed');
     assert.equal((await f.request('auth/status')).result.account.available, false);
-    assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] })).error);
+    const resolved = await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] });
+    assert.equal(resolved.result.bindings[0].environment.LARKSUITE_CLI_CONFIG_DIR, path.join(f.params.dataDirectory, 'profile'));
   });
 }
 
@@ -108,14 +110,16 @@ test('取消必须等待上游进程停止；旧会话不能继续交付凭据',
   await new Promise(resolve => setTimeout(resolve, 50));
   assert.equal(f.messages.filter(x => x.method === 'auth/challenge').length, before);
   assert.ok(f.messages.filter(x => x.method === 'auth/state' && x.params.state === 'cancelled').every(x => x.params.notice === undefined));
-  assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] })).error);
+  const resolved = await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] });
+  assert.equal(resolved.result.bindings[0].environment.LARKSUITE_CLI_CONFIG_DIR, path.join(f.params.dataDirectory, 'profile'));
 });
 
 
 test('官方期限到期会停止上游等待，并在刷新时生成新挑战', async t => {
   const f = await bridge(t, 'expired'); await f.request('auth/start'); await f.waitState('expired');
   const previous = f.messages.filter(x => x.method === 'auth/challenge').at(-1).params.challengeId;
-  assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] })).error);
+  const resolved = await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] });
+  assert.equal(resolved.result.bindings[0].environment.LARKSUITE_CLI_CONFIG_DIR, path.join(f.params.dataDirectory, 'profile'));
   await f.request('auth/start');
   for(let i=0;i<100 && f.messages.filter(x=>x.method==='auth/challenge').at(-1).params.challengeId===previous;i++)await new Promise(resolve=>setTimeout(resolve,20));
   assert.notEqual(f.messages.filter(x=>x.method==='auth/challenge').at(-1).params.challengeId, previous);
@@ -183,4 +187,28 @@ test('桥接挑战提示取自包内声明，第二阶段不复用第一次提�
   const f=await bridge(t,'success',{presentation:{schemaVersion:1,notices:{initialSetup:{messages}}}});
   await f.request('auth/start');await f.waitState('authorized');
   const challenges=f.messages.filter(x=>x.method==='auth/challenge');assert.deepEqual(challenges[0].params.notice,{messages});assert.equal(challenges[1].params.notice,undefined);
+});
+
+
+test('冷启动 resolve 只加载本地隔离环境，不执行在线身份预检', async t => {
+  const f = await bridge(t, 'offline-resolve');
+  const resolved = await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] });
+  assert.equal(resolved.error, undefined);
+  assert.equal(resolved.result.bindings[0].environment.LARKSUITE_CLI_CONFIG_DIR, path.join(f.params.dataDirectory, 'profile'));
+  await assert.rejects(readFile(path.join(f.params.dataDirectory, 'profile/unexpected-status')), { code: 'ENOENT' });
+  assert.ok((await f.request('auth/status')).error, 'explicit status must still run vendor validation');
+});
+
+test('受管 CLI 未缓存时 resolve 仍交付 Skill 环境，实际调用才报告依赖缺失', async t => {
+  const f = await bridge(t, 'offline-resolve', { downloaded: true });
+  const resolved = await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] });
+  assert.equal(resolved.error, undefined);
+  const environment = { ...process.env, ...resolved.result.bindings[0].environment };
+  assert.equal(environment.LARKSUITE_CLI_CONFIG_DIR, path.join(f.params.dataDirectory, 'profile'));
+  const result = process.platform === 'win32'
+    ? spawnSync('cmd.exe', ['/d', '/c', 'lark-cli probe'], { env: environment, encoding: 'utf8' })
+    : spawnSync('sh', ['-c', 'lark-cli probe'], { env: environment, encoding: 'utf8' });
+  assert.equal(result.status, 127);
+  assert.match(result.stderr, /plugin_dependency_unavailable/);
+  await assert.rejects(readFile(f.foreignMarker), { code: 'ENOENT' });
 });

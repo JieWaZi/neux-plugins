@@ -35,7 +35,7 @@ export async function ensureTrustedAsset({ dataDirectory, binary, platform = pro
 }
 
 // 锁文件属于本插件的固定依赖，下载只接受 HTTPS 与完整摘要，不读取远端 latest。
-export async function ensureAsset({ dataDirectory, signal, platform = process.platform, arch = process.arch, lock, fetcher = fetch }) {
+export async function ensureAsset({ dataDirectory, signal, platform = process.platform, arch = process.arch, lock, fetcher = fetch, download = true }) {
   lock ??= JSON.parse(await readFile(new URL('./assets.lock.json', import.meta.url), 'utf8'));
   const asset = lock.schemaVersion === 1 ? lock.assets?.[`${platform}-${arch}`] : undefined;
   if (!asset || !/^[a-f0-9]{64}$/.test(asset.sha256 ?? '') || !Number.isSafeInteger(asset.size) || asset.size <= 0 || asset.size > 128 * 1024 * 1024) throw new Error('unsupported_asset');
@@ -44,6 +44,7 @@ export async function ensureAsset({ dataDirectory, signal, platform = process.pl
   await mkdir(path.join(dataDirectory, 'cache'), { recursive: true, mode: 0o700 });
   const destination = commandPath(dataDirectory, asset.sha256, platform);
   if (await cachedCommand(destination, asset.size, asset.sha256)) return destination;
+  if (!download) throw new Error('asset_not_prepared');
   const response = await fetcher(url, { signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(120000)]) : AbortSignal.timeout(120000), redirect: 'follow' });
   if (!response.ok || !response.body || (response.url && new URL(response.url).protocol !== 'https:')) throw new Error('asset_download_failed');
   const chunks = []; let size = 0;
