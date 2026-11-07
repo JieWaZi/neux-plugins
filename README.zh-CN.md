@@ -93,6 +93,8 @@ sequenceDiagram
   Note over Core,Bridge: 已授权身份通过 auth/logout 清理
 ```
 
+供应商程序下载、完整性校验或依赖准备失败通过 `dependency_unavailable` 返回；实际登录与账号核验失败仍使用 `authorization_failed`。宿主按失败阶段提示，不能把未核验账号或依赖失败标记为授权成功。
+
 供应商程序是独立、摘要锁定的依赖，由插件下载到私有数据目录；宿主不为每个提供者内置下载或打包分支。包内锁固定 HTTPS URL、大小、摘要、源码、工具链及隔离证据。GitHub 清空继承的 CLI 凭据、使用私有 profile，其底层钥匙串服务绑定规范目录摘要。飞书保持既有私有配置和凭据隔离。测试受信覆盖可提供同一程序边界，不查找用户全局 CLI。
 
 企业微信固定官方 CLI `1.3.4` 发布提交与五平台 npm 归档及程序摘要，首次使用下载到插件私有目录，不进行全局 npm 安装。官方 CLI 生成 PNG 二维码并完成扫码协议；桥接将原始图片交给通用 `show-qr` 动作，通过 `auth show` 和线上 `identity whoami` 核验身份。当前官方 CLI 没有独立 MCP server 子命令，本包交付官方 CLI 与 Skills，不声明旧版 MCP 端点。共享技能只调整程序安装和认证入口，其他官方资料保留原文，见[企业微信桥接](plugins/wecom-office/.neuxbot/auth/README.md)。
@@ -103,7 +105,7 @@ sequenceDiagram
 
 插件详情与 SKILL 正文通过摘要绑定的[只读资料侧车](docs/DETAILS.zh-CN.md)提供，不要求先安装到伙伴或授权账号，也不需要下载完整安装 ZIP。
 
-使用[最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)或[固定 v0.1.1 目录](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.1/catalog.json)。`{schemaVersion:1,entries:[...]}` 每项记录 `key`、完整 `sourceCommit`、`archiveURL`、`archiveSHA256`、`packagePath: plugins/<key>`、标准 `name`、`version`、英文 `description` 和 `format: agent-plugins`。可选本地化文字与安全内嵌图标支持安装前展示，组件组成从真实包读取。
+使用[最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)或[固定 v0.1.2 目录](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.2/catalog.json)。`{schemaVersion:1,entries:[...]}` 每项记录 `key`、完整 `sourceCommit`、`archiveURL`、`archiveSHA256`、`packagePath: plugins/<key>`、标准 `name`、`version`、英文 `description` 和 `format: agent-plugins`。可选本地化文字与安全内嵌图标支持安装前展示，组件组成从真实包读取。
 
 ZIP 包含完整标准包、本地 Codex 索引、来源/许可证据与公开补丁。安装与日常目录构建均不依赖上游 Git 或 HTTP 还原。独立业务服务和首次供应商依赖仍需联网。客户端解包前核对目录所选归档摘要；测试发布资产变更时，已安装快照仍由原来源提交和摘要固定。
 
@@ -114,7 +116,7 @@ ZIP 包含完整标准包、本地 Codex 索引、来源/许可证据与公开�
 ```sh
 npm ci
 npm test
-node scripts/build-catalog.mjs HEAD v0.1.0
+node scripts/build-catalog.mjs HEAD v0.1.2
 ```
 
 构建器核验标准包、统一来源 schema、依赖锁与本地资产摘要，生成确定性 ZIP 与目录，校验完成后替换输出。CLI 会替换 `dist` 输出目录并保留 `dist/providers`；需要保留其他无关回执时，使用导出的 `buildCatalog({root,out,sourceCommit})` 指定独立输出目录。
@@ -126,8 +128,8 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-固定源码构建核验归档与隔离测试，完成六平台交叉编译，并收集真实依赖许可原文。既有供应商依赖锁继续引用已核验的 `v0.1.0` 资产；发布包元数据和图标不重构建这些依赖。协议/schema 版本与内部包身份含义独立；当前内部包／测试发布身份仍是 `0.1.0` / `v0.1.0`。面向用户的版本与作者直接读取 `provenance.upstream`，飞书显示 `v1.0.98`，未固定的托管 MCP 不声明服务版本。固定引用表示核验过的输入，不代表所有依赖均为上游最新版本。
+固定源码构建核验归档与隔离测试，完成六平台交叉编译，并收集真实依赖许可原文。既有供应商依赖锁继续引用已核验的 `v0.1.0` 资产；发布包元数据和图标不重构建这些依赖。协议/schema 版本与内部包身份含义独立；当前内部包／发布身份为 `0.1.1` / `v0.1.2`。面向用户的版本与作者直接读取 `provenance.upstream`，飞书显示 `v1.0.98`，未固定的托管 MCP 不声明服务版本。固定引用表示核验过的输入，不代表所有依赖均为上游最新版本。
 
-明确获准后，可用核验后的新快照替换固定测试标签及对应资产。先发布需要的供应商二进制与许可，再发布目录/ZIP，最后经 HTTP 同时核对标签指向、sourceCommit 和所有资产摘要。不能静默替换已有安装快照。自动化测试、交叉编译和发布不代替真实账号、平台、智能体或界面验收。
+明确获准后，将核验后的新快照发布到新的正式标签，不覆盖已有标签或资产。先发布需要的供应商二进制与许可，再发布目录/ZIP，最后经 HTTP 同时核对标签指向、sourceCommit 和所有资产摘要。已有安装快照保持不变。自动化测试、交叉编译和发布不代替真实账号、平台、智能体或界面验收。
 
 根 [MIT 许可](LICENSE)覆盖 NeuxBot 自编封装；第三方内容和品牌资产保留实际条款与如实披露的许可缺口。

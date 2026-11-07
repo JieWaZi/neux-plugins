@@ -31,7 +31,7 @@ async function prepare() {
     runner = cliRunner(binary, identity.dataDirectory);
     const version = await runner.run(['--version'], { signal: controller?.signal });
     if (typeof lock.version !== 'string' || !version.startsWith(`gh version ${lock.version}\n`) && !version.startsWith(`gh version ${lock.version} `)) throw failure('plugin_not_ready');
-  } catch (error) { throw failure(error.code === 'cancelled' ? 'cancelled' : 'plugin_not_ready'); }
+  } catch (error) { throw failure(error.code === 'cancelled' ? 'cancelled' : 'dependency_unavailable'); }
 }
 
 // 官方范围可能归一化为更大的权限；只解释已知 OAuth 蕴含关系。
@@ -78,7 +78,7 @@ async function authorize(signal) {
     state = 'authorized'; notify('auth/state', { state, account: verified });
   } catch (error) {
     state = signal.aborted ? 'cancelled' : error.code === 'expired' ? 'expired' : 'failed';
-    notify('auth/state', { state, errorCode: state === 'failed' ? (error.code === 'plugin_not_ready' ? 'plugin_not_ready' : 'authorization_failed') : undefined });
+    notify('auth/state', { state, errorCode: state === 'failed' ? (error.code === 'dependency_unavailable' ? 'dependency_unavailable' : 'authorization_failed') : undefined });
   }
 }
 
@@ -114,7 +114,7 @@ input.on('line', line => {
   if (line.length > 1024 * 1024) { send({ id: null, error: { code: -32600, message: 'request_limit' } }); return; }
   let request; try { request = JSON.parse(line); } catch { send({ id: null, error: { code: -32700, message: 'invalid_json' } }); return; }
   if (request?.jsonrpc !== '2.0' || request.id == null || typeof request.method !== 'string') { send({ id: request?.id ?? null, error: { code: -32600, message: 'invalid_request' } }); return; }
-  dispatch(request.method, request.params).then(result => send({ id: request.id, result }), error => send({ id: request.id, error: { code: -32000, message: ['invalid_session', 'plugin_not_ready', 'invalid_components', 'authorization_required', 'method_not_found'].includes(error.code) ? error.code : 'authorization_failed' } }));
+  dispatch(request.method, request.params).then(result => send({ id: request.id, result }), error => send({ id: request.id, error: { code: -32000, message: ['invalid_session', 'plugin_not_ready', 'dependency_unavailable', 'invalid_components', 'authorization_required', 'method_not_found'].includes(error.code) ? error.code : 'authorization_failed' } }));
 });
 const shutdown = async () => { await stop(); runner?.terminate(); process.exit(0); };
 input.on('close', shutdown); process.on('SIGTERM', shutdown); process.on('SIGINT', shutdown);

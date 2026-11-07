@@ -1,6 +1,6 @@
 {
   "name": "feishu-office",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Write Feishu documents, manage tables, schedule events and follow up on tasks.",
   "author": {
     "name": "NeuxBot contributors"

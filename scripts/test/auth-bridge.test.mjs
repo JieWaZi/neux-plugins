@@ -43,7 +43,7 @@ else process.exit(20);
     const content = await readFile(binary); const digest = createHash('sha256').update(content).digest('hex');
     await writeFile(path.join(authDirectory, 'assets.lock.json'), JSON.stringify({ schemaVersion: 1, assets: { [`${process.platform}-${process.arch}`]: { url: 'https://github.com/example/release/lark-cli', sha256: digest, size: content.length } } }));
     const preload = path.join(directory, 'http-response.mjs');
-    await writeFile(preload, `import { readFile } from 'node:fs/promises';globalThis.fetch=async()=>new Response(await readFile(${JSON.stringify(binary)}));`);
+    await writeFile(preload, `import { readFile } from 'node:fs/promises';globalThis.fetch=async()=>new Response(await readFile(${JSON.stringify(binary)}),{status:${scenario === 'download-failure' ? 404 : 200}});`);
     script = path.join(authDirectory, 'authorize.mjs'); nodeArgs = ['--import', preload];
   }
   if (scenario === 'app-only') { await mkdir(path.join(directory, 'private/profile'), { recursive: true }); await writeFile(path.join(directory, 'private/profile/config.json'), '{}'); }
@@ -133,7 +133,8 @@ test('多阶段挑战动态更新；真实验证成功后按组件私密 resolve
 
 for (const scenario of ['unverified', 'missing-scope']) {
   test(`CLI 退出成功但 ${scenario} 时不能标记已授权`, async t => {
-    const f = await bridge(t, scenario); await f.request('auth/start'); await f.waitState('failed');
+    const f = await bridge(t, scenario); await f.request('auth/start'); const failed = await f.waitState('failed');
+    assert.equal(failed.params.errorCode, 'authorization_failed');
     assert.equal((await f.request('auth/status')).result.account.available, false);
     assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] })).error);
   });
@@ -228,4 +229,15 @@ test('桥接挑战提示取自包内声明，第二阶段不复用第一次提�
   const f=await bridge(t,'success',{presentation:{schemaVersion:1,notices:{initialSetup:{messages}}}});
   await f.request('auth/start');await f.waitState('authorized');
   const challenges=f.messages.filter(x=>x.method==='auth/challenge');assert.deepEqual(challenges[0].params.notice,{messages});assert.equal(challenges[1].params.notice,undefined);
+});
+
+
+test('供应商依赖下载失败单独报告，不伪装账号失效或授权完成', async t => {
+  const f = await bridge(t, 'download-failure', { downloaded: true });
+  assert.equal((await f.request('auth/start')).result.state, 'pending');
+  const failed = await f.waitState('failed');
+  assert.equal(failed.params.errorCode, 'dependency_unavailable');
+  assert.equal(f.messages.some(message => message.method === 'auth/challenge'), false);
+  assert.equal((await f.request('auth/status')).result.account.available, false);
+  assert.doesNotMatch(JSON.stringify(f.messages), /PRIVATE-DEVICE-TOKEN|INHERITED-SECRET/);
 });

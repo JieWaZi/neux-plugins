@@ -93,6 +93,8 @@ sequenceDiagram
   Note over Core,Bridge: An authorized identity is cleared with auth/logout
 ```
 
+Provider download, integrity verification and dependency preparation failures return `dependency_unavailable`; actual login and account verification failures retain `authorization_failed`. The host reports the failed stage and never treats an unverified account or a dependency failure as successful authorization.
+
 Provider programs are independent digest-locked dependencies downloaded by each plugin into its private data directory. The host does not bundle or download one vendor program per plugin. Package locks pin HTTPS asset URLs, sizes, hashes, fixed source, toolchain and isolation evidence. GitHub clears inherited CLI credentials and uses a private profile; its patched keyring service is bound to the canonical profile directory digest. Feishu uses its existing private profile and credential isolation. Trusted test overrides can supply the same program boundary without looking up user-global CLIs.
 
 
@@ -106,7 +108,7 @@ The host must support PNG data URLs for `show-qr` challenges and merging verifie
 
 Details and SKILL text are available before installation or authorization through digest-bound [read-only details sidecars](docs/DETAILS.md), independently of the complete installation ZIP.
 
-Use the [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) or [fixed v0.1.1 catalog](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.1/catalog.json). Each `{schemaVersion:1,entries:[...]}` entry records `key`, full `sourceCommit`, `archiveURL`, `archiveSHA256`, `packagePath: plugins/<key>`, standard `name`, `version`, English `description` and `format: agent-plugins`. Optional localized maps and a validated embedded icon support presentation before package download; components are read from the actual package.
+Use the [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) or [fixed v0.1.2 catalog](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.2/catalog.json). Each `{schemaVersion:1,entries:[...]}` entry records `key`, full `sourceCommit`, `archiveURL`, `archiveSHA256`, `packagePath: plugins/<key>`, standard `name`, `version`, English `description` and `format: agent-plugins`. Optional localized maps and a validated embedded icon support presentation before package download; components are read from the actual package.
 
 A ZIP contains its complete standard package, applicable local Codex index, source/license evidence and public patches. No upstream Git or HTTP materialization is required by installation or ordinary catalog builds. Separate business services and first-use provider dependencies still require network access. Clients verify the selected archive digest before extraction. Installed snapshots remain identified by their source commit and digest when test-release assets change.
 
@@ -117,7 +119,7 @@ Node 22+ and Git build a committed snapshot; dirty workspace files and timestamp
 ```sh
 npm ci
 npm test
-node scripts/build-catalog.mjs HEAD v0.1.0
+node scripts/build-catalog.mjs HEAD v0.1.2
 ```
 
 The builder validates canonical packages, the shared provenance schema, dependency locks and local asset hashes, produces deterministic ZIPs and catalog, and replaces its output after validation. The CLI replaces the `dist` output directory while preserving `dist/providers`; use the exported `buildCatalog({root,out,sourceCommit})` with a separate output directory when existing unrelated receipts must be retained.
@@ -129,8 +131,8 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-Each fixed-source provider build verifies source and isolation tests, cross-compiles six platforms and collects actual dependency license texts. Existing provider locks continue to reference their verified `v0.1.0` assets; releasing package metadata and icons does not rebuild those dependencies. Protocol/schema versions and internal package identities have their own meaning: the current internal package/test release identity remains `0.1.0` / `v0.1.0`. User-facing version and authorship come directly from `provenance.upstream`; Feishu shows `v1.0.98`, while an unpinned hosted MCP service declares no fixed version. Fixed references record verified inputs, not an unchecked claim that every upstream dependency is latest.
+Each fixed-source provider build verifies source and isolation tests, cross-compiles six platforms and collects actual dependency license texts. Existing provider locks continue to reference their verified `v0.1.0` assets; releasing package metadata and icons does not rebuild those dependencies. Protocol/schema versions and internal package identities have their own meaning: the current internal package/release identity is `0.1.1` / `v0.1.2`. User-facing version and authorship come directly from `provenance.upstream`; Feishu shows `v1.0.98`, while an unpinned hosted MCP service declares no fixed version. Fixed references record verified inputs, not an unchecked claim that every upstream dependency is latest.
 
-With explicit authorization, a verified new snapshot may replace the fixed test tag and corresponding release assets. Publish needed provider binaries and notices before the catalog/ZIPs, then verify the final tag target, sourceCommit and all asset digests over HTTP. Never silently replace an already installed snapshot. Automated tests, cross compilation and publication do not substitute for real account, platform, runtime or UI acceptance.
+With explicit authorization, publish each verified snapshot under a new release tag without replacing existing tags or assets. Publish needed provider binaries and notices before the catalog/ZIPs, then verify the final tag target, sourceCommit and all asset digests over HTTP. Existing installed snapshots remain unchanged. Automated tests, cross compilation and publication do not substitute for real account, platform, runtime or UI acceptance.
 
 The root [MIT license](LICENSE) covers NeuxBot-authored packaging. Third-party content and brand assets retain their actual terms and disclosed license gaps.

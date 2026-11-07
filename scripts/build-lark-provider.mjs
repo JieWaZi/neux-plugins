@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('..', import.meta.url));
 const commit = 'ac81f5056ab88f37d581d25916f3dab85abfca76';
 const sourceSHA256 = 'c8247b1364b6d56b068709c3ce29aa191fdbfff1ccc11ccc143a34d5df1f4936';
-const version = '1.0.98-neuxbot.1';
+const version = '1.0.98-neuxally.1';
 const hash = value => createHash('sha256').update(value).digest('hex');
 const targets = process.argv.slice(2);
 const selected = targets.length ? targets : ['darwin-arm64', 'darwin-amd64', 'linux-amd64', 'linux-arm64', 'windows-amd64', 'windows-arm64'];

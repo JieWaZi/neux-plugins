@@ -38,7 +38,7 @@ else process.exit(94);
   const content = await readFile(binary);
   await writeFile(path.join(auth, 'assets.lock.json'), JSON.stringify({ schemaVersion: 1, version: '2.102.0-neuxally.test', assets: { [`${process.platform}-${process.arch}`]: { url: 'https://github.com/example/releases/gh', size: content.length, sha256: createHash('sha256').update(content).digest('hex') } } }));
   const nodeArgs = [];
-  if (downloaded) { const preload = path.join(directory, 'download.mjs'); await writeFile(preload, `import {readFile} from 'node:fs/promises';globalThis.fetch=async()=>new Response(await readFile(${JSON.stringify(binary)}));`); nodeArgs.push('--import', preload); }
+  if (downloaded) { const preload = path.join(directory, 'download.mjs'); await writeFile(preload, `import {readFile} from 'node:fs/promises';globalThis.fetch=async()=>new Response(await readFile(${JSON.stringify(binary)}),{status:${scenario === 'download-failure' ? 404 : 200}});`); nodeArgs.push('--import', preload); }
   const foreign = path.join(directory, 'foreign-user-bin'); await mkdir(foreign);
   await writeFile(path.join(foreign, 'gh'), '#!/bin/sh\nexit 99\n'); await chmod(path.join(foreign, 'gh'), 0o755);
   const child = spawn(process.execPath, [...nodeArgs, path.join(auth, 'authorize.mjs')], { env: { ...process.env, NEUXALLY_GH_CLI: downloaded ? '' : binary, PATH: `${foreign}${path.delimiter}${process.env.PATH ?? ''}`, GH_TOKEN: 'INHERITED-SECRET', GITHUB_TOKEN: 'INHERITED-SECRET', GH_ENTERPRISE_TOKEN: 'INHERITED-SECRET', KEYCHAIN_ACCESS_GROUP: 'external-keychain', GH_BROWSER: 'external-browser', BROWSER: 'external-browser', GH_CONFIG_DIR: '/foreign-profile' }, stdio: ['pipe', 'pipe', 'pipe'] });
@@ -103,7 +103,8 @@ for (const downloaded of [false, true]) {
 
 for (const scenario of ['unverified', 'missing-scope', 'foreign-source', 'malicious-url', 'bad-version']) {
   test(`拒绝未经核验或不受管的GitHub身份：${scenario}`, async t => {
-    const f = await bridge(t, scenario); await f.request('auth/start'); await f.waitState('failed');
+    const f = await bridge(t, scenario); await f.request('auth/start'); const failed = await f.waitState('failed');
+    assert.equal(failed.params.errorCode, scenario === 'bad-version' ? 'dependency_unavailable' : 'authorization_failed');
     assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'approved', key: 'github', target: 'mcp', url: endpoint }] })).error);
     assert.doesNotMatch(JSON.stringify(f.messages), /gho_|INHERITED-SECRET|RAW-(?:STATUS|LOGIN)-SECRET/);
   });
@@ -133,4 +134,15 @@ test('私有resolve不把PAT配置冒充设备流OAuth令牌', async t => {
   const f = await bridge(t, 'pat'); await f.request('auth/start'); await f.waitState('authorized');
   assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'approved', key: 'github', target: 'mcp', url: endpoint }] })).error);
   assert.doesNotMatch(JSON.stringify(f.messages), /ghp_/);
+});
+
+
+test('GitHub供应商依赖下载失败不会报告账号授权失效', async t => {
+  const f = await bridge(t, 'download-failure', true);
+  assert.equal((await f.request('auth/start')).result.state, 'pending');
+  const failed = await f.waitState('failed');
+  assert.equal(failed.params.errorCode, 'dependency_unavailable');
+  assert.equal(f.messages.some(message => message.method === 'auth/challenge'), false);
+  assert.equal((await f.request('auth/status')).result.account.available, false);
+  assert.doesNotMatch(JSON.stringify(f.messages), /INHERITED-SECRET|RAW-(?:STATUS|LOGIN)-SECRET/);
 });

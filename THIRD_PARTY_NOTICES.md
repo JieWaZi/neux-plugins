@@ -21,8 +21,8 @@
 - 上游：[larksuite/cli](https://github.com/larksuite/cli/tree/ac81f5056ab88f37d581d25916f3dab85abfca76)，提交 `ac81f5056ab88f37d581d25916f3dab85abfca76`，原版本 `1.0.98`。
 - 原作者 Lark Suite CLI contributors，源码版权包含 Lark Technologies Pte. Ltd.；[原始 MIT 许可](plugins/feishu-office/LICENSE.larksuite-cli)完整保留。官方 skills、相对资料与脚本保持原样。
 - NeuxBot contributors 维护自有标准清单、私有授权桥接与包装，业务标题为飞书办公，信息面板直接显示上游作者 `Lark Suite CLI contributors` 与版本 `v1.0.98`，实际来源及改动见 [provenance](plugins/feishu-office/provenance.json)。
-- 既有隔离 CLI 构建 `1.0.98-neuxbot.1` 保持不变；固定依赖与源码/补丁摘要见 [资产锁](plugins/feishu-office/.neuxally/auth/assets.lock.json)。[钥匙串补丁](patches/lark-keychain-isolation.patch)、[隔离回归](patches/lark-keychain-isolation_test.go)与 [macOS 私有存储回归](patches/lark-storage-isolation_darwin_test.go)如实交付。
-- 实际传递依赖与 runtime 原始许可见 [CLI 声明](plugins/feishu-office/.neuxally/auth/THIRD_PARTY_NOTICES.cli.txt)，同文另作为 Release 资源。新增 GitHub 依赖不重构建或替换这些既有资产。
+- 既有隔离 CLI 构建 `1.0.98-neuxally.1` 保持不变；固定依赖与源码/补丁摘要见 [资产锁](plugins/feishu-office/.neuxbot/auth/assets.lock.json)。[钥匙串补丁](patches/lark-keychain-isolation.patch)、[隔离回归](patches/lark-keychain-isolation_test.go)与 [macOS 私有存储回归](patches/lark-storage-isolation_darwin_test.go)如实交付。
+- 实际传递依赖与 runtime 原始许可见 [CLI 声明](plugins/feishu-office/.neuxbot/auth/THIRD_PARTY_NOTICES.cli.txt)，同文另作为 Release 资源。新增 GitHub 依赖不重构建或替换这些既有资产。
 
 ## 品牌图标
 

@@ -48,10 +48,12 @@ async function materialEnvironment() {
 }
 
 async function prepare() {
-  binary = await (trustedBinary ? ensureTrustedAsset({ dataDirectory: identity.dataDirectory, binary: trustedBinary }) : ensureAsset({ dataDirectory: identity.dataDirectory, signal: controller?.signal })).catch(() => { throw failure('plugin_not_ready'); });
-  if (!path.isAbsolute(binary)) throw failure('plugin_not_ready');
-  await access(binary);
-  for (const directory of [identity.dataDirectory, path.join(identity.dataDirectory, 'profile'), path.join(identity.dataDirectory, 'credentials')]) { await mkdir(directory, { recursive: true, mode: 0o700 }); await chmod(directory, 0o700); }
+  try {
+    binary = await (trustedBinary ? ensureTrustedAsset({ dataDirectory: identity.dataDirectory, binary: trustedBinary }) : ensureAsset({ dataDirectory: identity.dataDirectory, signal: controller?.signal }));
+    if (!path.isAbsolute(binary)) throw failure('plugin_not_ready');
+    await access(binary);
+    for (const directory of [identity.dataDirectory, path.join(identity.dataDirectory, 'profile'), path.join(identity.dataDirectory, 'credentials')]) { await mkdir(directory, { recursive: true, mode: 0o700 }); await chmod(directory, 0o700); }
+  } catch (error) { throw failure(controller?.signal?.aborted || error.code === 'cancelled' ? 'cancelled' : 'dependency_unavailable'); }
 }
 
 // 原始 CLI 输出只在本进程解析；错误只返回稳定码，stdout 永远只有协议帧。
@@ -117,7 +119,7 @@ async function authorize(signal) {
     state = 'authorized'; notify('auth/state', { state, account: verified });
   } catch (error) {
     state = signal.aborted ? 'cancelled' : error.code === 'expired' ? 'expired' : 'failed';
-    notify('auth/state', { state, errorCode: ['cancelled', 'expired'].includes(state) ? undefined : 'authorization_failed' });
+    notify('auth/state', { state, errorCode: ['cancelled', 'expired'].includes(state) ? undefined : error.code === 'dependency_unavailable' ? 'dependency_unavailable' : 'authorization_failed' });
   }
 }
 
@@ -161,7 +163,7 @@ input.on('line', line => {
   if (line.length > 1024 * 1024) { send({ id: null, error: { code: -32600, message: 'request_limit' } }); return; }
   let request; try { request = JSON.parse(line); } catch { send({ id: null, error: { code: -32700, message: 'invalid_json' } }); return; }
   if (request.jsonrpc !== '2.0' || request.id == null || typeof request.method !== 'string') { send({ id: request.id ?? null, error: { code: -32600, message: 'invalid_request' } }); return; }
-  dispatch(request.method, request.params).then(result => send({ id: request.id, result }), error => send({ id: request.id, error: { code: -32000, message: ['invalid_session', 'plugin_not_ready', 'invalid_components', 'authorization_required', 'method_not_found'].includes(error.code) ? error.code : 'authorization_failed' } }));
+  dispatch(request.method, request.params).then(result => send({ id: request.id, result }), error => send({ id: request.id, error: { code: -32000, message: ['invalid_session', 'plugin_not_ready', 'dependency_unavailable', 'invalid_components', 'authorization_required', 'method_not_found'].includes(error.code) ? error.code : 'authorization_failed' } }));
 });
 const shutdown = async () => { await stop(); for (const child of children) child.kill('SIGKILL'); input.close(); process.exit(0); };
 input.on('close', shutdown); process.on('SIGTERM', shutdown); process.on('SIGINT', shutdown);

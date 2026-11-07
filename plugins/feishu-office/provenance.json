@@ -25,7 +25,7 @@
       "name": "lark-cli",
       "repository": "https://github.com/larksuite/cli",
       "commit": "ac81f5056ab88f37d581d25916f3dab85abfca76",
-      "version": "1.0.98-neuxbot.1",
+      "version": "1.0.98-neuxally.1",
       "license": "MIT",
       "lock": ".neuxbot/auth/assets.lock.json"
     }

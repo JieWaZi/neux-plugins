@@ -72,7 +72,7 @@ let observed='';watchFile(${JSON.stringify(clockControl)},{interval:20},()=>{con
     nodeArgs.push('--import', clock);
   }
   const child = spawn(process.execPath, [...nodeArgs, path.join(auth, 'authorize.mjs')], {
-    env: { ...process.env, PATH: `${foreign}${path.delimiter}${process.env.PATH ?? ''}`, NEUXALLY_WECOM_CLI: binary, WECOM_CLI_ACCESS_TOKEN: 'INHERITED-TOKEN', WECOM_CLI_CONFIG_DIR: '/do-not-touch', WECOM_CLI_ADDITIONAL_HEADERS_TEST: '{"Authorization":"FOREIGN"}', WECOM_CLI_LOG_DIR: '/do-not-touch-log' },
+    env: { ...process.env, PATH: `${foreign}${path.delimiter}${process.env.PATH ?? ''}`, NEUXALLY_WECOM_CLI: scenario === 'dependency-unavailable' ? path.join(directory, 'missing-supplier') : binary, WECOM_CLI_ACCESS_TOKEN: 'INHERITED-TOKEN', WECOM_CLI_CONFIG_DIR: '/do-not-touch', WECOM_CLI_ADDITIONAL_HEADERS_TEST: '{"Authorization":"FOREIGN"}', WECOM_CLI_LOG_DIR: '/do-not-touch-log' },
     stdio: ['pipe', 'pipe', 'pipe'],
   });
   const exited = new Promise(resolve => child.once('close', resolve));
@@ -138,7 +138,8 @@ test('官方 PNG 与页面链接分开交付，在线核验并返回稳定机器
 
 for (const scenario of ['network-failure', 'empty-identity', 'identity-error', 'missing-id', 'no-credentials', 'missing-png', 'invalid-png', 'oversized-png', 'symlink-png', 'wrong-host']) {
   test(`${scenario} 不得把 CLI 退出成功误判为授权成功`, async t => {
-    const f = await fixture(t, scenario); await f.request('auth/start'); await f.waitState('failed');
+    const f = await fixture(t, scenario); await f.request('auth/start'); const failed = await f.waitState('failed');
+    assert.equal(failed.params.errorCode, 'authorization_failed');
     assert.equal(f.messages.some(message => message.method === 'auth/state' && message.params.state === 'authorized'), false);
     assert.equal((await f.request('auth/status')).result.account.available, false);
     assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/wecomcli-doc', target: 'skill' }] })).error);
@@ -202,4 +203,15 @@ test('resolve 仅接受真实包内 wecomcli 技能并固定会话', async t => 
   assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'link', key: 'skills/wecomcli-link', target: 'skill' }] })).error);
   assert.ok((await f.request('auth/status', { sessionId: 'another-session' })).error);
   assert.ok((await f.request('auth/status', { scopes: ['invented-scope'] })).error);
+});
+
+
+test('企业微信缺少供应商程序报告依赖未就绪，不报告账号授权失效', async t => {
+  const f = await fixture(t, 'dependency-unavailable');
+  assert.equal((await f.request('auth/start')).result.state, 'pending');
+  const failed = await f.waitState('failed');
+  assert.equal(failed.params.errorCode, 'dependency_unavailable');
+  assert.equal(f.messages.some(message => message.method === 'auth/challenge'), false);
+  assert.equal((await f.request('auth/status')).result.account.available, false);
+  assert.doesNotMatch(JSON.stringify(f.messages), /PRIVATE-TOKEN|INHERITED-TOKEN/);
 });

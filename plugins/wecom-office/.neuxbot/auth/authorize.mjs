@@ -50,20 +50,22 @@ async function privateDirectory(directory) {
 }
 
 async function prepare(signal = lifetime.signal) {
-  if (signal?.aborted) throw failure('cancelled');
-  await privateDirectory(identity.dataDirectory);
-  await privateDirectory(profile());
-  // 文件密钥优先于 keyring，预置私有随机值避免首次读取回退；官方保存仍可能同步隔离的 keyring 项。
-  const key = path.join(profile(), '.encryption_key');
-  try { await writeFile(key, randomBytes(32).toString('base64'), { flag: 'wx', mode: 0o600 }); }
-  catch (error) { if (error.code !== 'EEXIST') throw error; }
-  const keyInfo = await lstat(key);
-  if (!keyInfo.isFile() || keyInfo.isSymbolicLink() || keyInfo.size !== 44) throw failure('plugin_not_ready');
-  await chmod(key, 0o600);
-  binary = await (trustedBinary ? ensureTrustedAsset({ dataDirectory: identity.dataDirectory, binary: trustedBinary }) : ensureAsset({ dataDirectory: identity.dataDirectory, signal })).catch(() => { throw failure('plugin_not_ready'); });
-  if (!path.isAbsolute(binary)) throw failure('plugin_not_ready');
-  await access(binary);
-  if (signal?.aborted) throw failure('cancelled');
+  try {
+    if (signal?.aborted) throw failure('cancelled');
+    await privateDirectory(identity.dataDirectory);
+    await privateDirectory(profile());
+    // 文件密钥优先于 keyring，预置私有随机值避免首次读取回退；官方保存仍可能同步隔离的 keyring 项。
+    const key = path.join(profile(), '.encryption_key');
+    try { await writeFile(key, randomBytes(32).toString('base64'), { flag: 'wx', mode: 0o600 }); }
+    catch (error) { if (error.code !== 'EEXIST') throw error; }
+    const keyInfo = await lstat(key);
+    if (!keyInfo.isFile() || keyInfo.isSymbolicLink() || keyInfo.size !== 44) throw failure('plugin_not_ready');
+    await chmod(key, 0o600);
+    binary = await (trustedBinary ? ensureTrustedAsset({ dataDirectory: identity.dataDirectory, binary: trustedBinary }) : ensureAsset({ dataDirectory: identity.dataDirectory, signal }));
+    if (!path.isAbsolute(binary)) throw failure('plugin_not_ready');
+    await access(binary);
+    if (signal?.aborted) throw failure('cancelled');
+  } catch (error) { throw failure(signal?.aborted || error.code === 'cancelled' ? 'cancelled' : 'dependency_unavailable'); }
 }
 
 // 提示与 JSON 分开解析；任何 CLI 原始输出、密钥、token 都不能透传到桥接日志或公开状态。
@@ -172,7 +174,7 @@ async function authorize(signal) {
     state = 'authorized'; notify('auth/state', { state, account: current });
   } catch (error) {
     state = signal.aborted ? 'cancelled' : error.code === 'expired' ? 'expired' : 'failed';
-    notify('auth/state', { state, errorCode: ['cancelled', 'expired'].includes(state) ? undefined : 'authorization_failed' });
+    notify('auth/state', { state, errorCode: ['cancelled', 'expired'].includes(state) ? undefined : error.code === 'dependency_unavailable' ? 'dependency_unavailable' : 'authorization_failed' });
   } finally {
     if (temporary) await rm(temporary, { recursive: true, force: true }).catch(() => {
       state = 'failed'; notify('auth/state', { state, errorCode: 'authorization_failed' });
@@ -247,7 +249,7 @@ input.on('line', line => {
   requests = requests.then(async () => {
     if (closing) return;
     try { send({ id: request.id, result: await dispatch(request.method, request.params) }); }
-    catch (error) { send({ id: request.id, error: { code: -32000, message: ['invalid_session', 'plugin_not_ready', 'invalid_components', 'authorization_required', 'method_not_found'].includes(error.code) ? error.code : 'authorization_failed' } }); }
+    catch (error) { send({ id: request.id, error: { code: -32000, message: ['invalid_session', 'plugin_not_ready', 'dependency_unavailable', 'invalid_components', 'authorization_required', 'method_not_found'].includes(error.code) ? error.code : 'authorization_failed' } }); }
   });
 });
 
