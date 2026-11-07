@@ -1,4 +1,4 @@
-# NeuxAlly Plugins
+# Neux Plugins
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
@@ -21,16 +21,16 @@
 - `patches/`：供应商隔离补丁、回归源码、原始许可与来源记录。
 - `scripts/`：确定性目录/ZIP 构建和独立固定源码程序构建；忽略的 `dist/` 保存发布资产，`.cache/` 保存核验后的构建输入。
 
-NeuxAlly 只通过本库发布的 HTTP 目录为伙伴安装插件，并将同一个标准包适配到所选智能体。系统不提供上传、本地目录或 ZIP 导入，也不收集和管理用户原生 CLI 的第三方插件。用户在聊天中要求安装原生插件时，由当前 Codex 或 Claude Code 使用与外部相同 CLI 共用的原生插件环境处理；这类安装、启停和认证归 CLI 管理，不登记为 NeuxAlly 资源。直接标准使用可读取根本地 marketplace 或包内标准内容，具体能力与授权方式以 CLI 支持范围为准；Codex 不会自动解释 NeuxAlly 专属授权声明。
+NeuxBot 只通过本库发布的 HTTP 目录为伙伴安装插件，并将同一个标准包适配到所选智能体。系统不提供上传、本地目录或 ZIP 导入，也不收集和管理用户原生 CLI 的第三方插件。用户在聊天中要求安装原生插件时，由当前 Codex 或 Claude Code 使用与外部相同 CLI 共用的原生插件环境处理；这类安装、启停和认证归 CLI 管理，不登记为 NeuxBot 资源。直接标准使用可读取根本地 marketplace 或包内标准内容，具体能力与授权方式以 CLI 支持范围为准；Codex 不会自动解释 NeuxBot 专属授权声明。
 
-清单 `repository` 与 `extensions.com.openai.interface.developerName` 指向官方业务能力项目和品牌：GitHub / `github/github-mcp-server`，飞书 / `larksuite/cli`。`author` 如实说明包内封装与桥接由 NeuxAlly contributors 编写；统一 `provenance.upstream` 记录插件信息面板读取的实际业务能力作者、版本、许可与仓库。官方服务或技能作者不等同本封装作者，品牌署名也不代表官方背书。见[第三方声明](THIRD_PARTY_NOTICES.md)。
+清单 `repository` 与 `extensions.com.openai.interface.developerName` 指向官方业务能力项目和品牌：GitHub / `github/github-mcp-server`，飞书 / `larksuite/cli`。`author` 如实说明包内封装与桥接由 NeuxBot contributors 编写；统一 `provenance.upstream` 记录插件信息面板读取的实际业务能力作者、版本、许可与仓库。官方服务或技能作者不等同本封装作者，品牌署名也不代表官方背书。见[第三方声明](THIRD_PARTY_NOTICES.md)。
 
 ```mermaid
 flowchart LR
   Package[唯一标准包：清单 + Skills / MCP] --> Build[固定 Git 快照构建]
   Build --> Catalog[HTTP 目录：展示资料 + 安全图标]
   Build --> ZIP[完整核验 ZIP]
-  User[用户] --> UI[NeuxAlly 前端]
+  User[用户] --> UI[NeuxBot 前端]
   UI --> Core[Core：安装、会话、占用与秘密]
   Catalog --> Core
   ZIP --> Core
@@ -63,7 +63,7 @@ MCP 服务与技能仍由标准文件定义；可选根清单 `extensions.com.ne
 
 ```mermaid
 sequenceDiagram
-  participant UI as NeuxAlly 前端
+  participant UI as NeuxBot 前端
   participant Core as Core 会话与秘密所有者
   participant Bridge as 包内桥接
   participant Vendor as 隔离官方 CLI / 供应商
@@ -97,7 +97,7 @@ sequenceDiagram
 
 企业微信固定官方 CLI `1.3.4` 发布提交与五平台 npm 归档及程序摘要，首次使用下载到插件私有目录，不进行全局 npm 安装。官方 CLI 生成 PNG 二维码并完成扫码协议；桥接将原始图片交给通用 `show-qr` 动作，通过 `auth show` 和线上 `identity whoami` 核验身份。当前官方 CLI 没有独立 MCP server 子命令，本包交付官方 CLI 与 Skills，不声明旧版 MCP 端点。共享技能只调整程序安装和认证入口，其他官方资料保留原文，见[企业微信桥接](plugins/wecom-office/.neuxbot/auth/README.md)。
 
-本包需要支持 PNG 二维码挑战和多个受管 CLI 路径合并的 NeuxAlly 宿主。旧版宿主需要先更新，不能将 PNG data URL 再编码成二维码。官方没有 Windows ARM64 平台包，该平台准确返回程序未就绪。
+本包需要支持 PNG 二维码挑战和多个受管 CLI 路径合并的 NeuxBot 宿主。旧版宿主需要先更新，不能将 PNG data URL 再编码成二维码。官方没有 Windows ARM64 平台包，该平台准确返回程序未就绪。
 
 ## HTTP 目录与完整快照
 
@@ -130,4 +130,4 @@ node scripts/build-lark-provider.mjs
 
 明确获准后，可用核验后的新快照替换固定测试标签及对应资产。先发布需要的供应商二进制与许可，再发布目录/ZIP，最后经 HTTP 同时核对标签指向、sourceCommit 和所有资产摘要。不能静默替换已有安装快照。自动化测试、交叉编译和发布不代替真实账号、平台、智能体或界面验收。
 
-根 [MIT 许可](LICENSE)覆盖 NeuxAlly 自编封装；第三方内容和品牌资产保留实际条款与如实披露的许可缺口。
+根 [MIT 许可](LICENSE)覆盖 NeuxBot 自编封装；第三方内容和品牌资产保留实际条款与如实披露的许可缺口。

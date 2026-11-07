@@ -1,4 +1,4 @@
-# NeuxAlly Plugins
+# Neux Plugins
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
@@ -21,16 +21,16 @@ The root is a library and marketplace, not a single plugin, so it has no root si
 - `patches/`: reviewed provider isolation patches, regression sources, original licenses and provenance.
 - `scripts/`: deterministic catalog/ZIP builds and independent fixed-source provider builds. Ignored `dist/` contains release artifacts; `.cache/` contains verified build inputs.
 
-NeuxAlly installs plugins only from this maintained library’s published HTTP catalog and adapts each standard package to the selected agent. It provides no plugin upload, local-directory import, or ZIP import. Native plugin installation requested in a conversation belongs to the current Codex or Claude Code environment, shared with the same external CLI. Those native installations, enablement settings, and authentication stay under the CLI’s ownership and are not registered or managed as NeuxAlly resources. Direct use of the local marketplace or package follows the target CLI’s capabilities; Codex does not interpret NeuxAlly-specific authentication declarations automatically.
+NeuxBot installs plugins only from this maintained library’s published HTTP catalog and adapts each standard package to the selected agent. It provides no plugin upload, local-directory import, or ZIP import. Native plugin installation requested in a conversation belongs to the current Codex or Claude Code environment, shared with the same external CLI. Those native installations, enablement settings, and authentication stay under the CLI’s ownership and are not registered or managed as NeuxBot resources. Direct use of the local marketplace or package follows the target CLI’s capabilities; Codex does not interpret NeuxBot-specific authentication declarations automatically.
 
-The manifest's `repository` and `extensions.com.openai.interface.developerName` identify the official capability project and brand: GitHub / `github/github-mcp-server`, and 飞书 / `larksuite/cli`. `author` identifies NeuxAlly contributors as authors of the package wrapper and bridge; uniform `provenance.upstream` records the actual business capability author, version, license and repository used by the plugin information panel. Official service/skill authorship is not authorship of this packaging, and brand attribution is not official endorsement. See [third-party notices](THIRD_PARTY_NOTICES.md).
+The manifest's `repository` and `extensions.com.openai.interface.developerName` identify the official capability project and brand: GitHub / `github/github-mcp-server`, and 飞书 / `larksuite/cli`. `author` identifies NeuxBot contributors as authors of the package wrapper and bridge; uniform `provenance.upstream` records the actual business capability author, version, license and repository used by the plugin information panel. Official service/skill authorship is not authorship of this packaging, and brand attribution is not official endorsement. See [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ```mermaid
 flowchart LR
   Package[One standard package: manifest + Skills / MCP] --> Build[Fixed Git snapshot build]
   Build --> Catalog[HTTP catalog: metadata + safe icon]
   Build --> ZIP[Complete verified ZIP]
-  User[User] --> UI[NeuxAlly frontend]
+  User[User] --> UI[NeuxBot frontend]
   UI --> Core[Core: installation, sessions, leases and secrets]
   Catalog --> Core
   ZIP --> Core
@@ -63,7 +63,7 @@ Packages requiring authorization use `extensions.com.neuxbot.authentication.stra
 
 ```mermaid
 sequenceDiagram
-  participant UI as NeuxAlly frontend
+  participant UI as NeuxBot frontend
   participant Core as Core session and secret owner
   participant Bridge as Package bridge
   participant Vendor as Isolated official CLI / provider
@@ -133,4 +133,4 @@ Each fixed-source provider build verifies source and isolation tests, cross-comp
 
 With explicit authorization, a verified new snapshot may replace the fixed test tag and corresponding release assets. Publish needed provider binaries and notices before the catalog/ZIPs, then verify the final tag target, sourceCommit and all asset digests over HTTP. Never silently replace an already installed snapshot. Automated tests, cross compilation and publication do not substitute for real account, platform, runtime or UI acceptance.
 
-The root [MIT license](LICENSE) covers NeuxAlly-authored packaging. Third-party content and brand assets retain their actual terms and disclosed license gaps.
+The root [MIT license](LICENSE) covers NeuxBot-authored packaging. Third-party content and brand assets retain their actual terms and disclosed license gaps.

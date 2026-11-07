@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Create WeCom documents, manage tables, arrange meetings and follow up on work.",
   "author": {
-    "name": "NeuxAlly contributors"
+    "name": "NeuxBot contributors"
   },
   "repository": "https://github.com/WecomTeam/wecom-cli",
   "license": "MIT",

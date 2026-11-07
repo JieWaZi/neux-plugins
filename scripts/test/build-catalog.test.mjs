@@ -30,7 +30,7 @@ async function fixture(t) {
   const put = async (name, value) => { await mkdir(path.dirname(path.join(root, name)), { recursive: true }); await writeFile(path.join(root, name), typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)); };
   await put('plugins/example/plugin.json', standardManifest({}, {description:'示例'}));
   await put('plugins/example/.neuxbot/presentation.json', {});
-  await put('plugins/example/provenance.json', { schemaVersion: 1, upstream: { author: 'Example contributors', repository: 'https://github.com/example/example', license: 'MIT', commit: 'a'.repeat(40), tag: 'v1.2.3', distribution: { mode: 'vendored-source' } }, wrapper: { maintainer: 'NeuxAlly contributors', repository: 'https://github.com/JieWaZi/NeuxAlly-Plugins', license: 'MIT', changes: ['Maintained package'] }, dependencies: [], assets: [] });
+  await put('plugins/example/provenance.json', { schemaVersion: 1, upstream: { author: 'Example contributors', repository: 'https://github.com/example/example', license: 'MIT', commit: 'a'.repeat(40), tag: 'v1.2.3', distribution: { mode: 'vendored-source' } }, wrapper: { maintainer: 'Neux Plugins contributors', repository: 'https://github.com/JieWaZi/neux-plugins', license: 'MIT', changes: ['Maintained package'] }, dependencies: [], assets: [] });
   await put('plugins/example/mcp.json', { $schema:'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json', mcpServers: { example: { type: 'streamable-http', url: 'https://example.com/mcp' } } });
   await put('plugins/example/assets/reference.txt', 'keep complete package files\n');
   await put('plugins/example/.neuxbot/auth/authorize', '#!/bin/sh\nexit 0\n');

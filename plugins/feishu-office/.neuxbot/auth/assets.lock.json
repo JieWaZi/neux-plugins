@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "version": "1.0.98-neuxally.1",
+  "version": "1.0.98-neuxbot.1",
   "notices": {
-    "url": "https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxally.1-NOTICES.txt",
+    "url": "https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxbot.1-NOTICES.txt",
     "sha256": "750ce54e9ea4cdea84bc88099129b38f7aaf8610deb32b6556d6955e42c8662d"
   },
   "source": {
@@ -17,32 +17,32 @@
   },
   "assets": {
     "darwin-arm64": {
-      "url": "https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxally.1-darwin-arm64",
+      "url": "https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxbot.1-darwin-arm64",
       "sha256": "8ba31db1288d8da347963b587e11c1d762b29066405ad1b45efa6fbfa2637c3b",
       "size": 47655170
     },
     "darwin-x64": {
-      "url": "https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxally.1-darwin-amd64",
+      "url": "https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxbot.1-darwin-amd64",
       "sha256": "eb6503f68509a53d82702c6c71094bc7463ce9111b917d0cabe7f18b5341c4cf",
       "size": 50349600
     },
     "linux-x64": {
-      "url": "https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxally.1-linux-amd64",
+      "url": "https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxbot.1-linux-amd64",
       "sha256": "5b0bd2f6bace85c62c48664ec80645ecae1dbcd001a79a1afee7005f58613ddd",
       "size": 49008824
     },
     "linux-arm64": {
-      "url": "https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxally.1-linux-arm64",
+      "url": "https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxbot.1-linux-arm64",
       "sha256": "150ff40ede622fde0789b215d05abe3fd297c6a12b3e7bd1942cd74c8386207e",
       "size": 46006456
     },
     "win32-x64": {
-      "url": "https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxally.1-windows-amd64.exe",
+      "url": "https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxbot.1-windows-amd64.exe",
       "sha256": "eadad590edb380fc95897ab060e01d8ebc1940b1f6201898e38823fa289152d9",
       "size": 50221056
     },
     "win32-arm64": {
-      "url": "https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxally.1-windows-arm64.exe",
+      "url": "https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/lark-cli-1.0.98-neuxbot.1-windows-arm64.exe",
       "sha256": "5dae52abc293d45026b5b9305887f8a6a8a52630fc1de9f265b092134a29fa65",
       "size": 46584832
     }

@@ -13,37 +13,37 @@
     },
     {
       "path": "openai-plugin.schema.json",
-      "sha256": "6e21db08beb6ce41e5730089047d27fcb095737fbb2356a457d51a29d13cc413",
+      "sha256": "98ae94944ccbda39a7f35f7a46e3efca9b28c3b0b13c026c587c0cbf2150626f",
       "source": "NeuxBot phase-one target profile"
     },
     {
       "path": "openai-mcp.schema.json",
-      "sha256": "b2214e2d779f56b523eba0a715d1b49643bb9615aaafa389f01d8037584dafd2",
+      "sha256": "24cb806a9888577cc7630d95a5275f0a34c101d10afc6d57437d0f32e99475b3",
       "source": "NeuxBot phase-one target profile"
     },
     {
       "path": "neuxbot-extension.schema.json",
-      "sha256": "61447080d683dc93a962b876d5a3795111ebb4ea0f57e491b1e5bc8b7cca092c",
+      "sha256": "b709a9e038c67d25c402b92f4cc1a7e5179045a7bdeb3cb6a0918f9bfb92f845",
       "source": "NeuxBot phase-one target profile"
     },
     {
       "path": "neuxbot-presentation.schema.json",
-      "sha256": "7c7cade80fc1427e5b3c02af79ba2c1bf4aaec6be4f1669cc2d5aa96cfc969d2",
+      "sha256": "bdc85cf99f9e4bfb69c001ce31f8c91487c3cda20c2ab6d74e7646083fb3b911",
       "source": "NeuxBot phase-one target profile"
     },
     {
       "path": "provenance.schema.json",
-      "sha256": "0af93a9fa4b714a04fcff00abcd1bfbfc72fb11d6f36dd4e9b17a9d9fb44fd5d",
+      "sha256": "1935a410c7bc4da94a8fe990ad5bf42e65d9e518a02e8de54aa18b24be8e5de8",
       "source": "NeuxBot phase-one target profile"
     },
     {
       "path": "details.schema.json",
-      "sha256": "f1b9850ee28246c79f7585273d8570876374f3684a8fde0960db3d67bd315eea",
+      "sha256": "d3ea3c8254578720bdaf87f1cd3dfea58d30d36400bddf3fe48ce96d6ee3286e",
       "source": "NeuxBot phase-one target profile"
     },
     {
       "path": "catalog.schema.json",
-      "sha256": "974b757b966f1be74ebe05f0ca908e2227cbd040fc5dcae397e7ab1c17e6cef1",
+      "sha256": "83286e3d8005d900ceb898a01ecea29d42b772b3c276363f9b7335af7a96c0b9",
       "source": "NeuxBot phase-one target profile"
     }
   ]

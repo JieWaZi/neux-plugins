@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/JieWaZi/NeuxAlly-Plugins/schemas/auth-presentation.schema.json",
+  "$id": "https://github.com/JieWaZi/neux-plugins/schemas/auth-presentation.schema.json",
   "title": "Package-owned authentication challenge presentation",
   "type": "object",
   "additionalProperties": false,

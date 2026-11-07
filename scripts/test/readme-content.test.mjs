@@ -9,7 +9,7 @@ test('维护包中英文业务说明不包含宿主角色或聊天安装引导',
       const file = new URL(`../../plugins/${plugin}/${name}`, import.meta.url);
       const content = await readFile(file, 'utf8');
       assert.doesNotMatch(content, /^\[English\].*\[简体中文\]/mu, `${plugin}/${name}: locale is selected by the host`);
-      assert.doesNotMatch(content, /伙伴|\bpartners?\b|NeuxAlly|插件库|plugin library|打开对话|在对话中|试着这样说|try asking|\bconversation\b/iu, `${plugin}/${name}`);
+      assert.doesNotMatch(content, /伙伴|\bpartners?\b|NeuxBot|插件库|plugin library|打开对话|在对话中|试着这样说|try asking|\bconversation\b/iu, `${plugin}/${name}`);
     }
   }
 });

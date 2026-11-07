@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { validateProvenance } from '../provenance.mjs';
 
-const source = { schemaVersion: 1, upstream: { author: 'Example contributors', repository: 'https://github.com/example/example', license: 'MIT', commit: 'a'.repeat(40), tag: 'v1.2.3', distribution: { mode: 'vendored-source' } }, wrapper: { maintainer: 'NeuxAlly contributors', repository: 'https://github.com/JieWaZi/NeuxAlly-Plugins', license: 'MIT', changes: ['Maintained manifest and authorization bridge'] }, dependencies: [], assets: [] };
+const source = { schemaVersion: 1, upstream: { author: 'Example contributors', repository: 'https://github.com/example/example', license: 'MIT', commit: 'a'.repeat(40), tag: 'v1.2.3', distribution: { mode: 'vendored-source' } }, wrapper: { maintainer: 'NeuxBot contributors', repository: 'https://github.com/JieWaZi/neux-plugins', license: 'MIT', changes: ['Maintained manifest and authorization bridge'] }, dependencies: [], assets: [] };
 const validate = data => validateProvenance({ data, packagePath: 'plugins/example', manifest: {}, read: () => { throw new Error('unexpected file read'); } });
 
 test('维护包统一来源结构，业务署名版本直接来自upstream而非包装和授权CLI', async () => {

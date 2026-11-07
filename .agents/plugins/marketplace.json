@@ -1,7 +1,7 @@
 {
-  "name": "neuxally-plugins",
+  "name": "neux-plugins",
   "interface": {
-    "displayName": "NeuxAlly Plugins"
+    "displayName": "Neux Plugins"
   },
   "plugins": [
     {
