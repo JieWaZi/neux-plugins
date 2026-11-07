@@ -2,7 +2,7 @@
 
 [English](PROVENANCE.md) | [简体中文](PROVENANCE.zh-CN.md)
 
-每个维护包都提供同结构的 `provenance.json`，字段遵循[统一 schema](../schemas/provenance.schema.json)。它记录来源和展示证据，不代替标准插件清单，也不用于动态引用或装载其他供应商的原生插件。标准身份、内部包版本与真实组件仍在 `.codex-plugin/plugin.json`、Skills 和 MCP 文件中维护。宿主直接读取上游声明，不从插件名称、业务品牌或授权程序推断。
+每个维护包都提供同结构的 `provenance.json`，字段遵循[统一 schema](../schemas/provenance.schema.json)。它记录来源和展示证据，不代替标准插件清单，也不用于动态引用或装载其他供应商的原生插件。标准身份、内部包版本与真实组件仍在 根 `plugin.json`、Skills 和 MCP 文件中维护。宿主直接读取上游声明，不从插件名称、业务品牌或授权程序推断。
 
 | 层级 | 必填内容 | 职责 |
 | --- | --- | --- |

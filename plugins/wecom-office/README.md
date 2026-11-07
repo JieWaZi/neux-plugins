@@ -1,4 +1,4 @@
-# WeCom Office
+# WeCom
 
 Work with WeCom documents, spreadsheets, calendars, meetings, tasks, email, contacts and Drive files within existing permissions.
 

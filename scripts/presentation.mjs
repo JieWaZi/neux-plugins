@@ -1,6 +1,7 @@
 import { inflateSync } from 'node:zlib';
+import { validateSchema } from './schema.mjs';
 
-const maxIconBytes = 128 * 1024;
+const maxIconBytes = 256 * 1024;
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 
 function crc32(content) {
@@ -49,26 +50,33 @@ function pngIcon(content) {
   return `data:image/png;base64,${content.toString('base64')}`;
 }
 
-// 附加文件只承载本地化展示，不接纳身份、组件或任意文档路径。
+// 标准 interface 是作者唯一来源；本地化资料必须由新宿主扩展显式引用。
 export function catalogPresentation({ manifest, packagePath, has, read }) {
-  const result = {}, filename = `${packagePath}/.neuxally/presentation.json`;
-  if (has(filename)) {
-    const bytes = read(filename);
-    if (bytes.length > 20 * 1024) throw new Error('presentation metadata too large');
-    const value = JSON.parse(bytes);
-    if (!object(value) || Object.keys(value).some(key => !['displayNames', 'localizedDescriptions'].includes(key))) throw new Error('invalid presentation fields');
-    for (const [key, translations] of Object.entries(value)) {
-      if (!object(translations)) throw new Error('invalid presentation locale map');
-      for (const [locale, text] of Object.entries(translations)) {
-        if (!['en', 'zh-CN'].includes(locale) || typeof text !== 'string' || !text.trim() || Buffer.byteLength(text) > 4096 || /[\u0000-\u001f]/u.test(text)) throw new Error('invalid presentation locale text');
-      }
-      if (Object.keys(translations).length) result[key] = translations;
+  validateSchema('openai-plugin.schema.json', manifest.extensions?.['com.openai'] ?? {});
+  const source = manifest.extensions?.['com.openai']?.interface ?? {};
+  const result = { displayName: source.displayName || manifest.name, shortDescription: source.shortDescription || manifest.description || '', developerName: source.developerName || manifest.author?.name || '' };
+  for (const key of ['longDescription', 'category', 'websiteURL', 'privacyPolicyURL', 'termsOfServiceURL', 'supportURL']) if (source[key]) result[key] = source[key];
+  if (source.defaultPrompt !== undefined) result.defaultPrompt = typeof source.defaultPrompt === 'string' ? [source.defaultPrompt] : [...source.defaultPrompt];
+  if (source.capabilities) result.capabilities = [...source.capabilities];
+  if (source.brandColor || source.brandColorDark) result.brandColor = { ...(source.brandColor ? { default: source.brandColor } : {}), ...(source.brandColorDark ? { dark: source.brandColorDark } : {}) };
+  const icons = { default: source.logo ?? source.composerIcon, dark: source.logoDark ?? source.composerIconDark };
+  if (icons.default || icons.dark) {
+    result.icons = {};
+    for (const [theme, value] of Object.entries(icons)) {
+      if (value === undefined) continue;
+      if (typeof value !== 'string' || !/^\.\/assets\/(?:[^/\\:\x00-\x1f]+\/)*[^/\\:\x00-\x1f]+\.png$/.test(value) || value.split('/').slice(1).some(part => part === '.' || part === '..')) throw new Error('invalid icon asset path');
+      result.icons[theme] = pngIcon(read(`${packagePath}/${value.slice(2)}`));
     }
+    result.icon = result.icons.default;
   }
-  const reference = manifest.interface?.logo ?? manifest.interface?.composerIcon;
-  if (reference !== undefined) {
-    if (typeof reference !== 'string' || !/^\.\/assets\/(?:[^/\\:\x00-\x1f]+\/)*[^/\\:\x00-\x1f]+\.png$/.test(reference) || reference.split('/').slice(1).some(part => part === '.' || part === '..')) throw new Error('invalid icon asset path');
-    result.icon = pngIcon(read(`${packagePath}/${reference.slice(2)}`));
+  const referencePath = manifest.extensions?.['com.neuxbot']?.presentation;
+  if (referencePath) {
+    const filename = `${packagePath}/${referencePath.replace(/^\.\//, '')}`;
+    if (!has(filename)) throw new Error('declared presentation is missing');
+    const bytes = read(filename); if (bytes.length > 1024 * 1024) throw new Error('presentation metadata too large');
+    const localized = JSON.parse(bytes); validateSchema('neuxbot-presentation.schema.json', localized);
+    for (const key of ['displayNames', 'localizedDescriptions', 'defaultPromptLocalizations', 'setup']) if (localized[key]) result[key] = structuredClone(localized[key]);
+    for (const translations of Object.values(localized.defaultPromptLocalizations ?? {})) if (translations.length !== (result.defaultPrompt?.length ?? 0)) throw new Error('localized defaultPrompt array length differs from standard prompts');
   }
   return result;
 }

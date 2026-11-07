@@ -3,13 +3,13 @@ import assert from 'node:assert/strict';
 import { mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { parseChallengePresentation, loadChallengePresentation } from '../../plugins/feishu-office/.neuxally/auth/presentation.mjs';
+import { parseChallengePresentation, loadChallengePresentation } from '../../plugins/feishu-office/.neuxbot/auth/presentation.mjs';
 
 const value = { schemaVersion: 1, notices: { initialSetup: { messages: { en: 'After setup, scan again to authorize your account.', 'zh-CN': '完成应用设置后，还需再次扫码完成账号与权限授权。' } } } };
 const bytes = value => Buffer.from(JSON.stringify(value));
 
 test('包内声明可靠读取中英文提示，消息字节与原声明一致', async () => {
-  const raw = await readFile(new URL('../../plugins/feishu-office/.neuxally/auth/presentation.json', import.meta.url));
+  const raw = await readFile(new URL('../../plugins/feishu-office/.neuxbot/auth/presentation.json', import.meta.url));
   assert.deepEqual(await loadChallengePresentation(), JSON.parse(raw));
   assert.equal(parseChallengePresentation(raw).notices.initialSetup.messages['zh-CN'], '首次扫码完成应用设置后，还需再次扫码完成账号与权限授权。');
   assert.deepEqual(parseChallengePresentation(bytes(value)), value);

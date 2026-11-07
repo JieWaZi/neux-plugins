@@ -125,7 +125,7 @@ export async function buildGitHubProvider({ root = repositoryRoot, sourceArchive
     // 构建和校验全部成功后才发布生成锁；失败不会留下指向半套资产的锁。
     const destination = path.join(root, 'dist/providers'); await mkdir(destination, { recursive: true });
     for (const filename of [...targets.map(assetFilename), noticesName]) await rename(path.join(output, filename), path.join(destination, filename));
-    const auth = path.join(root, 'plugins/github/.neuxally/auth');
+    const auth = path.join(root, 'plugins/github/.neuxbot/auth');
     await writeAtomic(path.join(auth, 'THIRD_PARTY_NOTICES.cli.txt'), notices);
     await writeAtomic(path.join(auth, 'assets.lock.json'), `${JSON.stringify(lock, null, 2)}\n`);
     return lock;

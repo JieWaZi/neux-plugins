@@ -1,55 +1,25 @@
-# 目录、只读资料与安装归档
+# 标准包、目录与公开资料
 
 [English](DETAILS.md) | [简体中文](DETAILS.zh-CN.md)
 
-阅读插件说明不需要先为伙伴安装插件，也不需要授权账号。发现、阅读与执行使用不同产物：
+每个逻辑包只使用根 `plugin.json`、固定 `skills/` 和 `mcp.json`。根清单声明 Agent Plugins 1.0.0；OpenAI 展示来自 `extensions.com.openai.interface`，宿主扩展来自 `extensions.com.neuxbot`（schemaVersion 1）。不提供 Codex／Claude 输入、原生来源引用或旧命名空间兼容。
 
-| 产物 | 内容 | 使用时机 |
-| --- | --- | --- |
-| `catalog.json` | 少量身份与展示资料、核验后内嵌图标、归档及可选侧车引用 | 浏览插件库 |
-| `<key>.details.json` | 公开元数据、中英文 README 与原始 SKILL.md | 打开详情、完整说明或技能正文 |
-| `<key>.zip` | 完整标准包、技能资料和脚本、MCP 配置、授权桥接、许可与来源 | 准备、校验和安装实际执行能力 |
+发布前使用 `npm ci` 恢复精确锁版的 AJV、ajv-formats 与 YAML 解析器。`schemas/schema-lock.json` 固定所有本地 Schema 的 SHA-256；校验不下载可变 Schema。官方 MCP 1.0.0 Schema 尚不含服务级 OpenAI 扩展，因此分别验证剥离该命名空间后的标准核心及本地 OpenAI 目标 profile，保留官方字节不改。profile 不是另一套官方标准。
 
-构建器从同一固定 Git 提交派生三类产物，不额外维护第二份组件清单。标准 SKILL frontmatter 由精确锁版的 `yaml` 构建依赖解析，正确处理引号和多行描述；非法 YAML、重复键会阻止发布。通过 `npm ci` 按 `package-lock.json` 恢复构建依赖，该依赖不安装到用户 CLI，也不是包内授权程序依赖。
+| 产物 | 当前版本及内容 |
+| --- | --- |
+| catalog.json | schemaVersion 1；安全身份、分类、本地化、默认图标、来源提交、归档和必需的公开资料引用 |
+| key.details.json | schemaVersion 1；绑定同一 sourceCommit、archiveSHA256、packagePath 的公开展示及原始 README／SKILL.md |
+| key.zip | 完整标准源包、资源、授权程序、许可、来源与执行位 |
 
-## 协议
+资料最大 4 MiB，每份 README／SKILL.md 最大 1 MiB；全部摘要和大小均按最终 UTF-8 字节计算。目录缺失或损坏资料时明确失败，不下载 ZIP 补详情。ZIP 只在明确准备安装时下载并完整校验。
 
-目录条目继续使用 `schemaVersion: 2`，可选 `detailsURL`、`detailsSHA256`、`detailsSize` 三字段全有或全无，新构建始终生成。侧车采用 UTF-8 JSON，完整序列化结果最多 **4 MiB**；size 是精确字节数，不是字符数。客户端先验证长度及 SHA-256，再读取资料。旧目录缺少三个字段时可保留宿主既有完整归档兼容路径；已声明的侧车校验失败时不得静默切换其他快照或归档。
+公开 Package 的 contractVersion 为 `neuxbot-plugin/1`，format 为 `agent-plugins`。manifest 仅公开标准身份和作者资料；presentation 包含归一为数组的 defaultPrompt、等长的 defaultPromptLocalizations、能力描述、支持链接、默认／暗色品牌色和分别校验的内嵌图标，以及静态 setup.instructions／helpURL。不存在的资料保持缺省，不伪造另一主题资产或业务版本。技能只发现固定 skills 下的直接子目录，不维护第二份组件清单。
 
-[侧车 schema](../schemas/details.schema.json) 定义：
+公开 MCP 仅含组件键、传输、移除用户信息／查询／片段的 URL 及安全的标准认证说明。integration.authentication 仅包含 strategy、protocol、preferredAction、scopes。程序入口、argv、环境、请求头、秘密绑定、配置值和凭据不得进入公开资料。README 与 SKILL.md 本身也必须经过公开内容审核。
 
-```json
-{
-  "schemaVersion": 1,
-  "sourceCommit": "固定完整来源提交",
-  "archiveSHA256": "对应完整ZIP的摘要",
-  "packagePath": "plugins/example",
-  "package": {
-    "manifest": {}, "format": "codex", "presentation": {}, "upstream": {},
-    "skills": [], "servers": [], "diagnostics": []
-  },
-  "readmes": { "en": "英文README原始UTF-8文本", "zh-CN": "中文README文本" },
-  "skillContents": { "skills/example": "原始完整UTF-8 SKILL.md正文" }
-}
-```
+标准 MCP `none` 和通过显式配置或包内账号驱动绑定的 `api_key` 由当前宿主目标支持。`oauth`、`mixed` 与阶段二 management 声明明确拒绝，不降级匿名。`com.neuxbot` 的配置使用 fields／bindings；账号驱动使用 `neuxbot-auth/1` 的固定上下文初始化。技能账号材料还须匹配 skillBindings 的环境和私有路径允许键，不能扩大组件范围。
 
-`sourceCommit`、`archiveSHA256`、`packagePath` 必须与选中的目录条目逐项一致；manifest 的名称和版本也须与目录一致，将公开说明绑定到可安装快照。内部包版本保持 `0.1.0`，实际业务作者及版本继续直接读取[上游来源](PROVENANCE.zh-CN.md)。
+构建器只读取指定 Git 提交的对象。验收未提交改动时，应复制到独立临时 Git 仓库并仅在该临时仓库提交，再调用 buildCatalog；不得把工作区内容混入已有提交的发布产物。产物联验不等于上传 Release，也不授权提交或发布真实仓库。
 
-`package` 是宿主现有公开 Package 的只读子集：
-
-- `manifest`：名称、版本、描述、作者公开 name/email/URL、主页、仓库、许可与关键词；不包含组件执行声明和任意扩展。
-- `presentation`：受支持的展示文字、安全的公开政策／网站地址和中英文翻译；`icon` 独立保存核验后的内嵌数据 URI。
-- `upstream`：原始核验后的来源声明，保留固定源码或托管服务语义。
-- `skills`：从标准默认及显式技能路径派生 key/name/description/path，不复制执行 digest。key 是 `skills/lark-doc` 这样的包内技能目录。
-- `servers`：仅 key/type 与可选公开 URL，标准 `http` 统一映射为现有公开 API 的 `streamable-http`；含账号、查询参数或片段的 URL 不展示，不复制 command、args、env、headers。
-- `integration.authentication`：仅 strategy/protocol/preferredAction/scopes，不复制桥接命令、参数、秘密绑定、凭据与未知字段。已核验维护包的 `diagnostics` 为空数组。
-
-README 不在 `package` 中重复保存；Core 按语言选择 `readmes` 并投射到既有公开 README 响应。`skillContents` 的键与技能目录 key 逐项相同，值保留完整 SKILL.md 文本及其 frontmatter、换行，不复制参考资料、脚本与附件。其他技能资源只走宿主明确支持的已安装内容路径，不能因查看只读资料而隐式下载整个 ZIP。
-
-源 README 与 SKILL.md 必须是经审核的公开内容，不允许嵌入真实秘密。白名单投射防止执行配置及桥接私密绑定被序列化，不代表可以把秘密写进公开说明。单文档上限 1 MiB，完整侧车上限 4 MiB。当前飞书有 28 个 SKILL.md，共 316,998 原始字节，为 JSON 转义、两份 README、元数据和图标留有空间，同时不打包完整资源树。
-
-## 发布及职责
-
-以 Release 标签对应的固定提交生成侧车、完整 ZIP、目录与校验文件。先上传完整 ZIP 及两个侧车，再替换目录，使新索引只引用已就绪资产。当前测试发布继续用 `v0.1.0`。既有固定程序二进制和许可保持原资产身份及摘要，文档变更不重构建或替换它们。
-
-宿主将核验后的公开资料缓存与完整安装归档分开。资料缓存不创建伙伴安装、授权会话或账号记录。安装与授权仍是明确操作；执行继续验证完整 ZIP 和标准包，不把这个展示子集当成可执行配置。
+`node scripts/build-review-snapshot.mjs` 将开发快照构建到 `.cache/development/catalog`；`--out` 可选择 `.cache` 下的其他目录。它排除已有缓存，不修改真实 Git 索引，使用可重现的合成提交，构建后清理临时源码。生成目录仍声明发布下载地址，供宿主明确选择的本地开发启动器提供工件服务并重写下载地址；不能把合成开发快照作为正式 Release 发布。正式构建继续使用真实仓库已审查的提交。

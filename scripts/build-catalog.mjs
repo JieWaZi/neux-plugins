@@ -1,4 +1,5 @@
 import { packageDetails, encodeDetails } from './details.mjs';
+import { validateStandardPackage, validateSchema } from './schema.mjs';
 import { validateProvenance } from './provenance.mjs';
 import { catalogPresentation } from './presentation.mjs';
 import { execFileSync } from 'node:child_process';
@@ -7,7 +8,7 @@ import { cp, mkdir, mkdtemp, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const repository = 'https://github.com/JieWaZi/NeuxAlly-Plugins';
+const repository = 'https://github.com/JieWaZi/neux-plugins';
 const safePath = value => typeof value === 'string' && value.length > 0 && !value.includes('\\') && !value.includes(':') && value.split('/').every(part => part && part !== '.' && part !== '..' && !part.includes('\0'));
 
 // 构建只读取 Git 对象，工作区改动与文件时间不影响指定提交的产物。
@@ -49,7 +50,7 @@ export async function buildCatalog({ root, out, sourceCommit, tag = 'v0.1.0' }) 
     entry.content = execFileSync('git', ['-C', root, 'cat-file', 'blob', entry.oid], { maxBuffer: 64 * 1024 * 1024 });
     return entry.content;
   };
-  const manifests = [...tree.keys()].filter(name => /^plugins\/[^/]+\/\.codex-plugin\/plugin.json$/.test(name)).sort();
+  const manifests = [...tree.keys()].filter(name => /^plugins\/[^/]+\/plugin.json$/.test(name)).sort();
   if (!manifests.length) throw new Error('no canonical plugin manifests');
   const artifacts = [], entries = [];
   for (const filename of manifests) {
@@ -57,25 +58,25 @@ export async function buildCatalog({ root, out, sourceCommit, tag = 'v0.1.0' }) 
     if (!/^[a-z0-9][a-z0-9-]*$/.test(key)) throw new Error('unsafe plugin key');
     const manifest = JSON.parse(read(filename));
     if (manifest.name !== key || typeof manifest.version !== 'string' || !manifest.version || typeof manifest.description !== 'string') throw new Error(`invalid logical manifest: ${filename}`);
+    validateStandardPackage({ manifest, packagePath, names:()=>[...tree.keys()], has:name=>tree.has(name), read });
     const presentation = catalogPresentation({ manifest, packagePath, has: name => tree.has(name), read });
     const provenancePath = `${packagePath}/provenance.json`;
     if (!tree.has(provenancePath)) throw new Error(`missing provenance: ${provenancePath}`);
     const provenance = validateProvenance({ data: JSON.parse(read(provenancePath)), packagePath, manifest, read });
-    const integrationPath = `${packagePath}/.neuxally/integration.json`;
-    if (tree.has(integrationPath) && Object.hasOwn(JSON.parse(read(integrationPath)), 'nativePlugins')) throw new Error('canonical package cannot use native references');
     const selected = [...tree.keys()].filter(name => ['LICENSE', 'THIRD_PARTY_NOTICES.md'].includes(name) || name.startsWith('patches/') || name.startsWith(`${packagePath}/`)).sort();
     const archiveFiles = selected.map(name => ({ name, mode: tree.get(name).mode, content: read(name) }));
     // 每个完整自有标准包附带合法本地索引；宿主适配其他格式，不维护第二份能力定义。
-    const codexIndex = { name: `neuxally-${key}`, interface: { displayName: manifest.interface?.displayName || manifest.name }, plugins: [{ name: manifest.name, source: { source: 'local', path: `./${packagePath}` } }] };
+    const codexIndex = { name: `neuxbot-${key}`, interface: { displayName: manifest.extensions?.['com.openai']?.interface?.displayName || manifest.name }, plugins: [{ name: manifest.name, source: { source: 'local', path: `./${packagePath}` } }] };
     archiveFiles.push({ name: '.agents/plugins/marketplace.json', mode: '100644', content: Buffer.from(`${JSON.stringify(codexIndex, null, 2)}\n`) });
     const archive = zip(archiveFiles.sort((a, b) => Buffer.compare(Buffer.from(a.name), Buffer.from(b.name))));
     const archiveName = `${key}.zip`; artifacts.push([archiveName, archive]);
     const archiveSHA256 = createHash('sha256').update(archive).digest('hex');
     const details = encodeDetails(packageDetails({ sourceCommit, archiveSHA256, packagePath, manifest, presentation, provenance, names: () => [...tree.keys()], has: name => tree.has(name), read }));
     const detailsName = `${key}.details.json`; artifacts.push([detailsName, details]);
-    entries.push({ key, sourceCommit, archiveURL: `${repository}/releases/download/${tag}/${archiveName}`, archiveSHA256, packagePath, name: manifest.name, version: manifest.version, description: manifest.description, format: 'codex', ...presentation, detailsURL: `${repository}/releases/download/${tag}/${detailsName}`, detailsSHA256: createHash('sha256').update(details).digest('hex'), detailsSize: details.length });
+    entries.push({ key, sourceCommit, archiveURL: `${repository}/releases/download/${tag}/${archiveName}`, archiveSHA256, packagePath, name: manifest.name, version: manifest.version, description: manifest.description, format: 'agent-plugins', ...Object.fromEntries(['icon','icons','displayNames','localizedDescriptions','category'].filter(key=>presentation[key] !== undefined).map(key=>[key,presentation[key]])), detailsURL: `${repository}/releases/download/${tag}/${detailsName}`, detailsSHA256: createHash('sha256').update(details).digest('hex'), detailsSize: details.length });
   }
-  const catalog = { schemaVersion: 2, entries };
+  const catalog = { schemaVersion: 1, entries };
+  validateSchema('catalog.schema.json', catalog);
   // 所有校验和归档完成后才替换输出；失败不留下可被误发布的半包。
   await mkdir(path.dirname(out), { recursive: true });
   const stage = await mkdtemp(`${out}.tmp-`);

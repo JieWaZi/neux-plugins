@@ -54,7 +54,7 @@ try {
   const noticesText = `${notices.join('\n\n----------------------------------------\n\n').trimEnd()}\n`;
   const noticesName = `lark-cli-${version}-NOTICES.txt`;
   await writeFile(path.join(output, noticesName), noticesText);
-  await writeFile(path.join(root, 'plugins/feishu-office/.neuxally/auth/THIRD_PARTY_NOTICES.cli.txt'), noticesText);
+  await writeFile(path.join(root, 'plugins/feishu-office/.neuxbot/auth/THIRD_PARTY_NOTICES.cli.txt'), noticesText);
   const assets = {};
   for (const target of selected) {
     if (!/^(darwin|linux|windows)-(amd64|arm64)$/.test(target)) throw new Error(`unsupported build target: ${target}`);
@@ -67,7 +67,7 @@ try {
     console.log(`Built ${target}: ${hash(bytes)}`);
   }
   const lock = { schemaVersion: 1, version, notices: { url: `https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/${noticesName}`, sha256: hash(noticesText) }, source: { repository: 'https://github.com/larksuite/cli', commit, archiveURL: sourceURL, archiveSHA256: sourceSHA256, toolchain: 'go1.25.8', patchSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation.patch'))), verificationSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation_test.go'))), storageVerificationSHA256: hash(await readFile(path.join(root, 'patches/lark-storage-isolation_darwin_test.go'))) }, assets };
-  const lockPath = path.join(root, 'plugins/feishu-office/.neuxally/auth/assets.lock.json');
+  const lockPath = path.join(root, 'plugins/feishu-office/.neuxbot/auth/assets.lock.json');
   // 部分目标用于增量重建；完整发布必须提供六个平台，禁止伪造缺失摘要。
   let previous = {}; try { previous = JSON.parse(await readFile(lockPath, 'utf8')); } catch { /* 首次构建没有锁文件。 */ }
   if (previous.version === lock.version && previous.source?.patchSHA256 === lock.source.patchSHA256) lock.assets = { ...previous.assets, ...assets };

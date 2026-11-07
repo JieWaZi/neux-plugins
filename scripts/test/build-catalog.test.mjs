@@ -7,16 +7,34 @@ import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 
+const standardManifest = (ui = {}, extra = {}) => ({ $schema:'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json', name:'example', version:'0.1.0', description:'Example', extensions:{'com.openai':{interface:ui},'com.neuxbot':{schemaVersion:1,presentation:'.neuxbot/presentation.json'}}, ...extra });
+
+test('开发快照输出持久且可重现，不递归复制缓存或修改真实Git索引', async t => {
+  const f = await fixture(t);
+  const { buildReviewSnapshot } = await import('../build-review-snapshot.mjs');
+  const out = path.join(f.root, '.cache/development/catalog');
+  const before = execFileSync('git', ['-C', f.root, 'status', '--porcelain'], { encoding: 'utf8' });
+  const first = await buildReviewSnapshot({ root: f.root, out });
+  const bytes = await readFile(path.join(out, 'example.zip'));
+  const second = await buildReviewSnapshot({ root: f.root, out });
+  assert.equal(first.sourceCommit, second.sourceCommit);
+  assert.deepEqual(await readFile(path.join(out, 'example.zip')), bytes);
+  const after = execFileSync('git', ['-C', f.root, 'status', '--porcelain'], { encoding: 'utf8' });
+  assert.equal(after.replace(/^\?\? \.cache\/\n/m, ''), before);
+  await assert.rejects(buildReviewSnapshot({ root: f.root, out: f.root }), /\.cache/);
+});
+
 async function fixture(t) {
   const root = await mkdtemp(path.join(tmpdir(), 'plugin-catalog-'));
   t.after(() => rm(root, { recursive: true, force: true }));
   const put = async (name, value) => { await mkdir(path.dirname(path.join(root, name)), { recursive: true }); await writeFile(path.join(root, name), typeof value === 'string' || Buffer.isBuffer(value) ? value : JSON.stringify(value)); };
-  await put('plugins/example/.codex-plugin/plugin.json', { name: 'example', version: '0.1.0', description: '示例' });
+  await put('plugins/example/plugin.json', standardManifest({}, {description:'示例'}));
+  await put('plugins/example/.neuxbot/presentation.json', {});
   await put('plugins/example/provenance.json', { schemaVersion: 1, upstream: { author: 'Example contributors', repository: 'https://github.com/example/example', license: 'MIT', commit: 'a'.repeat(40), tag: 'v1.2.3', distribution: { mode: 'vendored-source' } }, wrapper: { maintainer: 'NeuxAlly contributors', repository: 'https://github.com/JieWaZi/NeuxAlly-Plugins', license: 'MIT', changes: ['Maintained package'] }, dependencies: [], assets: [] });
-  await put('plugins/example/.mcp.json', { mcpServers: { example: { type: 'http', url: 'https://example.com/mcp' } } });
+  await put('plugins/example/mcp.json', { $schema:'https://agent-plugins.org/schemas/1.0.0/mcp.schema.json', mcpServers: { example: { type: 'streamable-http', url: 'https://example.com/mcp' } } });
   await put('plugins/example/assets/reference.txt', 'keep complete package files\n');
-  await put('plugins/example/.neuxally/auth/authorize', '#!/bin/sh\nexit 0\n');
-  await chmod(path.join(root, 'plugins/example/.neuxally/auth/authorize'), 0o755);
+  await put('plugins/example/.neuxbot/auth/authorize', '#!/bin/sh\nexit 0\n');
+  await chmod(path.join(root, 'plugins/example/.neuxbot/auth/authorize'), 0o755);
   await put('LICENSE', 'fixture license');
   await put('THIRD_PARTY_NOTICES.md', 'fixture notices');
   execFileSync('git', ['init', '-q', root]);
@@ -34,10 +52,10 @@ test('构建固定提交的完整可重现 ZIP，记录摘要并保留执行位'
   const catalog = await buildCatalog({ root: f.root, out, sourceCommit, tag: 'v0.1.0' });
   assert.equal(await readFile(path.join(out, 'providers/lark-cli'), 'utf8'), 'fixed dependency');
   const archive = await readFile(path.join(out, 'example.zip'));
-  assert.equal(catalog.schemaVersion, 2);
+  assert.equal(catalog.schemaVersion, 1);
   assert.equal(catalog.entries.length, 1);
   assert.equal(catalog.entries[0].sourceCommit, sourceCommit);
-  assert.equal(catalog.entries[0].archiveURL, 'https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/example.zip');
+  assert.equal(catalog.entries[0].archiveURL, 'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/example.zip');
   assert.equal(catalog.entries[0].packagePath, 'plugins/example');
   assert.equal(catalog.entries[0].archiveSHA256, createHash('sha256').update(archive).digest('hex'));
   const server = createServer(async (request, response) => { try { response.end(await readFile(path.join(out, path.basename(request.url)))); } catch { response.writeHead(404).end(); } });
@@ -54,7 +72,7 @@ test('构建固定提交的完整可重现 ZIP，记录摘要并保留执行位'
   execFileSync('unzip', ['-q', path.join(out, 'example.zip'), '-d', unpack]);
   assert.equal(await readFile(path.join(unpack, 'plugins/example/assets/reference.txt'), 'utf8'), 'keep complete package files\n');
   const { stat } = await import('node:fs/promises');
-  assert.equal((await stat(path.join(unpack, 'plugins/example/.neuxally/auth/authorize'))).mode & 0o777, 0o755);
+  assert.equal((await stat(path.join(unpack, 'plugins/example/.neuxbot/auth/authorize'))).mode & 0o777, 0o755);
 });
 
 // 唯一自有包不得退回仅来源引用；失败必须保留之前已完成的产物。
@@ -63,9 +81,9 @@ test('拒绝遗留原生引用，不发布不完整包且保留已有产物', as
   const out = path.join(f.root, 'out'); const good = f.commit();
   const catalog = await buildCatalog({ root: f.root, out, sourceCommit: good });
   const archive = await readFile(path.join(out, 'example.zip'));
-  await f.put('plugins/example/.neuxally/integration.json', { nativePlugins: { codex: { path: 'codex-plugins/example' } } });
+  await f.put('plugins/example/.codex-plugin/plugin.json', {name:'legacy'});
   const bad = f.commit();
-  await assert.rejects(buildCatalog({ root: f.root, out, sourceCommit: bad }), /canonical|native reference/i);
+  await assert.rejects(buildCatalog({ root: f.root, out, sourceCommit: bad }), /canonical|native reference|legacy/i);
   assert.deepEqual(await readFile(path.join(out, 'example.zip')), archive);
   assert.deepEqual(JSON.parse(await readFile(path.join(out, 'catalog.json'), 'utf8')), catalog);
 });
@@ -78,7 +96,7 @@ test('完整标准包保留MCP声明和可直接使用的Codex本地索引，不
   const unpack = path.join(f.root, 'native'); await mkdir(unpack); execFileSync('unzip', ['-q', path.join(out, 'example.zip'), '-d', unpack]);
   const index = JSON.parse(await readFile(path.join(unpack, '.agents/plugins/marketplace.json'), 'utf8'));
   assert.equal(index.plugins[0].source.path, './plugins/example');
-  const mcp = JSON.parse(await readFile(path.join(unpack, 'plugins/example/.mcp.json'), 'utf8'));
+  const mcp = JSON.parse(await readFile(path.join(unpack, 'plugins/example/mcp.json'), 'utf8'));
   assert.equal(mcp.mcpServers.example.url, 'https://example.com/mcp');
 });
 
@@ -93,8 +111,8 @@ const presentationPNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcS
 // 删除目录展示派生、错误使用工作区图标或遗漏归档资源，会使安装前可用资料与实际包不一致。
 test('固定快照生成安装前双语展示和PNG图标，并保留两种README及包内资产', async t => {
   const f = await fixture(t);
-  await f.put('plugins/example/.codex-plugin/plugin.json', { name: 'example', version: '0.1.0', description: 'Review repository changes.', interface: { displayName: 'Example', shortDescription: 'Review repository changes.', logo: './assets/icon.png', composerIcon: './assets/icon.png' } });
-  await f.put('plugins/example/.neuxally/presentation.json', { displayNames: { en: 'Example', 'zh-CN': '示例' }, localizedDescriptions: { en: 'Review repository changes.', 'zh-CN': '检查仓库变更。' } });
+  await f.put('plugins/example/plugin.json', standardManifest({displayName:'Example',shortDescription:'Review repository changes.',logo:'./assets/icon.png',composerIcon:'./assets/icon.png'},{description:'Review repository changes.'}));
+  await f.put('plugins/example/.neuxbot/presentation.json', { displayNames: { en: 'Example', 'zh-CN': '示例' }, localizedDescriptions: { en: 'Review repository changes.', 'zh-CN': '检查仓库变更。' } });
   await f.put('plugins/example/assets/icon.png', presentationPNG);
   const provenance = JSON.parse(await readFile(path.join(f.root, 'plugins/example/provenance.json'), 'utf8'));
   provenance.assets = [{ path: 'assets/icon.png', sourceURL: 'https://example.com/icon.png', sha256: createHash('sha256').update(presentationPNG).digest('hex'), license: 'Example brand terms', attribution: 'Example' }];
@@ -129,10 +147,10 @@ for (const [label, file, content, reference] of [
 ]) {
   test(`拒绝发布${label}，不产生可被误用的catalog图标`, async t => {
     const f = await fixture(t);
-    await f.put('plugins/example/.codex-plugin/plugin.json', { name: 'example', version: '0.1.0', description: 'Example', interface: { logo: reference } });
+    await f.put('plugins/example/plugin.json', standardManifest({logo:reference}));
     await f.put(`plugins/example/${file}`, content); const sourceCommit = f.commit();
     const { buildCatalog } = await import('../build-catalog.mjs');
-    await assert.rejects(buildCatalog({ root: f.root, out: path.join(f.root, 'out'), sourceCommit }), /icon|PNG|asset/i);
+    await assert.rejects(buildCatalog({ root: f.root, out: path.join(f.root, 'out'), sourceCommit }), /icon|logo|PNG|asset|openai-plugin/i);
     assert.deepEqual(await readdir(path.join(f.root, 'out')).catch(() => []), []);
   });
 }
@@ -144,7 +162,7 @@ for (const [label, presentation] of [
   ['第二份身份', { name: 'other', displayNames: { en: 'Example' } }],
 ]) {
   test(`拒绝${label}展示附加文件`, async t => {
-    const f = await fixture(t); await f.put('plugins/example/.neuxally/presentation.json', presentation); const sourceCommit = f.commit();
+    const f = await fixture(t); await f.put('plugins/example/.neuxbot/presentation.json', presentation); const sourceCommit = f.commit();
     const { buildCatalog } = await import('../build-catalog.mjs');
     await assert.rejects(buildCatalog({ root: f.root, out: path.join(f.root, 'out'), sourceCommit }), /presentation|locale|display/i);
   });
@@ -153,7 +171,7 @@ for (const [label, presentation] of [
 
 test('拒绝通过符号链接读取图标', async t => {
   const f = await fixture(t);
-  await f.put('plugins/example/.codex-plugin/plugin.json', { name: 'example', version: '0.1.0', description: 'Example', interface: { logo: './assets/icon.png' } });
+  await f.put('plugins/example/plugin.json', standardManifest({logo:'./assets/icon.png'}));
   await f.put('plugins/example/assets/real.png', presentationPNG);
   await symlink('real.png', path.join(f.root, 'plugins/example/assets/icon.png'));
   const sourceCommit = f.commit(); const { buildCatalog } = await import('../build-catalog.mjs');
@@ -182,7 +200,7 @@ test('固定快照独立生成只读资料侧车，目录校验绑定完整ZIP�
   await f.put('plugins/example/README.md','# Example\nEnglish.\n');await f.put('plugins/example/README.zh-CN.md','# 示例\n中文。\n');await f.put('plugins/example/skills/example/SKILL.md',skill);
   const sourceCommit=f.commit(),out=path.join(f.root,'out');const {buildCatalog}=await import('../build-catalog.mjs');
   const catalog=await buildCatalog({root:f.root,out,sourceCommit});const e=catalog.entries[0];
-  assert.equal(e.detailsURL,'https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/example.details.json');
+  assert.equal(e.detailsURL,'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/example.details.json');
   const raw=await readFile(path.join(out,'example.details.json'));assert.equal(e.detailsSize,raw.length);assert.equal(e.detailsSHA256,createHash('sha256').update(raw).digest('hex'));
   const d=JSON.parse(raw);assert.equal(d.sourceCommit,e.sourceCommit);assert.equal(d.archiveSHA256,e.archiveSHA256);assert.equal(d.packagePath,e.packagePath);assert.equal(d.package.manifest.name,e.name);assert.equal(d.package.manifest.version,e.version);
   assert.equal(d.readmes.en,'# Example\nEnglish.\n');assert.equal(d.readmes['zh-CN'],'# 示例\n中文。\n');assert.equal(d.skillContents['skills/example'],skill);

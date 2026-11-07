@@ -1,3 +1,6 @@
+import { prepareSkillLauncher } from './launcher.mjs';
+import { createAuthWire } from './wire.mjs';
+const wire = createAuthWire();
 import { ensureAsset, ensureTrustedAsset } from './assets.mjs';
 import { spawn } from 'node:child_process';
 import { randomBytes, randomUUID } from 'node:crypto';
@@ -10,7 +13,7 @@ import { StringDecoder } from 'node:string_decoder';
 import { fileURLToPath } from 'node:url';
 
 const packageRoot = fileURLToPath(new URL('../..', import.meta.url));
-const requiredScopes = JSON.parse(await readFile(new URL('../integration.json', import.meta.url), 'utf8')).authentication.scopes;
+const requiredScopes = JSON.parse(await readFile(new URL('../../plugin.json', import.meta.url), 'utf8')).extensions['com.neuxbot'].authentication.scopes;
 const trustedBinary = process.env.NEUXALLY_WECOM_CLI;
 const children = new Set();
 const lifetime = new AbortController();
@@ -20,7 +23,7 @@ let identity, binary, controller, task, closing = false, state = 'unauthorized';
 const failure = code => Object.assign(new Error(code), { code });
 const emptyAccount = (configured = false) => ({ configured, available: false, scopes: [] });
 const send = value => { if (!closing) process.stdout.write(`${JSON.stringify({ jsonrpc: '2.0', ...value })}\n`); };
-const notify = (method, params) => send({ method, params: { sessionId: identity.sessionId, ...params } });
+const notify = (method, params) => send({ method, params: { ...params, operationId: wire.context.operationId, sessionId: identity.sessionId } });
 const profile = () => path.join(identity.dataDirectory, 'profile');
 
 function bind(params) {
@@ -184,8 +187,18 @@ async function stop() {
   await task;
 }
 
+
+async function materialEnvironment() {
+  const values = environment();
+  const managed = Object.fromEntries(['WECOM_CLI_CONFIG_DIR'].map(key => [key, values[key]]));
+  const launcher = await prepareSkillLauncher({ directory: identity.dataDirectory, binary, name: 'wecom-cli', prefix: 'WECOM_CLI_', environment: managed });
+  return { ...managed, PATH: launcher };
+}
+
 async function dispatch(method, params) {
+  const initialized = wire.accept(method, params);
   bind(params);
+  if (initialized) return initialized;
   if (method === 'auth/start') {
     if (state === 'pending') return { state };
     await task;
@@ -216,9 +229,10 @@ async function dispatch(method, params) {
       if (actual !== path.join(root, component.key)) throw failure('invalid_components');
       const skill = await lstat(path.join(target, 'SKILL.md')).catch(() => { throw failure('invalid_components'); });
       if (!skill.isFile() || skill.isSymbolicLink()) throw failure('invalid_components');
-      seen.add(component.componentId); bindings.push({ componentId: component.componentId, environment: environment() });
+      seen.add(component.componentId); bindings.push({ componentId: component.componentId });
     }
-    return { bindings };
+    const environment = await materialEnvironment();
+    return { bindings: bindings.map(binding => ({ ...binding, environment })) };
   }
   throw failure('method_not_found');
 }

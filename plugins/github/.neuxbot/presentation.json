@@ -1,0 +1,27 @@
+{
+  "displayNames": {
+    "en": "GitHub",
+    "zh-CN": "GitHub"
+  },
+  "localizedDescriptions": {
+    "en": "Search GitHub repositories, issues and pull requests, and assist with code review and collaboration.",
+    "zh-CN": "检索 GitHub 仓库、议题和拉取请求，协助代码审查与协作。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Summarize the open issues and recent pull requests in a GitHub repository.",
+      "Review a GitHub pull request for correctness and missing tests."
+    ],
+    "zh-CN": [
+      "总结 GitHub 仓库中的未解决议题和近期拉取请求。",
+      "审查 GitHub 拉取请求的正确性和缺失测试。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Connect your GitHub account and grant the scopes required for the repositories you want to access.",
+      "zh-CN": "连接 GitHub 账号，并授予访问目标仓库所需的权限。"
+    },
+    "helpURL": "https://support.github.com"
+  }
+}

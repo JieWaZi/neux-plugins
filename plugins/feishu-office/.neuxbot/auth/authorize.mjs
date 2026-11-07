@@ -1,3 +1,6 @@
+import { prepareSkillLauncher } from './launcher.mjs';
+import { createAuthWire } from './wire.mjs';
+const wire = createAuthWire();
 import { loadChallengePresentation } from './presentation.mjs';
 import { ensureAsset, ensureTrustedAsset } from './assets.mjs';
 import { spawn } from 'node:child_process';
@@ -9,14 +12,14 @@ import { fileURLToPath } from 'node:url';
 
 const authPresentation = await loadChallengePresentation();
 const packageRoot = fileURLToPath(new URL('../..', import.meta.url));
-const requiredScopes = JSON.parse(await readFile(new URL('../integration.json', import.meta.url), 'utf8')).authentication.scopes;
+const requiredScopes = JSON.parse(await readFile(new URL('../../plugin.json', import.meta.url), 'utf8')).extensions['com.neuxbot'].authentication.scopes;
 const trustedBinary = process.env.NEUXALLY_LARK_CLI;
 let binary;
 const children = new Set(); let identity, task, controller, state = 'unauthorized';
 const send = value => process.stdout.write(`${JSON.stringify({ jsonrpc: '2.0', ...value })}\n`);
 const failure = code => Object.assign(new Error(code), { code });
 const emptyAccount = () => ({ configured: false, available: false, scopes: [] });
-const notify = (method, params) => send({ method, params: { sessionId: identity.sessionId, ...params } });
+const notify = (method, params) => send({ method, params: { ...params, operationId: wire.context.operationId, sessionId: identity.sessionId } });
 
 function bind(params) {
   if (!params || !params.sessionId || !params.pluginId || !path.isAbsolute(params.dataDirectory ?? '') || !Array.isArray(params.scopes) || params.scopes.some(scope => !requiredScopes.includes(scope))) throw failure('invalid_session');
@@ -34,6 +37,14 @@ function environment() {
   result.LARKSUITE_CLI_NO_UPDATE_NOTIFIER = '1'; result.LARKSUITE_CLI_NO_SKILLS_NOTIFIER = '1';
   result.PATH = `${path.dirname(binary)}${path.delimiter}${process.env.PATH ?? ''}`;
   return result;
+}
+
+
+async function materialEnvironment() {
+  const values = environment();
+  const managed = Object.fromEntries(['LARKSUITE_CLI_CONFIG_DIR', 'LARKSUITE_CLI_DATA_DIR', 'LARKSUITE_CLI_NO_UPDATE_NOTIFIER', 'LARKSUITE_CLI_NO_SKILLS_NOTIFIER'].map(key => [key, values[key]]));
+  const launcher = await prepareSkillLauncher({ directory: identity.dataDirectory, binary, name: 'lark-cli', prefix: 'LARKSUITE_CLI_', environment: managed });
+  return { ...managed, PATH: launcher };
 }
 
 async function prepare() {
@@ -116,7 +127,9 @@ async function stop() {
 }
 
 async function dispatch(method, params) {
+  const initialized = wire.accept(method, params);
   bind(params);
+  if (initialized) return initialized;
   if (method === 'auth/start') {
     if (task && state === 'pending') return { state };
     state = 'pending'; controller = new AbortController();
@@ -135,9 +148,10 @@ async function dispatch(method, params) {
     for (const component of params.components) {
       if (component.target !== 'skill' || !component.componentId || seen.has(component.componentId) || !/^skills\/[a-z0-9-]+$/.test(component.key ?? '') || component.url) throw failure('invalid_components');
       await access(path.join(packageRoot, component.key, 'SKILL.md')); seen.add(component.componentId);
-      bindings.push({ componentId: component.componentId, environment: environment() });
+      bindings.push({ componentId: component.componentId });
     }
-    return { bindings };
+    const environment = await materialEnvironment();
+    return { bindings: bindings.map(binding => ({ ...binding, environment })) };
   }
   throw failure('method_not_found');
 }

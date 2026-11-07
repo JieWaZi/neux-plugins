@@ -5,7 +5,7 @@ import { gzipSync } from 'node:zlib';
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
-import { ensureAsset, extractCommand } from '../../plugins/wecom-office/.neuxally/auth/assets.mjs';
+import { ensureAsset, extractCommand } from '../../plugins/wecom-office/.neuxbot/auth/assets.mjs';
 
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 function tarMember(name, bytes, type = 48) {
@@ -60,6 +60,6 @@ test('tar 只接受唯一普通程序，不接受符号链接、重复条目、�
 });
 
 test('不支持的平台在下载前准确拒绝', async () => {
-  const lock = JSON.parse(await readFile(new URL('../../plugins/wecom-office/.neuxally/auth/assets.lock.json', import.meta.url)));
+  const lock = JSON.parse(await readFile(new URL('../../plugins/wecom-office/.neuxbot/auth/assets.lock.json', import.meta.url)));
   await assert.rejects(ensureAsset({ dataDirectory: '/unused', platform: 'win32', arch: 'arm64', lock, fetcher: () => { throw new Error('must not fetch'); } }), /unsupported_asset/);
 });

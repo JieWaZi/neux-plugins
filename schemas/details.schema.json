@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/JieWaZi/NeuxAlly-Plugins/schemas/details.schema.json",
-  "title": "NeuxAlly read-only plugin details",
+  "title": "NeuxBot read-only standard plugin details",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -43,7 +43,8 @@
         "upstream",
         "skills",
         "servers",
-        "diagnostics"
+        "diagnostics",
+        "contractVersion"
       ],
       "properties": {
         "manifest": {
@@ -54,7 +55,8 @@
             "version",
             "description",
             "author",
-            "keywords"
+            "keywords",
+            "$schema"
           ],
           "properties": {
             "name": {
@@ -96,71 +98,191 @@
               "items": {
                 "type": "string"
               }
+            },
+            "$schema": {
+              "const": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
             }
           }
         },
         "format": {
-          "type": "string",
-          "enum": [
-            "codex"
-          ]
+          "const": "agent-plugins"
         },
         "presentation": {
           "type": "object",
-          "additionalProperties": false,
-          "required": [],
           "properties": {
             "displayName": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 4096
             },
             "shortDescription": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 4096
             },
             "longDescription": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 4096
             },
             "developerName": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 4096
             },
             "category": {
-              "type": "string"
+              "type": "string",
+              "maxLength": 4096
             },
             "websiteURL": {
-              "type": "string"
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https?://"
             },
             "privacyPolicyURL": {
-              "type": "string"
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https?://"
             },
             "termsOfServiceURL": {
-              "type": "string"
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https?://"
+            },
+            "supportURL": {
+              "type": "string",
+              "format": "uri",
+              "pattern": "^https?://"
+            },
+            "capabilities": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "maxItems": 64
+            },
+            "defaultPrompt": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "maxItems": 20
+            },
+            "brandColor": {
+              "type": "object",
+              "properties": {
+                "default": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$"
+                },
+                "dark": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            "icons": {
+              "type": "object",
+              "properties": {
+                "default": {
+                  "type": "string",
+                  "pattern": "^data:image/(?:png|jpeg|gif|svg\\+xml);base64,"
+                },
+                "dark": {
+                  "type": "string",
+                  "pattern": "^data:image/(?:png|jpeg|gif|svg\\+xml);base64,"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
             },
             "displayNames": {
               "type": "object",
-              "additionalProperties": false,
-              "required": [],
               "properties": {
                 "en": {
-                  "type": "string"
+                  "type": "string",
+                  "maxLength": 4096
                 },
                 "zh-CN": {
-                  "type": "string"
+                  "type": "string",
+                  "maxLength": 4096
                 }
-              }
+              },
+              "required": [],
+              "additionalProperties": false
             },
             "localizedDescriptions": {
               "type": "object",
-              "additionalProperties": false,
-              "required": [],
               "properties": {
                 "en": {
-                  "type": "string"
+                  "type": "string",
+                  "maxLength": 4096
                 },
                 "zh-CN": {
-                  "type": "string"
+                  "type": "string",
+                  "maxLength": 4096
                 }
-              }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            "defaultPromptLocalizations": {
+              "type": "object",
+              "properties": {
+                "en": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "maxItems": 20
+                },
+                "zh-CN": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "maxItems": 20
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            "setup": {
+              "type": "object",
+              "properties": {
+                "instructions": {
+                  "type": "object",
+                  "properties": {
+                    "en": {
+                      "type": "string",
+                      "maxLength": 16384
+                    },
+                    "zh-CN": {
+                      "type": "string",
+                      "maxLength": 16384
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false
+                },
+                "helpURL": {
+                  "type": "string",
+                  "format": "uri",
+                  "pattern": "^https://"
+                }
+              },
+              "required": [],
+              "additionalProperties": false
             }
-          }
+          },
+          "required": [],
+          "additionalProperties": false
         },
         "upstream": {
           "$ref": "provenance.schema.json#/properties/upstream"
@@ -226,6 +348,80 @@
                 "type": "string",
                 "minLength": 1,
                 "pattern": "^https?://[^\\s]+$"
+              },
+              "authentication": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "none"
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "const": "api_key"
+                      },
+                      "headerScheme": {
+                        "enum": [
+                          "bearer",
+                          "basic",
+                          "custom_header"
+                        ]
+                      },
+                      "headerName": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^(?![Hh][Oo][Ss][Tt]$)[!#$%&\\x27*+.^_`|~0-9A-Za-z-]+$"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "headerScheme"
+                    ],
+                    "additionalProperties": false,
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "headerScheme": {
+                              "const": "custom_header"
+                            }
+                          }
+                        },
+                        "then": {
+                          "required": [
+                            "headerName"
+                          ],
+                          "properties": {
+                            "headerName": {
+                              "type": "string",
+                              "minLength": 1,
+                              "pattern": "^(?![Hh][Oo][Ss][Tt]$)[!#$%&\\x27*+.^_`|~0-9A-Za-z-]+$"
+                            }
+                          }
+                        },
+                        "else": {
+                          "not": {
+                            "required": [
+                              "headerName"
+                            ],
+                            "properties": {
+                              "headerName": {}
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             }
           }
@@ -263,6 +459,9 @@
         "diagnostics": {
           "type": "array",
           "maxItems": 0
+        },
+        "contractVersion": {
+          "const": "neuxbot-plugin/1"
         }
       }
     },

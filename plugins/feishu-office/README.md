@@ -1,4 +1,4 @@
-# Feishu Office
+# Feishu
 
 Create and organize Feishu documents, manage table records, arrange calendar events and track tasks.
 

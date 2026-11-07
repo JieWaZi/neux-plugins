@@ -1,4 +1,5 @@
 import { parseDocument } from 'yaml';
+import { validateSchema } from './schema.mjs';
 
 export const maxDetailsBytes = 4 * 1024 * 1024;
 const maxDocumentBytes = 1024 * 1024;
@@ -44,66 +45,43 @@ function skillMetadata(content, label) {
 // 仅从标准清单与实际文件派生只读资料；不复制程序入口、秘密绑定和未知扩展。
 export function packageDetails({ sourceCommit, archiveSHA256, packagePath, manifest, presentation, provenance, names, has, read }) {
   for (const value of [provenance.upstream.repository, provenance.upstream.distribution?.url].filter(value => value !== undefined)) if (!publicURL(value)) fail('upstream source URL must be public');
-  const manifestInfo = pick(manifest, ['name', 'version', 'description', 'license']);
+  const manifestInfo = { $schema: manifest.$schema, ...pick(manifest, ['name', 'version', 'description', 'license']) };
   manifestInfo.author = pick(manifest.author, ['name', 'email']);
   if (publicURL(manifest.author?.url)) manifestInfo.author.url = manifest.author.url;
   for (const field of ['homepage', 'repository']) if (publicURL(manifest[field])) manifestInfo[field] = manifest[field];
   manifestInfo.keywords = strings(manifest.keywords);
-  const display = pick(manifest.interface, ['displayName', 'shortDescription', 'longDescription', 'developerName', 'category']);
+  const display = {};
+  for (const field of ['displayName', 'shortDescription', 'longDescription', 'developerName', 'category', 'websiteURL', 'privacyPolicyURL', 'termsOfServiceURL', 'supportURL', 'defaultPrompt', 'defaultPromptLocalizations', 'capabilities', 'brandColor', 'icons', 'displayNames', 'localizedDescriptions', 'setup']) if (presentation[field] !== undefined) display[field] = structuredClone(presentation[field]);
   display.displayName ??= manifest.name; display.shortDescription ??= manifest.description;
-  for (const field of ['websiteURL', 'privacyPolicyURL', 'termsOfServiceURL']) if (publicURL(manifest.interface?.[field])) display[field] = manifest.interface[field];
-  for (const field of ['displayNames', 'localizedDescriptions']) if (object(presentation[field])) display[field] = pick(presentation[field], ['en', 'zh-CN']);
-  const pkg = { manifest: manifestInfo, format: 'codex', presentation: display, upstream: structuredClone(provenance.upstream), skills: [], servers: [], diagnostics: [] };
+  const pkg = { contractVersion: 'neuxbot-plugin/1', manifest: manifestInfo, format: 'agent-plugins', presentation: display, upstream: structuredClone(provenance.upstream), skills: [], servers: [], diagnostics: [] };
   if (text(presentation.icon)) pkg.icon = presentation.icon;
   const readmes = {}, skillContents = {};
   for (const [locale, filename] of [['en', 'README.md'], ['zh-CN', 'README.zh-CN.md']]) if (has(`${packagePath}/${filename}`)) readmes[locale] = document(read(`${packagePath}/${filename}`), filename);
   const files = names(); const skillPaths = new Set();
   function discover(value) {
     const root = relative(value);
-    if (has(`${packagePath}/${root}/SKILL.md`)) { skillPaths.add(root); return; }
     const prefix = `${packagePath}/${root}/`;
     for (const name of files) if (name.startsWith(prefix) && /^[^/]+\/SKILL\.md$/.test(name.slice(prefix.length))) skillPaths.add(name.slice(packagePath.length + 1, -'/SKILL.md'.length));
   }
   discover('skills');
-  if (manifest.skills !== undefined) {
-    const declared = typeof manifest.skills === 'string' ? [manifest.skills] : manifest.skills;
-    if (!Array.isArray(declared)) fail('invalid declared skills');
-    declared.forEach(discover);
-  }
   for (const path of [...skillPaths].sort()) {
     const content = document(read(`${packagePath}/${path}/SKILL.md`), `skill ${path}`);
     pkg.skills.push({ key: path, ...skillMetadata(content, path), path }); skillContents[path] = content;
   }
-  const servers = new Map(), mcpFiles = new Set();
-  function definitions(value) {
-    if (!object(value)) fail('MCP definitions must be an object');
-    for (const key of Object.keys(value).sort()) {
-      const server = value[key]; if (!object(server)) fail('MCP server must be an object');
-      let type = text(server.type) ?? (server.url ? 'http' : 'stdio');
-      if (type === 'http') type = 'streamable-http';
-      if (!['streamable-http', 'sse', 'stdio'].includes(type)) fail('unsupported MCP transport');
-      const summary = { key, type };
-      if (publicURL(server.url)) summary.url = server.url;
-      servers.set(key, summary);
+  if (has(`${packagePath}/mcp.json`)) {
+    const mcp = JSON.parse(document(read(`${packagePath}/mcp.json`), 'MCP metadata'));
+    for (const key of Object.keys(mcp.mcpServers).sort()) {
+      const server = mcp.mcpServers[key], summary = { key, type: server.type };
+      if (server.type !== 'stdio') { const url = new URL(server.url); url.username = ''; url.password = ''; url.search = ''; url.hash = ''; summary.url = url.href; }
+      const auth = server.extensions?.['com.openai']?.auth;
+      if (auth) summary.authentication = pick(auth, ['type', 'headerScheme', 'headerName']);
+      pkg.servers.push(summary);
     }
   }
-  function mcpFile(value) {
-    const filename = `${packagePath}/${relative(value)}`;
-    if (mcpFiles.has(filename)) return; mcpFiles.add(filename);
-    const raw = JSON.parse(document(read(filename), 'MCP metadata'));
-    definitions(raw.mcpServers);
-  }
-  if (has(`${packagePath}/.mcp.json`)) mcpFile('.mcp.json');
-  if (manifest.mcpServers !== undefined) for (const declared of Array.isArray(manifest.mcpServers) ? manifest.mcpServers : [manifest.mcpServers]) {
-    if (typeof declared === 'string') mcpFile(declared); else definitions(declared);
-  }
-  pkg.servers = [...servers.values()].sort((a, b) => a.key < b.key ? -1 : a.key > b.key ? 1 : 0);
-  const integrationPath = `${packagePath}/.neuxally/integration.json`;
-  if (has(integrationPath)) {
-    const auth = JSON.parse(document(read(integrationPath), 'integration')).authentication;
-    if (object(auth)) pkg.integration = { authentication: { ...pick(auth, ['strategy', 'protocol', 'preferredAction']), scopes: strings(auth.scopes) } };
-  }
-  return { schemaVersion: 1, sourceCommit, archiveSHA256, packagePath, package: pkg, readmes, skillContents };
+  const auth = manifest.extensions?.['com.neuxbot']?.authentication;
+  if (auth) pkg.integration = { authentication: { ...pick(auth, ['strategy', 'protocol', 'preferredAction']), scopes: strings(auth.scopes) } };
+  const result = { schemaVersion: 1, sourceCommit, archiveSHA256, packagePath, package: pkg, readmes, skillContents };
+  validateSchema('details.schema.json', result); return result;
 }
 
 export function encodeDetails(value) {

@@ -11,7 +11,7 @@ test('维护包统一来源结构，业务署名版本直接来自upstream而非
   for (const key of ['github', 'feishu-office', 'wecom-office']) {
     const base = new URL(`../../plugins/${key}/`, import.meta.url);
     const data = JSON.parse(await readFile(new URL('provenance.json', base), 'utf8'));
-    const manifest = JSON.parse(await readFile(new URL('.codex-plugin/plugin.json', base), 'utf8'));
+    const manifest = JSON.parse(await readFile(new URL('plugin.json', base), 'utf8'));
     const files = new Map();
     for (const asset of data.assets ?? []) files.set(`plugins/${key}/${asset.path}`, await readFile(new URL(asset.path, base)));
     for (const dependency of data.dependencies ?? []) files.set(`plugins/${key}/${dependency.lock}`, await readFile(new URL(dependency.lock, base)));
@@ -41,7 +41,7 @@ test('固定源码必须有提交，远程服务不得伪造固定服务版本',
 
 test('图标摘要与依赖锁不符时拒绝发布', () => {
   const data = structuredClone(source); data.assets = [{ path: 'assets/icon.png', sourceURL: 'https://example.com/icon.png', sha256: 'a'.repeat(64), license: 'Brand terms', attribution: 'Example' }];
-  assert.throws(() => validateProvenance({ data, packagePath: 'plugins/example', manifest: { interface: { logo: './assets/icon.png' } }, read: () => Buffer.from('wrong') }), /digest|sha256/);
-  data.assets = []; data.dependencies = [{ name: 'example-cli', repository: 'https://github.com/example/example', commit: 'a'.repeat(40), version: '1.2.3', license: 'MIT', lock: '.neuxally/auth/assets.lock.json' }];
+  assert.throws(() => validateProvenance({ data, packagePath: 'plugins/example', manifest: { extensions: {'com.openai':{interface: { logo: './assets/icon.png' }}} }, read: () => Buffer.from('wrong') }), /digest|sha256/);
+  data.assets = []; data.dependencies = [{ name: 'example-cli', repository: 'https://github.com/example/example', commit: 'a'.repeat(40), version: '1.2.3', license: 'MIT', lock: '.neuxbot/auth/assets.lock.json' }];
   assert.throws(() => validateProvenance({ data, packagePath: 'plugins/example', manifest: {}, read: () => Buffer.from(JSON.stringify({ version: '9.9.9', source: { repository: data.dependencies[0].repository, commit: 'a'.repeat(40) } })) }), /lock|version/);
 });

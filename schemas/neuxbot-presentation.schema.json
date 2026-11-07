@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JieWaZi/NeuxAlly-Plugins/schemas/neuxbot-presentation.schema.json",
+  "type": "object",
+  "properties": {
+    "displayNames": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "zh-CN": {
+          "type": "string",
+          "maxLength": 4096
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "localizedDescriptions": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "zh-CN": {
+          "type": "string",
+          "maxLength": 4096
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "defaultPromptLocalizations": {
+      "type": "object",
+      "properties": {
+        "en": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "maxItems": 20
+        },
+        "zh-CN": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "maxItems": 20
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "setup": {
+      "type": "object",
+      "properties": {
+        "instructions": {
+          "type": "object",
+          "properties": {
+            "en": {
+              "type": "string",
+              "maxLength": 16384
+            },
+            "zh-CN": {
+              "type": "string",
+              "maxLength": 16384
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "helpURL": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

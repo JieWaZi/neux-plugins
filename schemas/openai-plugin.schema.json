@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JieWaZi/NeuxAlly-Plugins/schemas/openai-plugin.schema.json",
+  "type": "object",
+  "properties": {
+    "interface": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "shortDescription": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "longDescription": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "developerName": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "category": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "websiteURL": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        },
+        "privacyPolicyURL": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        },
+        "termsOfServiceURL": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        },
+        "supportURL": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https?://"
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "maxItems": 64
+        },
+        "defaultPrompt": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "maxItems": 20
+            }
+          ]
+        },
+        "brandColor": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "logo": {
+          "type": "string",
+          "pattern": "^\\./assets/(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:\\x00-\\x1f]+$"
+        },
+        "composerIcon": {
+          "type": "string",
+          "pattern": "^\\./assets/(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:\\x00-\\x1f]+$"
+        },
+        "brandColorDark": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        },
+        "logoDark": {
+          "type": "string",
+          "pattern": "^\\./assets/(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:\\x00-\\x1f]+$"
+        },
+        "composerIconDark": {
+          "type": "string",
+          "pattern": "^\\./assets/(?!.*(?:^|/)\\.{1,2}(?:/|$))[^\\\\:\\x00-\\x1f]+$"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

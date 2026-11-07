@@ -27,7 +27,7 @@
       "commit": "ac81f5056ab88f37d581d25916f3dab85abfca76",
       "version": "1.0.98-neuxally.1",
       "license": "MIT",
-      "lock": ".neuxally/auth/assets.lock.json"
+      "lock": ".neuxbot/auth/assets.lock.json"
     }
   ],
   "assets": [

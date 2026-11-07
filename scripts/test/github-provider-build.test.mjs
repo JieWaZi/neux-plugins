@@ -29,7 +29,7 @@ test('非法目标不能成为路径或构建参数',()=>{
 
 test('源码摘要失败保留上次发布锁与资产，不执行未核验源码',async t=>{
  const root=await mkdtemp(path.join(tmpdir(),'gh-build-source-'));t.after(()=>rm(root,{recursive:true,force:true}));
- const auth=path.join(root,'plugins/github/.neuxally/auth'),output=path.join(root,'dist/providers');
+ const auth=path.join(root,'plugins/github/.neuxbot/auth'),output=path.join(root,'dist/providers');
  await mkdir(auth,{recursive:true});await mkdir(output,{recursive:true});
  await writeFile(path.join(auth,'assets.lock.json'),'previous lock');await writeFile(path.join(output,'previous-bin'),'previous bytes');
  const archive=path.join(root,'source.tar.gz');await writeFile(archive,'not the pinned source');

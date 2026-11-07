@@ -4,7 +4,7 @@ import { mkdtemp, readFile, rm, writeFile, stat, readdir } from 'node:fs/promise
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
-const moduleURL = '../../plugins/feishu-office/.neuxally/auth/assets.mjs';
+const moduleURL = '../../plugins/feishu-office/.neuxbot/auth/assets.mjs';
 const bytes = Buffer.from('#!/bin/sh\nexit 0\n');
 const sha256 = createHash('sha256').update(bytes).digest('hex');
 const lock = { schemaVersion: 1, assets: { 'linux-x64': { url: 'https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/lark-cli-example', sha256, size: bytes.length } } };

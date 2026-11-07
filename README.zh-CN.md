@@ -23,7 +23,7 @@
 
 NeuxAlly 只通过本库发布的 HTTP 目录为伙伴安装插件，并将同一个标准包适配到所选智能体。系统不提供上传、本地目录或 ZIP 导入，也不收集和管理用户原生 CLI 的第三方插件。用户在聊天中要求安装原生插件时，由当前 Codex 或 Claude Code 使用与外部相同 CLI 共用的原生插件环境处理；这类安装、启停和认证归 CLI 管理，不登记为 NeuxAlly 资源。直接标准使用可读取根本地 marketplace 或包内标准内容，具体能力与授权方式以 CLI 支持范围为准；Codex 不会自动解释 NeuxAlly 专属授权声明。
 
-清单 `repository` 与 `interface.developerName` 指向官方业务能力项目和品牌：GitHub / `github/github-mcp-server`，飞书 / `larksuite/cli`。`author` 如实说明包内封装与桥接由 NeuxAlly contributors 编写；统一 `provenance.upstream` 记录插件信息面板读取的实际业务能力作者、版本、许可与仓库。官方服务或技能作者不等同本封装作者，品牌署名也不代表官方背书。见[第三方声明](THIRD_PARTY_NOTICES.md)。
+清单 `repository` 与 `extensions.com.openai.interface.developerName` 指向官方业务能力项目和品牌：GitHub / `github/github-mcp-server`，飞书 / `larksuite/cli`。`author` 如实说明包内封装与桥接由 NeuxAlly contributors 编写；统一 `provenance.upstream` 记录插件信息面板读取的实际业务能力作者、版本、许可与仓库。官方服务或技能作者不等同本封装作者，品牌署名也不代表官方背书。见[第三方声明](THIRD_PARTY_NOTICES.md)。
 
 ```mermaid
 flowchart LR
@@ -48,18 +48,18 @@ flowchart LR
 
 ## 维护标准包
 
-在 `plugins/<key>/.codex-plugin/plugin.json` 定义标准身份、版本、描述及真实作者与许可。按[官方打包字段](https://developers.openai.com/plugins/build/plugins)声明真实 Skills 和 MCP，保留第三方源码、脚本、相对引用与执行位。将审核后所需上游内容复制到包内并本地维护，在[统一来源规范](docs/PROVENANCE.zh-CN.md)中说明真实许可及改动。不增加手工维护的第二份组件索引或原生来源引用清单。
+在 `plugins/<key>/plugin.json` 定义标准身份、版本、描述及真实作者与许可。按[官方打包字段](https://developers.openai.com/plugins/build/plugins)声明真实 Skills 和 MCP，保留第三方源码、脚本、相对引用与执行位。将审核后所需上游内容复制到包内并本地维护，在[统一来源规范](docs/PROVENANCE.zh-CN.md)中说明真实许可及改动。不增加手工维护的第二份组件索引或原生来源引用清单。
 
-各插件中英文 README 只介绍插件自身能力、权限前提和实用场景，不写宿主角色、安装流程、聊天引导或语言导航，由宿主按系统语言读取。默认英文展示字段、可选本地化文字和静态 PNG 遵守[展示维护指南](docs/MAINTAINING.zh-CN.md)。没有 `.neuxally/` 仍是标准包。
+各插件中英文 README 只介绍插件自身能力、权限前提和实用场景，不写宿主角色、安装流程、聊天引导或语言导航，由宿主按系统语言读取。默认英文展示字段、可选本地化文字和静态 PNG 遵守[展示维护指南](docs/MAINTAINING.zh-CN.md)。没有 `.neuxbot/` 仍是标准包。
 
 ## 声明驱动授权
 
-MCP 服务与技能仍由标准文件定义；可选 `.neuxally/integration.json` 只增加宿主集成：认证策略、权限、首选挑战动作和精确授权绑定，不重复身份或组件列表。
+MCP 服务与技能仍由标准文件定义；可选根清单 `extensions.com.neuxbot.authentication` 只增加宿主集成：认证策略、权限、首选挑战动作和精确授权绑定，不重复身份或组件列表。
 
-需要授权的包均采用 `authentication.strategy: plugin-command`、`protocol: neuxally-auth/1`、受信 Node 与包内桥接入口。前端只显示 Core 交付的安全动作并发送取消请求；可选[挑战提示](docs/AUTH-CHALLENGE-NOTICES.zh-CN.md)由包内声明，只作用于当前挑战，宿主采用固定警告样式；Core 管理会话、占用和私密执行绑定；桥接解释供应商流程。供应商原始帧、凭据和私密绑定不进入前端。
+需要授权的包均采用 `extensions.com.neuxbot.authentication.strategy: plugin-command`、`protocol: neuxbot-auth/1`、受信 Node 与包内桥接入口。前端只显示 Core 交付的安全动作并发送取消请求；可选[挑战提示](docs/AUTH-CHALLENGE-NOTICES.zh-CN.md)由包内声明，只作用于当前挑战，宿主采用固定警告样式；Core 管理会话、占用和私密执行绑定；桥接解释供应商流程。供应商原始帧、凭据和私密绑定不进入前端。
 
 - GitHub 通过固定隔离 CLI 执行官方设备 OAuth，发出真实 `https://github.com/login/device` 地址和一次性验证码，在线核验账号与授权范围，只为精确 `github` MCP `https://api.githubcopilot.com/mcp/` 交付私密 OAuth Bearer 头。OAuth 只对明确声明的 Codex 和 Claude 目标绑定同一组件，其他运行目标不能回退到未声明授权路径；不包含 PAT 占位配置或托管 app 连接。`preferredAction: open-url` 不代表支持二维码。
-- 飞书按官方顺序发出创建应用与用户授权的两次二维码挑战。已有应用配置但尚无用户身份是合法待授权阶段，只有最终在线核验身份与范围后才可用。`preferredAction: show-qr` 允许前端等待真实挑战时准备二维码占位。精确协议见[飞书桥接](plugins/feishu-office/.neuxally/auth/README.md)与[GitHub 桥接](plugins/github/.neuxally/auth/README.md)。
+- 飞书按官方顺序发出创建应用与用户授权的两次二维码挑战。已有应用配置但尚无用户身份是合法待授权阶段，只有最终在线核验身份与范围后才可用。`preferredAction: show-qr` 允许前端等待真实挑战时准备二维码占位。精确协议见[飞书桥接](plugins/feishu-office/.neuxbot/auth/README.md)与[GitHub 桥接](plugins/github/.neuxbot/auth/README.md)。
 
 ```mermaid
 sequenceDiagram
@@ -95,7 +95,7 @@ sequenceDiagram
 
 供应商程序是独立、摘要锁定的依赖，由插件下载到私有数据目录；宿主不为每个提供者内置下载或打包分支。包内锁固定 HTTPS URL、大小、摘要、源码、工具链及隔离证据。GitHub 清空继承的 CLI 凭据、使用私有 profile，其底层钥匙串服务绑定规范目录摘要。飞书保持既有私有配置和凭据隔离。测试受信覆盖可提供同一程序边界，不查找用户全局 CLI。
 
-企业微信固定官方 CLI `1.3.4` 发布提交与五平台 npm 归档及程序摘要，首次使用下载到插件私有目录，不进行全局 npm 安装。官方 CLI 生成 PNG 二维码并完成扫码协议；桥接将原始图片交给通用 `show-qr` 动作，通过 `auth show` 和线上 `identity whoami` 核验身份。当前官方 CLI 没有独立 MCP server 子命令，本包交付官方 CLI 与 Skills，不声明旧版 MCP 端点。共享技能只调整程序安装和认证入口，其他官方资料保留原文，见[企业微信桥接](plugins/wecom-office/.neuxally/auth/README.md)。
+企业微信固定官方 CLI `1.3.4` 发布提交与五平台 npm 归档及程序摘要，首次使用下载到插件私有目录，不进行全局 npm 安装。官方 CLI 生成 PNG 二维码并完成扫码协议；桥接将原始图片交给通用 `show-qr` 动作，通过 `auth show` 和线上 `identity whoami` 核验身份。当前官方 CLI 没有独立 MCP server 子命令，本包交付官方 CLI 与 Skills，不声明旧版 MCP 端点。共享技能只调整程序安装和认证入口，其他官方资料保留原文，见[企业微信桥接](plugins/wecom-office/.neuxbot/auth/README.md)。
 
 本包需要支持 PNG 二维码挑战和多个受管 CLI 路径合并的 NeuxAlly 宿主。旧版宿主需要先更新，不能将 PNG data URL 再编码成二维码。官方没有 Windows ARM64 平台包，该平台准确返回程序未就绪。
 
@@ -103,7 +103,7 @@ sequenceDiagram
 
 插件详情与 SKILL 正文通过摘要绑定的[只读资料侧车](docs/DETAILS.zh-CN.md)提供，不要求先安装到伙伴或授权账号，也不需要下载完整安装 ZIP。
 
-使用[最新目录](https://github.com/JieWaZi/NeuxAlly-Plugins/releases/latest/download/catalog.json)或[固定 v0.1.0 目录](https://github.com/JieWaZi/NeuxAlly-Plugins/releases/download/v0.1.0/catalog.json)。`{schemaVersion:2,entries:[...]}` 每项记录 `key`、完整 `sourceCommit`、`archiveURL`、`archiveSHA256`、`packagePath: plugins/<key>`、标准 `name`、`version`、英文 `description` 和 `format: codex`。可选本地化文字与安全内嵌图标支持安装前展示，组件组成从真实包读取。
+使用[最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)或[固定 v0.1.1 目录](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.1/catalog.json)。`{schemaVersion:1,entries:[...]}` 每项记录 `key`、完整 `sourceCommit`、`archiveURL`、`archiveSHA256`、`packagePath: plugins/<key>`、标准 `name`、`version`、英文 `description` 和 `format: agent-plugins`。可选本地化文字与安全内嵌图标支持安装前展示，组件组成从真实包读取。
 
 ZIP 包含完整标准包、本地 Codex 索引、来源/许可证据与公开补丁。安装与日常目录构建均不依赖上游 Git 或 HTTP 还原。独立业务服务和首次供应商依赖仍需联网。客户端解包前核对目录所选归档摘要；测试发布资产变更时，已安装快照仍由原来源提交和摘要固定。
 

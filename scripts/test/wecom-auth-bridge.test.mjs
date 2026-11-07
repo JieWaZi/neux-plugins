@@ -8,15 +8,14 @@ import { createInterface } from 'node:readline';
 
 // 与 catalog 的有效 PNG 夹具一致，包含可完整解码的像素和正确块 CRC。
 const png = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAFAAH/iZk9HQAAAABJRU5ErkJggg==';
-const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 // 替代外部 CLI，不创建真实账号或调用网络；认证状态、进程与协议运行真实桥接代码。
 async function fixture(t, scenario = 'success') {
   const directory = await mkdtemp(path.join(tmpdir(), 'wecom-bridge-test-'));
-  const root = path.join(directory, 'plugin'), auth = path.join(root, '.neuxally/auth');
+  const root = path.join(directory, 'plugin'), auth = path.join(root, '.neuxbot/auth');
   await mkdir(auth, { recursive: true });
-  for (const file of ['authorize.mjs', 'assets.mjs']) await copyFile(path.resolve('plugins/wecom-office/.neuxally/auth', file), path.join(auth, file));
-  await writeFile(path.join(root, '.neuxally/integration.json'), JSON.stringify({ authentication: { scopes: [] } }));
+  for (const file of ['authorize.mjs', 'assets.mjs', 'wire.mjs', 'launcher.mjs']) await copyFile(path.resolve('plugins/wecom-office/.neuxbot/auth', file), path.join(auth, file));
+  await writeFile(path.join(root, 'plugin.json'), JSON.stringify({ extensions: { 'com.neuxbot': { authentication: { scopes: [] } } } }));
   await mkdir(path.join(root, 'skills/wecomcli-doc'), { recursive: true });
   await writeFile(path.join(root, 'skills/wecomcli-doc/SKILL.md'), '# Fixture');
   const dataDirectory = path.join(directory, 'private');
@@ -40,6 +39,9 @@ if(args[0]==='auth'&&args[1]==='show'){
  const q=args[args.indexOf('--output-qrcode')+1];if(fs.existsSync(q))process.exit(21);
  fs.writeFileSync(path.join(root,'qr-path'),q);
  const countFile=path.join(root,'count');const count=fs.existsSync(countFile)?+fs.readFileSync(countFile):0;fs.writeFileSync(countFile,''+(count+1));
+ if(scenario==='cancel'||scenario==='eof'||scenario==='ignore-term'||scenario==='expired'){
+  setInterval(()=>{},1000);process.on('SIGTERM',()=>{fs.writeFileSync(path.join(root,'term-received'),'yes');if(scenario!=='ignore-term')setTimeout(()=>{fs.writeFileSync(path.join(root,'stopped'),'yes');process.exit(0)},80)});
+ }
  console.log('PRIVATE-TOKEN');console.log('https://work.weixin.qq.com.evil.example/ai/qc/gen?source=wecom_cli_external&scode=bad');
  if(scenario!=='wrong-host')console.log('https://work.weixin.qq.com/ai/qc/gen?source=wecom_cli_external&scode=EXAMPLE-'+count);
  if(scenario!=='missing-png'){
@@ -50,18 +52,23 @@ if(args[0]==='auth'&&args[1]==='show'){
   else fs.writeFileSync(q,image,{mode:0o600});
   console.log('二维码已保存到: '+q);
  }
- if(scenario==='cancel'||scenario==='eof'||scenario==='ignore-term'||scenario==='expired'){
-  setInterval(()=>{},1000);process.on('SIGTERM',()=>{fs.writeFileSync(path.join(root,'term-received'),'yes');if(scenario!=='ignore-term')setTimeout(()=>{fs.writeFileSync(path.join(root,'stopped'),'yes');process.exit(0)},80)});
- }else if(scenario==='no-credentials'){}else{fs.writeFileSync(flag,'PRIVATE-CREDENTIALS');}
+ if(!['cancel','eof','ignore-term','expired','no-credentials'].includes(scenario))fs.writeFileSync(flag,'PRIVATE-CREDENTIALS');
 }else process.exit(22);
 `);
   await chmod(binary, 0o755);
   const foreign = path.join(directory, 'global'); await mkdir(foreign);
   await writeFile(path.join(foreign, 'wecom-cli'), '#!/usr/bin/env node\nprocess.exit(23)'); await chmod(path.join(foreign, 'wecom-cli'), 0o755);
   const nodeArgs = [];
+  const clockControl = path.join(directory, 'expire-clock'); let clockTicks = 0;
   if (scenario === 'expired') {
+    await writeFile(clockControl, '');
     const clock = path.join(directory, 'clock.mjs');
-    await writeFile(clock, 'const timer=globalThis.setTimeout;globalThis.setTimeout=(fn,ms,...args)=>timer(fn,ms===300000?1000:ms,...args);');
+    await writeFile(clock, `import{watchFile,readFileSync}from'node:fs';
+const schedule=globalThis.setTimeout,cancel=globalThis.clearTimeout,timers=new Map();
+globalThis.setTimeout=(fn,ms,...args)=>{const timer=schedule(()=>{timers.delete(timer);fn(...args)},ms);if(ms===300000)timers.set(timer,()=>{cancel(timer);timers.delete(timer);fn(...args)});return timer};
+globalThis.clearTimeout=timer=>{timers.delete(timer);cancel(timer)};
+let observed='';watchFile(${JSON.stringify(clockControl)},{interval:20},()=>{const serial=readFileSync(${JSON.stringify(clockControl)},'utf8');if(serial===observed)return;observed=serial;for(const expire of [...timers.values()])expire()});
+`);
     nodeArgs.push('--import', clock);
   }
   const child = spawn(process.execPath, [...nodeArgs, path.join(auth, 'authorize.mjs')], {
@@ -70,18 +77,37 @@ if(args[0]==='auth'&&args[1]==='show'){
   });
   const exited = new Promise(resolve => child.once('close', resolve));
   t.after(async () => { child.stdin.end(); child.kill('SIGTERM'); await exited; await rm(directory, { recursive: true, force: true }); });
-  let next = 1, stderr = ''; const messages = [], pending = new Map();
+  const messages = [], pending = new Map(), waiters = new Set(); let next = 1, stderr = '';
   child.stderr.on('data', chunk => { stderr += chunk; });
-  createInterface({ input: child.stdout }).on('line', line => { const message = JSON.parse(line); messages.push(message); pending.get(message.id)?.(message); pending.delete(message.id); });
-  const params = { sessionId: 'session-example', pluginId: 'plugin-example', dataDirectory, scopes: [] };
+  const diagnostic = label => new Error(`${label}: ${JSON.stringify(messages)}; ${stderr}`);
+  child.once('close', (code, signal) => {
+    for (const entry of pending.values()) entry.reject(diagnostic(`bridge closed (${code ?? signal})`));
+    for (const entry of waiters) entry.reject(diagnostic(`bridge closed (${code ?? signal})`));
+  });
+  createInterface({ input: child.stdout }).on('line', line => {
+    const message = JSON.parse(line); messages.push(message);
+    if (message.id != null) { pending.get(message.id)?.resolve(message); pending.delete(message.id); }
+    for (const entry of [...waiters]) if (entry.predicate(message)) entry.resolve(message);
+  });
+  const params = { protocol: 'neuxbot-auth/1', operationId: 'operation-example', versionId: 'version-example', digest: 'a'.repeat(64), configurationRevision: 1, accountGeneration: 0, sessionId: 'session-example', pluginId: 'plugin-example', dataDirectory, scopes: [] };
   const request = (method, extra = {}) => new Promise((resolve, reject) => {
-    const id = next++, timer = setTimeout(() => reject(new Error(`Timeout ${method}: ${stderr}`)), 5000);
-    pending.set(id, message => { clearTimeout(timer); resolve(message); });
+    const id = next++;
+    const timer = setTimeout(() => { pending.delete(id); reject(diagnostic(`timeout ${method}`)); }, 30000);
+    pending.set(id, { resolve: message => { clearTimeout(timer); resolve(message); }, reject: error => { clearTimeout(timer); reject(error); } });
     child.stdin.write(`${JSON.stringify({ jsonrpc: '2.0', id, method, params: { ...params, ...extra } })}\n`);
   });
-  const wait = async predicate => { for (let i = 0; i < 200; i++) { const result = messages.find(predicate); if (result) return result; await pause(20); } throw new Error(`Missing event: ${JSON.stringify(messages)}; ${stderr}`); };
+  const wait = predicate => new Promise((resolve, reject) => {
+    const existing = messages.find(predicate); if (existing) { resolve(existing); return; }
+    const finish = (handler, value) => { clearTimeout(timer); waiters.delete(entry); handler(value); };
+    const entry = { predicate, resolve: value => finish(resolve, value), reject: error => finish(reject, error) };
+    const timer = setTimeout(() => entry.reject(diagnostic('missing protocol event')), 30000);
+    waiters.add(entry);
+  });
   const waitState = state => wait(message => message.method === 'auth/state' && message.params.state === state);
-  return { directory, root, params, request, wait, waitState, messages, child, exited, stderr: () => stderr };
+  const initialized = await request('auth/initialize');
+  assert.equal(initialized.result?.protocol, 'neuxbot-auth/1');
+  assert.equal(initialized.result?.context.operationId, params.operationId);
+  return { directory, root, params, request, wait, waitState, messages, child, exited, expire: () => writeFile(clockControl, String(++clockTicks)), stderr: () => stderr };
 }
 
 test('官方 PNG 与页面链接分开交付，在线核验并返回稳定机器人身份', async t => {
@@ -97,9 +123,9 @@ test('官方 PNG 与页面链接分开交付，在线核验并返回稳定机器
   const resolved = await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/wecomcli-doc', target: 'skill' }] });
   assert.equal(resolved.error, undefined);
   const environment = resolved.result.bindings[0].environment;
-  assert.equal(environment.WECOM_CLI_ACCESS_TOKEN, ''); assert.equal(environment.WECOM_CLI_ADDITIONAL_HEADERS_TEST, '');
+  assert.equal(environment.WECOM_CLI_ACCESS_TOKEN, undefined); assert.equal(environment.WECOM_CLI_ADDITIONAL_HEADERS_TEST, undefined);
   assert.equal(environment.WECOM_CLI_CONFIG_DIR, path.join(f.params.dataDirectory, 'profile'));
-  const probe = spawnSync('wecom-cli', ['probe'], { env: { ...process.env, ...environment }, encoding: 'utf8' });
+  const probe = spawnSync('wecom-cli', ['probe'], { env: { ...process.env, ...environment, WECOM_CLI_ACCESS_TOKEN: 'FOREIGN-TOKEN', WECOM_CLI_CONFIG_DIR: '/foreign-profile', PATH: `${environment.PATH}${path.delimiter}${process.env.PATH ?? ""}` }, encoding: 'utf8' });
   assert.equal(probe.status, 0); assert.equal(probe.stdout.trim(), `MANAGED:${environment.WECOM_CLI_CONFIG_DIR}`);
   const publicMessages = f.messages.filter(message => message.id !== resolved.id);
   assert.doesNotMatch(JSON.stringify(publicMessages), /PRIVATE-TOKEN|PRIVATE-IDENTITY|PRIVATE-CREDENTIALS|INHERITED-TOKEN/); assert.equal(f.stderr(), '');
@@ -152,7 +178,7 @@ test('stdin EOF 终止子进程并清理二维码', async t => {
 });
 
 test('本地五分钟等待上限到期会终止进程并允许重新扫码', async t => {
-  const f = await fixture(t, 'expired'); await f.request('auth/start'); await f.waitState('expired');
+  const f = await fixture(t, 'expired'); await f.request('auth/start'); await f.wait(message => message.method === 'auth/challenge'); await f.expire(); await f.waitState('expired');
   const first = f.messages.find(message => message.method === 'auth/challenge').params;
   assert.equal(first.expiresAt, undefined);
   assert.equal(await readFile(path.join(f.params.dataDirectory, 'stopped'), 'utf8'), 'yes');

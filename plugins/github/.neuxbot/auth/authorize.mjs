@@ -1,3 +1,5 @@
+import { createAuthWire } from './wire.mjs';
+const wire = createAuthWire();
 import { ensureAsset, ensureTrustedAsset } from './assets.mjs';
 import { cliRunner } from './process.mjs';
 import { randomUUID } from 'node:crypto';
@@ -5,13 +7,13 @@ import { chmod, lstat, mkdir, readFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { createInterface } from 'node:readline';
 
-const declaredScopes = JSON.parse(await readFile(new URL('../integration.json', import.meta.url), 'utf8')).authentication.scopes;
+const declaredScopes = JSON.parse(await readFile(new URL('../../plugin.json', import.meta.url), 'utf8')).extensions['com.neuxbot'].authentication.scopes;
 const endpoint = 'https://api.githubcopilot.com/mcp/';
 let identity, runner, task, controller, state = 'unauthorized';
 const send = value => process.stdout.write(JSON.stringify({ jsonrpc: '2.0', ...value }) + '\n');
 const failure = code => Object.assign(new Error(code), { code });
 const emptyAccount = configured => ({ configured, available: false, scopes: [] });
-const notify = (method, params) => send({ method, params: { sessionId: identity.sessionId, ...params } });
+const notify = (method, params) => send({ method, params: { ...params, operationId: wire.context.operationId, sessionId: identity.sessionId } });
 const profile = () => path.join(identity.dataDirectory, 'profile');
 
 function bind(params) {
@@ -82,7 +84,9 @@ async function authorize(signal) {
 
 async function stop() { controller?.abort(); await task; }
 async function dispatch(method, params) {
+  const initialized = wire.accept(method, params);
   bind(params);
+  if (initialized) return initialized;
   if (method === 'auth/start') {
     if (task && state === 'pending') return { state };
     state = 'pending'; controller = new AbortController();

@@ -1,0 +1,27 @@
+{
+  "displayNames": {
+    "en": "Feishu",
+    "zh-CN": "飞书"
+  },
+  "localizedDescriptions": {
+    "en": "Write Feishu documents, manage tables, schedule events and follow up on tasks.",
+    "zh-CN": "协助编写飞书文档、管理多维表格、安排日程和跟进任务。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Organize my meeting notes into a Feishu document with action items.",
+      "Summarize the overdue tasks and project records I can access in Feishu."
+    ],
+    "zh-CN": [
+      "将我的会议笔记整理成含行动项的飞书文档。",
+      "总结我有权访问的飞书逾期任务和项目记录。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Use your Feishu account to complete the official authorization steps. Resource access still follows sharing and organization policies.",
+      "zh-CN": "使用飞书账号完成官方授权步骤；资源访问仍遵守共享权限和组织策略。"
+    },
+    "helpURL": "https://github.com/larksuite/cli/issues"
+  }
+}

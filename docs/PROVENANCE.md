@@ -2,7 +2,7 @@
 
 [English](PROVENANCE.md) | [简体中文](PROVENANCE.zh-CN.md)
 
-Every maintained package owns `provenance.json` with the same [schema](../schemas/provenance.schema.json). This is source and presentation evidence, not a replacement plugin manifest or a native-source reference loader. Standard identity, internal package version and component definitions remain in `.codex-plugin/plugin.json`, Skills and MCP files. The host reads the declared upstream facts directly; do not infer them from a plugin name, capability brand or authorization program.
+Every maintained package owns `provenance.json` with the same [schema](../schemas/provenance.schema.json). This is source and presentation evidence, not a replacement plugin manifest or a native-source reference loader. Standard identity, internal package version and component definitions remain in root `plugin.json`, Skills and MCP files. The host reads the declared upstream facts directly; do not infer them from a plugin name, capability brand or authorization program.
 
 | Layer | Required facts | Responsibility |
 | --- | --- | --- |

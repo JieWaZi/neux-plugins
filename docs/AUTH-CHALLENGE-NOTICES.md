@@ -46,7 +46,7 @@ The package maintains both translations. Its bounded loader rejects symbolic lin
 
 ## Feishu example
 
-Feishu uses `.neuxally/auth/presentation.json` and names its specific notice `initialSetup`. That name is selected only by the Feishu bridge, not defined by the wire protocol. Another plugin may declare any valid notice names and have its own bridge choose which challenge carries them.
+Feishu uses `.neuxbot/auth/presentation.json` and names its specific notice `initialSetup`. That name is selected only by the Feishu bridge, not defined by the wire protocol. Another plugin may declare any valid notice names and have its own bridge choose which challenge carries them.
 
 Only the initial `config init` application-setup challenge carries `notices.initialSetup`. The following `auth login` user/device authorization challenge has a different challenge ID and no notice. An already configured application enters user authorization directly and never shows the initial-setup warning. Cancelling either stage stops its actual upstream work and cannot deliver a later challenge or retain that stage's warning.
 

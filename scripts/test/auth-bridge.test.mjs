@@ -6,22 +6,22 @@ import { tmpdir } from 'node:os';
 import { spawn, spawnSync } from 'node:child_process';
 import { createInterface } from 'node:readline';
 import { createHash } from 'node:crypto';
+import { watchFile, unwatchFile } from 'node:fs';
 
 // 外部边界替代真实网络和账号，真实桥接进程负责协议、隔离、状态核验和取消。
 async function bridge(t, scenario = 'success', options = {}) {
   const directory = await mkdtemp(path.join(tmpdir(), 'plugin-auth-'));
-  t.after(() => rm(directory, { recursive: true, force: true }));
   const binary = path.join(directory, options.overrideName ?? 'lark-cli');
   await writeFile(binary, `#!/usr/bin/env node
 const fs = require('node:fs');const path=require('node:path');const args=process.argv.slice(2); const p=process.env.LARKSUITE_CLI_CONFIG_DIR;
 if (process.env.LARKSUITE_CLI_ACCESS_TOKEN) process.exit(19);
 fs.mkdirSync(p,{recursive:true});
 const flag=path.join(p,'authorized');
-if(args[0]==='config'){process.stderr.write('https://open.feishu.cn.evil.example/page/cli?user_code=bad\\n');process.stderr.write('https://open.feishu.cn/page/cli?user_code=APP-EXAMPLE\\n');${scenario === 'cancel-initial' ? "setInterval(()=>{},1000);process.on('SIGTERM',()=>{fs.writeFileSync(path.join(p,'stopped-initial'),'yes');process.exit(0)});" : "fs.writeFileSync(path.join(p,'config.json'),'{}');"}}
+if(args[0]==='config'){${scenario === 'cancel-initial' ? "setInterval(()=>{},1000);process.on('SIGTERM',()=>{fs.writeFileSync(path.join(p,'stopped-initial'),'yes');process.exit(0)});" : ""}process.stderr.write('https://open.feishu.cn.evil.example/page/cli?user_code=bad\\n');process.stderr.write('https://open.feishu.cn/page/cli?user_code=APP-EXAMPLE\\n');${scenario === 'cancel-initial' ? "" : "fs.writeFileSync(path.join(p,'config.json'),'{}');"}}
 else if(args[1]==='status' && ${['app-only', 'two-stage-app-only'].includes(scenario)} && !fs.existsSync(flag)){console.log(JSON.stringify({appId:'cli_example',identities:{}}));}
 else if(args[1]==='status'){console.log(JSON.stringify({appId:'cli_example',identities:{user:{available:fs.existsSync(flag),verified:${scenario !== 'unverified'},openId:'ou_example',userName:'示例账号',scope:${JSON.stringify(scenario === 'missing-scope' ? 'offline_access' : 'offline_access docx:document')}}}}));}
-else if(args.includes('--no-wait'))console.log(JSON.stringify({verification_url:'https://open.feishu.cn/auth/device?code=USER-EXAMPLE',device_code:'PRIVATE-DEVICE-TOKEN',expires_in:${scenario === 'expired' ? 1 : 600}}));
-else if(args.includes('--device-code')){${scenario === 'two-stage-app-only' ? "const wait=setInterval(()=>{if(fs.existsSync(path.join(p,'complete-user'))){clearInterval(wait);fs.writeFileSync(flag,'yes');console.log(JSON.stringify({event:'authorization_complete',missing:[]}));}},20);" : ['cancel', 'expired'].includes(scenario) ? "setInterval(()=>{},1000);process.on('SIGTERM',()=>{fs.writeFileSync(path.join(p,'stopped'),'yes');process.exit(0)});" : "fs.writeFileSync(flag,'yes');console.log(JSON.stringify({event:'authorization_complete',missing:[]}));"}}
+else if(args.includes('--no-wait'))console.log(JSON.stringify({verification_url:'https://open.feishu.cn/auth/device?code=USER-EXAMPLE',device_code:'PRIVATE-DEVICE-TOKEN',expires_in:600}));
+else if(args.includes('--device-code')){${scenario === 'two-stage-app-only' ? "const wait=setInterval(()=>{if(fs.existsSync(path.join(p,'complete-user'))){clearInterval(wait);fs.writeFileSync(flag,'yes');console.log(JSON.stringify({event:'authorization_complete',missing:[]}));}},20);" : ['cancel', 'expired'].includes(scenario) ? "setInterval(()=>{},1000);process.on('SIGTERM',()=>{fs.writeFileSync(path.join(p,'stopped'),'yes');process.exit(0)});fs.writeFileSync(path.join(p,'polling-ready'),'yes');" : "fs.writeFileSync(flag,'yes');console.log(JSON.stringify({event:'authorization_complete',missing:[]}));"}}
 else if(args[1]==='logout'){fs.rmSync(flag,{force:true});}
 else if(args[0]==='probe')console.log('MANAGED:'+p);
 else process.exit(20);
@@ -31,13 +31,13 @@ else process.exit(20);
   const foreignMarker = path.join(directory, 'used-global-cli');
   const foreignBinary = path.join(foreignDirectory, 'lark-cli');
   await writeFile(foreignBinary, `#!/usr/bin/env node\nrequire('node:fs').writeFileSync(${JSON.stringify(foreignMarker)},'used'); console.log('USER-GLOBAL');`); await chmod(foreignBinary, 0o755);
-  let script = path.resolve('plugins/feishu-office/.neuxally/auth/authorize.mjs'); let nodeArgs = [];
+  let script = path.resolve('plugins/feishu-office/.neuxbot/auth/authorize.mjs'); let nodeArgs = [];
   if (options.downloaded || options.presentation) {
     // 只替代 HTTP 响应；资产校验/缓存、桥接、私密 resolve 和最终命令查找均运行真实代码。
-    const fixturePackage = path.join(directory, 'package'); const authDirectory = path.join(fixturePackage, '.neuxally/auth');
+    const fixturePackage = path.join(directory, 'package'); const authDirectory = path.join(fixturePackage, '.neuxbot/auth');
     await cp(path.dirname(script), authDirectory, { recursive: true });
     if (options.presentation) await writeFile(path.join(authDirectory, 'presentation.json'), JSON.stringify(options.presentation));
-    await cp(path.resolve('plugins/feishu-office/.neuxally/integration.json'), path.join(fixturePackage, '.neuxally/integration.json'));
+    await cp(path.resolve('plugins/feishu-office/plugin.json'), path.join(fixturePackage, 'plugin.json'));
     await mkdir(path.join(fixturePackage, 'skills/lark-doc'), { recursive: true });
     await cp(path.resolve('plugins/feishu-office/skills/lark-doc/SKILL.md'), path.join(fixturePackage, 'skills/lark-doc/SKILL.md'));
     const content = await readFile(binary); const digest = createHash('sha256').update(content).digest('hex');
@@ -47,15 +47,59 @@ else process.exit(20);
     script = path.join(authDirectory, 'authorize.mjs'); nodeArgs = ['--import', preload];
   }
   if (scenario === 'app-only') { await mkdir(path.join(directory, 'private/profile'), { recursive: true }); await writeFile(path.join(directory, 'private/profile/config.json'), '{}'); }
+  const clockControl = path.join(directory, 'expire-clock'); let clockTicks = 0;
+  if (scenario === 'expired') {
+    await writeFile(clockControl, '');
+    const clock = path.join(directory, 'clock.mjs');
+    await writeFile(clock, `import{watchFile,readFileSync}from'node:fs';
+const schedule=globalThis.setTimeout,cancel=globalThis.clearTimeout,timers=new Map();
+globalThis.setTimeout=(fn,ms,...args)=>{const timer=schedule(()=>{timers.delete(timer);fn(...args)},ms);if(ms===600000)timers.set(timer,()=>{cancel(timer);timers.delete(timer);fn(...args)});return timer};
+globalThis.clearTimeout=timer=>{timers.delete(timer);cancel(timer)};
+let observed='';watchFile(${JSON.stringify(clockControl)},{interval:20},()=>{const serial=readFileSync(${JSON.stringify(clockControl)},'utf8');if(serial===observed)return;observed=serial;for(const expire of [...timers.values()])expire()});
+`);
+    nodeArgs.push('--import', clock);
+  }
   const child = spawn(process.execPath, [...nodeArgs, script], { env: { ...process.env, PATH: `${foreignDirectory}${path.delimiter}${process.env.PATH ?? ''}`, NEUXALLY_LARK_CLI: options.downloaded ? '' : binary, LARKSUITE_CLI_ACCESS_TOKEN: 'INHERITED-SECRET', LARKSUITE_CLI_CONFIG_DIR: '/do-not-touch' }, stdio: ['pipe', 'pipe', 'pipe'] });
-  t.after(() => child.kill());
-  const messages = [], pending = new Map(); let next = 1; let stderr = '';
-  child.stderr.on('data', data => { stderr += data; });
-  createInterface({ input: child.stdout }).on('line', line => { const value = JSON.parse(line); messages.push(value); if (value.id != null) { pending.get(value.id)?.(value); pending.delete(value.id); } });
-  const params = { sessionId: 'session-example', pluginId: 'plugin-example', dataDirectory: path.join(directory, 'private'), scopes: ['offline_access', 'docx:document'] };
-  const request = (method, extra = {}) => new Promise((resolve, reject) => { const id = next++; const timer = setTimeout(() => reject(new Error(`request timeout: ${method}; ${stderr}`)), 3000); pending.set(id, value => { clearTimeout(timer); resolve(value); }); child.stdin.write(`${JSON.stringify({ jsonrpc: '2.0', id, method, params: { ...params, ...extra } })}\n`); });
-  const waitState = async state => { for(let i=0;i<150;i++){const found=messages.find(x=>x.method==='auth/state' && x.params.state===state);if(found)return found; await new Promise(resolve=>setTimeout(resolve,20));}throw new Error(`no ${state}: ${JSON.stringify(messages)} ${stderr}`); };
-  return { directory, foreignMarker, params, request, waitState, messages, stderr: () => stderr };
+  const exited = new Promise(resolve => child.once('close', resolve));
+  t.after(async () => { child.stdin.end(); child.kill('SIGTERM'); await exited; await rm(directory, { recursive: true, force: true }); });
+  const messages = [], pending = new Map(), waiters = new Set(); let next = 1, stderr = '';
+  child.stderr.on('data', chunk => { stderr += chunk; });
+  const diagnostic = label => new Error(`${label}: ${JSON.stringify(messages)}; ${stderr}`);
+  child.once('close', (code, signal) => {
+    for (const entry of pending.values()) entry.reject(diagnostic(`bridge closed (${code ?? signal})`));
+    for (const entry of waiters) entry.reject(diagnostic(`bridge closed (${code ?? signal})`));
+  });
+  createInterface({ input: child.stdout }).on('line', line => {
+    const message = JSON.parse(line); messages.push(message);
+    if (message.id != null) { pending.get(message.id)?.resolve(message); pending.delete(message.id); }
+    for (const entry of [...waiters]) if (entry.predicate(message)) entry.resolve(message);
+  });
+  const params = { protocol: 'neuxbot-auth/1', operationId: 'operation-example', versionId: 'version-example', digest: 'a'.repeat(64), configurationRevision: 1, accountGeneration: 0, sessionId: 'session-example', pluginId: 'plugin-example', dataDirectory: path.join(directory, 'private'), scopes: ['offline_access', 'docx:document'] };
+  const request = (method, extra = {}) => new Promise((resolve, reject) => {
+    const id = next++;
+    const timer = setTimeout(() => { pending.delete(id); reject(diagnostic(`timeout ${method}`)); }, 30000);
+    pending.set(id, { resolve: message => { clearTimeout(timer); resolve(message); }, reject: error => { clearTimeout(timer); reject(error); } });
+    child.stdin.write(`${JSON.stringify({ jsonrpc: '2.0', id, method, params: { ...params, ...extra } })}\n`);
+  });
+  const wait = predicate => new Promise((resolve, reject) => {
+    const existing = messages.find(predicate); if (existing) { resolve(existing); return; }
+    const finish = (handler, value) => { clearTimeout(timer); waiters.delete(entry); handler(value); };
+    const entry = { predicate, resolve: value => finish(resolve, value), reject: error => finish(reject, error) };
+    const timer = setTimeout(() => entry.reject(diagnostic('missing protocol event')), 30000);
+    waiters.add(entry);
+  });
+  const waitState = state => wait(message => message.method === 'auth/state' && message.params.state === state);
+  const waitPolling = () => new Promise((resolve, reject) => {
+    const filename = path.join(params.dataDirectory, 'profile/polling-ready');
+    const stop = () => { clearTimeout(timer); unwatchFile(filename, inspect); };
+    const timer = setTimeout(() => { stop(); reject(diagnostic('supplier poll did not start')); }, 30000);
+    const inspect = () => readFile(filename).then(() => { stop(); resolve(); }, error => { if (error.code !== 'ENOENT') { stop(); reject(error); } });
+    watchFile(filename, { interval: 20 }, inspect); inspect();
+  });
+  const initialized = await request('auth/initialize');
+  assert.equal(initialized.result?.protocol, 'neuxbot-auth/1');
+  assert.equal(initialized.result?.context.operationId, params.operationId);
+  return { directory, foreignMarker, params, request, wait, waitState, waitPolling, expire: () => writeFile(clockControl, String(++clockTicks)), messages, stderr: () => stderr };
 }
 
 test('多阶段挑战动态更新；真实验证成功后按组件私密 resolve', async t => {
@@ -67,7 +111,7 @@ test('多阶段挑战动态更新；真实验证成功后按组件私密 resolve
   assert.notEqual(challenges[0].params.challengeId, challenges[1].params.challengeId);
   assert.match(challenges[0].params.actions[0].url, /^https:\/\/open\.feishu\.cn\/page\/cli/);
   assert.ok(challenges[0].params.notice);
-  const presentation = JSON.parse(await readFile(path.resolve('plugins/feishu-office/.neuxally/auth/presentation.json'), 'utf8'));
+  const presentation = JSON.parse(await readFile(path.resolve('plugins/feishu-office/.neuxbot/auth/presentation.json'), 'utf8'));
   assert.deepEqual(challenges[0].params.notice, presentation.notices.initialSetup);
   assert.equal(challenges[1].params.notice, undefined);
   assert.ok(challenges[0].params.deadlineAt); assert.equal(challenges[0].params.expiresAt, undefined);
@@ -77,7 +121,7 @@ test('多阶段挑战动态更新；真实验证成功后按组件私密 resolve
   assert.equal(resolved.result.bindings.length, 1);
   assert.equal(resolved.result.bindings[0].componentId, 'stable-doc');
   assert.equal(resolved.result.bindings[0].environment.LARKSUITE_CLI_CONFIG_DIR, path.join(f.params.dataDirectory, 'profile'));
-  assert.equal(resolved.result.bindings[0].environment.LARKSUITE_CLI_ACCESS_TOKEN, '');
+  assert.equal(resolved.result.bindings[0].environment.LARKSUITE_CLI_ACCESS_TOKEN, undefined);
   assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'bad', key: 'github', target: 'mcp', url: 'https://evil.example' }] })).error);
   assert.ok((await f.request('auth/status', { sessionId: 'other' })).error);
   const publicMessages = f.messages.filter(x => x.method || x.id !== resolved.id);
@@ -97,15 +141,15 @@ for (const scenario of ['unverified', 'missing-scope']) {
 
 test('取消必须等待上游进程停止；旧会话不能继续交付凭据', async t => {
   const f = await bridge(t, 'cancel'); await f.request('auth/start');
-  for(let i=0;i<100 && f.messages.filter(x=>x.method==='auth/challenge').length<2;i++)await new Promise(resolve=>setTimeout(resolve,20));
-  await new Promise(resolve=>setTimeout(resolve,100));
+  await f.wait(x => x.method === 'auth/challenge' && f.messages.filter(item => item.method === 'auth/challenge').length === 2);
+  await f.waitPolling();
   assert.equal((await f.request('auth/cancel')).result.state, 'cancelled');
   assert.equal(await readFile(path.join(f.params.dataDirectory, 'profile/stopped'), 'utf8'), 'yes');
   await f.waitState('cancelled');
   const before = f.messages.filter(x => x.method === 'auth/challenge').length;
   assert.ok(f.messages.find(x => x.method === 'auth/challenge').params.notice);
   assert.equal(f.messages.filter(x => x.method === 'auth/challenge').at(-1).params.notice, undefined);
-  await new Promise(resolve => setTimeout(resolve, 50));
+  await f.request('auth/status');
   assert.equal(f.messages.filter(x => x.method === 'auth/challenge').length, before);
   assert.ok(f.messages.filter(x => x.method === 'auth/state' && x.params.state === 'cancelled').every(x => x.params.notice === undefined));
   assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] })).error);
@@ -113,11 +157,12 @@ test('取消必须等待上游进程停止；旧会话不能继续交付凭据',
 
 
 test('官方期限到期会停止上游等待，并在刷新时生成新挑战', async t => {
-  const f = await bridge(t, 'expired'); await f.request('auth/start'); await f.waitState('expired');
+  const f = await bridge(t, 'expired'); await f.request('auth/start'); await f.wait(x => x.method === 'auth/challenge' && f.messages.filter(item => item.method === 'auth/challenge').length === 2); await f.waitPolling(); await f.expire(); await f.waitState('expired');
   const previous = f.messages.filter(x => x.method === 'auth/challenge').at(-1).params.challengeId;
   assert.ok((await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] })).error);
+  const earlier = new Set(f.messages.filter(x => x.method === 'auth/challenge').map(x => x.params.challengeId));
   await f.request('auth/start');
-  for(let i=0;i<100 && f.messages.filter(x=>x.method==='auth/challenge').at(-1).params.challengeId===previous;i++)await new Promise(resolve=>setTimeout(resolve,20));
+  await f.wait(x => x.method === 'auth/challenge' && !earlier.has(x.params.challengeId));
   assert.notEqual(f.messages.filter(x=>x.method==='auth/challenge').at(-1).params.challengeId, previous);
   await f.request('auth/cancel');
 });
@@ -128,7 +173,7 @@ for (const options of [{ downloaded: true }, { overrideName: 'trusted-lark-asset
     const f = await bridge(t, 'success', options); await f.request('auth/start'); await f.waitState('authorized');
     const resolved = await f.request('auth/resolve', { components: [{ componentId: 'doc', key: 'skills/lark-doc', target: 'skill' }] });
     assert.equal(resolved.error, undefined);
-    const result = spawnSync('lark-cli', ['probe'], { env: { ...process.env, ...resolved.result.bindings[0].environment }, encoding: 'utf8' });
+    const result = spawnSync('lark-cli', ['probe'], { env: { ...process.env, ...resolved.result.bindings[0].environment, LARKSUITE_CLI_ACCESS_TOKEN: 'FOREIGN-TOKEN', LARKSUITE_CLI_CONFIG_DIR: '/foreign-profile', PATH: `${resolved.result.bindings[0].environment.PATH}${path.delimiter}${process.env.PATH ?? ""}` }, encoding: 'utf8' });
     assert.equal(result.error, undefined);
     assert.equal(result.status, 0);
     assert.equal(result.stdout.trim(), `MANAGED:${path.join(f.params.dataDirectory, 'profile')}`);
@@ -155,7 +200,7 @@ test('创建应用完成但用户身份尚未出现时仍能查询状态并继�
 
 test('新建应用后保持待用户授权，第二次扫码完成并真实核验才ready', async t => {
   const f = await bridge(t, 'two-stage-app-only'); await f.request('auth/start');
-  for (let i = 0; i < 100 && f.messages.filter(x => x.method === 'auth/challenge').length < 2; i++) await new Promise(resolve => setTimeout(resolve, 20));
+  await f.wait(x => x.method === 'auth/challenge' && f.messages.filter(item => item.method === 'auth/challenge').length === 2);
   const challenges = f.messages.filter(x => x.method === 'auth/challenge');
   assert.equal(challenges.length, 2); assert.notEqual(challenges[0].params.challengeId, challenges[1].params.challengeId);
   assert.ok(challenges[0].params.notice); assert.equal(challenges[1].params.notice, undefined);
@@ -170,11 +215,11 @@ test('新建应用后保持待用户授权，第二次扫码完成并真实核�
 
 test('首次应用设置挑战取消后停止真实进程，不产生下一阶段或遗留提示', async t => {
   const f=await bridge(t,'cancel-initial');await f.request('auth/start');
-  for(let i=0;i<100&&!f.messages.some(x=>x.method==='auth/challenge');i++)await new Promise(resolve=>setTimeout(resolve,20));
+  await f.wait(x => x.method === 'auth/challenge');
   const first=f.messages.find(x=>x.method==='auth/challenge');assert.ok(first.params.notice);
   assert.equal((await f.request('auth/cancel')).result.state,'cancelled');await f.waitState('cancelled');
   assert.equal(await readFile(path.join(f.params.dataDirectory,'profile/stopped-initial'),'utf8'),'yes');
-  await new Promise(resolve=>setTimeout(resolve,50));assert.equal(f.messages.filter(x=>x.method==='auth/challenge').length,1);
+  await f.request('auth/status');assert.equal(f.messages.filter(x=>x.method==='auth/challenge').length,1);
   assert.ok(f.messages.filter(x=>x.method==='auth/state').every(x=>x.params.notice===undefined));
 });
 

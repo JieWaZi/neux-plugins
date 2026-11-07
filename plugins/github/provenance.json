@@ -26,7 +26,7 @@
       "commit": "fc4b137cdef0a6bd28fd461b7cf9c84a5812a8cd",
       "version": "2.102.0-neuxally.2",
       "license": "MIT",
-      "lock": ".neuxally/auth/assets.lock.json"
+      "lock": ".neuxbot/auth/assets.lock.json"
     }
   ],
   "assets": [
@@ -36,6 +36,16 @@
       "sourcePath": "GitHub Logos/PNG/GitHub_Invertocat_Black_Clearspace.png",
       "sourceSHA256": "e2a67d6cc51d990a52c46c1cf6bcab688db4830982174bca50e0be7a5c2f3194",
       "sha256": "581c35d9f3c3a10bba201f63a43ac59173e7b89b0bd2ff9070179205e2ffc26f",
+      "license": "GitHub brand terms; trademark rights reserved",
+      "licenseURL": "https://brand.github.com/foundations/logo",
+      "attribution": "GitHub, Inc.; used to identify the GitHub integration, without endorsement"
+    },
+    {
+      "path": "assets/icon-dark.png",
+      "sourceURL": "https://brand.github.com/GitHub_Logos.zip",
+      "sourcePath": "GitHub Logos/PNG/GitHub_Invertocat_White_Clearspace.png",
+      "sourceSHA256": "e2a67d6cc51d990a52c46c1cf6bcab688db4830982174bca50e0be7a5c2f3194",
+      "sha256": "cf4271d46677de6414a91e58b6ccc9e7975e5d5ec9000a6e4a206115c60d8f21",
       "license": "GitHub brand terms; trademark rights reserved",
       "licenseURL": "https://brand.github.com/foundations/logo",
       "attribution": "GitHub, Inc.; used to identify the GitHub integration, without endorsement"

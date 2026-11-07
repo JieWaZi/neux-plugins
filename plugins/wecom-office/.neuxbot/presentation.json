@@ -1,0 +1,27 @@
+{
+  "displayNames": {
+    "en": "WeCom",
+    "zh-CN": "企业微信"
+  },
+  "localizedDescriptions": {
+    "en": "Create WeCom documents, manage tables, arrange meetings and follow up on work.",
+    "zh-CN": "编写企业微信文档、管理表格、安排会议并跟进工作。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Organize a weekly project update from the WeCom documents and tasks I can access.",
+      "Prepare a meeting agenda using the relevant WeCom documents and calendar."
+    ],
+    "zh-CN": [
+      "根据我有权访问的企业微信文档和任务整理项目周报。",
+      "结合相关企业微信文档和日历准备会议议程。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Scan the official WeCom QR code to authorize the bot. Available resources and actions depend on enterprise settings and your granted permissions.",
+      "zh-CN": "扫描企业微信官方二维码授权机器人；可用资源和操作受企业设置及已授予权限限制。"
+    },
+    "helpURL": "https://github.com/WecomTeam/wecom-cli/issues"
+  }
+}

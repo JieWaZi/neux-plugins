@@ -1,0 +1,69 @@
+{
+  "name": "github",
+  "version": "0.1.0",
+  "description": "Search GitHub repositories, issues and pull requests, and assist with code review and collaboration.",
+  "author": {
+    "name": "NeuxAlly contributors"
+  },
+  "repository": "https://github.com/github/github-mcp-server",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "GitHub",
+        "shortDescription": "Search GitHub repositories, issues and pull requests, and assist with code review and collaboration.",
+        "developerName": "GitHub",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png",
+        "brandColor": "#24292f",
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Summarize the open issues and recent pull requests in a GitHub repository.",
+          "Review a GitHub pull request for correctness and missing tests."
+        ],
+        "capabilities": [
+          "Search repositories and code",
+          "Read issues and pull requests",
+          "Review changes and CI results"
+        ],
+        "websiteURL": "https://github.com",
+        "supportURL": "https://support.github.com",
+        "logoDark": "./assets/icon-dark.png",
+        "composerIconDark": "./assets/icon-dark.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "authentication": {
+        "strategy": "plugin-command",
+        "protocol": "neuxbot-auth/1",
+        "command": "node",
+        "args": [
+          "./.neuxbot/auth/authorize.mjs"
+        ],
+        "scopes": [
+          "repo",
+          "read:org",
+          "gist"
+        ],
+        "preferredAction": "open-url",
+        "bindings": [
+          {
+            "runtime": "codex",
+            "server": "github",
+            "url": "https://api.githubcopilot.com/mcp/",
+            "header": "Authorization"
+          },
+          {
+            "runtime": "claude",
+            "server": "github",
+            "url": "https://api.githubcopilot.com/mcp/",
+            "header": "Authorization"
+          }
+        ]
+      }
+    }
+  }
+}

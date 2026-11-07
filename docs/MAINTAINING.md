@@ -6,13 +6,13 @@ The repository [development guide](../README.md) owns the canonical package layo
 
 ## Standard manifest and localized presentation
 
-Maintain each `plugins/<key>` package's `.codex-plugin/plugin.json` in English. Keep identity and version there; set the supported `interface.displayName`, `shortDescription`, `developerName`, `logo` and `composerIcon` fields. Use the actual capability brand for `developerName` (GitHub / 飞书), and the official capability project for `repository`. Preserve the packaging author and source/license evidence separately; do not claim official authorship of our wrapper. Visual paths are package-relative `./assets/` paths, as described in the [official packaging documentation](https://developers.openai.com/plugins/build/plugins).
+Maintain each `plugins/<key>` package's `plugin.json` in English. Keep identity and version there; set the supported `extensions.com.openai.interface.displayName`, `shortDescription`, `developerName`, `logo` and `composerIcon` fields. Use the actual capability brand for `developerName` (GitHub / 飞书), and the official capability project for `repository`. Preserve the packaging author and source/license evidence separately; do not claim official authorship of our wrapper. Visual paths are package-relative `./assets/` paths, as described in the [official packaging documentation](https://developers.openai.com/plugins/build/plugins).
 
-The plugin information panel reads only `provenance.upstream`: developer from `author`, version from `tag` then `version`, license from `license`, and source from `repository`. Feishu therefore shows `Lark Suite CLI contributors` and `v1.0.98`, with no second upstream-version field. `manifest.version` (`0.1.x`) and the manifest author remain the truthful internal maintained package identity. Hosted GitHub MCP has no fixed service version; do not substitute its authorization CLI version. Both packages follow the same [provenance contract](PROVENANCE.md) and [JSON schema](../schemas/provenance.schema.json).
+The plugin information panel reads only `provenance.upstream`: developer from `author`, version from `tag` then `version`, license from `license`, and source from `repository`. Feishu therefore shows `Lark Suite CLI contributors` and `v1.0.98`, with no second upstream-version field. `manifest.version` (`0.1.x`) and the manifest author remain the truthful internal maintained package identity. Hosted GitHub MCP has no fixed service version; do not substitute its authorization CLI version. All three packages follow the same [provenance contract](PROVENANCE.md) and [JSON schema](../schemas/provenance.schema.json).
 
 Use `README.md` for English and `README.zh-CN.md` for Simplified Chinese, without language-switch links. The host selects the corresponding document and falls back to English when a translation is absent.
 
-The optional package-local `.neuxally/presentation.json` contains only translated display text:
+Reference the optional package-local `.neuxbot/presentation.json` through root `extensions.com.neuxbot.presentation`. It contains translated display text, indexed prompt translations and static setup guidance:
 
 ```json
 {
@@ -24,21 +24,25 @@ The optional package-local `.neuxally/presentation.json` contains only translate
 }
 ```
 
-Only `en` and `zh-CN` are accepted, each nonempty value is limited to 4 KiB of UTF-8, and control characters are rejected. The file is bounded to 20 KiB. It does not declare identity, components, behavior or arbitrary README paths. Keep English translations consistent with the standard manifest, and keep business meaning equivalent across languages.
+Only `en` and `zh-CN` are accepted. Display text and each prompt are limited to 4 KiB of UTF-8; setup instructions are limited to 16 KiB. The presentation file is bounded to 1 MiB and control characters are rejected. `defaultPromptLocalizations` arrays must have the same number and order as `extensions.com.openai.interface.defaultPrompt` (a string or string array). `setup.instructions` is a locale map and `setup.helpURL` is a public HTTPS URL. This file does not declare identity, components or executable behavior. Keep equivalent meanings across languages.
+
+The OpenAI interface also supports truthful `category`, `capabilities`, `supportURL`, `defaultPrompt`, and `brandColor` / `brandColorDark` (hex color strings). `logo` / `logoDark` and `composerIcon` / `composerIconDark` are separate path strings; provide a dark variant only when an actual reviewed asset exists. These richer fields appear in details, while the catalog index exposes only approved list summaries.
 
 ## Catalog icons and complete packages
 
-The release builder derives optional `displayNames` and `localizedDescriptions` from that file, and `icon` from the standard manifest's `interface.logo` (or `composerIcon` when logo is absent). Catalog identity remains `key`/`name`; the default description remains English. These display fields do not change `schemaVersion: 2` or install paths.
+The release builder derives optional `displayNames` and `localizedDescriptions` from that file, and `icon` from the standard manifest's `extensions.com.openai.interface.logo` (or `composerIcon` when logo is absent). Catalog identity remains `key`/`name`; the default description remains English. These display fields do not change `schemaVersion: 1` or install paths.
 
-For release icons, use a static noninterlaced 8-bit PNG under `./assets/`, at most 128 KiB and 2048×2048 pixels. The builder validates the signature, chunk checksums, dimensions, compressed pixels and scanline filters before emitting a canonical `data:image/png;base64,...` URI. It rejects external URLs, unsafe paths, symlinks, SVG and malformed or oversized data. The host also validates catalog icons before presenting them; its broader supported image set does not expand the release policy.
+For release icons, use a static noninterlaced 8-bit PNG under `./assets/`, at most 256 KiB and 2048×2048 pixels. The builder validates the signature, chunk checksums, dimensions, compressed pixels and scanline filters before emitting a canonical `data:image/png;base64,...` URI. It rejects external URLs, unsafe paths, symlinks, SVG and malformed or oversized data. The host also validates catalog icons before presenting them; its broader supported image set does not expand the release policy.
+
+The catalog publishes sanitized `icons: {default,dark}` data URIs for explicit theme assets; `icon` is the derived default-theme alias. GitHub uses the official black and white clearspace PNGs from the same recorded brand archive without recoloring.
 
 Catalog discovery needs no package download or external icon request. The complete ZIP retains the PNG, localized presentation file and both READMEs. All are read from the fixed source commit; dirty workspace files cannot alter that release. Rebuild and verify with `npm test` and `node scripts/build-catalog.mjs HEAD v0.1.0` after committing the reviewed changes.
 
 ## Existing integrations
 
-GitHub contains one standard `.mcp.json` entry for the official endpoint and its own device OAuth bridge. Runtime bindings identify this same component, never a second implementation. No PAT placeholders, managed app declarations, native source references or upstream HTTP materialization belong to the package. The host adapts this single definition to supported target formats.
+GitHub contains one standard `mcp.json` entry for the official endpoint and its own device OAuth bridge. Runtime bindings identify this same component, never a second implementation. No PAT placeholders, managed app declarations, native source references or upstream HTTP materialization belong to the package. The host adapts this single definition to supported target formats.
 
-Feishu Office keeps complete official skills and relative resources. Its package-owned bridge handles successive authorization challenges, verifies identity/scopes, and supplies approved private component bindings. The host owns account/session lifecycle and secret storage. Execution must not bypass that lifecycle with chat-issued CLI login/configuration commands. The fixed isolated CLI and provider versions are recorded in the [asset lock](../plugins/feishu-office/.neuxally/auth/assets.lock.json) and [bridge guide](../plugins/feishu-office/.neuxally/auth/README.md), independently of the own plugin version.
+Feishu Office keeps complete official skills and relative resources. Its package-owned bridge handles successive authorization challenges, verifies identity/scopes, and supplies approved private component bindings. The host owns account/session lifecycle and secret storage. Execution must not bypass that lifecycle with chat-issued CLI login/configuration commands. The fixed isolated CLI and provider versions are recorded in the [asset lock](../plugins/feishu-office/.neuxbot/auth/assets.lock.json) and [bridge guide](../plugins/feishu-office/.neuxbot/auth/README.md), independently of the own plugin version.
 
 Publication, CLI schema validation and automated tests do not constitute real account, platform, native runtime or UI acceptance. Record those boundaries in implementation/release reports, rather than inserting internal validation disclaimers into business README content. Preserve brand attribution and actual license gaps in the third-party notices.
 

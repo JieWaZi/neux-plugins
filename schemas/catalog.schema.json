@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/JieWaZi/NeuxAlly-Plugins/schemas/catalog.schema.json",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "version": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 4096
+          },
+          "format": {
+            "const": "agent-plugins"
+          },
+          "sourceCommit": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "archiveSHA256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "archiveURL": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://"
+          },
+          "packagePath": {
+            "type": "string",
+            "pattern": "^plugins/[a-z0-9-]+$"
+          },
+          "detailsURL": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https?://"
+          },
+          "detailsSHA256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "detailsSize": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4194304
+          },
+          "icon": {
+            "type": "string",
+            "pattern": "^data:image/png;base64,"
+          },
+          "displayNames": {
+            "type": "object",
+            "properties": {
+              "en": {
+                "type": "string",
+                "maxLength": 4096
+              },
+              "zh-CN": {
+                "type": "string",
+                "maxLength": 4096
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "localizedDescriptions": {
+            "type": "object",
+            "properties": {
+              "en": {
+                "type": "string",
+                "maxLength": 4096
+              },
+              "zh-CN": {
+                "type": "string",
+                "maxLength": 4096
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          },
+          "icons": {
+            "type": "object",
+            "properties": {
+              "default": {
+                "type": "string",
+                "pattern": "^data:image/png;base64,"
+              },
+              "dark": {
+                "type": "string",
+                "pattern": "^data:image/png;base64,"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "key",
+          "name",
+          "format",
+          "sourceCommit",
+          "archiveSHA256",
+          "archiveURL",
+          "packagePath",
+          "detailsURL",
+          "detailsSHA256",
+          "detailsSize"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "entries"
+  ],
+  "additionalProperties": false
+}

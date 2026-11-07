@@ -1,0 +1,411 @@
+{
+  "name": "wecom-office",
+  "version": "0.1.0",
+  "description": "Create WeCom documents, manage tables, arrange meetings and follow up on work.",
+  "author": {
+    "name": "NeuxAlly contributors"
+  },
+  "repository": "https://github.com/WecomTeam/wecom-cli",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "WeCom",
+        "shortDescription": "Create WeCom documents, manage tables, arrange meetings and follow up on work.",
+        "developerName": "企业微信",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png",
+        "brandColor": "#2B7FFF",
+        "category": "Productivity",
+        "defaultPrompt": [
+          "Organize a weekly project update from the WeCom documents and tasks I can access.",
+          "Prepare a meeting agenda using the relevant WeCom documents and calendar."
+        ],
+        "capabilities": [
+          "Work with documents and spreadsheets",
+          "Arrange meetings and follow up tasks",
+          "Search authorized files and contacts"
+        ],
+        "websiteURL": "https://github.com/WecomTeam/wecom-cli",
+        "supportURL": "https://github.com/WecomTeam/wecom-cli/issues"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "authentication": {
+        "strategy": "plugin-command",
+        "protocol": "neuxbot-auth/1",
+        "command": "node",
+        "args": [
+          "./.neuxbot/auth/authorize.mjs"
+        ],
+        "scopes": [],
+        "preferredAction": "show-qr",
+        "skillBindings": [
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-calendar",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-contact",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-disk",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-doc",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-doc-manage",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-email",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-media",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-meeting",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-message",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-pptx",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-shared",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-sheet",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-smartpage",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-smartsheet",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "codex",
+            "skill": "skills/wecomcli-todo",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-calendar",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-contact",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-disk",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-doc",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-doc-manage",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-email",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-media",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-meeting",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-message",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-pptx",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-shared",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-sheet",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-smartpage",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-smartsheet",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          },
+          {
+            "runtime": "claude",
+            "skill": "skills/wecomcli-todo",
+            "environmentKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ],
+            "privatePathKeys": [
+              "WECOM_CLI_CONFIG_DIR",
+              "PATH"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

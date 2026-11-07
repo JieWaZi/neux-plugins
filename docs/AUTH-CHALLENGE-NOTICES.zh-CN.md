@@ -46,7 +46,7 @@
 
 ## 飞书实例
 
-飞书包使用 `.neuxally/auth/presentation.json`，将具体提示命名为 `initialSetup`；此名称只由飞书桥接选择，不属于通用协议字段。其他插件可声明任意符合规范的提示名称，并由自身桥接选择在哪个挑战发送。
+飞书包使用 `.neuxbot/auth/presentation.json`，将具体提示命名为 `initialSetup`；此名称只由飞书桥接选择，不属于通用协议字段。其他插件可声明任意符合规范的提示名称，并由自身桥接选择在哪个挑战发送。
 
 仅首次 `config init` 创建／配置应用的挑战携带 `notices.initialSetup`。随后的 `auth login` 用户设备授权挑战使用新 ID，不携带 notice。已有应用配置时直接进入用户授权，不出现首次设置提示。任何阶段取消都须真正停止上游工作，不能继续发出下一阶段挑战或保留该阶段提示。
 

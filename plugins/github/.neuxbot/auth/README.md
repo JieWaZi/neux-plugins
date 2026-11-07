@@ -1,15 +1,16 @@
 # GitHub 包内授权桥接
 
-本桥接实现宿主扩展 `neuxally-auth/1`，不属于 MCP 或 Codex 标准。标准 `.mcp.json` 只声明一项官方 GitHub 服务，认证由自有桥接解释官方 GitHub CLI 设备 OAuth。stdin/stdout 是逐行 JSON-RPC 2.0，供应商原始输出不进入协议或日志。
+本桥接实现宿主扩展 `neuxbot-auth/1`，不属于 MCP 或 Codex 标准。标准 `mcp.json` 只声明一项官方 GitHub 服务，认证由自有桥接解释官方 GitHub CLI 设备 OAuth。stdin/stdout 是逐行 JSON-RPC 2.0，供应商原始输出不进入协议或日志。
 
 ## 声明与协议
 
-`.neuxally/integration.json` 声明 `plugin-command`、受信 Node、包内入口、`repo/read:org/gist` 权限以及 `preferredAction: open-url`。`bindings` 两项分别面向 codex、claude，均限定 `server: github`、URL `https://api.githubcopilot.com/mcp/`、header `Authorization`。这些是认证目标约束，不是第二份组件定义。
+根 `plugin.json` 的 `extensions.com.neuxbot.authentication` 声明 `plugin-command`、受信 Node、包内入口、`repo/read:org/gist` 权限以及 `preferredAction: open-url`。`bindings` 两项分别面向 codex、claude，均限定 `server: github`、URL `https://api.githubcopilot.com/mcp/`、header `Authorization`。这些是认证目标约束，不是第二份组件定义。
 
-所有请求携带相同 `sessionId/pluginId/dataDirectory/scopes`；进程绑定首次完整身份及权限集，后续更改会被拒绝。
+每个进程首先完成 `auth/initialize`，要求准确 `protocol: neuxbot-auth/1`，固定并逐字段回显 `operationId/pluginId/versionId/digest/configurationRevision/accountGeneration`；所有后续方法携带同一上下文及 `sessionId/dataDirectory/scopes`。未初始化、旧协议、重复初始化或上下文变化均拒绝。挑战和状态通知同时带有 operationId 与 sessionId。
 
 | 方法 | 结果 |
 | --- | --- |
+| auth/initialize | 只固定并回显上下文，不启动供应商 |
 | auth/start | 立即 `{state:"pending"}`，异步启动实际设备流 |
 | auth/status | `{state,account}`，官方在线检查私有文件身份及授权范围 |
 | auth/cancel | 停止并等待上游退出后返回 cancelled |
