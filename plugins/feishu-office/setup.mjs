@@ -107,6 +107,7 @@ try {
       const config = await lstat(targetConfig).catch(() => undefined);
       if (!config?.isFile() || config.isSymbolicLink()) throw new Error('missing_opencode_target_config: use the generated OpenCode artifact');
       environment.OPENCODE_CONFIG = targetConfig; delete environment.OPENCODE_CONFIG_CONTENT;
+      environment.NEUXBOT_PLUGIN_ROOT = packageRoot; environment.NEUXBOT_PLUGIN_DATA = dataDirectory;
     }
     let executable = command === 'exec' ? businessCommand : argv.shift();
     if (!executable) throw new Error(command === 'exec' ? 'no_business_cli: use run -- CLI ARGS' : 'missing_cli_command');
