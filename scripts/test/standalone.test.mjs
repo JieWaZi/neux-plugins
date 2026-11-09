@@ -38,11 +38,11 @@ else if(args[0]==='probe')console.log(JSON.stringify({profile:p,foreign:process.
   await chmod(binary, 0o755);
   if (key === 'github') { const lockFile=path.join(root,'.neuxbot/auth/assets.lock.json'); const lock=JSON.parse(await readFile(lockFile,'utf8'));lock.version='2.102.0-neuxally.1';await writeFile(lockFile,JSON.stringify(lock)); }
   const env = { ...process.env, [`NEUXALLY_${key === 'github' ? 'GH' : key === 'feishu-office' ? 'LARK' : 'WECOM'}_CLI`]: binary, LARKSUITE_CLI_ACCESS_TOKEN: 'FOREIGN-SECRET', WECOM_CLI_ACCESS_TOKEN:'FOREIGN-SECRET', NEUXBOT_CORE_URL: 'http://127.0.0.1:1' };
-  const run = (args, profile = 'codex') => new Promise((resolve, reject) => {
-    const child=spawn(process.execPath,[path.join(root,'setup.mjs'),'--profile',profile,'--data',data,...args],{env,stdio:['ignore','pipe','pipe']});
+  const run = (args, profile = 'codex', extraEnv = {}) => new Promise((resolve, reject) => {
+    const child=spawn(process.execPath,[path.join(root,'setup.mjs'),'--profile',profile,'--data',data,...args],{env:{...env,...extraEnv},stdio:['ignore','pipe','pipe']});
     let stdout='',stderr='';child.stdout.on('data',b=>stdout+=b);child.stderr.on('data',b=>stderr+=b);child.on('error',reject);child.on('close',code=>resolve({code,stdout,stderr}));
   });
-  return { run, data, root };
+  return { run, data, root, env };
 }
 
 for(const key of ['feishu-office','wecom-office','github']) {
@@ -71,12 +71,37 @@ for(const key of ['feishu-office','wecom-office','github']) {
 test('OpenCode launcher selects the target config and propagates the actual CLI exit code', async t => {
   const f=await fixture(t,'github');
   assert.equal((await f.run(['login'])).code,0);
-  const probe=path.join(f.root,'opencode-probe.mjs');
-  await writeFile(probe,`console.log(JSON.stringify({config:process.env.OPENCODE_CONFIG}));process.exitCode=7;`);
+  const probe=path.join(f.root,'opencode-probe.cjs');
+  await writeFile(probe,`const fs=require('node:fs');console.log(JSON.stringify({config:process.env.OPENCODE_CONFIG,body:JSON.parse(fs.readFileSync(process.env.OPENCODE_CONFIG,'utf8'))}));process.exitCode=7;`);
   const missing=await f.run(['run','--',process.execPath,probe],'opencode');
   assert.notEqual(missing.code,0);assert.match(missing.stderr,/missing_opencode_target_config/);
-  await writeFile(path.join(f.root,'opencode.json'),'{}');
+  await writeOpenCodeConfig(f);
   const result=await f.run(['run','--',process.execPath,probe],'opencode');
   assert.equal(result.code,7,result.stderr);
-  assert.deepEqual(JSON.parse(result.stdout),{config:await realpath(path.join(f.root,'opencode.json'))});
+  const output=JSON.parse(result.stdout);assert.equal(output.body.mcp.github.url,'https://api.githubcopilot.com/mcp/');
+  assert.match(output.config,/opencode-run-/);await assert.rejects(readFile(output.config),{code:'ENOENT'});
+});
+
+async function writeOpenCodeConfig(f) {
+  const manifest=JSON.parse(await readFile(path.join(f.root,'plugin.json'),'utf8'));
+  const config={skills:{paths:(manifest.extensions['com.neuxbot'].authentication.skillBindings??[]).map(binding=>'./'+binding.skill)},mcp:{}};
+  if(manifest.name==='github')config.mcp.github={type:'remote',url:'https://api.githubcopilot.com/mcp/',enabled:true,headers:{Authorization:'{env:GITHUB_PLUGIN_AUTHORIZATION}'}};
+  await writeFile(path.join(f.root,'opencode.json'),JSON.stringify(config));
+}
+
+test('three nested OpenCode setups retain GitHub MCP, both Skill trees and verified business launchers', async t => {
+  const github=await fixture(t,'github'),lark=await fixture(t,'feishu-office'),wecom=await fixture(t,'wecom-office');
+  for(const f of [github,lark,wecom]){assert.equal((await f.run(['login'])).code,0);await writeOpenCodeConfig(f);}
+  const probe=path.join(github.root,'combined-probe.cjs');
+  await writeFile(probe,`const fs=require('node:fs'),cp=require('node:child_process');
+const config=JSON.parse(fs.readFileSync(process.env.OPENCODE_CONFIG,'utf8'));
+const run=name=>JSON.parse(cp.execFileSync(name,['probe','literal & value'],{encoding:'utf8'}));
+console.log(JSON.stringify({config,github:process.env.GITHUB_PLUGIN_AUTHORIZATION?.startsWith('Bearer gho_'),lark:run('lark-cli'),wecom:run('wecom-cli')}));`);
+  const args=['run','--',process.execPath,path.join(lark.root,'setup.mjs'),'--profile','opencode','--data',lark.data,'run','--',process.execPath,path.join(wecom.root,'setup.mjs'),'--profile','opencode','--data',wecom.data,'run','--',process.execPath,probe];
+  const result=await github.run(args,'opencode',{...lark.env,...wecom.env});
+  assert.equal(result.code,0,result.stderr);const output=JSON.parse(result.stdout);assert.equal(output.github,true);
+  assert.equal(output.config.mcp.github.url,'https://api.githubcopilot.com/mcp/');const expected=[];for(const f of [lark,wecom]){const m=JSON.parse(await readFile(path.join(f.root,'plugin.json'),'utf8'));for(const binding of m.extensions['com.neuxbot'].authentication.skillBindings)expected.push(await realpath(path.join(f.root,binding.skill)));}
+  assert.deepEqual(output.config.skills.paths.sort(),expected.sort());
+  assert.deepEqual(output.lark.args,['literal & value']);assert.deepEqual(output.wecom.args,['literal & value']);
+  assert.equal(await realpath(output.lark.profile),await realpath(path.join(lark.data,'profile')));assert.equal(await realpath(output.wecom.profile),await realpath(path.join(wecom.data,'profile')));
 });
