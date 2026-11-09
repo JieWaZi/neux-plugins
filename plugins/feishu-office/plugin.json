@@ -52,7 +52,6 @@
         "preferredAction": "show-qr",
         "skillBindings": [
           {
-            "runtime": "codex",
             "skill": "skills/lark-approval",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -68,7 +67,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-apps",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -84,7 +82,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-attendance",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -100,7 +97,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-base",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -116,7 +112,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-calendar",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -132,7 +127,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-contact",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -148,7 +142,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-doc",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -164,7 +157,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-drive",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -180,7 +172,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-event",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -196,7 +187,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-im",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -212,7 +202,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-mail",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -228,7 +217,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-markdown",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -244,7 +232,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-meeting",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -260,7 +247,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-minutes",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -276,7 +262,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-note",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -292,7 +277,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-okr",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -308,7 +292,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-openapi-explorer",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -324,7 +307,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-shared",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -340,7 +322,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-sheets",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -356,7 +337,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-skill-maker",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -372,7 +352,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-slides",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -388,7 +367,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-task",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -404,7 +382,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-vc",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -420,7 +397,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-vc-agent",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -436,7 +412,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-whiteboard",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -452,7 +427,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-wiki",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -468,7 +442,6 @@
             ]
           },
           {
-            "runtime": "codex",
             "skill": "skills/lark-workflow-meeting-summary",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",
@@ -484,455 +457,6 @@
             ]
           },
           {
-            "runtime": "codex",
-            "skill": "skills/lark-workflow-standup-report",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-approval",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-apps",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-attendance",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-base",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-calendar",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-contact",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-doc",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-drive",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-event",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-im",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-mail",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-markdown",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-meeting",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-minutes",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-note",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-okr",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-openapi-explorer",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-shared",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-sheets",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-skill-maker",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-slides",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-task",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-vc",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-vc-agent",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-whiteboard",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-wiki",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
-            "skill": "skills/lark-workflow-meeting-summary",
-            "environmentKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "LARKSUITE_CLI_NO_UPDATE_NOTIFIER",
-              "LARKSUITE_CLI_NO_SKILLS_NOTIFIER",
-              "PATH"
-            ],
-            "privatePathKeys": [
-              "LARKSUITE_CLI_CONFIG_DIR",
-              "LARKSUITE_CLI_DATA_DIR",
-              "PATH"
-            ]
-          },
-          {
-            "runtime": "claude",
             "skill": "skills/lark-workflow-standup-report",
             "environmentKeys": [
               "LARKSUITE_CLI_CONFIG_DIR",

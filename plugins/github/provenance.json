@@ -16,7 +16,8 @@
     "changes": [
       "Maintained standard manifest and declaration-driven authorization bridge",
       "Official hosted MCP endpoint declared without redistributing its service implementation",
-      "Fixed-source CLI profile and keychain isolation patches and asset locks published in this repository"
+      "Fixed-source CLI profile and keychain isolation patches and asset locks published in this repository",
+      "Component-scoped shared authorization and standalone native CLI setup/launcher reuse the same package-owned vendor bridge"
     ]
   },
   "dependencies": [

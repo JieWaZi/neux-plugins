@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-A library of self-maintained OpenAI/Codex-standard plugins for GitHub code review and collaboration, and Feishu and WeCom documents, tables, calendars and tasks. Each entry is one complete package under `plugins/`.
+A library of self-maintained portable Agent Plugins packages for GitHub code review and collaboration, and Feishu and WeCom documents, tables, calendars and tasks. Each entry is one complete package under `plugins/`.
 
 | Plugin | Capabilities |
 | --- | --- |
@@ -58,7 +58,7 @@ MCP services and skill components remain declared by their standard files. Optio
 
 Packages requiring authorization use `extensions.com.neuxbot.authentication.strategy: plugin-command`, `protocol: neuxbot-auth/1`, trusted Node and a package-relative bridge entry. The frontend displays safe actions supplied by Core and sends cancellation requests. Optional [challenge notices](docs/AUTH-CHALLENGE-NOTICES.md) are declared by the package, apply only to the current challenge and use the host's fixed warning style. Core owns sessions, leases and private execution bindings. The bridge interprets its vendor flow; raw provider frames, credentials and private bindings do not enter the frontend.
 
-- GitHub uses the official device OAuth flow through a fixed isolated GitHub CLI. It emits the actual `https://github.com/login/device` URL and one-time code, verifies account and granted scopes online, and resolves a private OAuth Bearer header only for the exact `github` MCP at `https://api.githubcopilot.com/mcp/`. Only the declared Codex and Claude targets receive these OAuth bindings, both referring to that same component; other runtimes cannot fall back to an undeclared authorization route. No PAT placeholder or managed app connector is bundled. `preferredAction: open-url` does not imply QR support.
+- GitHub uses the official device OAuth flow through a fixed isolated GitHub CLI. It emits the actual `https://github.com/login/device` URL and one-time code, verifies account and granted scopes online, and resolves a private OAuth Bearer header only for the exact `github` MCP at `https://api.githubcopilot.com/mcp/`. The exact component binding is shared across supported CLI targets; target-specific differences must be declared explicitly. No PAT placeholder or managed app connector is bundled. `preferredAction: open-url` does not imply QR support.
 - Feishu uses successive official application-creation and user-authorization QR challenges. An existing application without a user identity is a valid pending stage; only final online identity/scope verification marks it available. `preferredAction: show-qr` allows the frontend to prepare a QR placeholder while waiting for actual challenge actions. See the [Feishu bridge contract](plugins/feishu-office/.neuxbot/auth/README.md) and [GitHub bridge contract](plugins/github/.neuxbot/auth/README.md).
 
 ```mermaid
@@ -114,7 +114,9 @@ A ZIP contains its complete standard package, applicable local Codex index, sour
 
 ## Build and test release
 
-Node 22+ and Git build a committed snapshot; dirty workspace files and timestamps do not enter the result:
+See [multi-CLI build and independent setup](docs/NATIVE-DELIVERY.md) for the shared Go packager, ten self-contained target artifacts, and native account launchers.
+
+Node 22+ and Git build a committed portable snapshot; dirty workspace files and timestamps do not enter the result:
 
 ```sh
 npm ci

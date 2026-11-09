@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-自行维护的 OpenAI/Codex 标准插件库，提供 GitHub 代码审查与协作，以及飞书、企业微信文档、表格、日程和任务能力。每项只维护 `plugins/` 下的一套完整标准包。
+自行维护的 portable Agent Plugins 标准插件库，提供 GitHub 代码审查与协作，以及飞书、企业微信文档、表格、日程和任务能力。每项只维护 `plugins/` 下的一套完整标准包。
 
 | 插件 | 业务能力 |
 | --- | --- |
@@ -58,7 +58,7 @@ MCP 服务与技能仍由标准文件定义；可选根清单 `extensions.com.ne
 
 需要授权的包均采用 `extensions.com.neuxbot.authentication.strategy: plugin-command`、`protocol: neuxbot-auth/1`、受信 Node 与包内桥接入口。前端只显示 Core 交付的安全动作并发送取消请求；可选[挑战提示](docs/AUTH-CHALLENGE-NOTICES.zh-CN.md)由包内声明，只作用于当前挑战，宿主采用固定警告样式；Core 管理会话、占用和私密执行绑定；桥接解释供应商流程。供应商原始帧、凭据和私密绑定不进入前端。
 
-- GitHub 通过固定隔离 CLI 执行官方设备 OAuth，发出真实 `https://github.com/login/device` 地址和一次性验证码，在线核验账号与授权范围，只为精确 `github` MCP `https://api.githubcopilot.com/mcp/` 交付私密 OAuth Bearer 头。OAuth 只对明确声明的 Codex 和 Claude 目标绑定同一组件，其他运行目标不能回退到未声明授权路径；不包含 PAT 占位配置或托管 app 连接。`preferredAction: open-url` 不代表支持二维码。
+- GitHub 通过固定隔离 CLI 执行官方设备 OAuth，发出真实 `https://github.com/login/device` 地址和一次性验证码，在线核验账号与授权范围，只为精确 `github` MCP `https://api.githubcopilot.com/mcp/` 交付私密 OAuth Bearer 头。授权按精确组件声明并由所有支持的 CLI 目标共享；真实目标差异才显式指定 runtime；不包含 PAT 占位配置或托管 app 连接。`preferredAction: open-url` 不代表支持二维码。
 - 飞书按官方顺序发出创建应用与用户授权的两次二维码挑战。已有应用配置但尚无用户身份是合法待授权阶段，只有最终在线核验身份与范围后才可用。`preferredAction: show-qr` 允许前端等待真实挑战时准备二维码占位。精确协议见[飞书桥接](plugins/feishu-office/.neuxbot/auth/README.md)与[GitHub 桥接](plugins/github/.neuxbot/auth/README.md)。
 
 ```mermaid
@@ -133,3 +133,7 @@ node scripts/build-lark-provider.mjs
 明确获准后，将核验后的新快照发布到新的正式标签，不覆盖已有标签或资产。先发布需要的供应商二进制与许可，再发布目录/ZIP，最后经 HTTP 同时核对标签指向、sourceCommit 和所有资产摘要。已有安装快照保持不变。自动化测试、交叉编译和发布不代替真实账号、平台、智能体或界面验收。
 
 根 [MIT 许可](LICENSE)覆盖 NeuxBot 自编封装；第三方内容和品牌资产保留实际条款与如实披露的许可缺口。
+
+## 多 CLI 原生工件与独立授权
+
+[原生交付指南](docs/NATIVE-DELIVERY.md)记录唯一共享 Go 打包工具、固定提交构建、十端自包含工件和包内 `setup.mjs`。独立 CLI 直接复用各包的供应商授权实现，在原生私有目录保存业务账号，使用 `login/status/logout` 与 `run -- <真实CLI> <参数>`；飞书和企微还提供 `exec -- <业务参数>`。不需要运行中的 Core，也不导出宿主凭据。正式工具资产尚未发布锁定，当前构建必须通过 `NEUX_PLUGIN_PACKAGER` 显式指定本地已构建工具，工件记录实际工具摘要。目录只保留展示与固定下载绑定，README／Skill 正文继续在独立详情和 ZIP 中。

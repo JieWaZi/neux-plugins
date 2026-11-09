@@ -40,7 +40,7 @@ Catalog discovery needs no package download or external icon request. The comple
 
 ## Existing integrations
 
-GitHub contains one standard `mcp.json` entry for the official endpoint and its own device OAuth bridge. Runtime bindings identify this same component, never a second implementation. No PAT placeholders, managed app declarations, native source references or upstream HTTP materialization belong to the package. The host adapts this single definition to supported target formats.
+GitHub contains one standard `mcp.json` entry for the official endpoint and its own device OAuth bridge. Component bindings identify this same component, never a second implementation. No PAT credentials, managed app declarations, native source references or upstream HTTP materialization belong to the package. The host adapts this single definition to supported target formats.
 
 Feishu Office keeps complete official skills and relative resources. Its package-owned bridge handles successive authorization challenges, verifies identity/scopes, and supplies approved private component bindings. The host owns account/session lifecycle and secret storage. Execution must not bypass that lifecycle with chat-issued CLI login/configuration commands. The fixed isolated CLI and provider versions are recorded in the [asset lock](../plugins/feishu-office/.neuxbot/auth/assets.lock.json) and [bridge guide](../plugins/feishu-office/.neuxbot/auth/README.md), independently of the own plugin version.
 
@@ -59,3 +59,7 @@ The builder derives README, SKILL text and public metadata into [details sidecar
 ## Authorization challenge notices
 
 Keep step-specific warning text in a package-owned declaration. A bridge may attach it as `auth/challenge.notice.messages`; the host selects language and clears it with the current challenge, without provider branches. See the [notice contract and schemas](AUTH-CHALLENGE-NOTICES.md). Do not place this transient message in plugin descriptions or account records.
+
+## Target release and standalone setup
+
+Use the [native delivery guide](NATIVE-DELIVERY.md). The shared Go packager generates all target formats; the Node release wrapper only handles fixed source snapshots, invocation and artifact verification. Authorization is component-scoped across targets. Standalone setup reuses the existing package bridge in an independent account directory; setup files are regenerated from one template. Keep native setup instructions in `NATIVE.md`, separate from business README content.

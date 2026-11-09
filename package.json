@@ -6,7 +6,9 @@
     "test": "node --test scripts/test/*.test.mjs",
     "build": "node scripts/build-catalog.mjs",
     "build:providers": "node scripts/build-lark-provider.mjs",
-    "build:github-provider": "node scripts/build-github-provider.mjs"
+    "build:github-provider": "node scripts/build-github-provider.mjs",
+    "build:release": "node scripts/build-release.mjs",
+    "generate:standalone": "node scripts/sync-standalone.mjs"
   },
   "engines": {
     "node": ">=22"

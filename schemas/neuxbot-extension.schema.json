@@ -167,7 +167,15 @@
               "runtime": {
                 "enum": [
                   "codex",
-                  "claude"
+                  "claude",
+                  "cursor",
+                  "workbuddy",
+                  "qoder",
+                  "kimi",
+                  "gemini",
+                  "grok",
+                  "opencode",
+                  "pi"
                 ]
               },
               "server": {
@@ -186,7 +194,6 @@
               }
             },
             "required": [
-              "runtime",
               "server",
               "url",
               "header"
@@ -202,7 +209,15 @@
               "runtime": {
                 "enum": [
                   "codex",
-                  "claude"
+                  "claude",
+                  "cursor",
+                  "workbuddy",
+                  "qoder",
+                  "kimi",
+                  "gemini",
+                  "grok",
+                  "opencode",
+                  "pi"
                 ]
               },
               "skill": {
@@ -227,7 +242,6 @@
               }
             },
             "required": [
-              "runtime",
               "skill",
               "environmentKeys"
             ],

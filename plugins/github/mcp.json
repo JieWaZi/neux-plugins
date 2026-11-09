@@ -10,6 +10,9 @@
             "headerScheme": "bearer"
           }
         }
+      },
+      "headers": {
+        "Authorization": "${GITHUB_PLUGIN_AUTHORIZATION}"
       }
     }
   },

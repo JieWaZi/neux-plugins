@@ -48,7 +48,7 @@ export function validateStandardPackage({ manifest, packagePath, names, has, rea
       if (!safePath(entry) || entry.startsWith('-') || !has(`${packagePath}/${entry.replace(/^\.\//, '')}`)) throw new Error('authentication entry escapes or is missing');
       const boundSkills = new Set();
       for (const binding of auth.skillBindings ?? []) {
-        const identity = `${binding.runtime}:${binding.skill}`;
+        const identity = `${binding.runtime ?? "*"}:${binding.skill}`;
         if (boundSkills.has(identity) || !safePath(binding.skill) || !binding.skill.startsWith('skills/') || !has(`${packagePath}/${binding.skill}/SKILL.md`)) throw new Error('unknown or duplicate skill authentication binding'); boundSkills.add(identity);
         const keys = new Set(); const privateKeys = new Set(binding.privatePathKeys ?? []);
         if (privateKeys.size !== (binding.privatePathKeys ?? []).length) throw new Error('duplicate private path key');
@@ -99,7 +99,7 @@ export function validateStandardPackage({ manifest, packagePath, names, has, rea
   }
   identities.clear();
   for (const binding of extension?.authentication?.bindings ?? []) {
-    const server = servers[binding.server], identity = `${binding.runtime}:${binding.server}:${binding.header.toLowerCase()}`;
+    const server = servers[binding.server], identity = `${binding.runtime ?? "*"}:${binding.server}:${binding.header.toLowerCase()}`;
     if (!server || server.type === 'stdio' || binding.url !== server.url || identities.has(identity)) throw new Error('authentication binding target mismatch'); identities.add(identity);
   }
   return manifest;
