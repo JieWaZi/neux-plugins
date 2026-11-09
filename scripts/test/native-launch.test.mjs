@@ -32,10 +32,10 @@ test('Windows npm shim resolves its declared Node bin without cmd.exe and preser
 
 async function target(root,name,server,skill) {
   await mkdir(root,{recursive:true});
-  const auth={skillBindings:[],bindings:[]};const config={skills:{paths:[]},mcp:{}};
+  const auth={skillBindings:[],bindings:[]};const config={skills:{paths:[]},mcp:{servers:{}}};
   if(skill){await mkdir(path.join(root,'skills',skill),{recursive:true});await writeFile(path.join(root,'skills',skill,'SKILL.md'),`---\nname: ${skill}\n---\n`);auth.skillBindings.push({skill:`skills/${skill}`});config.skills.paths.push(`./skills/${skill}`);}
   const servers={};
-  if(server){servers[server]={type:'streamable-http',url:`https://${server}.example/mcp`,headers:{Authorization:'${TOKEN}'}};auth.bindings.push({server,url:servers[server].url,header:'Authorization'});config.mcp[server]={type:'remote',url:servers[server].url,enabled:true,headers:{Authorization:'{env:TOKEN}'}};}
+  if(server){servers[server]={type:'streamable-http',url:`https://${server}.example/mcp`,headers:{Authorization:'${TOKEN}'}};auth.bindings.push({server,url:servers[server].url,header:'Authorization'});config.mcp.servers[server]={type:'remote',url:servers[server].url,headers:{Authorization:'{env:TOKEN}'}};}
   await writeFile(path.join(root,'plugin.json'),JSON.stringify({name,extensions:{'com.neuxbot':{schemaVersion:1,authentication:auth}}}));
   if(server)await writeFile(path.join(root,'mcp.json'),JSON.stringify({mcpServers:servers}));else await rm(path.join(root,'mcp.json'),{force:true});
   await writeFile(path.join(root,'opencode.json'),JSON.stringify(config));
@@ -50,10 +50,10 @@ test('OpenCode composes only validated target components and rejects namespace/c
   const second=await prepareOpenCodeConfig({root:b,dataDirectory:data,environment:first.environment});
   const third=await prepareOpenCodeConfig({root:c,dataDirectory:data,environment:second.environment});
   const config=JSON.parse(await readFile(third.environment.OPENCODE_CONFIG,'utf8'));
-  assert.equal(config.mcp.github.url,'https://github.example/mcp');assert.equal(config.mcp.github.headers.Authorization,'{env:TOKEN}');
+  assert.equal(config.mcp.servers.github.url,'https://github.example/mcp');assert.equal(config.mcp.servers.github.headers.Authorization,'{env:TOKEN}');
   assert.equal(config.skills.paths.length,2);assert.ok(config.skills.paths.every(path.isAbsolute));
   assert.doesNotMatch(JSON.stringify(config),/untrusted|PRIVATE-TOKEN/);
-  await writeFile(path.join(a,'opencode.json'),JSON.stringify({skills:{paths:[]},mcp:{github:{type:'remote',url:'https://evil.example/mcp'}}}));
+  await writeFile(path.join(a,'opencode.json'),JSON.stringify({skills:{paths:[]},mcp:{servers:{github:{type:'remote',url:'https://evil.example/mcp'}}}}));
   await assert.rejects(prepareOpenCodeConfig({root:b,dataDirectory:data,environment:first.environment}),/opencode_target_changed|invalid_opencode_target/);
   await target(a,'github','github');await target(c,'duplicate','github');
   const clean=await prepareOpenCodeConfig({root:a,dataDirectory:data,environment:{}});
@@ -64,4 +64,19 @@ test('OpenCode composes only validated target components and rejects namespace/c
   await target(c,'duplicate-skill',undefined,'lark-doc');
   const withSkill=await prepareOpenCodeConfig({root:b,dataDirectory:data,environment:clean.environment});
   await assert.rejects(prepareOpenCodeConfig({root:c,dataDirectory:data,environment:withSkill.environment}),/opencode_skill_conflict/);
+});
+
+
+test('OpenCode accepts only the current V2 mcp.servers contract, without legacy enabled fields', async t => {
+  const { prepareOpenCodeConfig }=await helpers();
+  const root=await mkdtemp(path.join(tmpdir(),'opencode-v2-only-'));t.after(()=>rm(root,{recursive:true,force:true}));
+  const data=path.join(root,'data'),source=path.join(root,'target');await mkdir(data);await target(source,'github','github');
+  const filename=path.join(source,'opencode.json'),config=JSON.parse(await readFile(filename,'utf8'));
+  assert.ok(config.mcp.servers.github);assert.equal(config.mcp.servers.github.enabled,undefined);
+  const prepared=await prepareOpenCodeConfig({root:source,dataDirectory:data,environment:{}});
+  const merged=JSON.parse(await readFile(prepared.environment.OPENCODE_CONFIG,'utf8'));assert.ok(merged.mcp.servers.github);assert.deepEqual(Object.keys(merged.mcp),['servers']);await prepared.cleanup();
+  await writeFile(filename,JSON.stringify({...config,mcp:config.mcp.servers}));
+  await assert.rejects(prepareOpenCodeConfig({root:source,dataDirectory:data,environment:{}}),/invalid_opencode_target/);
+  config.mcp.servers.github.enabled=true;await writeFile(filename,JSON.stringify(config));
+  await assert.rejects(prepareOpenCodeConfig({root:source,dataDirectory:data,environment:{}}),/invalid_opencode_target/);
 });

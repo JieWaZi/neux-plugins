@@ -40,6 +40,11 @@ test('release script invokes one shared packager and verifies each real self-con
       assert.equal(JSON.parse(smoke).state,'unauthorized');
       if(plugin.key!=='github') assert.ok((await stat(path.join(target,'skills'))).isDirectory());
       if(artifact.runtime==='opencode') {
+        assert.equal(artifact.profile,'opencode-v2/1');
+        const config=JSON.parse(await readFile(path.join(target,'opencode.json'),'utf8'));
+        assert.ok(config.mcp.servers);assert.deepEqual(Object.keys(config.mcp),['servers']);
+        for(const server of Object.values(config.mcp.servers))assert.ok(!Object.hasOwn(server,'enabled'));
+        if(plugin.key==='github')assert.equal(config.mcp.servers.github.headers.Authorization,'{env:GITHUB_PLUGIN_AUTHORIZATION}');
         // No empty executable extension is created for Skill / MCP packages.
         await assert.rejects(stat(path.join(target,'plugin.js')),{code:'ENOENT'});
       }

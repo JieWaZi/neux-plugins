@@ -78,14 +78,14 @@ test('OpenCode launcher selects the target config and propagates the actual CLI 
   await writeOpenCodeConfig(f);
   const result=await f.run(['run','--',process.execPath,probe],'opencode');
   assert.equal(result.code,7,result.stderr);
-  const output=JSON.parse(result.stdout);assert.equal(output.body.mcp.github.url,'https://api.githubcopilot.com/mcp/');
+  const output=JSON.parse(result.stdout);assert.equal(output.body.mcp.servers.github.url,'https://api.githubcopilot.com/mcp/');
   assert.match(output.config,/opencode-run-/);await assert.rejects(readFile(output.config),{code:'ENOENT'});
 });
 
 async function writeOpenCodeConfig(f) {
   const manifest=JSON.parse(await readFile(path.join(f.root,'plugin.json'),'utf8'));
-  const config={skills:{paths:(manifest.extensions['com.neuxbot'].authentication.skillBindings??[]).map(binding=>'./'+binding.skill)},mcp:{}};
-  if(manifest.name==='github')config.mcp.github={type:'remote',url:'https://api.githubcopilot.com/mcp/',enabled:true,headers:{Authorization:'{env:GITHUB_PLUGIN_AUTHORIZATION}'}};
+  const config={skills:{paths:(manifest.extensions['com.neuxbot'].authentication.skillBindings??[]).map(binding=>'./'+binding.skill)},mcp:{servers:{}}};
+  if(manifest.name==='github')config.mcp.servers.github={type:'remote',url:'https://api.githubcopilot.com/mcp/',headers:{Authorization:'{env:GITHUB_PLUGIN_AUTHORIZATION}'}};
   await writeFile(path.join(f.root,'opencode.json'),JSON.stringify(config));
 }
 
@@ -100,7 +100,7 @@ console.log(JSON.stringify({config,github:process.env.GITHUB_PLUGIN_AUTHORIZATIO
   const args=['run','--',process.execPath,path.join(lark.root,'setup.mjs'),'--profile','opencode','--data',lark.data,'run','--',process.execPath,path.join(wecom.root,'setup.mjs'),'--profile','opencode','--data',wecom.data,'run','--',process.execPath,probe];
   const result=await github.run(args,'opencode',{...lark.env,...wecom.env});
   assert.equal(result.code,0,result.stderr);const output=JSON.parse(result.stdout);assert.equal(output.github,true);
-  assert.equal(output.config.mcp.github.url,'https://api.githubcopilot.com/mcp/');const expected=[];for(const f of [lark,wecom]){const m=JSON.parse(await readFile(path.join(f.root,'plugin.json'),'utf8'));for(const binding of m.extensions['com.neuxbot'].authentication.skillBindings)expected.push(await realpath(path.join(f.root,binding.skill)));}
+  assert.equal(output.config.mcp.servers.github.url,'https://api.githubcopilot.com/mcp/');const expected=[];for(const f of [lark,wecom]){const m=JSON.parse(await readFile(path.join(f.root,'plugin.json'),'utf8'));for(const binding of m.extensions['com.neuxbot'].authentication.skillBindings)expected.push(await realpath(path.join(f.root,binding.skill)));}
   assert.deepEqual(output.config.skills.paths.sort(),expected.sort());
   assert.deepEqual(output.lark.args,['literal & value']);assert.deepEqual(output.wecom.args,['literal & value']);
   assert.equal(await realpath(output.lark.profile),await realpath(path.join(lark.data,'profile')));assert.equal(await realpath(output.wecom.profile),await realpath(path.join(wecom.data,'profile')));

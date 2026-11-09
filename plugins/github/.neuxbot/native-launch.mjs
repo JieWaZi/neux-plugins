@@ -63,6 +63,7 @@ async function verifiedOpenCodeTarget(root, dataDirectory, previous) {
   const config = JSON.parse(configBytes), manifest = JSON.parse(manifestBytes);
   const auth = manifest.extensions?.['com.neuxbot']?.authentication;
   if (!auth || !plain(config) || Object.keys(config).some(key => !['skills', 'mcp'].includes(key)) || !plain(config.skills) || Object.keys(config.skills).some(key => key !== 'paths') || !Array.isArray(config.skills.paths) || !plain(config.mcp)) fail('invalid_opencode_target');
+  if (Object.keys(config.mcp).some(key => key !== 'servers') || !plain(config.mcp.servers)) fail('invalid_opencode_target');
   const expectedSkills = new Set((auth.skillBindings ?? []).map(binding => `./${binding.skill}`));
   if (expectedSkills.size !== config.skills.paths.length) fail('invalid_opencode_target');
   const skills = [];
@@ -78,17 +79,17 @@ async function verifiedOpenCodeTarget(root, dataDirectory, previous) {
   }
   const canonicalBytes = await readFile(path.join(root, 'mcp.json')).catch(error => { if (error.code !== 'ENOENT') throw error; });
   const canonical = canonicalBytes ? JSON.parse(canonicalBytes).mcpServers ?? {} : {};
-  if (stable(Object.keys(canonical).sort()) !== stable(Object.keys(config.mcp).sort())) fail('invalid_opencode_target');
-  for (const [key, server] of Object.entries(config.mcp)) {
+  if (stable(Object.keys(canonical).sort()) !== stable(Object.keys(config.mcp.servers).sort())) fail('invalid_opencode_target');
+  for (const [key, server] of Object.entries(config.mcp.servers)) {
     const source = canonical[key];
     // These maintained packages expose HTTP MCP or Skills. Do not merge arbitrary executable config.
-    if (!/^[a-z0-9][a-z0-9_-]*$/i.test(key) || !plain(server) || Object.keys(server).some(key => !['type', 'url', 'headers', 'enabled'].includes(key)) || !['streamable-http', 'sse'].includes(source.type) || server.type !== 'remote' || server.url !== source.url || server.enabled !== true) fail('invalid_opencode_target');
+    if (!/^[a-z0-9][a-z0-9_-]*$/i.test(key) || !plain(server) || Object.keys(server).some(key => !['type', 'url', 'headers'].includes(key)) || !['streamable-http', 'sse'].includes(source.type) || server.type !== 'remote' || server.url !== source.url) fail('invalid_opencode_target');
     const expected = Object.fromEntries(Object.entries(source.headers ?? {}).map(([name, value]) => [name, value.replace(/\$\{([A-Za-z_][A-Za-z0-9_]*)\}/g, '{env:$1}')]));
     if (stable(expected) !== stable(server.headers ?? {})) fail('invalid_opencode_target');
     for (const [header, value] of Object.entries(expected)) if (value.includes('{env:GITHUB_PLUGIN_AUTHORIZATION}') && (key !== 'github' || server.url !== 'https://api.githubcopilot.com/mcp/' || !auth.bindings?.some(binding => binding.server === key && binding.url === server.url && binding.header === header))) fail('invalid_opencode_target');
     for (const binding of auth.bindings ?? []) if (binding.server === key && (binding.url !== server.url || !/^\{env:[A-Za-z_][A-Za-z0-9_]*\}$/.test(expected[binding.header] ?? ''))) fail('invalid_opencode_target');
   }
-  return { root, dataDirectory, configSHA256: hash(configBytes), manifestSHA256: hash(manifestBytes), skills, mcp: config.mcp };
+  return { root, dataDirectory, configSHA256: hash(configBytes), manifestSHA256: hash(manifestBytes), skills, servers: config.mcp.servers };
 }
 
 // Merge only the native targets carried by this setup chain, never an inherited arbitrary config.
@@ -104,15 +105,15 @@ export async function prepareOpenCodeConfig({ root, dataDirectory, environment }
   const existing = targets.find(item => item.root === current.root);
   if (existing && existing.dataDirectory !== current.dataDirectory) fail('opencode_account_conflict');
   if (!existing) targets.push(current);
-  const combined = { skills: { paths: [] }, mcp: Object.create(null) }, seenSkills = new Set();
+  const combined = { skills: { paths: [] }, mcp: { servers: Object.create(null) } }, seenSkills = new Set();
   for (const target of targets) {
     for (const skill of target.skills) {
       if (seenSkills.has(skill.key)) fail('opencode_skill_conflict');
       seenSkills.add(skill.key); combined.skills.paths.push(skill.directory);
     }
-    for (const [key, server] of Object.entries(target.mcp)) {
-      if (Object.hasOwn(combined.mcp, key)) fail('opencode_mcp_conflict');
-      combined.mcp[key] = JSON.parse(JSON.stringify(server).replaceAll('{env:NEUXBOT_PLUGIN_ROOT}', JSON.stringify(target.root).slice(1, -1)).replaceAll('{env:NEUXBOT_PLUGIN_DATA}', JSON.stringify(target.dataDirectory).slice(1, -1)));
+    for (const [key, server] of Object.entries(target.servers)) {
+      if (Object.hasOwn(combined.mcp.servers, key)) fail('opencode_mcp_conflict');
+      combined.mcp.servers[key] = JSON.parse(JSON.stringify(server).replaceAll('{env:NEUXBOT_PLUGIN_ROOT}', JSON.stringify(target.root).slice(1, -1)).replaceAll('{env:NEUXBOT_PLUGIN_DATA}', JSON.stringify(target.dataDirectory).slice(1, -1)));
     }
   }
   const directory = await mkdtemp(path.join(current.dataDirectory, 'opencode-run-'));
