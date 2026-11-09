@@ -40,7 +40,7 @@ OpenAI interface 还支持真实 `category`、`capabilities`、`supportURL`、`d
 
 ## 现有集成维护
 
-GitHub 包内只有一份标准 `mcp.json` 官方端点声明及自有设备 OAuth 桥接。两个运行目标的授权绑定指向同一组件，不代表两份实现。包内不包含 PAT 占位、托管 app 声明、原生来源引用或上游 HTTP 还原流程。宿主将同一份定义适配到支持的目标格式。
+GitHub 包内只有一份标准 `mcp.json` 官方端点声明及自有设备 OAuth 桥接。各目标共享同一组件授权，只有真实差异才显式指定 runtime。包内不包含 PAT 凭据、托管 app 声明、原生来源引用或上游 HTTP 还原流程。宿主将同一份定义适配到支持的目标格式。
 
 飞书办公保留完整官方技能与相对资料。包内桥接负责多阶段授权挑战、账号和范围核验、获准组件私密绑定；宿主管理账号、会话生命周期与秘密存储。业务执行不能通过聊天发起 CLI 登录或配置命令绕过该生命周期。隔离 CLI 及供应商版本独立记录于[资产锁](../plugins/feishu-office/.neuxbot/auth/assets.lock.json)和[桥接指南](../plugins/feishu-office/.neuxbot/auth/README.md)，不等同自有插件版本。
 
@@ -59,3 +59,7 @@ GitHub 包内只有一份标准 `mcp.json` 官方端点声明及自有设备 OAu
 ## 授权挑战提示
 
 阶段性警告文案保存在包内声明，由桥接在对应步骤通过 `auth/challenge.notice.messages` 发出；宿主通用选择语言并随当前挑战清理，不增加供应商分支。见[提示协议与 schema](AUTH-CHALLENGE-NOTICES.zh-CN.md)。不要把临时提示塞进插件简介或账号记录。
+
+## 目标发布与独立 setup
+
+遵循[原生交付指南](NATIVE-DELIVERY.md)。所有目标格式只由共享 Go 工具生成，Node 发布脚本负责固定来源、调用与工件校验；组件级授权在各目标共享。独立 setup 在单独的原生账号目录复用同一个包内桥接，生成副本从单一模板同步。原生安装说明放在包内 NATIVE.md，业务 README 保持业务内容；生成和自动化检查不代表真实 CLI 已加载。

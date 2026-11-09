@@ -10,45 +10,40 @@ A library of self-maintained portable Agent Plugins packages for GitHub code rev
 | [Feishu Office](plugins/feishu-office/README.md) | Create and organize documents, manage table records, arrange events and follow up on tasks |
 | [WeCom Office](plugins/wecom-office/README.md) | Manage documents and tables, arrange meetings, track tasks and work with email and files |
 
-The root is a library and marketplace, not a single plugin, so it has no root single-plugin `plugin.json`. Each package owns its standard identity and components. The library maintains one definition per capability; host adapters handle target formats instead of collecting separate Codex and Claude implementations.
+The root is a library and marketplace, not a single plugin, so it has no root single-plugin `plugin.json`. Each package owns its standard identity and components. The library maintains one portable definition per capability. The shared Go generator validates target declarations and builds the CLI artifacts from that same source; target artifacts do not introduce separate business implementations.
 
-## Packages and host adapters
+## Portable sources and generated targets
 
 - `plugins/github/`: one standard manifest, one official GitHub MCP declaration, business documentation, brand assets and package-owned device authorization.
 - `plugins/feishu-office/`: one standard manifest, complete official skills and relative resources, business documentation, brand assets and package-owned authorization.
 - `plugins/wecom-office/`: one standard manifest, 15 fixed official skills and their resources, bilingual descriptions and package-owned QR authorization.
-- `.agents/plugins/marketplace.json`: local entries pointing at those actual standard packages. There is no parallel Claude marketplace or source-only native reference directory.
+- `.agents/plugins/marketplace.json`: local entries pointing at those actual portable sources. CLI-specific manifests and registration descriptors are generated and validated by the shared tool.
 - `patches/`: reviewed provider isolation patches, regression sources, original licenses and provenance.
 - `scripts/`: deterministic catalog/ZIP builds and independent fixed-source provider builds. Ignored `dist/` contains release artifacts; `.cache/` contains verified build inputs.
 
-NeuxBot installs plugins only from this maintained library’s published HTTP catalog and adapts each standard package to the selected agent. It provides no plugin upload, local-directory import, or ZIP import. Native plugin installation requested in a conversation belongs to the current Codex or Claude Code environment, shared with the same external CLI. Those native installations, enablement settings, and authentication stay under the CLI’s ownership and are not registered or managed as NeuxBot resources. Direct use of the local marketplace or package follows the target CLI’s capabilities; Codex does not interpret NeuxBot-specific authentication declarations automatically.
+NeuxBot installs plugins from this maintained library’s HTTP catalog and delivers the fixed package to the selected runtime through the shared generator. It provides no public local-directory or ZIP import. Independent CLI use consumes the generated artifact for that CLI and the package-owned setup/launcher described in [native delivery](docs/NATIVE-DELIVERY.md). Native installation, registration and accounts stay in the CLI’s environment and are not recorded as host-managed resources. The selected CLI uses its real native mechanism or the equivalent Skill/MCP configuration; generated artifacts alone do not prove real loading or business calls.
 
 The manifest's `repository` and `extensions.com.openai.interface.developerName` identify the official capability project and brand: GitHub / `github/github-mcp-server`, and 飞书 / `larksuite/cli`. `author` identifies NeuxBot contributors as authors of the package wrapper and bridge; uniform `provenance.upstream` records the actual business capability author, version, license and repository used by the plugin information panel. Official service/skill authorship is not authorship of this packaging, and brand attribution is not official endorsement. See [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ```mermaid
 flowchart LR
-  Package[One standard package: manifest + Skills / MCP] --> Build[Fixed Git snapshot build]
-  Build --> Catalog[HTTP catalog: metadata + safe icon]
-  Build --> ZIP[Complete verified ZIP]
-  User[User] --> UI[NeuxBot frontend]
-  UI --> Core[Core: installation, sessions, leases and secrets]
-  Catalog --> Core
-  ZIP --> Core
-  Core --> Adapter[Host target adapter]
-  Adapter --> Codex[Codex]
-  Adapter --> Claude[Claude Code]
-  Adapter --> Skills[Other supported skill targets]
-  Chat[Native installation in chat] -->|Selected agent| Codex
-  Chat -->|Selected agent| Claude
-  Codex <--> CodexHome[Codex native plugin environment]
-  ExternalCodex[External Codex] <--> CodexHome
-  Claude <--> ClaudeHome[Claude Code native plugin environment]
-  ExternalClaude[External Claude Code] <--> ClaudeHome
+  Source[One portable source: manifest + Skills / MCP] --> Snapshot[Fixed Git snapshot]
+  Snapshot --> Index[Light catalog + separate details]
+  Snapshot --> Archive[Verified portable ZIP]
+  Archive --> Core[Core: installation + shared account lifecycle]
+  Index --> Core
+  Archive --> Generator[Shared Go target generator]
+  Core --> Generator
+  Generator --> Targets[Ten self-contained target artifacts]
+  Generator --> View[Host selects native or Skill/MCP delivery]
+  Targets --> Setup[Independent package setup + CLI registration]
+  View --> CLIs[Codex / Claude / Cursor / WorkBuddy / Qoder<br/>Kimi / Gemini / Grok / OpenCode / Pi]
+  Setup --> CLIs
 ```
 
 ## Maintaining a standard package
 
-Create `plugins/<key>/plugin.json` with the Agent Plugins 1.0.0 `$schema`, identity, version, description, truthful author and license. Put skills under fixed `skills/` and MCP servers in `mcp.json`, using the [official packaging fields](https://developers.openai.com/plugins/build/plugins). Preserve third-party source, scripts, relative references and executable modes. Copy the reviewed upstream content needed by this package and maintain it locally, with actual licenses and modifications recorded in the [uniform provenance contract](docs/PROVENANCE.md). Do not add a second hand-maintained component index or native source-reference manifest.
+Create `plugins/<key>/plugin.json` with the Agent Plugins 1.0.0 `$schema`, identity, version, description, truthful author and license. Put skills under fixed `skills/` and MCP servers in `mcp.json`, using the [official packaging fields](https://developers.openai.com/plugins/build/plugins). Preserve third-party source, scripts, relative references and executable modes. Copy the reviewed upstream content needed by this package and maintain it locally, with actual licenses and modifications recorded in the [uniform provenance contract](docs/PROVENANCE.md). Keep one authoritative component definition. The shared generator verifies registered native thin declarations against those components and derives missing target entries. The three curated source packages remain portable; per-CLI outputs belong to the generated release artifacts, not separate hand-maintained capability packages.
 
 Each plugin's English and Chinese README describes only its own capabilities, access requirements and practical uses. It contains no host roles, installation flow, chat prompts or language navigation; the host selects the document by system language. Standard English interface fields, optional localized display text and static PNG assets follow the [presentation maintenance guide](docs/MAINTAINING.md). A package without `.neuxbot/` remains a standard package.
 
@@ -124,7 +119,9 @@ npm test
 node scripts/build-catalog.mjs HEAD v0.1.2
 ```
 
-The builder validates canonical packages, the shared provenance schema, dependency locks and local asset hashes, produces deterministic ZIPs and catalog, and replaces its output after validation. The CLI replaces the `dist` output directory while preserving `dist/providers`; use the exported `buildCatalog({root,out,sourceCommit})` with a separate output directory when existing unrelated receipts must be retained.
+For a complete multi-CLI build, use `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack node scripts/build-release.mjs HEAD v0.1.3-dev`. It invokes the same Go generator as the host and emits the portable originals, separate details, 30 CLI target ZIPs and source/digest receipts; the exact tool lock and development override boundary are documented in [native delivery](docs/NATIVE-DELIVERY.md).
+
+The portable catalog builder validates canonical packages, the shared provenance schema, dependency locks and local asset hashes, produces deterministic ZIPs and catalog, and replaces its output after validation. The CLI replaces the `dist` output directory while preserving `dist/providers`; use the exported `buildCatalog({root,out,sourceCommit})` with a separate output directory when existing unrelated receipts must be retained.
 
 Provider rebuilds are deliberate independent operations, not a prerequisite for catalog builds:
 
@@ -133,7 +130,7 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-Each fixed-source provider build verifies source and isolation tests, cross-compiles six platforms and collects actual dependency license texts. Existing provider locks continue to reference their verified `v0.1.0` assets; releasing package metadata and icons does not rebuild those dependencies. Protocol/schema versions and internal package identities have their own meaning: the current internal package/release identity is `0.1.1` / `v0.1.2`. User-facing version and authorship come directly from `provenance.upstream`; Feishu shows `v1.0.98`, while an unpinned hosted MCP service declares no fixed version. Fixed references record verified inputs, not an unchecked claim that every upstream dependency is latest.
+Each fixed-source provider build verifies source and isolation tests, cross-compiles six platforms and collects actual dependency license texts. Existing provider locks continue to reference their verified `v0.1.0` assets; releasing package metadata and icons does not rebuild those dependencies. Protocol/schema versions and internal package identities have their own meaning: the internal package identity remains `0.1.1`, while release tags identify separately reviewed snapshots. A local target build does not publish a release. User-facing version and authorship come directly from `provenance.upstream`; Feishu shows `v1.0.98`, while an unpinned hosted MCP service declares no fixed version. Fixed references record verified inputs, not an unchecked claim that every upstream dependency is latest.
 
 With explicit authorization, publish each verified snapshot under a new release tag without replacing existing tags or assets. Publish needed provider binaries and notices before the catalog/ZIPs, then verify the final tag target, sourceCommit and all asset digests over HTTP. Existing installed snapshots remain unchanged. Automated tests, cross compilation and publication do not substitute for real account, platform, runtime or UI acceptance.
 
