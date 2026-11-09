@@ -33,7 +33,8 @@ export async function resolveNativeCommand(command, args, { platform = process.p
   if (!/\.(?:cmd|bat)$/i.test(candidate)) return { executable: candidate, args: [...args] };
   if (!/\.cmd$/i.test(candidate)) fail('unsupported_npm_shim');
   const text = (await bytes(candidate, 65536)).toString('utf8');
-  const entries = [...text.matchAll(/(?:"%_prog%"|"%dp0%[\\/]node\.exe")\s+"%dp0%[\\/]([^"\r\n]+\.(?:[cm]?js))"\s+%\*/gi)].map(match => match[1]);
+  const entries = [...text.matchAll(/(?:"%_prog%"|"%dp0%[\\/]node\.exe")\s+"%dp0%[\\/]([^"\r\n]+)"\s+%\*/gi)].map(match => match[1]);
+  if (/"%_prog%"/i.test(text) && !/set\s+"?_prog=(?:node|%dp0%[\\/]node\.exe)(?:"|\s|$)/i.test(text)) fail('unsupported_npm_shim');
   if (!entries.length || new Set(entries).size !== 1 || entries[0].includes('%')) fail('unsupported_npm_shim');
   const entry = await realpath(path.resolve(path.dirname(candidate), entries[0].replaceAll('\\', path.sep))).catch(() => fail('unsupported_npm_shim'));
   if (!(await lstat(entry)).isFile()) fail('unsupported_npm_shim');
