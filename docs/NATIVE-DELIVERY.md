@@ -18,6 +18,8 @@ The shared tool can be built in the NeuxBot repository with `go build -o /absolu
 
 `scripts/packager.lock.json` is the sole configuration for the formal generator version and platform download URL, size and SHA256. No formal packager binary has been published or pinned yet; its `assets` map is intentionally empty, so a build without the explicit development override fails. Maintainers must publish verified tool binaries and fill that lock before claiming a formal release is reproducible by download. Never substitute an unverified latest URL.
 
+Feishu and GitHub provider programs and notices are carried by the current `v0.1.3` release; no deleted historical release is required. To relocate already verified provider builds, run `npm run prepare:providers -- --assets /absolute/verified/providers --tag v0.1.3`. The command verifies all programs and notices against the existing locks before regenerating either lock's download URLs; provider versions, hashes, sizes and upstream provenance stay fixed. Commit those generated bindings before building the portable snapshot, and upload all provider files to that same release before publishing its catalog.
+
 The build validates and archives a Git commit, ignores dirty files, invokes the same Go generator for every package, verifies all ten receipts and archive hashes, then replaces the output. A failure preserves the last completed output.
 
 ```text

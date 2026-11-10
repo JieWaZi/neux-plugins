@@ -100,7 +100,7 @@ sequenceDiagram
 
 插件详情与 SKILL 正文通过摘要绑定的[只读资料侧车](docs/DETAILS.zh-CN.md)提供，不要求先安装到伙伴或授权账号，也不需要下载完整安装 ZIP。
 
-使用[最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)或[固定 v0.1.2 目录](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.2/catalog.json)。`{schemaVersion:1,entries:[...]}` 每项记录 `key`、完整 `sourceCommit`、`archiveURL`、`archiveSHA256`、`packagePath: plugins/<key>`、标准 `name`、`version`、英文 `description` 和 `format: agent-plugins`。可选本地化文字与安全内嵌图标支持安装前展示，组件组成从真实包读取。
+使用[最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)或[固定 v0.1.3 目录](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json)。`{schemaVersion:1,entries:[...]}` 每项记录 `key`、完整 `sourceCommit`、`archiveURL`、`archiveSHA256`、`packagePath: plugins/<key>`、标准 `name`、`version`、英文 `description` 和 `format: agent-plugins`。可选本地化文字与安全内嵌图标支持安装前展示，组件组成从真实包读取。
 
 ZIP 包含完整标准包、本地 Codex 索引、来源/许可证据与公开补丁。安装与日常目录构建均不依赖上游 Git 或 HTTP 还原。独立业务服务和首次供应商依赖仍需联网。客户端解包前核对目录所选归档摘要；测试发布资产变更时，已安装快照仍由原来源提交和摘要固定。
 
@@ -111,7 +111,7 @@ ZIP 包含完整标准包、本地 Codex 索引、来源/许可证据与公开�
 ```sh
 npm ci
 npm test
-node scripts/build-catalog.mjs HEAD v0.1.2
+node scripts/build-catalog.mjs HEAD v0.1.3
 ```
 
 完整多 CLI 构建使用 `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack node scripts/build-release.mjs HEAD v0.1.3-dev`，调用与宿主相同的 Go 生成器，交付三个 portable 原包、独立详情、30 个 CLI 目标 ZIP 及来源／摘要回执；正式工具锁和显式开发覆盖边界见[原生交付指南](docs/NATIVE-DELIVERY.md)。
@@ -125,7 +125,7 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-固定源码构建核验归档与隔离测试，完成六平台交叉编译，并收集真实依赖许可原文。既有供应商依赖锁继续引用已核验的 `v0.1.0` 资产；发布包元数据和图标不重构建这些依赖。协议/schema 版本与内部包身份含义独立；内部包身份保持 `0.1.1`，发布标签分别标识已审查快照，本地目标构建不会自动发布。面向用户的版本与作者直接读取 `provenance.upstream`，飞书显示 `v1.0.98`，未固定的托管 MCP 不声明服务版本。固定引用表示核验过的输入，不代表所有依赖均为上游最新版本。
+固定源码构建核验归档与隔离测试，完成六平台交叉编译，并收集真实依赖许可原文。供应商依赖锁引用 `v0.1.3` 同次发布的已核验资产；迁移下载位置保持程序版本和字节摘要不变。使用 `npm run prepare:providers -- --assets /absolute/verified/providers --tag v0.1.3` 先核验全部程序与许可，再生成新的下载绑定；该 Release 成为 Latest 前须同时上传这些依赖资产。协议/schema 版本与内部包身份含义独立；内部包身份保持 `0.1.1`，发布标签分别标识已审查快照，本地目标构建不会自动发布。面向用户的版本与作者直接读取 `provenance.upstream`，飞书显示 `v1.0.98`，未固定的托管 MCP 不声明服务版本。固定引用表示核验过的输入，不代表所有依赖均为上游最新版本。
 
 明确获准后，将核验后的新快照发布到新的正式标签，不覆盖已有标签或资产。先发布需要的供应商二进制与许可，再发布目录/ZIP，最后经 HTTP 同时核对标签指向、sourceCommit 和所有资产摘要。已有安装快照保持不变。自动化测试、交叉编译和发布不代替真实账号、平台、智能体或界面验收。
 

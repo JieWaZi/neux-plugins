@@ -103,7 +103,7 @@ The host must support PNG data URLs for `show-qr` challenges and merging verifie
 
 Details and SKILL text are available before installation or authorization through digest-bound [read-only details sidecars](docs/DETAILS.md), independently of the complete installation ZIP.
 
-Use the [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) or [fixed v0.1.2 catalog](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.2/catalog.json). Each `{schemaVersion:1,entries:[...]}` entry records `key`, full `sourceCommit`, `archiveURL`, `archiveSHA256`, `packagePath: plugins/<key>`, standard `name`, `version`, English `description` and `format: agent-plugins`. Optional localized maps and a validated embedded icon support presentation before package download; components are read from the actual package.
+Use the [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) or [fixed v0.1.3 catalog](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json). Each `{schemaVersion:1,entries:[...]}` entry records `key`, full `sourceCommit`, `archiveURL`, `archiveSHA256`, `packagePath: plugins/<key>`, standard `name`, `version`, English `description` and `format: agent-plugins`. Optional localized maps and a validated embedded icon support presentation before package download; components are read from the actual package.
 
 A ZIP contains its complete standard package, applicable local Codex index, source/license evidence and public patches. No upstream Git or HTTP materialization is required by installation or ordinary catalog builds. Separate business services and first-use provider dependencies still require network access. Clients verify the selected archive digest before extraction. Installed snapshots remain identified by their source commit and digest when test-release assets change.
 
@@ -116,7 +116,7 @@ Node 22+ and Git build a committed portable snapshot; dirty workspace files and 
 ```sh
 npm ci
 npm test
-node scripts/build-catalog.mjs HEAD v0.1.2
+node scripts/build-catalog.mjs HEAD v0.1.3
 ```
 
 For a complete multi-CLI build, use `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack node scripts/build-release.mjs HEAD v0.1.3-dev`. It invokes the same Go generator as the host and emits the portable originals, separate details, 30 CLI target ZIPs and source/digest receipts; the exact tool lock and development override boundary are documented in [native delivery](docs/NATIVE-DELIVERY.md).
@@ -130,7 +130,7 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-Each fixed-source provider build verifies source and isolation tests, cross-compiles six platforms and collects actual dependency license texts. Existing provider locks continue to reference their verified `v0.1.0` assets; releasing package metadata and icons does not rebuild those dependencies. Protocol/schema versions and internal package identities have their own meaning: the internal package identity remains `0.1.1`, while release tags identify separately reviewed snapshots. A local target build does not publish a release. User-facing version and authorship come directly from `provenance.upstream`; Feishu shows `v1.0.98`, while an unpinned hosted MCP service declares no fixed version. Fixed references record verified inputs, not an unchecked claim that every upstream dependency is latest.
+Each fixed-source provider build verifies source and isolation tests, cross-compiles six platforms and collects actual dependency license texts. Provider locks reference the verified assets carried by `v0.1.3`; moving those same verified bytes to the current release preserves their provider versions and hashes. Use `npm run prepare:providers -- --assets /absolute/verified/providers --tag v0.1.3` to validate every program and notice before regenerating the download bindings. Publish those assets with the same release before its catalog becomes Latest. Protocol/schema versions and internal package identities have their own meaning: the internal package identity remains `0.1.1`, while release tags identify separately reviewed snapshots. A local target build does not publish a release. User-facing version and authorship come directly from `provenance.upstream`; Feishu shows `v1.0.98`, while an unpinned hosted MCP service declares no fixed version. Fixed references record verified inputs, not an unchecked claim that every upstream dependency is latest.
 
 With explicit authorization, publish each verified snapshot under a new release tag without replacing existing tags or assets. Publish needed provider binaries and notices before the catalog/ZIPs, then verify the final tag target, sourceCommit and all asset digests over HTTP. Existing installed snapshots remain unchanged. Automated tests, cross compilation and publication do not substitute for real account, platform, runtime or UI acceptance.
 

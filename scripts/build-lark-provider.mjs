@@ -63,10 +63,10 @@ try {
     const binary = path.join(output, name);
     execFileSync('go', ['build', '-trimpath', '-buildvcs=false', '-ldflags', `-s -w -X github.com/larksuite/cli/internal/build.Version=${version} -X github.com/larksuite/cli/internal/build.Date=2026-10-19`, '-o', binary, '.'], { cwd: source, env: { ...env, GOOS: platform, GOARCH: architecture }, stdio: 'inherit' });
     await chmod(binary, 0o755); const bytes = await readFile(binary);
-    assets[`${platform === 'windows' ? 'win32' : platform}-${architecture === 'amd64' ? 'x64' : architecture}`] = { url: `https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/${name}`, sha256: hash(bytes), size: bytes.length };
+    assets[`${platform === 'windows' ? 'win32' : platform}-${architecture === 'amd64' ? 'x64' : architecture}`] = { url: `https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/${name}`, sha256: hash(bytes), size: bytes.length };
     console.log(`Built ${target}: ${hash(bytes)}`);
   }
-  const lock = { schemaVersion: 1, version, notices: { url: `https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/${noticesName}`, sha256: hash(noticesText) }, source: { repository: 'https://github.com/larksuite/cli', commit, archiveURL: sourceURL, archiveSHA256: sourceSHA256, toolchain: 'go1.25.8', patchSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation.patch'))), verificationSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation_test.go'))), storageVerificationSHA256: hash(await readFile(path.join(root, 'patches/lark-storage-isolation_darwin_test.go'))) }, assets };
+  const lock = { schemaVersion: 1, version, notices: { url: `https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/${noticesName}`, sha256: hash(noticesText) }, source: { repository: 'https://github.com/larksuite/cli', commit, archiveURL: sourceURL, archiveSHA256: sourceSHA256, toolchain: 'go1.25.8', patchSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation.patch'))), verificationSHA256: hash(await readFile(path.join(root, 'patches/lark-keychain-isolation_test.go'))), storageVerificationSHA256: hash(await readFile(path.join(root, 'patches/lark-storage-isolation_darwin_test.go'))) }, assets };
   const lockPath = path.join(root, 'plugins/feishu-office/.neuxbot/auth/assets.lock.json');
   // 部分目标用于增量重建；完整发布必须提供六个平台，禁止伪造缺失摘要。
   let previous = {}; try { previous = JSON.parse(await readFile(lockPath, 'utf8')); } catch { /* 首次构建没有锁文件。 */ }

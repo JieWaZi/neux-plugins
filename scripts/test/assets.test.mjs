@@ -41,12 +41,12 @@ test('Windows 资产在独立摘要目录发布官方 lark-cli.exe 名称', asyn
   assert.deepEqual(await readFile(binary), bytes);
 });
 
-// v0.1.0 的既有发布资产不可因宿主改名而重命名；版本升级须先发布新的程序字节。
+// 发布位置可随当前 Release 调整；既有程序身份、字节与六平台名称保持固定。
 test('飞书固定依赖保留实际发布的版本和六平台资源名', async () => {
   const current = JSON.parse(await readFile(new URL('../../plugins/feishu-office/.neuxbot/auth/assets.lock.json', import.meta.url), 'utf8'));
   const provenance = JSON.parse(await readFile(new URL('../../plugins/feishu-office/provenance.json', import.meta.url), 'utf8'));
   const version = '1.0.98-neuxally.1';
-  const release = 'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.0/';
+  const release = 'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/';
   assert.equal(current.version, version);
   assert.equal(provenance.dependencies.find(dependency => dependency.name === 'lark-cli').version, version);
   const targets = { 'darwin-arm64': 'darwin-arm64', 'darwin-x64': 'darwin-amd64', 'linux-arm64': 'linux-arm64', 'linux-x64': 'linux-amd64', 'win32-arm64': 'windows-arm64.exe', 'win32-x64': 'windows-amd64.exe' };
