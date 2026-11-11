@@ -4,28 +4,25 @@ One portable package owns its Skills, MCP and authorization declaration. `server
 
 `extensions.com.neuxbot.authentication.bindings` binds exact MCP server/URL/header components. `skillBindings` binds real Skill paths and approved environment keys. Omitting `runtime` shares that exact binding across all supported targets; an explicit `runtime` is reserved for an actual target difference. Schema and authentication protocol remain `1` and `neuxbot-auth/1`.
 
-## Build a fixed release snapshot
+## Build a fixed snapshot
 
 ```sh
 npm ci
 node scripts/sync-standalone.mjs
 # Review and commit the source before building a release snapshot.
-NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack \
-  node scripts/build-release.mjs HEAD v0.1.3-dev /absolute/path/to/output
+node scripts/build-release.mjs HEAD github@0.1.2 /absolute/path/to/output
 ```
 
-The shared tool can be built in the NeuxBot repository with `go build -o /absolute/path/to/pluginpack ./cmd/pluginpack` from `server/`. It takes `--source`, `--output`, `--profile all`, and `--source-id`; no target conversion is implemented in the Node release wrapper. `NEUX_PLUGIN_PACKAGER` is an explicit development override, recorded with the executable's actual SHA256 in `release.json`.
+Use a tag matching the committed manifest version. To build all plugins locally, pass a development tag such as `v0.1.3-dev`. The wrapper validates the committed portable packages, runs the shared Go generator, and checks all ten target ZIPs and their receipts before replacing the output.
 
-`scripts/packager.lock.json` is the sole configuration for the formal generator version and platform download URL, size and SHA256. No formal packager binary has been published or pinned yet; its `assets` map is intentionally empty, so a build without the explicit development override fails. Maintainers must publish verified tool binaries and fill that lock before claiming a formal release is reproducible by download. Never substitute an unverified latest URL.
+`scripts/packager.lock.json` records the generator version. The build uses a platform binary when the lock specifies its fixed URL, size, and SHA-256. The current lock builds `server/cmd/pluginpack` from a clean checkout of the pinned NeuxBot commit with the exact Go toolchain. That checkout binds the generator version for this source pin because its target receipt predates the `generatorVersion` field. `release.json` records the tool source or binary URL and the executable's actual SHA-256.
 
-Feishu and GitHub provider programs and notices are carried by the current `v0.1.3` release; no deleted historical release is required. To relocate already verified provider builds, run `npm run prepare:providers -- --assets /absolute/verified/providers --tag v0.1.3`. The command verifies all programs and notices against the existing locks before regenerating either lock's download URLs; provider versions, hashes, sizes and upstream provenance stay fixed. Commit those generated bindings before building the portable snapshot, and upload all provider files to that same release before publishing its catalog.
-
-The build validates and archives a Git commit, ignores dirty files, invokes the same Go generator for every package, verifies all ten receipts and archive hashes, then replaces the output. A failure preserves the last completed output.
+Build the shared tool from NeuxBot's `server/` directory with `go build -o /absolute/path/to/pluginpack ./cmd/pluginpack` to try local generator changes. Pass `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack` to the build script. The resulting `release.json` marks the development override and records its digest. The publishing job rejects development overrides.
 
 ```text
 output/
-  catalog.json                   # List metadata and fixed download bindings only
-  github.zip                     # Portable original, also feishu-office/wecom-office
+  catalog.json                   # Single-entry catalog for the selected plugin
+  github.zip                     # Portable original
   github.details.json            # Independent digest-bound README and SKILL text
   release.json                   # Source commit, portable hashes, tool hash, target receipts
   targets/
@@ -37,6 +34,20 @@ output/
 ```
 
 Each target ZIP is directly distributable. Preserve the complete extracted target root, including dot directories, resources, licenses, `setup.mjs` and `NATIVE.md`; copying only Skills loses its verified provider boundary. Registration and loading follow the target CLI's supported native mechanism or equivalent Skill/MCP route. A Skill/MCP-only OpenCode artifact contains no empty JS extension. Generated format validity is separate from real CLI/model/account acceptance.
+
+## Publish a plugin and promote the catalog
+
+Bump the affected plugin's `plugins/<key>/plugin.json` to a new stable SemVer. Merge the change to `main`, then push a tag such as `github@0.1.2` pointing to that commit. The tag key and version must match the committed manifest. Any package affected by a shared input change needs its own version bump and tag.
+
+The workflow checks the current catalog for same-version binding conflicts before creating a plugin draft. It uploads the portable ZIP, details JSON, ten target ZIPs, `release.json`, the target receipt as `artifacts.json`, and the single-entry catalog as `entry.json`. It verifies the assets before publishing the plugin release with `make_latest: false`, then checks the public fixed-tag downloads.
+
+The catalog job waits in the repository's shared promotion queue. It asks the GitHub Release API which release is Latest and reads `catalog.json` from that fixed tag. The first promotion uses the published `v0.1.3` catalog. The job retains the other entries with their existing download bindings, uploads the complete schema-version-1 catalog to a `catalog-<run-id>-<run-attempt>` draft, and publishes it as Latest in one API update. It verifies the result through the Release API and the client's [stable catalog URL](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json).
+
+Re-run failed workflow jobs after a transient upload, publication, or read failure. The workflow verifies the existing plugin tag and asset digests, resumes an incomplete draft, and removes only empty upload placeholders left by a failed request. When the publish response is lost, it reads the same release by ID before continuing. The catalog job reads the actual Latest again on every attempt. An equal version with matching bindings is already current. A higher catalog version stays current, and an older tag can only resume an existing draft or release. An equal version with different bindings stops publication or promotion. If a published asset conflicts, keep that release and choose a new plugin version after resolving the discrepancy.
+
+## Publish provider dependencies
+
+Keep the existing Feishu and GitHub provider programs and notices on `v0.1.3` for every plugin snapshot that refers to them. To relocate verified provider bytes, use `npm run prepare:providers -- --assets /absolute/verified/providers --tag <new-fixed-provider-tag>` with a new `vX.Y.Z`-style tag. The command checks all programs and notices before regenerating either lock's URLs. Publish and verify the assets at the new fixed tag with `make_latest: false`, then commit the updated bindings and release the affected plugins. Keep the provider version, size, digest, and upstream provenance when moving identical bytes.
 
 ## Independent authentication and launcher
 

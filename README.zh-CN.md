@@ -100,23 +100,31 @@ sequenceDiagram
 
 插件详情与 SKILL 正文通过摘要绑定的[只读资料侧车](docs/DETAILS.zh-CN.md)提供，不要求先安装到伙伴或授权账号，也不需要下载完整安装 ZIP。
 
-使用[最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)或[固定 v0.1.3 目录](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json)。`{schemaVersion:1,entries:[...]}` 每项记录 `key`、完整 `sourceCommit`、`archiveURL`、`archiveSHA256`、`packagePath: plugins/<key>`、标准 `name`、`version`、英文 `description` 和 `format: agent-plugins`。可选本地化文字与安全内嵌图标支持安装前展示，组件组成从真实包读取。
+[最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)使用 `schemaVersion: 1`，每个插件 key 保留一个当前稳定版本。每项独立绑定来源提交、版本、包路径、归档地址及摘要，以及固定详情地址、大小和摘要。[v0.1.3 目录](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json)继续作为固定快照提供。
 
-ZIP 包含完整标准包、本地 Codex 索引、来源/许可证据与公开补丁。安装与日常目录构建均不依赖上游 Git 或 HTTP 还原。独立业务服务和首次供应商依赖仍需联网。客户端解包前核对目录所选归档摘要；测试发布资产变更时，已安装快照仍由原来源提交和摘要固定。
+ZIP 包含完整标准包、本地 Codex 索引、来源和许可证据，以及所选插件使用的供应商补丁。安装与日常目录构建直接读取完整包。独立业务服务和首次获取供应商依赖仍需联网。客户端解包前核对归档摘要。
 
-## 构建与测试发布
+## 独立发布插件
 
-使用 Node 22+ 和 Git 构建已提交快照，工作区脏文件与时间不进入产物：
+1. 在 `plugins/<key>/plugin.json` 中提升受影响插件的稳定 SemVer，并将改动合入 `main`。保留包的 key 和 name。例如 GitHub 可从已有的 `0.1.1` 升到 `0.1.2`。共享输入影响多个插件时，分别为受影响的插件升版和发布。
+2. 将 `<key>@<version>` 标签指向合入后的提交，再推送标签。例如 `github@0.1.2`。发布工作流核对提交和 Manifest，生成该插件及其十端原生工件，并发布到固定标签，Latest 仍指向全量目录。
+3. 目录任务读取当时的 Latest，替换对应插件条目，再将完整 `catalog.json` 发布为 Latest。客户端地址保持原值。失败后重跑工作流的失败任务。工作流复用摘要一致的资产，遇到同版本不同绑定会报错，遇到目录中的更高版本会保留当前条目。
+
+保留已发布的标签、资产以及包内锁引用的供应商程序和许可文件。重试规则、工具锁与发布资产布局见[原生交付指南](docs/NATIVE-DELIVERY.md)。
+
+## 本地构建与测试
+
+使用 Node 22+ 和 Git。构建命令读取已提交的快照，并在本地生成产物。
 
 ```sh
 npm ci
 npm test
-node scripts/build-catalog.mjs HEAD v0.1.3
+node scripts/build-catalog.mjs HEAD v0.1.3-dev
 ```
 
-完整多 CLI 构建使用 `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack node scripts/build-release.mjs HEAD v0.1.3-dev`，调用与宿主相同的 Go 生成器，交付三个 portable 原包、独立详情、30 个 CLI 目标 ZIP 及来源／摘要回执；正式工具锁和显式开发覆盖边界见[原生交付指南](docs/NATIVE-DELIVERY.md)。
+安装 `scripts/packager.lock.json` 锁定的工具链后，可用 `node scripts/build-release.mjs HEAD github@0.1.2 /absolute/path/to/output` 演练单插件构建，提交内的 Manifest 版本须为 `0.1.2`。用 `v0.1.3-dev` 等开发标签可构建全部插件。需要试用本地工具时，显式设置 `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack`。
 
-portable 目录构建器核验标准包、统一来源 schema、依赖锁与本地资产摘要，生成确定性 ZIP 与目录，校验完成后替换输出。CLI 会替换 `dist` 输出目录并保留 `dist/providers`；需要保留其他无关回执时，使用导出的 `buildCatalog({root,out,sourceCommit})` 指定独立输出目录。
+portable 构建器核验标准包、来源、依赖锁与本地资产摘要，再替换输出。全量开发构建保留 `dist/providers`。单插件演练请指定独立输出目录。
 
 供应商重构建是独立且明确的操作，不是目录构建前置：
 
@@ -125,12 +133,10 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-固定源码构建核验归档与隔离测试，完成六平台交叉编译，并收集真实依赖许可原文。供应商依赖锁引用 `v0.1.3` 同次发布的已核验资产；迁移下载位置保持程序版本和字节摘要不变。使用 `npm run prepare:providers -- --assets /absolute/verified/providers --tag v0.1.3` 先核验全部程序与许可，再生成新的下载绑定；该 Release 成为 Latest 前须同时上传这些依赖资产。协议/schema 版本与内部包身份含义独立；内部包身份保持 `0.1.1`，发布标签分别标识已审查快照，本地目标构建不会自动发布。面向用户的版本与作者直接读取 `provenance.upstream`，飞书显示 `v1.0.98`，未固定的托管 MCP 不声明服务版本。固定引用表示核验过的输入，不代表所有依赖均为上游最新版本。
-
-明确获准后，将核验后的新快照发布到新的正式标签，不覆盖已有标签或资产。先发布需要的供应商二进制与许可，再发布目录/ZIP，最后经 HTTP 同时核对标签指向、sourceCommit 和所有资产摘要。已有安装快照保持不变。自动化测试、交叉编译和发布不代替真实账号、平台、智能体或界面验收。
+固定源码构建核验来源和隔离行为，完成六平台交叉编译，并收集依赖许可原文。GitHub 和飞书当前使用 `v0.1.3` 中的供应商资产。迁移已核验的程序和许可时，先生成新的锁定地址，在该地址发布资产，再为依赖它们的插件打标签。上游版本和作者来自 `provenance.upstream`。具体步骤见[原生交付指南](docs/NATIVE-DELIVERY.md)。
 
 根 [MIT 许可](LICENSE)覆盖 NeuxBot 自编封装；第三方内容和品牌资产保留实际条款与如实披露的许可缺口。
 
 ## 多 CLI 原生工件与独立授权
 
-[原生交付指南](docs/NATIVE-DELIVERY.md)记录唯一共享 Go 打包工具、固定提交构建、十端自包含工件和包内 `setup.mjs`。独立 CLI 直接复用各包的供应商授权实现，在原生私有目录保存业务账号，使用 `login/status/logout` 与 `run -- <真实CLI> <参数>`；飞书和企微还提供 `exec -- <业务参数>`。不需要运行中的 Core，也不导出宿主凭据。正式工具资产尚未发布锁定，当前构建必须通过 `NEUX_PLUGIN_PACKAGER` 显式指定本地已构建工具，工件记录实际工具摘要。目录只保留展示与固定下载绑定，README／Skill 正文继续在独立详情和 ZIP 中。
+[原生交付指南](docs/NATIVE-DELIVERY.md)记录共享 Go 打包工具、固定提交构建、十端自包含工件和包内 `setup.mjs`。独立 CLI 直接复用各包的供应商授权实现，在原生私有目录保存业务账号，使用 `login/status/logout` 与 `run -- <真实CLI> <参数>`。飞书和企微还提供 `exec -- <业务参数>`。原生模式独立运行，凭据由各包管理。README／Skill 正文继续在独立详情和 ZIP 中提供。

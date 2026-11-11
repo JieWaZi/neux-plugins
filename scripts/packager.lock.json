@@ -2,5 +2,10 @@
   "schemaVersion": 1,
   "generatorVersion": "1",
   "repository": "https://github.com/JieWaZi/NeuxBot",
+  "source": {
+    "commit": "ffef15a4aebd61c2a34408229f15596d81b690dc",
+    "goVersion": "1.25.8",
+    "receiptIncludesGeneratorVersion": false
+  },
   "assets": {}
 }

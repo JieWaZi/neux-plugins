@@ -42,6 +42,49 @@ async function fixture(t) {
   return { root, put, commit };
 }
 
+test('独立构建只读取所选插件和其供应商补丁', async t => {
+  const f = await fixture(t);
+  await f.put('plugins/unrelated/plugin.json', '{invalid');
+  const provenance = JSON.parse(await readFile(path.join(f.root, 'plugins/example/provenance.json'), 'utf8'));
+  provenance.dependencies.push({ name: 'github-cli', repository: 'https://github.com/cli/cli', version: '1.2.3', commit: 'b'.repeat(40), license: 'MIT', lock: 'provider.lock.json' });
+  await f.put('plugins/example/provenance.json', provenance);
+  await f.put('plugins/example/provider.lock.json', { version: '1.2.3', source: { repository: 'https://github.com/cli/cli', commit: 'b'.repeat(40) } });
+  await f.put('patches/github-keyring-isolation.patch', 'relevant patch');
+  await f.put('patches/LICENSE.github-cli', 'provider license');
+  await f.put('patches/lark-keychain-isolation.patch', 'unrelated patch');
+  const sourceCommit = f.commit();
+  const { buildCatalog } = await import('../build-catalog.mjs');
+  const out = path.join(f.root, 'out');
+  const { entries } = await buildCatalog({ root: f.root, out, sourceCommit, tag: 'example@0.1.0', key: 'example' });
+  assert.deepEqual(entries.map(entry => entry.key), ['example']);
+  assert.equal(entries[0].archiveURL, 'https://github.com/JieWaZi/neux-plugins/releases/download/example@0.1.0/example.zip');
+  assert.equal(entries[0].detailsURL, 'https://github.com/JieWaZi/neux-plugins/releases/download/example@0.1.0/example.details.json');
+  assert.deepEqual((await readdir(out)).sort(), ['catalog.json', 'example.details.json', 'example.zip']);
+  const archiveFiles = execFileSync('unzip', ['-Z1', path.join(out, 'example.zip')], { encoding: 'utf8' }).trim().split('\n');
+  assert.ok(archiveFiles.includes('patches/github-keyring-isolation.patch'));
+  assert.ok(archiveFiles.includes('patches/LICENSE.github-cli'));
+  assert.ok(archiveFiles.includes('LICENSE'));
+  assert.ok(archiveFiles.includes('THIRD_PARTY_NOTICES.md'));
+  assert.ok(archiveFiles.includes('plugins/example/provider.lock.json'));
+  assert.ok(!archiveFiles.includes('patches/lark-keychain-isolation.patch'));
+  assert.ok(!archiveFiles.some(name => name.startsWith('plugins/unrelated/')));
+});
+
+test('独立构建校验固定快照的插件身份与稳定版本', async t => {
+  const f = await fixture(t);
+  const sourceCommit = f.commit();
+  await f.put('plugins/example/plugin.json', standardManifest({}, { version: '0.1.1' }));
+  const { buildCatalog } = await import('../build-catalog.mjs');
+  const options = { root: f.root, out: path.join(f.root, 'out'), sourceCommit, key: 'example' };
+  await assert.rejects(buildCatalog({ ...options, tag: 'example@0.1.1' }), /manifest version/);
+  await assert.rejects(buildCatalog({ ...options, tag: 'other@0.1.0' }), /tag key/);
+  for (const tag of ['example@0.01.0', 'example@0.1.0-rc.1', 'example@0.1.0+build', 'example@0.1.0\n']) {
+    await assert.rejects(buildCatalog({ ...options, tag }), /stable SemVer/);
+  }
+  await assert.rejects(buildCatalog({ ...options, tag: 'other@0.1.0', key: 'other' }), /missing plugin manifest/);
+  assert.deepEqual(await readdir(options.out).catch(() => []), []);
+});
+
 // 破坏固定快照、完整引用、ZIP 元信息或摘要均应使此真实构建测试失败。
 test('构建固定提交的完整可重现 ZIP，记录摘要并保留执行位', async t => {
   const f = await fixture(t); const sourceCommit = f.commit();

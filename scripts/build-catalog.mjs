@@ -2,18 +2,24 @@ import { packageDetails, encodeDetails } from './details.mjs';
 import { validateStandardPackage, validateSchema } from './schema.mjs';
 import { validateProvenance } from './provenance.mjs';
 import { catalogPresentation } from './presentation.mjs';
+import { commitPattern, parsePluginTag, pluginKeyPattern, releaseURL } from './release-tags.mjs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { cp, mkdir, mkdtemp, rename, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const repository = 'https://github.com/JieWaZi/neux-plugins';
 const safePath = value => typeof value === 'string' && value.length > 0 && !value.includes('\\') && !value.includes(':') && value.split('/').every(part => part && part !== '.' && part !== '..' && !part.includes('\0'));
+const sharedFiles = ['LICENSE', 'THIRD_PARTY_NOTICES.md'];
+const providerPatchPrefixes = {
+  'github-cli': ['github-', 'LICENSE.github-cli'],
+  'lark-cli': ['lark-'],
+};
 
 // 构建只读取 Git 对象，工作区改动与文件时间不影响指定提交的产物。
-function snapshot(root, sourceCommit) {
-  const rows = execFileSync('git', ['-C', root, 'ls-tree', '-rz', '--full-tree', sourceCommit], { maxBuffer: 16 * 1024 * 1024 }).toString().split('\0').filter(Boolean);
+function snapshot(root, sourceCommit, key) {
+  const paths = key === undefined ? [] : [...sharedFiles, 'patches', `plugins/${key}`];
+  const rows = execFileSync('git', ['-C', root, 'ls-tree', '-rz', '--full-tree', sourceCommit, '--', ...paths], { maxBuffer: 16 * 1024 * 1024 }).toString().split('\0').filter(Boolean);
   return new Map(rows.map(row => {
     const [, mode, type, oid, name] = /^(\d+) (\w+) ([0-9a-f]+)\t([\s\S]+)$/.exec(row) ?? [];
     if (!safePath(name)) throw new Error(`unsafe snapshot path: ${name}`);
@@ -38,11 +44,15 @@ function zip(files) {
   return Buffer.concat([...local, directory, end]);
 }
 
-export async function buildCatalog({ root, out, sourceCommit, tag = 'v0.1.0' }) {
-  if (!/^[a-f0-9]{40}$/.test(sourceCommit)) throw new Error('sourceCommit must be a full Git commit');
-  if (!/^v\d+\.\d+\.\d+(?:[-.][a-zA-Z0-9.-]+)?$/.test(tag)) throw new Error('release tag must be fixed');
+export async function buildCatalog({ root, out, sourceCommit, tag = 'v0.1.0', key: selectedKey }) {
+  if (!commitPattern.test(sourceCommit)) throw new Error('sourceCommit must be a full Git commit');
+  const identity = selectedKey !== undefined || tag.includes('@') ? parsePluginTag(tag) : undefined;
+  if (identity) {
+    if (selectedKey !== undefined && selectedKey !== identity.key) throw new Error('release tag key must match the selected plugin');
+    selectedKey = identity.key;
+  } else if (!/^v\d+\.\d+\.\d+(?:[-.][a-zA-Z0-9.-]+)?$/.test(tag)) throw new Error('release tag must be fixed');
   execFileSync('git', ['-C', root, 'rev-parse', '--verify', `${sourceCommit}^{commit}`], { stdio: 'pipe' });
-  const tree = snapshot(root, sourceCommit);
+  const tree = snapshot(root, sourceCommit, selectedKey);
   const read = name => {
     const entry = tree.get(name);
     if (!entry || entry.type !== 'blob' || !['100644', '100755'].includes(entry.mode)) throw new Error(`invalid file mode or missing manifest: ${name}`);
@@ -51,19 +61,25 @@ export async function buildCatalog({ root, out, sourceCommit, tag = 'v0.1.0' }) 
     return entry.content;
   };
   const manifests = [...tree.keys()].filter(name => /^plugins\/[^/]+\/plugin.json$/.test(name)).sort();
-  if (!manifests.length) throw new Error('no canonical plugin manifests');
+  if (!manifests.length) throw new Error(selectedKey ? `missing plugin manifest: ${selectedKey}` : 'no canonical plugin manifests');
   const artifacts = [], entries = [];
   for (const filename of manifests) {
     const packagePath = filename.split('/').slice(0, 2).join('/'); const key = packagePath.split('/')[1];
-    if (!/^[a-z0-9][a-z0-9-]*$/.test(key)) throw new Error('unsafe plugin key');
+    if (!pluginKeyPattern.test(key)) throw new Error('unsafe plugin key');
     const manifest = JSON.parse(read(filename));
     if (manifest.name !== key || typeof manifest.version !== 'string' || !manifest.version || typeof manifest.description !== 'string') throw new Error(`invalid logical manifest: ${filename}`);
+    if (identity && manifest.version !== identity.version) throw new Error(`release tag version must match the manifest version: ${filename}`);
     validateStandardPackage({ manifest, packagePath, names:()=>[...tree.keys()], has:name=>tree.has(name), read });
     const presentation = catalogPresentation({ manifest, packagePath, has: name => tree.has(name), read });
     const provenancePath = `${packagePath}/provenance.json`;
     if (!tree.has(provenancePath)) throw new Error(`missing provenance: ${provenancePath}`);
     const provenance = validateProvenance({ data: JSON.parse(read(provenancePath)), packagePath, manifest, read });
-    const selected = [...tree.keys()].filter(name => ['LICENSE', 'THIRD_PARTY_NOTICES.md'].includes(name) || name.startsWith('patches/') || name.startsWith(`${packagePath}/`)).sort();
+    const patchPrefixes = provenance.dependencies.flatMap(dependency => Object.hasOwn(providerPatchPrefixes, dependency.name) ? providerPatchPrefixes[dependency.name] : []);
+    const selected = [...tree.keys()].filter(name => {
+      if (sharedFiles.includes(name) || name.startsWith(`${packagePath}/`)) return true;
+      if (!name.startsWith('patches/')) return false;
+      return !identity || patchPrefixes.some(prefix => name.startsWith(`patches/${prefix}`));
+    }).sort();
     const archiveFiles = selected.map(name => ({ name, mode: tree.get(name).mode, content: read(name) }));
     // 每个完整自有标准包附带合法本地索引；宿主适配其他格式，不维护第二份能力定义。
     const codexIndex = { name: `neuxbot-${key}`, interface: { displayName: manifest.extensions?.['com.openai']?.interface?.displayName || manifest.name }, plugins: [{ name: manifest.name, source: { source: 'local', path: `./${packagePath}` } }] };
@@ -73,7 +89,7 @@ export async function buildCatalog({ root, out, sourceCommit, tag = 'v0.1.0' }) 
     const archiveSHA256 = createHash('sha256').update(archive).digest('hex');
     const details = encodeDetails(packageDetails({ sourceCommit, archiveSHA256, packagePath, manifest, presentation, provenance, names: () => [...tree.keys()], has: name => tree.has(name), read }));
     const detailsName = `${key}.details.json`; artifacts.push([detailsName, details]);
-    entries.push({ key, sourceCommit, archiveURL: `${repository}/releases/download/${tag}/${archiveName}`, archiveSHA256, packagePath, name: manifest.name, version: manifest.version, description: manifest.description, format: 'agent-plugins', ...Object.fromEntries(['icon','icons','displayNames','localizedDescriptions','category'].filter(key=>presentation[key] !== undefined).map(key=>[key,presentation[key]])), detailsURL: `${repository}/releases/download/${tag}/${detailsName}`, detailsSHA256: createHash('sha256').update(details).digest('hex'), detailsSize: details.length });
+    entries.push({ key, sourceCommit, archiveURL: releaseURL(tag, archiveName), archiveSHA256, packagePath, name: manifest.name, version: manifest.version, description: manifest.description, format: 'agent-plugins', ...Object.fromEntries(['icon','icons','displayNames','localizedDescriptions','category'].filter(key=>presentation[key] !== undefined).map(key=>[key,presentation[key]])), detailsURL: releaseURL(tag, detailsName), detailsSHA256: createHash('sha256').update(details).digest('hex'), detailsSize: details.length });
   }
   const catalog = { schemaVersion: 1, entries };
   validateSchema('catalog.schema.json', catalog);
@@ -83,7 +99,9 @@ export async function buildCatalog({ root, out, sourceCommit, tag = 'v0.1.0' }) 
   try {
     for (const [name, content] of artifacts) await writeFile(path.join(stage, name), content);
     await writeFile(path.join(stage, 'catalog.json'), `${JSON.stringify(catalog, null, 2)}\n`);
-    try { await cp(path.join(out, 'providers'), path.join(stage, 'providers'), { recursive: true }); } catch (error) { if (error.code !== 'ENOENT') throw error; }
+    if (!identity) {
+      try { await cp(path.join(out, 'providers'), path.join(stage, 'providers'), { recursive: true }); } catch (error) { if (error.code !== 'ENOENT') throw error; }
+    }
     await rm(out, { recursive: true, force: true }); await rename(stage, out);
   } finally { await rm(stage, { recursive: true, force: true }); }
   return catalog;

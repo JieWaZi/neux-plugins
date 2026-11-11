@@ -1,0 +1,110 @@
+name: Release plugin
+
+on:
+  push:
+    tags:
+      - '*@*'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    if: github.repository == 'JieWaZi/neux-plugins' && !github.event.deleted
+    runs-on: ubuntu-24.04
+    outputs:
+      source_commit: ${{ steps.tag.outputs.source_commit }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Verify plugin tag and main ancestry
+        id: tag
+        run: |
+          source_commit=$(git rev-parse --verify "${GITHUB_SHA}^{commit}")
+          node scripts/publish-plugin.mjs check-tag "$GITHUB_REF_NAME" "$source_commit" >> "$GITHUB_OUTPUT"
+          printf 'go_version=%s\n' "$(node -p 'require("./scripts/packager.lock.json").source?.goVersion ?? ""')" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        if: steps.tag.outputs.go_version != ''
+        with:
+          go-version: ${{ steps.tag.outputs.go_version }}
+          cache: false
+      - name: Build the tagged plugin
+        env:
+          SOURCE_COMMIT: ${{ steps.tag.outputs.source_commit }}
+          PLUGIN_KEY: ${{ steps.tag.outputs.key }}
+          NEUX_PLUGIN_PACKAGER: ''
+        run: |
+          output="$RUNNER_TEMP/plugin-release"
+          node scripts/build-release.mjs "$SOURCE_COMMIT" "$GITHUB_REF_NAME" "$output"
+          cd "$output"
+          tar -cf "$RUNNER_TEMP/plugin-release.tar" -- catalog.json release.json \
+            "$PLUGIN_KEY.zip" "$PLUGIN_KEY.details.json" \
+            "targets/$PLUGIN_KEY/artifacts.json" targets/"$PLUGIN_KEY"/*.zip
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: plugin-release
+          path: ${{ runner.temp }}/plugin-release.tar
+          if-no-files-found: error
+          overwrite: true
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    concurrency:
+      group: plugin-release-${{ github.ref_name }}
+      queue: max
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.build.outputs.source_commit }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: plugin-release
+          path: ${{ runner.temp }}
+      - name: Publish fixed plugin assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_COMMIT: ${{ needs.build.outputs.source_commit }}
+        run: |
+          output="$RUNNER_TEMP/plugin-release"
+          mkdir -p "$output"
+          tar -xf "$RUNNER_TEMP/plugin-release.tar" -C "$output"
+          node scripts/publish-plugin.mjs publish "$GITHUB_REF_NAME" "$SOURCE_COMMIT" "$output"
+
+  promote-catalog:
+    needs: [build, publish]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    concurrency:
+      group: plugin-catalog-promotion
+      queue: max
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.build.outputs.source_commit }}
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Merge and promote the latest full catalog
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_COMMIT: ${{ needs.build.outputs.source_commit }}
+        run: node scripts/publish-plugin.mjs promote "$GITHUB_REF_NAME" "$SOURCE_COMMIT"

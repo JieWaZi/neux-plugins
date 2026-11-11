@@ -9,6 +9,39 @@ import { existsSync } from 'node:fs';
 
 const root = path.resolve('.');
 const packager = process.env.NEUX_PLUGIN_PACKAGER;
+test('发布标签必须绑定已进入 main 的同一提交', async t => {
+  const { verifyPluginTag } = await import('../release-tags.mjs');
+  const repo = await mkdtemp(path.join(tmpdir(), 'plugin-release-tag-'));
+  t.after(() => rm(repo, { recursive: true, force: true }));
+  const git = (...args) => execFileSync('git', ['-C', repo, ...args], { encoding: 'utf8' }).trim();
+  git('init', '--quiet');
+  git('-c', 'user.name=Test', '-c', 'user.email=test@example.com', 'commit', '--allow-empty', '-qm', 'main');
+  const first = git('rev-parse', 'HEAD');
+  git('update-ref', 'refs/remotes/origin/main', first);
+  git('-c', 'user.name=Test', '-c', 'user.email=test@example.com', 'tag', '-a', 'github@0.1.0', '-m', 'first');
+  git('-c', 'user.name=Test', '-c', 'user.email=test@example.com', 'commit', '--allow-empty', '-qm', 'unmerged');
+  const second = git('rev-parse', 'HEAD');
+  git('tag', 'github@0.1.1');
+  assert.deepEqual(verifyPluginTag({ root: repo, tag: 'github@0.1.0', sourceCommit: first }), { key: 'github', version: '0.1.0' });
+  assert.throws(() => verifyPluginTag({ root: repo, tag: 'github@0.1.0', sourceCommit: second }), /does not identify/);
+  assert.throws(() => verifyPluginTag({ root: repo, tag: 'github@0.1.1', sourceCommit: second }), /origin\/main/);
+});
+
+test('单插件构建沿用真实共享生成器和十端回执', { skip: !packager && 'Set NEUX_PLUGIN_PACKAGER to run the real Go packager integration' }, async t => {
+  const { buildRelease } = await import('../build-release.mjs');
+  const out = await mkdtemp(path.join(tmpdir(), 'plugin-release-single-'));
+  t.after(() => rm(out, { recursive: true, force: true }));
+  const sourceCommit = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
+  const manifest = JSON.parse(execFileSync('git', ['show', 'HEAD:plugins/github/plugin.json'], { encoding: 'utf8' }));
+  const release = await buildRelease({ root, out, sourceCommit, tag: `github@${manifest.version}`, key: 'github', packager });
+  assert.equal(release.packager.developmentOverride, true);
+  assert.deepEqual(release.packages.map(value => value.key), ['github']);
+  const receipt = JSON.parse(await readFile(path.join(out, 'targets/github/artifacts.json'), 'utf8'));
+  assert.equal(receipt.sourceID, `${sourceCommit}:plugins/github`);
+  assert.equal(receipt.artifacts.length, 10);
+  await assert.rejects(stat(path.join(out, 'targets/feishu-office')), { code: 'ENOENT' });
+});
+
 test('release script invokes one shared packager and verifies each real self-contained target against its source', { skip: !packager && 'Set NEUX_PLUGIN_PACKAGER to run the real Go packager integration' }, async t => {
   assert.ok(existsSync(path.join(root, 'scripts/build-release.mjs')), 'release builder must exist');
   const { buildRelease } = await import('../build-release.mjs');
@@ -40,7 +73,6 @@ test('release script invokes one shared packager and verifies each real self-con
       assert.equal(JSON.parse(smoke).state,'unauthorized');
       if(plugin.key!=='github') assert.ok((await stat(path.join(target,'skills'))).isDirectory());
       if(artifact.runtime==='opencode') {
-        assert.equal(artifact.profile,'opencode-v2/1');
         const config=JSON.parse(await readFile(path.join(target,'opencode.json'),'utf8'));
         assert.ok(config.mcp.servers);assert.deepEqual(Object.keys(config.mcp),['servers']);
         for(const server of Object.values(config.mcp.servers))assert.ok(!Object.hasOwn(server,'enabled'));

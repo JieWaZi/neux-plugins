@@ -103,25 +103,31 @@ The host must support PNG data URLs for `show-qr` challenges and merging verifie
 
 Details and SKILL text are available before installation or authorization through digest-bound [read-only details sidecars](docs/DETAILS.md), independently of the complete installation ZIP.
 
-Use the [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) or [fixed v0.1.3 catalog](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json). Each `{schemaVersion:1,entries:[...]}` entry records `key`, full `sourceCommit`, `archiveURL`, `archiveSHA256`, `packagePath: plugins/<key>`, standard `name`, `version`, English `description` and `format: agent-plugins`. Optional localized maps and a validated embedded icon support presentation before package download; components are read from the actual package.
+The [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) uses schema version 1 and lists one stable version per plugin key. Each entry has its own source commit, version, package path, archive URL and digest, and a fixed details URL with its size and digest. The [v0.1.3 catalog](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json) remains available as a fixed snapshot.
 
-A ZIP contains its complete standard package, applicable local Codex index, source/license evidence and public patches. No upstream Git or HTTP materialization is required by installation or ordinary catalog builds. Separate business services and first-use provider dependencies still require network access. Clients verify the selected archive digest before extraction. Installed snapshots remain identified by their source commit and digest when test-release assets change.
+A ZIP contains its complete standard package, applicable local Codex index, source and license evidence, and the selected plugin's provider patches. Installation and portable catalog builds read the complete package. Separate business services and first-use provider dependencies still require network access. Clients verify the archive digest before extraction.
 
-## Build and test release
+## Release a plugin
 
-See [multi-CLI build and independent setup](docs/NATIVE-DELIVERY.md) for the shared Go packager, ten self-contained target artifacts, and native account launchers.
+1. Bump the affected plugin's stable SemVer in `plugins/<key>/plugin.json` and merge the change into `main`. Keep the package key and name. For example, the first GitHub release after the existing `0.1.1` can use `0.1.2`. If a shared input changes several packages, bump and release each affected package.
+2. Tag the merged commit as `<key>@<version>`, for example `github@0.1.2`, and push that tag. The release workflow checks the commit and manifest, builds that package and its ten native targets, and publishes them at the fixed tag without setting Latest.
+3. The catalog job reads the current Latest release, updates that plugin's entry, and publishes a complete `catalog.json` as Latest. The client URL stays the same. Re-run failed workflow jobs to resume. The workflow verifies existing assets before reusing them, fails on a same-version binding conflict, and retains a newer version already in the catalog.
 
-Node 22+ and Git build a committed portable snapshot; dirty workspace files and timestamps do not enter the result:
+Keep published tags, assets, and all provider binaries and notices referenced by package locks. See the [native delivery guide](docs/NATIVE-DELIVERY.md) for recovery, the packager lock, and the release asset layout.
+
+## Build and test locally
+
+Use Node 22+ and Git. Build commands read a committed snapshot and write local artifacts.
 
 ```sh
 npm ci
 npm test
-node scripts/build-catalog.mjs HEAD v0.1.3
+node scripts/build-catalog.mjs HEAD v0.1.3-dev
 ```
 
-For a complete multi-CLI build, use `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack node scripts/build-release.mjs HEAD v0.1.3-dev`. It invokes the same Go generator as the host and emits the portable originals, separate details, 30 CLI target ZIPs and source/digest receipts; the exact tool lock and development override boundary are documented in [native delivery](docs/NATIVE-DELIVERY.md).
+With the toolchain from `scripts/packager.lock.json`, run `node scripts/build-release.mjs HEAD github@0.1.2 /absolute/path/to/output` to rehearse a single-plugin release once the commit's manifest contains `0.1.2`. Use a development tag such as `v0.1.3-dev` to build all packages. Set `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack` to try an explicitly selected local development binary.
 
-The portable catalog builder validates canonical packages, the shared provenance schema, dependency locks and local asset hashes, produces deterministic ZIPs and catalog, and replaces its output after validation. The CLI replaces the `dist` output directory while preserving `dist/providers`; use the exported `buildCatalog({root,out,sourceCommit})` with a separate output directory when existing unrelated receipts must be retained.
+The portable builder validates package declarations, provenance, dependency locks and local asset hashes before replacing the output. All-package development builds preserve `dist/providers`. Use a separate output directory for a single-plugin rehearsal.
 
 Provider rebuilds are deliberate independent operations, not a prerequisite for catalog builds:
 
@@ -130,8 +136,6 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-Each fixed-source provider build verifies source and isolation tests, cross-compiles six platforms and collects actual dependency license texts. Provider locks reference the verified assets carried by `v0.1.3`; moving those same verified bytes to the current release preserves their provider versions and hashes. Use `npm run prepare:providers -- --assets /absolute/verified/providers --tag v0.1.3` to validate every program and notice before regenerating the download bindings. Publish those assets with the same release before its catalog becomes Latest. Protocol/schema versions and internal package identities have their own meaning: the internal package identity remains `0.1.1`, while release tags identify separately reviewed snapshots. A local target build does not publish a release. User-facing version and authorship come directly from `provenance.upstream`; Feishu shows `v1.0.98`, while an unpinned hosted MCP service declares no fixed version. Fixed references record verified inputs, not an unchecked claim that every upstream dependency is latest.
-
-With explicit authorization, publish each verified snapshot under a new release tag without replacing existing tags or assets. Publish needed provider binaries and notices before the catalog/ZIPs, then verify the final tag target, sourceCommit and all asset digests over HTTP. Existing installed snapshots remain unchanged. Automated tests, cross compilation and publication do not substitute for real account, platform, runtime or UI acceptance.
+Each fixed-source provider build verifies source and isolation, cross-compiles six platforms, and collects dependency license texts. GitHub and Feishu currently use provider assets from `v0.1.3`. When relocating verified bytes, regenerate the lock bindings and publish the assets at their new fixed URLs before tagging the dependent plugin releases. Upstream versions and authorship come from `provenance.upstream`. See the [provider build and publication steps](docs/NATIVE-DELIVERY.md).
 
 The root [MIT license](LICENSE) covers NeuxBot-authored packaging. Third-party content and brand assets retain their actual terms and disclosed license gaps.
