@@ -1,4 +1,6 @@
 import { readFile } from 'node:fs/promises';
+import { openAsBlob } from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { GitHubReleases, assetBinding } from './github-releases.mjs';
@@ -6,7 +8,7 @@ import { digest, verifyTargetReceipt } from './release-artifacts.mjs';
 import { catalogAsset, catalogTagPattern, entryAsset, isCatalogReleaseTag, latestCatalogURL, maxCatalogBytes, mergeCatalog, readCatalog, readEntry } from './release-catalog.mjs';
 import { commitPattern, parsePluginTag, repository, sha256Pattern, verifyPluginTag } from './release-tags.mjs';
 
-const makeAsset = (name, bytes) => ({ name, bytes, size: bytes.length, sha256: digest(bytes) });
+const makeAsset = (name, bytes) => ({ name, body: bytes, size: bytes.length, sha256: digest(bytes) });
 const sameAsset = (a, b) => a.size === b.size && a.sha256 === b.sha256;
 
 async function checkPackager(packager, receipt) {
@@ -45,11 +47,13 @@ async function builtAssets({ directory, tag, sourceCommit }) {
     throw new Error(`release receipt does not match the tagged plugin: ${tag}`);
   }
   async function verifiedAsset(name, file, sha256, size) {
-    const asset = makeAsset(name, await read(file));
-    if (asset.size === 0 || asset.sha256 !== sha256 || (size !== undefined && asset.size !== size)) {
+    const body = await openAsBlob(path.join(directory, file));
+    const hash = createHash('sha256');
+    for await (const chunk of body.stream()) hash.update(chunk);
+    if (body.size === 0 || hash.digest('hex') !== sha256 || (size !== undefined && body.size !== size)) {
       throw new Error(`built asset digest or size mismatch: ${file}`);
     }
-    return asset;
+    return { name, body, size: body.size, sha256 };
   }
   const assets = [
     makeAsset(entryAsset, entryBytes),
@@ -57,9 +61,10 @@ async function builtAssets({ directory, tag, sourceCommit }) {
     makeAsset('artifacts.json', receiptBytes),
     await verifiedAsset(portable, portable, entry.archiveSHA256),
     await verifiedAsset(details, details, entry.detailsSHA256, entry.detailsSize),
-    ...await Promise.all(receipt.artifacts.map(artifact =>
-      verifiedAsset(artifact.archive, `${targetDir}/${artifact.archive}`, artifact.archiveSHA256))),
   ];
+  for (const artifact of receipt.artifacts) {
+    assets.push(await verifiedAsset(artifact.archive, `${targetDir}/${artifact.archive}`, artifact.archiveSHA256));
+  }
   return { entry, assets };
 }
 
@@ -121,7 +126,9 @@ async function publishRelease({ api, tag, sourceCommit, assets, latest, beforePu
   }
   checkRelease(release, tag, false);
   checkAssetInventory(release, expected, false);
-  await api.retryRead(() => Promise.all(assets.map(asset => api.downloadAsset(release, asset))));
+  for (const asset of assets) {
+    await api.retryRead(() => api.verifyAsset(release, asset));
+  }
   return release;
 }
 
@@ -202,18 +209,19 @@ export async function promoteCatalog({ api, tag, sourceCommit, catalogTag }) {
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const root = fileURLToPath(new URL('..', import.meta.url));
   const [command, tag, sourceCommit, directory] = process.argv.slice(2);
-  if (!commitPattern.test(sourceCommit)) throw new Error('sourceCommit must be a full Git commit');
   if (command === 'check-tag') {
-    const root = fileURLToPath(new URL('..', import.meta.url));
-    const { key } = verifyPluginTag({ root, tag, sourceCommit });
-    console.log(`key=${key}\nsource_commit=${sourceCommit}`);
+    const verified = verifyPluginTag({ root, tag, sourceCommit });
+    console.log(`key=${verified.key}\nsource_commit=${verified.sourceCommit}`);
   } else {
-    const { GITHUB_ACTIONS, GITHUB_EVENT_NAME, GITHUB_REF_TYPE, GITHUB_REF_NAME, GITHUB_REPOSITORY, GITHUB_RUN_ID, GITHUB_RUN_ATTEMPT, GH_TOKEN } = process.env;
-    if (GITHUB_ACTIONS !== 'true' || GITHUB_EVENT_NAME !== 'push' || GITHUB_REF_TYPE !== 'tag' ||
-        tag !== GITHUB_REF_NAME || GITHUB_REPOSITORY !== repository) {
-      throw new Error('publishing requires a tag push workflow in the maintained plugin repository');
+    const { GITHUB_ACTIONS, GITHUB_EVENT_NAME, GITHUB_REF, GITHUB_REF_PROTECTED, GITHUB_REPOSITORY, GITHUB_RUN_ID, GITHUB_RUN_ATTEMPT, GH_TOKEN } = process.env;
+    if (GITHUB_ACTIONS !== 'true' || GITHUB_EVENT_NAME !== 'workflow_dispatch' || GITHUB_REF !== 'refs/heads/main' ||
+        GITHUB_REF_PROTECTED !== 'true' || GITHUB_REPOSITORY !== repository) {
+      throw new Error('publishing requires a dispatch from main with branch protection in the maintained plugin repository');
     }
+    if (!commitPattern.test(sourceCommit)) throw new Error('sourceCommit must be a full Git commit');
+    verifyPluginTag({ root, tag, sourceCommit });
     const api = new GitHubReleases({ token: GH_TOKEN });
     if (command === 'publish' && directory) await publishPlugin({ api, directory, tag, sourceCommit });
     else if (command === 'promote') {

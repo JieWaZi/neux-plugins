@@ -22,13 +22,14 @@ export function parsePluginTag(tag) {
 export function verifyPluginTag({ root, tag, sourceCommit }) {
   const identity = parsePluginTag(tag);
   const git = args => execFileSync('git', ['-C', root, ...args], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
-  if (!commitPattern.test(sourceCommit) || git(['rev-parse', '--verify', `refs/tags/${tag}^{commit}`]) !== sourceCommit) {
+  const taggedCommit = git(['rev-parse', '--verify', `refs/tags/${tag}^{commit}`]);
+  if (sourceCommit !== undefined && (!commitPattern.test(sourceCommit) || taggedCommit !== sourceCommit)) {
     throw new Error(`tag ${tag} does not identify ${sourceCommit}`);
   }
   try {
-    git(['merge-base', '--is-ancestor', sourceCommit, 'refs/remotes/origin/main']);
+    git(['merge-base', '--is-ancestor', taggedCommit, 'refs/remotes/origin/main']);
   } catch (error) {
     throw new Error(`tag ${tag} must point to a commit on origin/main`, { cause: error });
   }
-  return identity;
+  return { ...identity, sourceCommit: taggedCommit };
 }

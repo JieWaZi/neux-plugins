@@ -1,22 +1,30 @@
 name: Release plugin
+run-name: Release ${{ inputs.tag }}
 
 on:
-  push:
-    tags:
-      - '*@*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing plugin tag (key@X.Y.Z)
+        required: true
+        type: string
 
 permissions:
   contents: read
 
+env:
+  PLUGIN_TAG: ${{ inputs.tag }}
+
 jobs:
   build:
-    if: github.repository == 'JieWaZi/neux-plugins' && !github.event.deleted
+    if: github.repository == 'JieWaZi/neux-plugins' && github.ref == 'refs/heads/main' && github.ref_protected
     runs-on: ubuntu-24.04
     outputs:
       source_commit: ${{ steps.tag.outputs.source_commit }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
@@ -26,8 +34,7 @@ jobs:
       - name: Verify plugin tag and main ancestry
         id: tag
         run: |
-          source_commit=$(git rev-parse --verify "${GITHUB_SHA}^{commit}")
-          node scripts/publish-plugin.mjs check-tag "$GITHUB_REF_NAME" "$source_commit" >> "$GITHUB_OUTPUT"
+          node scripts/publish-plugin.mjs check-tag "$PLUGIN_TAG" >> "$GITHUB_OUTPUT"
           printf 'go_version=%s\n' "$(node -p 'require("./scripts/packager.lock.json").source?.goVersion ?? ""')" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         if: steps.tag.outputs.go_version != ''
@@ -41,7 +48,7 @@ jobs:
           NEUX_PLUGIN_PACKAGER: ''
         run: |
           output="$RUNNER_TEMP/plugin-release"
-          node scripts/build-release.mjs "$SOURCE_COMMIT" "$GITHUB_REF_NAME" "$output"
+          node scripts/build-release.mjs "$SOURCE_COMMIT" "$PLUGIN_TAG" "$output"
           cd "$output"
           tar -cf "$RUNNER_TEMP/plugin-release.tar" -- catalog.json release.json \
             "$PLUGIN_KEY.zip" "$PLUGIN_KEY.details.json" \
@@ -59,13 +66,14 @@ jobs:
     permissions:
       contents: write
     concurrency:
-      group: plugin-release-${{ github.ref_name }}
+      group: plugin-release-${{ inputs.tag }}
       queue: max
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: ${{ needs.build.outputs.source_commit }}
+          ref: ${{ github.sha }}
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
@@ -83,7 +91,7 @@ jobs:
           output="$RUNNER_TEMP/plugin-release"
           mkdir -p "$output"
           tar -xf "$RUNNER_TEMP/plugin-release.tar" -C "$output"
-          node scripts/publish-plugin.mjs publish "$GITHUB_REF_NAME" "$SOURCE_COMMIT" "$output"
+          node scripts/publish-plugin.mjs publish "$PLUGIN_TAG" "$SOURCE_COMMIT" "$output"
 
   promote-catalog:
     needs: [build, publish]
@@ -97,7 +105,8 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: ${{ needs.build.outputs.source_commit }}
+          ref: ${{ github.sha }}
+          fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
@@ -107,4 +116,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           SOURCE_COMMIT: ${{ needs.build.outputs.source_commit }}
-        run: node scripts/publish-plugin.mjs promote "$GITHUB_REF_NAME" "$SOURCE_COMMIT"
+        run: node scripts/publish-plugin.mjs promote "$PLUGIN_TAG" "$SOURCE_COMMIT"

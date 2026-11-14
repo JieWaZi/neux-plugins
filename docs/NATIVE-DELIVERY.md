@@ -37,9 +37,27 @@ Each target ZIP is directly distributable. Preserve the complete extracted targe
 
 ## Publish a plugin and promote the catalog
 
+### Repository settings
+
+Set `main` as the default branch and protect it with required pull request review. Block force pushes and deletion. The workflow checks that protection applies to the dispatch ref. The repository owner configures and enforces the review and branch rules in GitHub. [Protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches)
+
+Grant upstream repository write access only to trusted maintainers authorized to manage releases. Contributors can work through forks and reviewed pull requests. GitHub grants release management to repository writers, and they can also change the permissions requested by their workflows. A read-only default for `GITHUB_TOKEN` does not change those permissions. [Release access](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases) · [Actions token permissions](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository#setting-the-permissions-of-the-github_token-permissions-for-your-repository)
+
+Protect plugin tag names matching `*@*` with active tag rulesets. Restrict creation to release maintainers and block updates and deletions, including before a release becomes public. Use separate rulesets if maintainers need a bypass for creation. Enable GitHub immutable releases to lock new published tags and assets. The existing `v0.1.3` release and its provider assets need to remain available. [Tag rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets) · [Immutable releases](https://docs.github.com/en/code-security/concepts/supply-chain-security/immutable-releases)
+
+### Run the release
+
 Bump the affected plugin's `plugins/<key>/plugin.json` to a new stable SemVer. Merge the change to `main`, then push a tag such as `github@0.1.2` pointing to that commit. The tag key and version must match the committed manifest. Any package affected by a shared input change needs its own version bump and tag.
 
-The workflow checks the current catalog for same-version binding conflicts before creating a plugin draft. It uploads the portable ZIP, details JSON, ten target ZIPs, `release.json`, the target receipt as `artifacts.json`, and the single-entry catalog as `entry.json`. It verifies the assets before publishing the plugin release with `make_latest: false`, then checks the public fixed-tag downloads.
+After the workflow is on protected `main`, a release maintainer dispatches it from that branch with the existing tag as input.
+
+```sh
+gh workflow run release-plugin.yml --repo JieWaZi/neux-plugins --ref main -f tag='github@0.1.2'
+```
+
+The dispatch commit supplies the workflow, build scripts, dependency locks and publisher for every job. The plugin tag supplies the Git tree for the selected package. Jobs fetch `origin/main` and resolve the full tag ref to a commit on that history. The build has read access, and only the publish and catalog jobs request write access. Those jobs also check the live tag binding through GitHub. [Manual dispatch](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow) · [Workflow dispatch event](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_dispatch)
+
+The workflow checks the current catalog for same-version binding conflicts before creating a plugin draft. It uploads the portable ZIP, details JSON, ten target ZIPs, `release.json`, the target receipt as `artifacts.json`, and the single-entry catalog as `entry.json`. It verifies the assets before publishing the plugin release with `make_latest: false`. It then streams and verifies each public fixed-tag download, retrying a failed asset individually.
 
 The catalog job waits in the repository's shared promotion queue. It asks the GitHub Release API which release is Latest and reads `catalog.json` from that fixed tag. The first promotion uses the published `v0.1.3` catalog. The job retains the other entries with their existing download bindings, uploads the complete schema-version-1 catalog to a `catalog-<run-id>-<run-attempt>` draft, and publishes it as Latest in one API update. It verifies the result through the Release API and the client's [stable catalog URL](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json).
 

@@ -110,10 +110,10 @@ A ZIP contains its complete standard package, applicable local Codex index, sour
 ## Release a plugin
 
 1. Bump the affected plugin's stable SemVer in `plugins/<key>/plugin.json` and merge the change into `main`. Keep the package key and name. For example, the first GitHub release after the existing `0.1.1` can use `0.1.2`. If a shared input changes several packages, bump and release each affected package.
-2. Tag the merged commit as `<key>@<version>`, for example `github@0.1.2`, and push that tag. The release workflow checks the commit and manifest, builds that package and its ten native targets, and publishes them at the fixed tag without setting Latest.
-3. The catalog job reads the current Latest release, updates that plugin's entry, and publishes a complete `catalog.json` as Latest. The client URL stays the same. Re-run failed workflow jobs to resume. The workflow verifies existing assets before reusing them, fails on a same-version binding conflict, and retains a newer version already in the catalog.
+2. Tag the merged commit as `<key>@<version>`, for example `github@0.1.2`, and push the tag. A release maintainer starts **Release plugin** from the protected `main` branch and passes the tag as input. Every job runs the reviewed scripts from that `main` commit. The build checks the tagged commit and manifest, then the publish job uploads the package and ten native targets to the fixed tag with Latest disabled.
+3. The catalog job reads the current Latest release, updates that plugin's entry, and publishes a complete `catalog.json` as Latest. Re-run failed jobs to resume. The workflow verifies existing assets before reusing them, fails on a same-version binding conflict, and retains a newer version already in the catalog.
 
-Keep published tags, assets, and all provider binaries and notices referenced by package locks. See the [native delivery guide](docs/NATIVE-DELIVERY.md) for recovery, the packager lock, and the release asset layout.
+Keep published tags, assets, and all provider binaries and notices referenced by package locks. See the [native delivery guide](docs/NATIVE-DELIVERY.md) for repository setup, the dispatch command, and recovery.
 
 ## Build and test locally
 

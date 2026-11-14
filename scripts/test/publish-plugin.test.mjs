@@ -1,9 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { promisify } from 'node:util';
+import { parse } from 'yaml';
 
 const repo = 'JieWaZi/neux-plugins';
 const releases = `/repos/${repo}/releases`;
@@ -69,6 +72,7 @@ async function remote() {
     tagCommit: sourceCommit,
     failLatestDownload: false,
     failUpload: '',
+    failPublicAssetOnce: '',
     losePublishResponse: '',
     publishReadLag: new Map(),
   };
@@ -98,6 +102,10 @@ async function remote() {
       assert.equal(options.headers?.Authorization, undefined, 'browser URL must not receive the write token');
       const [, tag, name] = /\/releases\/(?:download\/([^/]+)|latest\/download)\/([^/]+)$/.exec(requestPath);
       if (!tag && state.failLatestDownload) return json({}, 503);
+      if (state.failPublicAssetOnce === name) {
+        state.failPublicAssetOnce = '';
+        return json({}, 503);
+      }
       const release = state.releases.get(tag ?? state.latest);
       const asset = !release?.draft && release?.assets.find(asset => asset.name === name && asset.state === 'uploaded');
       return asset ? new Response(state.files.get(asset.id)) : missing();
@@ -108,12 +116,14 @@ async function remote() {
       const name = url.searchParams.get('name');
       assert.ok(release.draft);
       assert.ok(!release.assets.some(asset => asset.name === name));
+      if (name.endsWith('.zip')) assert.ok(options.body instanceof Blob, 'ZIP uploads should use file-backed bodies');
       if (state.failUpload === name) {
         state.failUpload = '';
         attach(release, name, Buffer.alloc(0), 'starter');
         return json({}, 502);
       }
-      return json(attach(release, name, Buffer.from(options.body)), 201);
+      const body = options.body instanceof Blob ? Buffer.from(await options.body.arrayBuffer()) : Buffer.from(options.body);
+      return json(attach(release, name, body), 201);
     }
     assert.equal(url.host, 'api.github.com');
     if (requestPath.startsWith(`/repos/${repo}/commits/`)) return json({ sha: state.tagCommit });
@@ -166,6 +176,62 @@ async function remote() {
 }
 
 const options = { tag: 'github@0.1.2', sourceCommit, catalogTag: 'catalog-123-1' };
+
+test('单个公开工件读取失败只重试该工件，已核验下载不重复', async t => {
+  const { publishPlugin } = await import('../publish-plugin.mjs');
+  const directory = await buildFixture(t);
+  const { api, state, seed } = await remote();
+  seed(original);
+  state.failPublicAssetOnce = 'github-opencode.zip';
+  await publishPlugin({ api, directory, ...options });
+  const released = state.releases.get(options.tag);
+  assert.equal(released.assets.length, 15);
+  for (const asset of released.assets) {
+    const count = state.reads.filter(url => url === asset.browser_download_url).length;
+    assert.equal(count, asset.name === 'github-opencode.zip' ? 2 : 1, asset.name);
+  }
+});
+
+test('发布 CLI 拒绝标签触发、其他分支、未受保护的 main 和 fork', async () => {
+  // Deny all network calls even when the guard regresses.
+  const disableNetwork = 'data:text/javascript,globalThis.fetch%3Dasync()%3D%3E%7Bthrow%20new%20Error(%22unexpected%20network%20access%22)%7D';
+  const env = {
+    ...process.env, GH_TOKEN: 'fixture', GITHUB_ACTIONS: 'true', GITHUB_EVENT_NAME: 'workflow_dispatch', GITHUB_REF_TYPE: 'branch',
+    GITHUB_REF: 'refs/heads/main', GITHUB_REF_PROTECTED: 'true', GITHUB_REPOSITORY: repo,
+    GITHUB_RUN_ID: '1', GITHUB_RUN_ATTEMPT: '1',
+  };
+  for (const context of [
+    { GITHUB_EVENT_NAME: 'push', GITHUB_REF_TYPE: 'tag', GITHUB_REF: 'refs/tags/github@0.1.2', GITHUB_REF_NAME: 'github@0.1.2' },
+    { GITHUB_REF: 'refs/heads/other' },
+    { GITHUB_REF_PROTECTED: 'false' },
+    { GITHUB_REPOSITORY: 'fork/neux-plugins' },
+  ]) {
+    await assert.rejects(promisify(execFile)(process.execPath, [
+      '--import', disableNetwork, 'scripts/publish-plugin.mjs', 'promote', options.tag, options.sourceCommit,
+    ], { env: { ...env, ...context } }), /dispatch from main/);
+  }
+});
+
+test('Release 工作流的写权限仅用于从受保护 main 手动运行的可信代码', async () => {
+  const workflow = parse(await readFile(new URL('../../.github/workflows/release-plugin.yml', import.meta.url), 'utf8'));
+  assert.deepEqual(Object.keys(workflow.on), ['workflow_dispatch']);
+  assert.equal(workflow.on.workflow_dispatch.inputs.tag.required, true);
+  assert.equal(workflow.permissions.contents, 'read');
+  const { build, publish, 'promote-catalog': promote } = workflow.jobs;
+  assert.match(build.if, /github\.ref == 'refs\/heads\/main'/);
+  assert.match(build.if, /github\.ref_protected/);
+  assert.match(build.if, /github\.repository == 'JieWaZi\/neux-plugins'/);
+  for (const job of [build, publish, promote]) {
+    const gitSteps = job.steps.filter(step => step.uses?.startsWith('actions/checkout@'));
+    assert.equal(gitSteps.length, 1);
+    assert.equal(gitSteps[0].with.ref, '${{ github.sha }}');
+    assert.equal(gitSteps[0].with['persist-credentials'], false);
+    assert.equal(gitSteps[0].with['fetch-depth'], 0);
+  }
+  assert.equal(publish.needs, 'build');
+  assert.deepEqual(promote.needs, ['build', 'publish']);
+  assert.equal(promote.concurrency.queue, 'max');
+});
 
 test('目录合并保留其他条目并按稳定 SemVer 拒绝降级或同版本换包', async () => {
   const { mergeCatalog } = await import('../release-catalog.mjs');

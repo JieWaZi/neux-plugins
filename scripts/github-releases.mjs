@@ -1,5 +1,5 @@
 import { setTimeout } from 'node:timers/promises';
-import { digest } from './release-artifacts.mjs';
+import { createHash } from 'node:crypto';
 import { releaseURL, repository } from './release-tags.mjs';
 
 const apiRoot = `https://api.github.com/repos/${repository}`;
@@ -37,7 +37,7 @@ export class GitHubReleases {
     if (upload) headers['Content-Type'] = upload.name.endsWith('.zip') ? 'application/zip' : 'application/json';
     if (json) headers['Content-Type'] = 'application/json';
     const response = await this.fetcher(url, {
-      method, headers, body: upload?.bytes ?? (json && JSON.stringify(json)),
+      method, headers, body: upload?.body ?? (json && JSON.stringify(json)),
       cache: 'no-store', redirect: 'error', signal: AbortSignal.timeout(120000),
     });
     if (missing && response.status === 404) return undefined;
@@ -97,26 +97,35 @@ export class GitHubReleases {
     return this.#request(`/releases/assets/${asset.id}`, { method: 'DELETE' });
   }
 
-  async download(url, { size, sha256 }) {
+  async #readPublicAsset(url, { size, sha256 }, { collect = false } = {}) {
     const response = await this.fetcher(url, {
       cache: 'no-store', redirect: 'follow', signal: AbortSignal.timeout(120000),
     });
     assertOK(response, 'GET', url);
     if (response.url && new URL(response.url).protocol !== 'https:') throw new Error(`insecure release asset redirect: ${url}`);
-    const chunks = [];
+    const hash = createHash('sha256');
+    const chunks = collect ? [] : undefined;
     let length = 0;
     for await (const chunk of response.body) {
       length += chunk.length;
       if (length > size) throw new Error(`release asset digest or size mismatch: ${url}`);
-      chunks.push(chunk);
+      hash.update(chunk);
+      chunks?.push(chunk);
     }
-    const bytes = Buffer.concat(chunks, length);
-    if (length !== size || digest(bytes) !== sha256) throw new Error(`release asset digest or size mismatch: ${url}`);
-    return bytes;
+    if (length !== size || hash.digest('hex') !== sha256) throw new Error(`release asset digest or size mismatch: ${url}`);
+    if (chunks) return Buffer.concat(chunks, length);
+  }
+
+  download(url, asset) {
+    return this.#readPublicAsset(url, asset, { collect: true });
   }
 
   downloadAsset(release, asset) {
     return this.download(releaseURL(release.tag_name, asset.name), asset);
+  }
+
+  verifyAsset(release, asset) {
+    return this.#readPublicAsset(releaseURL(release.tag_name, asset.name), asset);
   }
 
   async retryRead(read) {

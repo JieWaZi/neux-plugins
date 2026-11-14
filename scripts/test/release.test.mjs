@@ -22,7 +22,7 @@ test('发布标签必须绑定已进入 main 的同一提交', async t => {
   git('-c', 'user.name=Test', '-c', 'user.email=test@example.com', 'commit', '--allow-empty', '-qm', 'unmerged');
   const second = git('rev-parse', 'HEAD');
   git('tag', 'github@0.1.1');
-  assert.deepEqual(verifyPluginTag({ root: repo, tag: 'github@0.1.0', sourceCommit: first }), { key: 'github', version: '0.1.0' });
+  assert.deepEqual(verifyPluginTag({ root: repo, tag: 'github@0.1.0' }), { key: 'github', version: '0.1.0', sourceCommit: first });
   assert.throws(() => verifyPluginTag({ root: repo, tag: 'github@0.1.0', sourceCommit: second }), /does not identify/);
   assert.throws(() => verifyPluginTag({ root: repo, tag: 'github@0.1.1', sourceCommit: second }), /origin\/main/);
 });
