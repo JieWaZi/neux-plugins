@@ -48,9 +48,9 @@ Publication, CLI schema validation and automated tests do not constitute real ac
 
 ## Curation and system installation boundary
 
-Before a plugin enters this library, maintainers validate its standard package, authentication declaration, bilingual business content, icon, provenance, licenses, and supported CLI targets. Reusing upstream code does not turn this library into an unchecked third-party package relay. NeuxBot accepts only published catalog entries with verified archive digests. It exposes no user upload or import path and no system-plugin installation operation to conversation agents.
+Before a plugin enters this library, maintainers validate its standard package, authentication declaration, bilingual business content, icon, provenance and licenses. Reusing upstream code does not turn this library into an unchecked third-party package relay. NeuxBot accepts only published catalog entries with verified archive digests. It exposes no user upload or import path and no system-plugin installation operation to conversation agents.
 
-Native plugin installation shares the corresponding external CLI environment and is not synchronized into this library or the application resource database. Managed plugins are attached for the session without replacing native installation state or model accounts. Custom supplier authentication is handled by maintained package bridges and the generic host protocol; third-party native authentication remains the CLI’s responsibility.
+NeuxBot manages plugin configuration and shared accounts. Package-owned authorization bridges supply approved component bindings through the host protocol, and the host prepares delivery for the selected runtime.
 
 ## Read-only details
 
@@ -60,6 +60,6 @@ The builder derives README, SKILL text and public metadata into [details sidecar
 
 Keep step-specific warning text in a package-owned declaration. A bridge may attach it as `auth/challenge.notice.messages`; the host selects language and clears it with the current challenge, without provider branches. See the [notice contract and schemas](AUTH-CHALLENGE-NOTICES.md). Do not place this transient message in plugin descriptions or account records.
 
-## Target release and standalone setup
+## Unified package releases
 
-Use the [native delivery guide](NATIVE-DELIVERY.md). The shared Go packager generates all target formats; the Node release wrapper only handles fixed source snapshots, invocation and artifact verification. Authorization is component-scoped across targets. Standalone setup reuses the existing package bridge in an independent account directory; setup files are regenerated from one template. Keep native setup instructions in `NATIVE.md`, separate from business README content.
+Each plugin has its own version and publishes a unified ZIP, public details and a single-entry catalog. NeuxBot owns installation, accounts and selected-runtime delivery. See the [release guide](RELEASING.md) for builds, publication and retries.

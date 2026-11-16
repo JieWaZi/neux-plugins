@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { promisify } from 'node:util';
@@ -33,28 +33,10 @@ async function buildFixture(t) {
   const directory = await mkdtemp(path.join(tmpdir(), 'publish-plugin-'));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const put = (name, value) => writeFile(path.join(directory, name), typeof value === 'string' ? value : bytes(value));
-  const runtimes = ['codex', 'claude', 'cursor', 'workbuddy', 'qoder', 'kimi', 'gemini', 'grok', 'opencode', 'pi'];
-  const artifacts = runtimes.map(runtime => {
-    const name = `github-${runtime}`;
-    return { runtime, directory: name, archive: `${name}.zip`, archiveSHA256: sha(Buffer.from(name)), contentDigest: 'c'.repeat(64) };
-  });
-  const lock = JSON.parse(await readFile(new URL('../packager.lock.json', import.meta.url), 'utf8'));
-  const packager = {
-    generatorVersion: lock.generatorVersion, binarySHA256: 'e'.repeat(64), developmentOverride: false,
-    source: { repository: lock.repository, commit: lock.source.commit, goVersion: lock.source.goVersion },
-  };
-  const receipt = { schemaVersion: 1, sourceID: `${sourceCommit}:plugins/github`, sourceDigest: 'd'.repeat(64), name: 'github', version: '0.1.2', artifacts };
-  await mkdir(path.join(directory, 'targets/github'), { recursive: true });
   await Promise.all([
     put('catalog.json', { schemaVersion: 1, entries: [candidate] }),
     put('github.zip', 'portable package'),
     put('github.details.json', '{}'),
-    put('targets/github/artifacts.json', receipt),
-    put('release.json', {
-      schemaVersion: 1, tag: 'github@0.1.2', sourceCommit, packager,
-      packages: [{ key: 'github', sourceID: receipt.sourceID, sourceDigest: receipt.sourceDigest, portableArchive: 'github.zip', portableSHA256: candidate.archiveSHA256, receipt: 'targets/github/artifacts.json' }],
-    }),
-    ...artifacts.map(artifact => put(`targets/github/${artifact.archive}`, artifact.directory)),
   ]);
   return directory;
 }
@@ -182,13 +164,13 @@ test('单个公开工件读取失败只重试该工件，已核验下载不重�
   const directory = await buildFixture(t);
   const { api, state, seed } = await remote();
   seed(original);
-  state.failPublicAssetOnce = 'github-opencode.zip';
+  state.failPublicAssetOnce = 'github.details.json';
   await publishPlugin({ api, directory, ...options });
   const released = state.releases.get(options.tag);
-  assert.equal(released.assets.length, 15);
+  assert.equal(released.assets.length, 3);
   for (const asset of released.assets) {
     const count = state.reads.filter(url => url === asset.browser_download_url).length;
-    assert.equal(count, asset.name === 'github-opencode.zip' ? 2 : 1, asset.name);
+    assert.equal(count, asset.name === 'github.details.json' ? 2 : 1, asset.name);
   }
 });
 
@@ -254,8 +236,8 @@ test('独立 Release 先验证固定工件，再以一次更新提升完整 Late
   assert.equal(state.latest, 'v0.1.3');
   const published = state.releases.get(options.tag);
   assert.equal(published.draft, false);
-  assert.equal(published.assets.length, 15);
-  assert.ok(published.assets.some(asset => asset.name === 'entry.json'));
+  assert.equal(published.assets.length, 3);
+  assert.deepEqual(published.assets.map(asset => asset.name).sort(), ['entry.json', 'github.details.json', 'github.zip']);
   assert.ok(published.assets.every(asset => state.reads.includes(asset.browser_download_url)));
   assert.deepEqual(state.writes.filter(write => write.method === 'PATCH').map(write => write.data), [{ draft: false, make_latest: 'false' }]);
   assert.equal(await promoteCatalog({ api, ...options }), 'changed');

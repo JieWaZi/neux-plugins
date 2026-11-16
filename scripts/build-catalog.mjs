@@ -81,9 +81,6 @@ export async function buildCatalog({ root, out, sourceCommit, tag = 'v0.1.0', ke
       return !identity || patchPrefixes.some(prefix => name.startsWith(`patches/${prefix}`));
     }).sort();
     const archiveFiles = selected.map(name => ({ name, mode: tree.get(name).mode, content: read(name) }));
-    // 每个完整自有标准包附带合法本地索引；宿主适配其他格式，不维护第二份能力定义。
-    const codexIndex = { name: `neuxbot-${key}`, interface: { displayName: manifest.extensions?.['com.openai']?.interface?.displayName || manifest.name }, plugins: [{ name: manifest.name, source: { source: 'local', path: `./${packagePath}` } }] };
-    archiveFiles.push({ name: '.agents/plugins/marketplace.json', mode: '100644', content: Buffer.from(`${JSON.stringify(codexIndex, null, 2)}\n`) });
     const archive = zip(archiveFiles.sort((a, b) => Buffer.compare(Buffer.from(a.name), Buffer.from(b.name))));
     const archiveName = `${key}.zip`; artifacts.push([archiveName, archive]);
     const archiveSHA256 = createHash('sha256').update(archive).digest('hex');
@@ -111,6 +108,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
   const sourceCommit = execFileSync('git', ['-C', root, 'rev-parse', '--verify', `${process.argv[2] || 'HEAD'}^{commit}`], { encoding: 'utf8' }).trim();
   const tag = process.argv[3] || 'v0.1.0';
-  const catalog = await buildCatalog({ root, sourceCommit, tag, out: path.join(root, 'dist') });
+  const out = process.argv[4] ? path.resolve(process.argv[4]) : path.join(root, 'dist');
+  const catalog = await buildCatalog({ root, sourceCommit, tag, out });
   console.log(`Built ${catalog.entries.length} plugins from ${sourceCommit} for ${tag}`);
 }

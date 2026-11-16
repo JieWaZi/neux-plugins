@@ -131,14 +131,13 @@ test('拒绝遗留原生引用，不发布不完整包且保留已有产物', as
   assert.deepEqual(JSON.parse(await readFile(path.join(out, 'catalog.json'), 'utf8')), catalog);
 });
 
-test('完整标准包保留MCP声明和可直接使用的Codex本地索引，不读取上游HTTP', async t => {
+test('NeuxBot统一包保留MCP声明并仅包含组件来源，不生成CLI安装入口', async t => {
   const f = await fixture(t); const sourceCommit = f.commit();
   const { buildCatalog } = await import('../build-catalog.mjs'); const out = path.join(f.root, 'out');
   const catalog = await buildCatalog({ root: f.root, out, sourceCommit, fetcher: async () => { throw new Error('upstream HTTP forbidden'); } });
   assert.match(catalog.entries[0].archiveURL, /\/v0\.1\.0\/example\.zip$/);
   const unpack = path.join(f.root, 'native'); await mkdir(unpack); execFileSync('unzip', ['-q', path.join(out, 'example.zip'), '-d', unpack]);
-  const index = JSON.parse(await readFile(path.join(unpack, '.agents/plugins/marketplace.json'), 'utf8'));
-  assert.equal(index.plugins[0].source.path, './plugins/example');
+  await assert.rejects(readFile(path.join(unpack, '.agents/plugins/marketplace.json')), { code: 'ENOENT' });
   const mcp = JSON.parse(await readFile(path.join(unpack, 'plugins/example/mcp.json'), 'utf8'));
   assert.equal(mcp.mcpServers.example.url, 'https://example.com/mcp');
 });

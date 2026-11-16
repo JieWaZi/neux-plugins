@@ -2,7 +2,7 @@
 
 [English](DETAILS.md) | [简体中文](DETAILS.zh-CN.md)
 
-Each logical package has one authoritative portable identity and component definition in root `plugin.json`, fixed `skills/` and `mcp.json`, declaring Agent Plugins 1.0.0. OpenAI presentation comes from `extensions.com.openai.interface`; the host extension is `extensions.com.neuxbot` schemaVersion 1. The shared Go generator validates registered native thin declarations against those same components and derives missing target entries. Native source-reference loaders and old namespaces remain rejected. The three maintained sources stay portable; per-CLI manifests are generated outputs. See [native delivery](NATIVE-DELIVERY.md) for the shared tool and independent setup contract.
+Each plugin defines its standard identity and components in `plugin.json`, `skills/` and `mcp.json`. The manifest uses Agent Plugins 1.0.0, presentation uses `extensions.com.openai.interface`, and host integration uses `extensions.com.neuxbot`. Each plugin publishes one unified ZIP for NeuxBot to manage installation, updates, shared accounts and runtime delivery. See the [release guide](RELEASING.md).
 
 Use `npm ci` for the exact locked AJV, ajv-formats and YAML versions. `schemas/schema-lock.json` pins every local Schema SHA-256; validation never downloads mutable schemas. The official MCP 1.0.0 Schema does not include server-level OpenAI extensions. We validate its portable core with that extension removed, then validate the separate local OpenAI target profile. Official schema bytes remain unchanged; the profile is not claimed as another official standard.
 
@@ -11,7 +11,6 @@ Use `npm ci` for the exact locked AJV, ajv-formats and YAML versions. `schemas/s
 | catalog.json | schemaVersion 1: safe identity, category, localization, default icon, fixed source/archive and mandatory details references |
 | key.details.json | schemaVersion 1: public presentation and exact README/SKILL.md, bound to the same sourceCommit, archiveSHA256 and packagePath |
 | key.zip | Complete portable source, resources, authorization program, licenses, provenance and executable modes |
-| targets/key/key-CLI.zip | Self-contained generated CLI target, setup/launcher and licenses; artifacts.json binds source identity/digest, profile and target/archive digests |
 
 The light index contains no README, Skill body, MCP command/header or authorization entry. It is published and queried independently of details and ZIP availability. Details are limited to 4 MiB; each README/SKILL.md is limited to 1 MiB. Digests and sizes use final UTF-8 bytes. Missing or damaged details fail explicitly; reading details never falls back to downloading the installation ZIP. Installation preparation separately verifies the complete archive.
 

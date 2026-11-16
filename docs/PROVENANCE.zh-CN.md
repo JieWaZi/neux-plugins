@@ -12,7 +12,7 @@
 | `dependencies[]` | `name`、`repository`、固定 `commit`、`version`、`license`、包内相对 `lock` | 隔离授权或运行程序；依赖版本不能冒充业务能力版本 |
 | `assets[]` | 包内相对 `path`、`sourceURL`、字节 `sha256`、`license`、`attribution` | 本地维护品牌素材；可选 `sourcePath`、`sourceSHA256` 与 `licenseURL` 保留原归档提取证据 |
 
-`upstream` 的 `author`、`repository`、`license` 及可选 `tag`、`version`、`commit` 均为字符串。展示版本优先取 `tag`，其次取 `version`，保留 `v` 前缀。飞书开发者直接为 `Lark Suite CLI contributors`，插件展示版本直接为 `v1.0.98`，只展示这一项版本，不另列“上游版本”及内部 `0.1.0`。维护包版本和插件库 `v0.1.x` 测试发布系列继续用于内部归档、安装快照管理，不是面向用户的业务能力版本。
+`upstream` 的 `author`、`repository`、`license` 及可选 `tag`、`version`、`commit` 均为字符串。展示版本优先取 `tag`，其次取 `version`，保留 `v` 前缀。飞书开发者直接为 `Lark Suite CLI contributors`，插件展示版本直接为 `v1.0.98`，只展示这一项版本，不另列“上游版本”及内部 `0.1.0`。维护包版本及 `<key>@<version>` 标签固定对应的插件发布与安装快照。
 
 ## 来源分发方式
 

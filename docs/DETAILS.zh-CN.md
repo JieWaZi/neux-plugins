@@ -2,7 +2,7 @@
 
 [English](DETAILS.md) | [简体中文](DETAILS.zh-CN.md)
 
-每个逻辑包由根 `plugin.json`、固定 `skills/` 和 `mcp.json` 保存唯一 portable 身份与组件定义。根清单声明 Agent Plugins 1.0.0；OpenAI 展示来自 `extensions.com.openai.interface`，宿主扩展来自 `extensions.com.neuxbot`（schemaVersion 1）。共享 Go 生成器核对已登记的原生薄声明与同一组件定义是否一致，并补齐缺失入口；原生来源引用加载器与旧命名空间仍被拒绝。当前三个维护源包保持 portable，各 CLI 清单属于生成工件，工具和独立 setup 契约见[原生交付指南](NATIVE-DELIVERY.md)。
+每个插件由根 `plugin.json`、固定 `skills/` 和 `mcp.json` 保存唯一标准身份与组件定义。根清单声明 Agent Plugins 1.0.0，展示来自 `extensions.com.openai.interface`，宿主扩展来自 `extensions.com.neuxbot`。每个插件发布一份统一 ZIP，由 NeuxBot 管理安装、更新、共享账号和智能体交付。构建和发布流程见[发布指南](RELEASING.md)。
 
 发布前使用 `npm ci` 恢复精确锁版的 AJV、ajv-formats 与 YAML 解析器。`schemas/schema-lock.json` 固定所有本地 Schema 的 SHA-256；校验不下载可变 Schema。官方 MCP 1.0.0 Schema 尚不含服务级 OpenAI 扩展，因此分别验证剥离该命名空间后的标准核心及本地 OpenAI 目标 profile，保留官方字节不改。profile 不是另一套官方标准。
 
@@ -11,7 +11,6 @@
 | catalog.json | schemaVersion 1；安全身份、分类、本地化、默认图标、来源提交、归档和必需的公开资料引用 |
 | key.details.json | schemaVersion 1；绑定同一 sourceCommit、archiveSHA256、packagePath 的公开展示及原始 README／SKILL.md |
 | key.zip | 完整 portable 源包、资源、授权程序、许可、来源与执行位 |
-| targets/key/key-CLI.zip | 自包含 CLI 派生目标、setup／launcher 与许可；artifacts.json 绑定来源身份／摘要、配置档、目标和归档摘要 |
 
 轻目录不携带 README、Skill 正文、MCP 命令／请求头或授权入口，索引发布与查询独立于详情和 ZIP 是否可用。资料最大 4 MiB，每份 README／SKILL.md 最大 1 MiB；全部摘要和大小均按最终 UTF-8 字节计算。详情缺失或损坏只使该项详情明确失败，不下载 ZIP 补详情。ZIP 的后台预取或安装准备分别按固定绑定下载并完整校验。
 

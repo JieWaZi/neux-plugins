@@ -1,6 +1,6 @@
 # 第三方来源与许可
 
-本仓库根 MIT 许可只覆盖 NeuxBot 自行编写的标准包封装、桥接与构建材料，不改变官方技能、CLI 依赖或商标的作者及许可。我们自行维护完整 OpenAI/Codex 标准包，官方开源项目与示例仅作为能力来源或封装参考，不维护两套原生来源引用。业务信息直接读取统一 `provenance.upstream`，本仓库实际封装者记录于 `wrapper`，不冒充官方发布。
+本仓库根 MIT 许可只覆盖 NeuxBot 自行编写的标准包封装、桥接与构建材料，不改变官方技能、CLI 依赖或商标的作者及许可。我们自行维护供 NeuxBot 使用的完整 Agent Plugins 标准包，官方开源项目与示例仅作为能力来源或封装参考，不维护两套原生来源引用。业务信息直接读取统一 `provenance.upstream`，本仓库实际封装者记录于 `wrapper`，不冒充官方发布。
 
 ## GitHub MCP 与自有封装
 
@@ -11,9 +11,9 @@
 ## GitHub CLI 隔离依赖
 
 - 上游：[cli/cli](https://github.com/cli/cli/tree/fc4b137cdef0a6bd28fd461b7cf9c84a5812a8cd)，固定提交 `fc4b137cdef0a6bd28fd461b7cf9c84a5812a8cd`，原版本 `2.102.0`。
-- 隔离构建 `2.102.0-neuxally.2`，不是未修改的官方发行二进制。源码归档、固定 Go 工具链、六平台资产、大小/摘要和补丁证据记录在 [资产锁](plugins/github/.neuxally/auth/assets.lock.json)。
+- 隔离构建 `2.102.0-neuxally.2`，不是未修改的官方发行二进制。源码归档、固定 Go 工具链、六平台资产、大小/摘要和补丁证据记录在 [资产锁](plugins/github/.neuxbot/auth/assets.lock.json)。
 - [原始 MIT 许可](patches/LICENSE.github-cli) 保留上游版权。[公开补丁](patches/github-keyring-isolation.patch) 将底层 Set/Get/Delete 服务绑定已存在的私有 GH_CONFIG_DIR 规范路径 SHA-256；没有合法目录时拒绝钥匙串访问，覆盖登录迁移和退出路径。[回归](patches/github-keyring-isolation_test.go) 走上游内存钥匙串，不访问测试机器真实存储。
-- 完整第三方依赖与 Go runtime 许可原文收集于 [CLI 声明](plugins/github/.neuxally/auth/THIRD_PARTY_NOTICES.cli.txt)，同文作为独立 Release 资产交付。部分模块没有独立 LICENSE 时保留实际可得的原始说明并披露缺口，不补造许可。
+- 完整第三方依赖与 Go runtime 许可原文收集于 [CLI 声明](plugins/github/.neuxbot/auth/THIRD_PARTY_NOTICES.cli.txt)，同文作为独立 Release 资产交付。部分模块没有独立 LICENSE 时保留实际可得的原始说明并披露缺口，不补造许可。
 - [固定构建来源记录](patches/github-cli-provenance.json)。二进制只作为发布依赖资产，运行时按摘要下载至插件私有目录，不使用用户全局 gh 或全局身份。
 
 ## 飞书技能与 Lark CLI

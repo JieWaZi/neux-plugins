@@ -4,48 +4,20 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { GitHubReleases, assetBinding } from './github-releases.mjs';
-import { digest, verifyTargetReceipt } from './release-artifacts.mjs';
 import { catalogAsset, catalogTagPattern, entryAsset, isCatalogReleaseTag, latestCatalogURL, maxCatalogBytes, mergeCatalog, readCatalog, readEntry } from './release-catalog.mjs';
-import { commitPattern, parsePluginTag, repository, sha256Pattern, verifyPluginTag } from './release-tags.mjs';
+import { commitPattern, parsePluginTag, repository, verifyPluginTag } from './release-tags.mjs';
 
+const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const makeAsset = (name, bytes) => ({ name, body: bytes, size: bytes.length, sha256: digest(bytes) });
 const sameAsset = (a, b) => a.size === b.size && a.sha256 === b.sha256;
-
-async function checkPackager(packager, receipt) {
-  const lock = JSON.parse(await readFile(new URL('./packager.lock.json', import.meta.url), 'utf8'));
-  if (packager?.developmentOverride !== false || packager.generatorVersion !== lock.generatorVersion || !sha256Pattern.test(packager.binarySHA256)) {
-    throw new Error('release was not built with a pinned packager');
-  }
-  const binary = !packager.source && Object.values(lock.assets).some(asset => asset.url === packager.assetURL && asset.sha256 === packager.binarySHA256);
-  const source = lock.source && !packager.assetURL && packager.source?.repository === lock.repository &&
-    packager.source?.commit === lock.source.commit && packager.source?.goVersion === lock.source.goVersion;
-  if ((!source && !binary) ||
-      ((binary || lock.source?.receiptIncludesGeneratorVersion || Object.hasOwn(receipt, 'generatorVersion')) &&
-        receipt.generatorVersion !== lock.generatorVersion)) {
-    throw new Error('release packager provenance or generator version mismatch');
-  }
-}
 
 async function builtAssets({ directory, tag, sourceCommit }) {
   const { key } = parsePluginTag(tag);
   const read = file => readFile(path.join(directory, file));
-  const [entryBytes, releaseBytes] = await Promise.all([read(catalogAsset), read('release.json')]);
+  const entryBytes = await read(catalogAsset);
   const entry = readEntry(entryBytes, { tag, sourceCommit });
-  const release = JSON.parse(releaseBytes);
   const portable = `${key}.zip`;
   const details = `${key}.details.json`;
-  const targetDir = `targets/${key}`;
-  const receiptPath = `${targetDir}/artifacts.json`;
-  const receiptBytes = await read(receiptPath);
-  const receipt = JSON.parse(receiptBytes);
-  verifyTargetReceipt(receipt, entry);
-  await checkPackager(release.packager, receipt);
-  const [pkg] = release.packages ?? [];
-  if (release.schemaVersion !== 1 || release.sourceCommit !== sourceCommit || release.tag !== tag || release.packages?.length !== 1 ||
-      pkg?.key !== key || pkg.sourceID !== receipt.sourceID || pkg.sourceDigest !== receipt.sourceDigest ||
-      pkg.portableArchive !== portable || pkg.portableSHA256 !== entry.archiveSHA256 || pkg.receipt !== receiptPath) {
-    throw new Error(`release receipt does not match the tagged plugin: ${tag}`);
-  }
   async function verifiedAsset(name, file, sha256, size) {
     const body = await openAsBlob(path.join(directory, file));
     const hash = createHash('sha256');
@@ -57,14 +29,9 @@ async function builtAssets({ directory, tag, sourceCommit }) {
   }
   const assets = [
     makeAsset(entryAsset, entryBytes),
-    makeAsset('release.json', releaseBytes),
-    makeAsset('artifacts.json', receiptBytes),
     await verifiedAsset(portable, portable, entry.archiveSHA256),
     await verifiedAsset(details, details, entry.detailsSHA256, entry.detailsSize),
   ];
-  for (const artifact of receipt.artifacts) {
-    assets.push(await verifiedAsset(artifact.archive, `${targetDir}/${artifact.archive}`, artifact.archiveSHA256));
-  }
   return { entry, assets };
 }
 

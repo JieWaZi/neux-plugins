@@ -1,6 +1,6 @@
 {
   "name": "github",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Search GitHub repositories, issues and pull requests, and assist with code review and collaboration.",
   "author": {
     "name": "NeuxBot contributors"

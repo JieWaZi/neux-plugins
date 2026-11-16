@@ -35,24 +35,16 @@ jobs:
         id: tag
         run: |
           node scripts/publish-plugin.mjs check-tag "$PLUGIN_TAG" >> "$GITHUB_OUTPUT"
-          printf 'go_version=%s\n' "$(node -p 'require("./scripts/packager.lock.json").source?.goVersion ?? ""')" >> "$GITHUB_OUTPUT"
-      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
-        if: steps.tag.outputs.go_version != ''
-        with:
-          go-version: ${{ steps.tag.outputs.go_version }}
-          cache: false
       - name: Build the tagged plugin
         env:
           SOURCE_COMMIT: ${{ steps.tag.outputs.source_commit }}
           PLUGIN_KEY: ${{ steps.tag.outputs.key }}
-          NEUX_PLUGIN_PACKAGER: ''
         run: |
           output="$RUNNER_TEMP/plugin-release"
-          node scripts/build-release.mjs "$SOURCE_COMMIT" "$PLUGIN_TAG" "$output"
+          node scripts/build-catalog.mjs "$SOURCE_COMMIT" "$PLUGIN_TAG" "$output"
           cd "$output"
-          tar -cf "$RUNNER_TEMP/plugin-release.tar" -- catalog.json release.json \
-            "$PLUGIN_KEY.zip" "$PLUGIN_KEY.details.json" \
-            "targets/$PLUGIN_KEY/artifacts.json" targets/"$PLUGIN_KEY"/*.zip
+          tar -cf "$RUNNER_TEMP/plugin-release.tar" -- catalog.json \
+            "$PLUGIN_KEY.zip" "$PLUGIN_KEY.details.json"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: plugin-release

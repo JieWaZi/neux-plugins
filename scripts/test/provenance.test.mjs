@@ -17,7 +17,7 @@ test('维护包统一来源结构，业务署名版本直接来自upstream而非
     for (const dependency of data.dependencies ?? []) files.set(`plugins/${key}/${dependency.lock}`, await readFile(new URL(dependency.lock, base)));
     validateProvenance({ data, packagePath: `plugins/${key}`, manifest, read: name => { assert.ok(files.has(name), name); return files.get(name); } });
     assert.deepEqual(Object.keys(data), ['schemaVersion', 'upstream', 'wrapper', 'dependencies', 'assets']);
-    assert.equal(manifest.version, '0.1.1');
+    assert.match(manifest.version, /^(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)$/);
     assert.equal(data.wrapper.maintainer, manifest.author.name);
     if (key === 'feishu-office') { assert.equal(data.upstream.author, 'Lark Suite CLI contributors'); assert.equal(data.upstream.tag, 'v1.0.98'); }
     else if (key === 'wecom-office') { assert.equal(data.upstream.author, 'WeCom'); assert.equal(data.upstream.version, '1.3.4'); assert.equal(data.upstream.commit, 'f9b28151dc8d42f703db624fc9b26723c3c93fc5'); }

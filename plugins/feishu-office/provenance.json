@@ -18,7 +18,7 @@
       "Maintained standard manifest and declaration-driven authorization bridge",
       "Upstream skills and relative references preserved unchanged",
       "Fixed-source CLI profile and keychain isolation patches and asset locks published in this repository",
-      "Component-scoped shared authorization and standalone native CLI setup/launcher reuse the same package-owned vendor bridge"
+      "Component-scoped authorization uses the package-owned vendor bridge and the NeuxBot managed account lifecycle"
     ]
   },
   "dependencies": [

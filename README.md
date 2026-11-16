@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-A library of self-maintained portable Agent Plugins packages for GitHub code review and collaboration, and Feishu and WeCom documents, tables, calendars and tasks. Each entry is one complete package under `plugins/`.
+A library of plugins maintained for NeuxBot, providing GitHub code review and collaboration, and Feishu and WeCom documents, tables, calendars and tasks. Each plugin has one complete Agent Plugins standard package and its own version under `plugins/`.
 
 | Plugin | Capabilities |
 | --- | --- |
@@ -10,40 +10,35 @@ A library of self-maintained portable Agent Plugins packages for GitHub code rev
 | [Feishu Office](plugins/feishu-office/README.md) | Create and organize documents, manage table records, arrange events and follow up on tasks |
 | [WeCom Office](plugins/wecom-office/README.md) | Manage documents and tables, arrange meetings, track tasks and work with email and files |
 
-The root is a library and marketplace, not a single plugin, so it has no root single-plugin `plugin.json`. Each package owns its standard identity and components. The library maintains one portable definition per capability. The shared Go generator validates target declarations and builds the CLI artifacts from that same source; target artifacts do not introduce separate business implementations.
+Each package owns its manifest, Skills, MCP components, authorization bridge and independent version. NeuxBot owns installation, updates, shared accounts and delivery to the selected runtime. This repository publishes one unified package per plugin.
 
-## Portable sources and generated targets
+## Plugin sources
 
 - `plugins/github/`: one standard manifest, one official GitHub MCP declaration, business documentation, brand assets and package-owned device authorization.
 - `plugins/feishu-office/`: one standard manifest, complete official skills and relative resources, business documentation, brand assets and package-owned authorization.
 - `plugins/wecom-office/`: one standard manifest, 15 fixed official skills and their resources, bilingual descriptions and package-owned QR authorization.
-- `.agents/plugins/marketplace.json`: local entries pointing at those actual portable sources. CLI-specific manifests and registration descriptors are generated and validated by the shared tool.
 - `patches/`: reviewed provider isolation patches, regression sources, original licenses and provenance.
 - `scripts/`: deterministic catalog/ZIP builds and independent fixed-source provider builds. Ignored `dist/` contains release artifacts; `.cache/` contains verified build inputs.
 
-NeuxBot installs plugins from this maintained library’s HTTP catalog and delivers the fixed package to the selected runtime through the shared generator. It provides no public local-directory or ZIP import. Independent CLI use consumes the generated artifact for that CLI and the package-owned setup/launcher described in [native delivery](docs/NATIVE-DELIVERY.md). Native installation, registration and accounts stay in the CLI’s environment and are not recorded as host-managed resources. The selected CLI uses its real native mechanism or the equivalent Skill/MCP configuration; generated artifacts alone do not prove real loading or business calls.
+NeuxBot reads the HTTP catalog, verifies the unified plugin archive and attaches its fixed version to partners. Configuration and account lifecycle belong to NeuxBot. Runtime-specific delivery is handled by the host from that same package.
 
 The manifest's `repository` and `extensions.com.openai.interface.developerName` identify the official capability project and brand: GitHub / `github/github-mcp-server`, and 飞书 / `larksuite/cli`. `author` identifies NeuxBot contributors as authors of the package wrapper and bridge; uniform `provenance.upstream` records the actual business capability author, version, license and repository used by the plugin information panel. Official service/skill authorship is not authorship of this packaging, and brand attribution is not official endorsement. See [third-party notices](THIRD_PARTY_NOTICES.md).
 
 ```mermaid
 flowchart LR
-  Source[One portable source: manifest + Skills / MCP] --> Snapshot[Fixed Git snapshot]
-  Snapshot --> Index[Light catalog + separate details]
-  Snapshot --> Archive[Verified portable ZIP]
-  Archive --> Core[Core: installation + shared account lifecycle]
-  Index --> Core
-  Archive --> Generator[Shared Go target generator]
-  Core --> Generator
-  Generator --> Targets[Ten self-contained target artifacts]
-  Generator --> View[Host selects native or Skill/MCP delivery]
-  Targets --> Setup[Independent package setup + CLI registration]
-  View --> CLIs[Codex / Claude / Cursor / WorkBuddy / Qoder<br/>Kimi / Gemini / Grok / OpenCode / Pi]
-  Setup --> CLIs
+  Source[Plugin source and version] --> Snapshot[Fixed Git commit]
+  Snapshot --> Archive[Unified plugin ZIP]
+  Snapshot --> Details[Public details]
+  Snapshot --> Catalog[Plugin catalog]
+  Archive --> Core[NeuxBot installation and shared accounts]
+  Details --> Core
+  Catalog --> Core
+  Core --> Runtime[Selected runtime]
 ```
 
 ## Maintaining a standard package
 
-Create `plugins/<key>/plugin.json` with the Agent Plugins 1.0.0 `$schema`, identity, version, description, truthful author and license. Put skills under fixed `skills/` and MCP servers in `mcp.json`, using the [official packaging fields](https://developers.openai.com/plugins/build/plugins). Preserve third-party source, scripts, relative references and executable modes. Copy the reviewed upstream content needed by this package and maintain it locally, with actual licenses and modifications recorded in the [uniform provenance contract](docs/PROVENANCE.md). Keep one authoritative component definition. The shared generator verifies registered native thin declarations against those components and derives missing target entries. The three curated source packages remain portable; per-CLI outputs belong to the generated release artifacts, not separate hand-maintained capability packages.
+Create `plugins/<key>/plugin.json` with the Agent Plugins 1.0.0 schema, identity, independent version, description, truthful author and license. Put Skills under `skills/` and MCP declarations in `mcp.json`. Preserve third-party source, scripts, relative references and executable modes. Record actual licenses and modifications in the [provenance contract](docs/PROVENANCE.md). Define each component once in the unified package.
 
 Each plugin's English and Chinese README describes only its own capabilities, access requirements and practical uses. It contains no host roles, installation flow, chat prompts or language navigation; the host selects the document by system language. Standard English interface fields, optional localized display text and static PNG assets follow the [presentation maintenance guide](docs/MAINTAINING.md). A package without `.neuxbot/` remains a standard package.
 
@@ -105,15 +100,15 @@ Details and SKILL text are available before installation or authorization throug
 
 The [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) uses schema version 1 and lists one stable version per plugin key. Each entry has its own source commit, version, package path, archive URL and digest, and a fixed details URL with its size and digest. The [v0.1.3 catalog](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json) remains available as a fixed snapshot.
 
-A ZIP contains its complete standard package, applicable local Codex index, source and license evidence, and the selected plugin's provider patches. Installation and portable catalog builds read the complete package. Separate business services and first-use provider dependencies still require network access. Clients verify the archive digest before extraction.
+A ZIP contains its complete standard package, source and license evidence, and the selected plugin's provider patches. Installation and portable catalog builds read the complete package. Separate business services and first-use provider dependencies still require network access. Clients verify the archive digest before extraction.
 
 ## Release a plugin
 
 1. Bump the affected plugin's stable SemVer in `plugins/<key>/plugin.json` and merge the change into `main`. Keep the package key and name. For example, the first GitHub release after the existing `0.1.1` can use `0.1.2`. If a shared input changes several packages, bump and release each affected package.
-2. Tag the merged commit as `<key>@<version>`, for example `github@0.1.2`, and push the tag. A release maintainer starts **Release plugin** from the protected `main` branch and passes the tag as input. Every job runs the reviewed scripts from that `main` commit. The build checks the tagged commit and manifest, then the publish job uploads the package and ten native targets to the fixed tag with Latest disabled.
+2. Tag the merged commit as `<key>@<version>`, for example `github@0.1.2`, and push the tag. A release maintainer starts **Release plugin** from the protected `main` branch and passes the tag as input. Every job runs the reviewed scripts from that `main` commit. The build checks the tagged commit and manifest, then the publish job uploads the unified ZIP, public details and single-entry catalog to the fixed tag with Latest disabled.
 3. The catalog job reads the current Latest release, updates that plugin's entry, and publishes a complete `catalog.json` as Latest. Re-run failed jobs to resume. The workflow verifies existing assets before reusing them, fails on a same-version binding conflict, and retains a newer version already in the catalog.
 
-Keep published tags, assets, and all provider binaries and notices referenced by package locks. See the [native delivery guide](docs/NATIVE-DELIVERY.md) for repository setup, the dispatch command, and recovery.
+Keep published tags, assets, and all provider binaries and notices referenced by package locks. See the [release guide](docs/RELEASING.md) for repository setup, the dispatch command, and recovery.
 
 ## Build and test locally
 
@@ -125,7 +120,7 @@ npm test
 node scripts/build-catalog.mjs HEAD v0.1.3-dev
 ```
 
-With the toolchain from `scripts/packager.lock.json`, run `node scripts/build-release.mjs HEAD github@0.1.2 /absolute/path/to/output` to rehearse a single-plugin release once the commit's manifest contains `0.1.2`. Use a development tag such as `v0.1.3-dev` to build all packages. Set `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack` to try an explicitly selected local development binary.
+Run `npm run build:release -- HEAD github@0.1.2 /absolute/path/to/output` to build the GitHub package after committing manifest version `0.1.2`. The output contains `catalog.json`, `github.zip` and `github.details.json`. Node 22+ and Git provide the release toolchain.
 
 The portable builder validates package declarations, provenance, dependency locks and local asset hashes before replacing the output. All-package development builds preserve `dist/providers`. Use a separate output directory for a single-plugin rehearsal.
 
@@ -136,6 +131,6 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-Each fixed-source provider build verifies source and isolation, cross-compiles six platforms, and collects dependency license texts. GitHub and Feishu currently use provider assets from `v0.1.3`. When relocating verified bytes, regenerate the lock bindings and publish the assets at their new fixed URLs before tagging the dependent plugin releases. Upstream versions and authorship come from `provenance.upstream`. See the [provider build and publication steps](docs/NATIVE-DELIVERY.md).
+Each fixed-source provider build verifies source and isolation, cross-compiles six platforms, and collects dependency license texts. GitHub and Feishu currently use provider assets from `v0.1.3`. When relocating verified bytes, regenerate the lock bindings and publish the assets at their new fixed URLs before tagging the dependent plugin releases. Upstream versions and authorship come from `provenance.upstream`. See the [provider build and publication steps](docs/RELEASING.md).
 
 The root [MIT license](LICENSE) covers NeuxBot-authored packaging. Third-party content and brand assets retain their actual terms and disclosed license gaps.

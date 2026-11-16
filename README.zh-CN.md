@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-自行维护的 portable Agent Plugins 标准插件库，提供 GitHub 代码审查与协作，以及飞书、企业微信文档、表格、日程和任务能力。每项只维护 `plugins/` 下的一套完整标准包。
+面向 NeuxBot 维护的插件库，提供 GitHub 代码审查与协作，以及飞书、企业微信文档、表格、日程和任务能力。每个插件在 `plugins/` 下维护一份完整 Agent Plugins 标准包和自己的版本号。
 
 | 插件 | 业务能力 |
 | --- | --- |
@@ -10,40 +10,35 @@
 | [飞书办公](plugins/feishu-office/README.zh-CN.md) | 创建和整理文档、管理表格记录、安排日程并跟进任务 |
 | [企业微信办公](plugins/wecom-office/README.zh-CN.md) | 管理文档与表格、安排会议、跟进待办及处理邮件和文件 |
 
-仓库根是插件库和 marketplace，不是单个插件，因此没有根级单插件 `plugin.json`。各包拥有自己的标准身份与组件。同一能力只维护一份 portable 定义；共享 Go 生成器验证目标声明，并从同一来源构建各 CLI 工件，不另维护各端业务实现。
+每个插件保存自己的清单、Skills、MCP 组件、授权桥接和独立版本。NeuxBot 负责安装、更新、共享账号及所选智能体的交付。本仓库按插件发布统一包。
 
-## 标准源包与派生目标
+## 插件源码
 
 - `plugins/github/`：一份标准清单、一项官方 GitHub MCP 声明、业务说明、品牌资产和包内设备授权。
 - `plugins/feishu-office/`：一份标准清单、完整官方技能及相对资料、业务说明、品牌资产和包内授权。
 - `plugins/wecom-office/`：一份标准清单、15 项固定版本官方技能及引用资料、双语说明和包内二维码授权。
-- `.agents/plugins/marketplace.json`：指向实际 portable 源包的本地入口；各 CLI 的清单与注册描述由共享工具统一生成和校验。
 - `patches/`：供应商隔离补丁、回归源码、原始许可与来源记录。
 - `scripts/`：确定性目录/ZIP 构建和独立固定源码程序构建；忽略的 `dist/` 保存发布资产，`.cache/` 保存核验后的构建输入。
 
-NeuxBot 通过本库 HTTP 目录取得固定版本插件，并使用共享生成器向所选智能体交付；没有公开本地目录或 ZIP 导入。独立 CLI 使用对应的派生目标工件和包内 setup／launcher，见[原生交付指南](docs/NATIVE-DELIVERY.md)。原生安装、注册与账号归 CLI 环境管理，不登记为宿主受管资源。实际加载采用该 CLI 的原生机制或等价 Skill／MCP 配置；工件生成不代表真实加载或业务调用已验收。
+NeuxBot 从 HTTP 目录读取插件，核验统一归档后将固定版本安装到伙伴。配置与账号生命周期归 NeuxBot 管理，宿主从同一包完成所选智能体的交付。
 
 清单 `repository` 与 `extensions.com.openai.interface.developerName` 指向官方业务能力项目和品牌：GitHub / `github/github-mcp-server`，飞书 / `larksuite/cli`。`author` 如实说明包内封装与桥接由 NeuxBot contributors 编写；统一 `provenance.upstream` 记录插件信息面板读取的实际业务能力作者、版本、许可与仓库。官方服务或技能作者不等同本封装作者，品牌署名也不代表官方背书。见[第三方声明](THIRD_PARTY_NOTICES.md)。
 
 ```mermaid
 flowchart LR
-  Source[唯一 portable 源：清单 + Skills / MCP] --> Snapshot[固定 Git 快照]
-  Snapshot --> Index[轻目录 + 独立详情]
-  Snapshot --> Archive[完整核验 portable ZIP]
-  Archive --> Core[Core：安装与共享账号生命周期]
-  Index --> Core
-  Archive --> Generator[共享 Go 目标生成器]
-  Core --> Generator
-  Generator --> Targets[十端自包含目标工件]
-  Generator --> View[宿主选择原生或 Skill/MCP 交付]
-  Targets --> Setup[独立包 setup 与 CLI 注册]
-  View --> CLIs[Codex / Claude / Cursor / WorkBuddy / Qoder<br/>Kimi / Gemini / Grok / OpenCode / Pi]
-  Setup --> CLIs
+  Source[插件源码与独立版本] --> Snapshot[固定 Git 提交]
+  Snapshot --> Archive[统一插件 ZIP]
+  Snapshot --> Details[公开详情]
+  Snapshot --> Catalog[插件目录]
+  Archive --> Core[NeuxBot 安装与共享账号]
+  Details --> Core
+  Catalog --> Core
+  Core --> Runtime[伙伴选用的智能体]
 ```
 
 ## 维护标准包
 
-在 `plugins/<key>/plugin.json` 定义标准身份、版本、描述及真实作者与许可。按[官方打包字段](https://developers.openai.com/plugins/build/plugins)声明真实 Skills 和 MCP，保留第三方源码、脚本、相对引用与执行位。将审核后所需上游内容复制到包内并本地维护，在[统一来源规范](docs/PROVENANCE.zh-CN.md)中说明真实许可及改动。组件定义保持唯一。共享生成器核对已登记的原生薄声明是否与这些组件一致，并补齐缺失入口；当前三个维护源包仍采用 portable 结构，各 CLI 输出属于生成的发布工件，不另建手工维护的业务包。
+在 `plugins/<key>/plugin.json` 中定义 Agent Plugins 1.0.0 清单、身份、独立版本、描述、真实作者与许可。Skills 放在 `skills/`，MCP 声明放在 `mcp.json`。保留第三方源码、脚本、相对引用和执行位，并在[来源规范](docs/PROVENANCE.zh-CN.md)中记录许可与改动。统一包中每个组件只定义一次。
 
 各插件中英文 README 只介绍插件自身能力、权限前提和实用场景，不写宿主角色、安装流程、聊天引导或语言导航，由宿主按系统语言读取。默认英文展示字段、可选本地化文字和静态 PNG 遵守[展示维护指南](docs/MAINTAINING.zh-CN.md)。没有 `.neuxbot/` 仍是标准包。
 
@@ -102,15 +97,15 @@ sequenceDiagram
 
 [最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)使用 `schemaVersion: 1`，每个插件 key 保留一个当前稳定版本。每项独立绑定来源提交、版本、包路径、归档地址及摘要，以及固定详情地址、大小和摘要。[v0.1.3 目录](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json)继续作为固定快照提供。
 
-ZIP 包含完整标准包、本地 Codex 索引、来源和许可证据，以及所选插件使用的供应商补丁。安装与日常目录构建直接读取完整包。独立业务服务和首次获取供应商依赖仍需联网。客户端解包前核对归档摘要。
+ZIP 包含完整标准包、来源和许可证据，以及所选插件使用的供应商补丁。安装与日常目录构建直接读取完整包。独立业务服务和首次获取供应商依赖仍需联网。客户端解包前核对归档摘要。
 
 ## 独立发布插件
 
 1. 在 `plugins/<key>/plugin.json` 中提升受影响插件的稳定 SemVer，并将改动合入 `main`。保留包的 key 和 name。例如 GitHub 可从已有的 `0.1.1` 升到 `0.1.2`。共享输入影响多个插件时，分别为受影响的插件升版和发布。
-2. 将 `<key>@<version>` 标签指向合入后的提交，再推送标签，例如 `github@0.1.2`。发布维护者从受保护的 `main` 手动运行 **Release plugin**，将插件标签作为输入。各任务运行该次 `main` 提交中的已审查脚本。构建任务核对标签提交与 Manifest，发布任务将插件和十端工件上传到固定标签，Latest 继续指向全量目录。
+2. 将 `<key>@<version>` 标签指向合入后的提交，再推送标签，例如 `github@0.1.2`。发布维护者从受保护的 `main` 手动运行 **Release plugin**，将插件标签作为输入。各任务运行该次 `main` 提交中的已审查脚本。构建任务核对标签提交与 Manifest，发布任务将统一 ZIP、公开详情和单条目录上传到固定标签，Latest 继续指向全量目录。
 3. 目录任务读取当时的 Latest，替换对应插件条目，再将完整 `catalog.json` 发布为 Latest。失败后重跑工作流的失败任务。工作流复用摘要一致的资产，遇到同版本不同绑定会报错，遇到目录中的更高版本会保留当前条目。
 
-保留已发布的标签、资产以及包内锁引用的供应商程序和许可文件。仓库权限配置、发布命令及重试规则见[原生交付指南](docs/NATIVE-DELIVERY.md)。
+保留已发布的标签、资产以及包内锁引用的供应商程序和许可文件。仓库权限配置、发布命令及重试规则见[发布指南](docs/RELEASING.md)。
 
 ## 本地构建与测试
 
@@ -122,7 +117,7 @@ npm test
 node scripts/build-catalog.mjs HEAD v0.1.3-dev
 ```
 
-安装 `scripts/packager.lock.json` 锁定的工具链后，可用 `node scripts/build-release.mjs HEAD github@0.1.2 /absolute/path/to/output` 演练单插件构建，提交内的 Manifest 版本须为 `0.1.2`。用 `v0.1.3-dev` 等开发标签可构建全部插件。需要试用本地工具时，显式设置 `NEUX_PLUGIN_PACKAGER=/absolute/path/to/pluginpack`。
+在提交清单版本 `0.1.2` 后，运行 `npm run build:release -- HEAD github@0.1.2 /absolute/path/to/output` 构建 GitHub 插件。输出只有 `catalog.json`、`github.zip` 和 `github.details.json`。发布构建使用 Node 22+ 与 Git。
 
 portable 构建器核验标准包、来源、依赖锁与本地资产摘要，再替换输出。全量开发构建保留 `dist/providers`。单插件演练请指定独立输出目录。
 
@@ -133,10 +128,6 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-固定源码构建核验来源和隔离行为，完成六平台交叉编译，并收集依赖许可原文。GitHub 和飞书当前使用 `v0.1.3` 中的供应商资产。迁移已核验的程序和许可时，先生成新的锁定地址，在该地址发布资产，再为依赖它们的插件打标签。上游版本和作者来自 `provenance.upstream`。具体步骤见[原生交付指南](docs/NATIVE-DELIVERY.md)。
+固定源码构建核验来源和隔离行为，完成六平台交叉编译，并收集依赖许可原文。GitHub 和飞书当前使用 `v0.1.3` 中的供应商资产。迁移已核验的程序和许可时，先生成新的锁定地址，在该地址发布资产，再为依赖它们的插件打标签。上游版本和作者来自 `provenance.upstream`。具体步骤见[发布指南](docs/RELEASING.md)。
 
 根 [MIT 许可](LICENSE)覆盖 NeuxBot 自编封装；第三方内容和品牌资产保留实际条款与如实披露的许可缺口。
-
-## 多 CLI 原生工件与独立授权
-
-[原生交付指南](docs/NATIVE-DELIVERY.md)记录共享 Go 打包工具、固定提交构建、十端自包含工件和包内 `setup.mjs`。独立 CLI 直接复用各包的供应商授权实现，在原生私有目录保存业务账号，使用 `login/status/logout` 与 `run -- <真实CLI> <参数>`。飞书和企微还提供 `exec -- <业务参数>`。原生模式独立运行，凭据由各包管理。README／Skill 正文继续在独立详情和 ZIP 中提供。

@@ -19,7 +19,7 @@
       "Vendored complete official skills and relative resources; adapted shared installation and authorization guidance to the managed lifecycle",
       "Pinned official npm platform archives and binaries for release commit f9b28151dc8d42f703db624fc9b26723c3c93fc5",
       "Losslessly re-encoded the official indexed PNG icon to RGBA PNG; pixel equality verified",
-      "Component-scoped shared authorization and standalone native CLI setup/launcher reuse the same package-owned vendor bridge"
+      "Component-scoped authorization uses the package-owned vendor bridge and the NeuxBot managed account lifecycle"
     ]
   },
   "dependencies": [

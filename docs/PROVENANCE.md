@@ -12,7 +12,7 @@ Every maintained package owns `provenance.json` with the same [schema](../schema
 | `dependencies[]` | `name`, `repository`, fixed `commit`, `version`, `license`, package-relative `lock` | Isolated authorization/runtime programs; versions are never substituted for capability versions |
 | `assets[]` | Package-relative `path`, `sourceURL`, byte `sha256`, `license`, `attribution` | Locally maintained brand assets; optional archive `sourcePath`/`sourceSHA256` and `licenseURL` retain exact extraction evidence |
 
-`author`, `repository`, `license`, and optional `tag`/`version`/`commit` in `upstream` are strings. `tag` takes display precedence over `version`; do not normalize away its `v` prefix. The Feishu developer is `Lark Suite CLI contributors`, and its displayed plugin version is `v1.0.98`. Show one version field from that declaration, not a separate upstream-version field and internal `0.1.0`. The maintained package version and `v0.1.x` library release series continue to identify archives and installed snapshots internally. They are not the user-facing capability version.
+`author`, `repository`, `license`, and optional `tag`/`version`/`commit` in `upstream` are strings. `tag` takes display precedence over `version`; do not normalize away its `v` prefix. The Feishu developer is `Lark Suite CLI contributors`, and its displayed plugin version is `v1.0.98`. Show one version field from that declaration, not a separate upstream-version field and internal `0.1.0`. The maintained package version and `<key>@<version>` tag identify the immutable plugin release and installed snapshot.
 
 ## Source distribution modes
 
