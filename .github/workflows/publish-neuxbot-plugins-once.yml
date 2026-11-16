@@ -1,0 +1,68 @@
+name: Publish NeuxBot plugins once
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release:
+    if: github.repository == 'JieWaZi/neux-plugins' && github.ref == 'refs/heads/main' && github.actor == github.repository_owner
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    concurrency:
+      group: neuxbot-plugins-0.1.2-publication
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 927ecae9555218cbd09be63282362d8f3bce3ea6
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Build fixed unified packages
+        run: |
+          for key in github feishu-office wecom-office; do
+            node scripts/build-catalog.mjs 927ecae9555218cbd09be63282362d8f3bce3ea6 "$key@0.1.2" "$RUNNER_TEMP/neuxbot-plugins/$key"
+          done
+      - name: Publish plugins and full catalog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import { readFile } from 'node:fs/promises';
+          import path from 'node:path';
+          import { GitHubReleases, assetBinding } from './scripts/github-releases.mjs';
+          import { publishPlugin, promoteCatalog } from './scripts/publish-plugin.mjs';
+          import { verifyPluginTag } from './scripts/release-tags.mjs';
+          const sourceCommit = '927ecae9555218cbd09be63282362d8f3bce3ea6';
+          const keys = ['github', 'feishu-office', 'wecom-office'];
+          const catalogTags = ["catalog-1794806529281-1","catalog-1794806529283-1","catalog-1794806529284-1"];
+          const api = new GitHubReleases({ token: process.env.GH_TOKEN });
+          const providers = await api.releaseByTag('v0.1.4-providers');
+          assert.equal(providers.draft, false);
+          assert.equal(providers.assets.length, 14);
+          for (const key of ['github', 'feishu-office']) {
+            const lock = JSON.parse(await readFile('plugins/' + key + '/.neuxbot/auth/assets.lock.json', 'utf8'));
+            for (const declaration of [lock.notices, ...Object.values(lock.assets)]) {
+              assert.ok(declaration.url.startsWith('https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.4-providers/'));
+              const asset = assetBinding(providers, path.basename(new URL(declaration.url).pathname));
+              assert.equal(asset.sha256, declaration.sha256);
+              if (declaration.size !== undefined) assert.equal(asset.size, declaration.size);
+            }
+          }
+          for (const key of keys) {
+            const tag = key + '@0.1.2';
+            verifyPluginTag({ root: process.cwd(), tag, sourceCommit });
+            await publishPlugin({ api, tag, sourceCommit, directory: path.join(process.env.RUNNER_TEMP, 'neuxbot-plugins', key) });
+            console.log('Published and verified', tag);
+          }
+          for (let index = 0; index < keys.length; index++) {
+            const tag = keys[index] + '@0.1.2';
+            const result = await promoteCatalog({ api, tag, sourceCommit, catalogTag: catalogTags[index] });
+            console.log('Catalog', tag, result);
+          }
+          JS
