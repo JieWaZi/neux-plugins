@@ -95,7 +95,7 @@ sequenceDiagram
 
 插件详情与 SKILL 正文通过摘要绑定的[只读资料侧车](docs/DETAILS.zh-CN.md)提供，不要求先安装到伙伴或授权账号，也不需要下载完整安装 ZIP。
 
-[最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)使用 `schemaVersion: 1`，每个插件 key 保留一个当前稳定版本。每项独立绑定来源提交、版本、包路径、归档地址及摘要，以及固定详情地址、大小和摘要。[v0.1.3 目录](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json)继续作为固定快照提供。
+[最新目录](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json)使用 `schemaVersion: 1`，每个插件 key 保留一个当前稳定版本。每项独立绑定来源提交、版本、包路径、归档地址及摘要，以及固定详情地址、大小和摘要。
 
 ZIP 包含完整标准包、来源和许可证据，以及所选插件使用的供应商补丁。安装与日常目录构建直接读取完整包。独立业务服务和首次获取供应商依赖仍需联网。客户端解包前核对归档摘要。
 
@@ -114,7 +114,7 @@ ZIP 包含完整标准包、来源和许可证据，以及所选插件使用的�
 ```sh
 npm ci
 npm test
-node scripts/build-catalog.mjs HEAD v0.1.3-dev
+node scripts/build-catalog.mjs HEAD v0.1.2-dev
 ```
 
 在提交清单版本 `0.1.2` 后，运行 `npm run build:release -- HEAD github@0.1.2 /absolute/path/to/output` 构建 GitHub 插件。输出只有 `catalog.json`、`github.zip` 和 `github.details.json`。发布构建使用 Node 22+ 与 Git。
@@ -128,6 +128,6 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-固定源码构建核验来源和隔离行为，完成六平台交叉编译，并收集依赖许可原文。GitHub 和飞书当前使用 `v0.1.3` 中的供应商资产。迁移已核验的程序和许可时，先生成新的锁定地址，在该地址发布资产，再为依赖它们的插件打标签。上游版本和作者来自 `provenance.upstream`。具体步骤见[发布指南](docs/RELEASING.md)。
+固定源码构建核验来源和隔离行为，完成六平台交叉编译，并收集依赖许可原文。GitHub 和飞书使用专用 `v0.1.4-providers` Release 中的固定供应商资产。迁移已核验的程序和许可时，先生成新的锁定地址，在该地址发布资产，再为依赖它们的插件打标签。上游版本和作者来自 `provenance.upstream`。具体步骤见[发布指南](docs/RELEASING.md)。
 
 根 [MIT 许可](LICENSE)覆盖 NeuxBot 自编封装；第三方内容和品牌资产保留实际条款与如实披露的许可缺口。

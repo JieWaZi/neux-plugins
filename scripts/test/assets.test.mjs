@@ -46,7 +46,7 @@ test('飞书固定依赖保留实际发布的版本和六平台资源名', async
   const current = JSON.parse(await readFile(new URL('../../plugins/feishu-office/.neuxbot/auth/assets.lock.json', import.meta.url), 'utf8'));
   const provenance = JSON.parse(await readFile(new URL('../../plugins/feishu-office/provenance.json', import.meta.url), 'utf8'));
   const version = '1.0.98-neuxally.1';
-  const release = 'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/';
+  const release = 'https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.4-providers/';
   assert.equal(current.version, version);
   assert.equal(provenance.dependencies.find(dependency => dependency.name === 'lark-cli').version, version);
   const targets = { 'darwin-arm64': 'darwin-arm64', 'darwin-x64': 'darwin-amd64', 'linux-arm64': 'linux-arm64', 'linux-x64': 'linux-amd64', 'win32-arm64': 'windows-arm64.exe', 'win32-x64': 'windows-amd64.exe' };

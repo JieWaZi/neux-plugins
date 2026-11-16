@@ -98,7 +98,7 @@ The host must support PNG data URLs for `show-qr` challenges and merging verifie
 
 Details and SKILL text are available before installation or authorization through digest-bound [read-only details sidecars](docs/DETAILS.md), independently of the complete installation ZIP.
 
-The [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) uses schema version 1 and lists one stable version per plugin key. Each entry has its own source commit, version, package path, archive URL and digest, and a fixed details URL with its size and digest. The [v0.1.3 catalog](https://github.com/JieWaZi/neux-plugins/releases/download/v0.1.3/catalog.json) remains available as a fixed snapshot.
+The [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) uses schema version 1 and lists one stable version per plugin key. Each entry has its own source commit, version, package path, archive URL and digest, and a fixed details URL with its size and digest.
 
 A ZIP contains its complete standard package, source and license evidence, and the selected plugin's provider patches. Installation and portable catalog builds read the complete package. Separate business services and first-use provider dependencies still require network access. Clients verify the archive digest before extraction.
 
@@ -117,7 +117,7 @@ Use Node 22+ and Git. Build commands read a committed snapshot and write local a
 ```sh
 npm ci
 npm test
-node scripts/build-catalog.mjs HEAD v0.1.3-dev
+node scripts/build-catalog.mjs HEAD v0.1.2-dev
 ```
 
 Run `npm run build:release -- HEAD github@0.1.2 /absolute/path/to/output` to build the GitHub package after committing manifest version `0.1.2`. The output contains `catalog.json`, `github.zip` and `github.details.json`. Node 22+ and Git provide the release toolchain.
@@ -131,6 +131,6 @@ node scripts/build-github-provider.mjs
 node scripts/build-lark-provider.mjs
 ```
 
-Each fixed-source provider build verifies source and isolation, cross-compiles six platforms, and collects dependency license texts. GitHub and Feishu currently use provider assets from `v0.1.3`. When relocating verified bytes, regenerate the lock bindings and publish the assets at their new fixed URLs before tagging the dependent plugin releases. Upstream versions and authorship come from `provenance.upstream`. See the [provider build and publication steps](docs/RELEASING.md).
+Each fixed-source provider build verifies source and isolation, cross-compiles six platforms, and collects dependency license texts. GitHub and Feishu use fixed provider assets from the dedicated `v0.1.4-providers` release. When relocating verified bytes, regenerate the lock bindings and publish the assets at their new fixed URLs before tagging the dependent plugin releases. Upstream versions and authorship come from `provenance.upstream`. See the [provider build and publication steps](docs/RELEASING.md).
 
 The root [MIT license](LICENSE) covers NeuxBot-authored packaging. Third-party content and brand assets retain their actual terms and disclosed license gaps.
