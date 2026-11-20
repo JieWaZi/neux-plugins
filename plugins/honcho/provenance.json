@@ -15,9 +15,21 @@
     "license": "MIT",
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
-      "Wrote English and Simplified Chinese setup and usage guidance"
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Packaged the upstream service icon as a local PNG"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://honcho.dev/brand/honcho-brand-kit.zip",
+      "sourceSHA256": "b50592952d3f1b9738bb7c44f285fe5c29dbe2a230a555c9be48cc89a58fa4aa",
+      "sha256": "0f7b18e41285ff166124528d7b331a2b7edd0e4d945280c238e1509875ac8f74",
+      "license": "Honcho Brand Kit usage terms; trademark rights reserved",
+      "licenseURL": "https://honcho.dev",
+      "attribution": "Plastic Labs; shown to identify the connected service, without endorsement",
+      "sourcePath": "Honcho Brand Kit/8-bit/png/honcho-8bit-circle.png"
+    }
+  ]
 }

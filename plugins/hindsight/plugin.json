@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "hindsight",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Search and summarize memories across Hindsight Cloud memory banks.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
         ],
         "defaultPrompt": [
           "Search my Hindsight memory bank for earlier decisions about this project and summarize them."
-        ]
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

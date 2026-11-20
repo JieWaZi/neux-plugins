@@ -15,9 +15,20 @@
     "license": "MIT",
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
-      "Wrote English and Simplified Chinese setup and usage guidance"
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Packaged the upstream service icon as a local PNG"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.revenuecat.com/documents/revenuecat-app-icon-png",
+      "sourceSHA256": "34f4274f0c4109d27ca1f2798518b4a6ab482af677327ca2bf3e8afe7afeff76",
+      "sha256": "636ab7419410e8f10559bde76e3d488fd87677fe94cc8eb3387e9f0aba50fc03",
+      "license": "RevenueCat press kit usage terms; trademark rights reserved",
+      "licenseURL": "https://www.revenuecat.com/press-kit",
+      "attribution": "RevenueCat; shown to identify the connected service, without endorsement"
+    }
+  ]
 }

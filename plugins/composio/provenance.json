@@ -19,5 +19,24 @@
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://brand.composio.dev/logos/Logomark-Black.svg",
+      "sourceSHA256": "54f2d0ed73bb9d6fc9bf52f288dc046a33d8d99b4819b1e4d1015434dc397817",
+      "sha256": "c05169baaa4b86d5935102fda1eb10f174bce7e1439e7ea8129f29918ef71e70",
+      "license": "Composio Brand Hub logo usage guidelines",
+      "licenseURL": "https://brand.composio.dev/logo",
+      "attribution": "Composio, official artwork used to identify this integration"
+    },
+    {
+      "path": "assets/icon-dark.png",
+      "sourceURL": "https://brand.composio.dev/logos/Logomark-White.svg",
+      "sourceSHA256": "6b902f5ed936b3c87c913e410ea42c4a6147e63f9522f2ef88cdfdabfa1fad7c",
+      "sha256": "811d3b5427e736db0cbf9fea99306e0df98d383b1368afe8b00c92e81e5b15ac",
+      "license": "Composio Brand Hub logo usage guidelines",
+      "licenseURL": "https://brand.composio.dev/logo",
+      "attribution": "Composio, official artwork used to identify this integration"
+    }
+  ]
 }

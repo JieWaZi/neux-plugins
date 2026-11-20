@@ -19,5 +19,15 @@
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://github.com/JieWaZi/neux-plugins",
+      "sourcePath": "plugins/notion/assets/icon.png",
+      "sha256": "d5f6dc6ee03f8d11170d8214ee908e6a4d9e768e0b6e2733672e1ca8615c9f5a",
+      "license": "MIT",
+      "licenseURL": "https://github.com/JieWaZi/neux-plugins/blob/main/LICENSE",
+      "attribution": "NeuxBot contributors, original artwork for this integration"
+    }
+  ]
 }

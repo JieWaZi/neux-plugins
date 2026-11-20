@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "honcho",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Find prior conversation context and retrieve what Honcho remembers about people and projects.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
         ],
         "defaultPrompt": [
           "List the Honcho workspaces available to me."
-        ]
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

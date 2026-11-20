@@ -19,5 +19,15 @@
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://raw.githubusercontent.com/excalidraw/excalidraw/2c3dcc06ec807e81ab9437eceb1a8f7a3c590743/public/apple-touch-icon.png",
+      "sourceSHA256": "b6a6c4464319a3b1faeb310bcb8ac24061b2301ce19ddc81453675bbd461ed8f",
+      "sha256": "ea037f224e6b2b99c289928ffcaa9429fef4d794544960a707b9154f2d6d9862",
+      "license": "MIT project artwork with trademark rights reserved",
+      "licenseURL": "https://github.com/excalidraw/excalidraw/blob/2c3dcc06ec807e81ab9437eceb1a8f7a3c590743/LICENSE",
+      "attribution": "Excalidraw, official artwork used to identify this integration"
+    }
+  ]
 }

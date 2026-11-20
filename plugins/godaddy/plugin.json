@@ -1,6 +1,6 @@
 {
   "name": "godaddy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate domain name ideas and check public availability through GoDaddy.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Review listed pricing and registration links"
         ],
         "websiteURL": "https://www.godaddy.com",
-        "supportURL": "https://developer.godaddy.com/en/docs/api-users/mcp"
+        "supportURL": "https://developer.godaddy.com/en/docs/api-users/mcp",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

@@ -15,9 +15,31 @@
     "license": "MIT",
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
-      "Wrote English and Simplified Chinese setup and usage guidance"
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Packaged the upstream service icon as a local PNG"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon-dark.png",
+      "sourceURL": "https://cdn.sanity.io/files/hvk0tap5/production/40134cba8baae95e988e65d2a0675c2521e9c731.zip",
+      "sourceSHA256": "052739f3bca966cd23326284e1eb7d402c53ae6f5d597a15523cccb7200805fc",
+      "sha256": "066a5943de8a9d8fc22d80aa8c00ef3d607fc978bd72475f47929ab3c4d725db",
+      "license": "Render Brand Kit usage terms; trademark rights reserved",
+      "licenseURL": "https://render.com/newsroom",
+      "attribution": "Render; shown to identify the connected service, without endorsement",
+      "sourcePath": "Render Brand Kit/Logos/White/Render logomark - White.png"
+    },
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://cdn.sanity.io/files/hvk0tap5/production/40134cba8baae95e988e65d2a0675c2521e9c731.zip",
+      "sourceSHA256": "052739f3bca966cd23326284e1eb7d402c53ae6f5d597a15523cccb7200805fc",
+      "sha256": "8cd8124e21c0f9d0d9f0fe8d6d7c4b244bdadc206b3d532cb0a341eaa6d57d41",
+      "license": "Render Brand Kit usage terms; trademark rights reserved",
+      "licenseURL": "https://render.com/newsroom",
+      "attribution": "Render; shown to identify the connected service, without endorsement",
+      "sourcePath": "Render Brand Kit/Logos/Black/Render logomark - Black.png"
+    }
+  ]
 }

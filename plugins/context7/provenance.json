@@ -19,5 +19,15 @@
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://raw.githubusercontent.com/upstash/context7/f1872ebb2f3d943b293bb86fdc0c2905988820d9/public/context7-icon-green.svg",
+      "sourceSHA256": "c4faba14bc804b8a2a1f9a3815ca2c2300dd1081d570867a873cae82b5e4d97d",
+      "sha256": "56dcad12225f4d312fb67e19e14ad2de95e1ac7eb0d90dd71cc3adee57bdb8ad",
+      "license": "MIT project artwork with trademark rights reserved",
+      "licenseURL": "https://github.com/upstash/context7/blob/f1872ebb2f3d943b293bb86fdc0c2905988820d9/LICENSE",
+      "attribution": "Upstash, official artwork used to identify this integration"
+    }
+  ]
 }

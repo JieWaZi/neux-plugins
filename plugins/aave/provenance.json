@@ -19,5 +19,15 @@
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://aave.com/images/icon-aave.png",
+      "sourceSHA256": "46709f2157edb25ac0de6e529730b98e9c585588be4ecec24ef71d4953bc6ebf",
+      "sha256": "cddb93081ad03d4341eae23f48351bbd6d42a0f9ee0b5dba0854397760039cc1",
+      "license": "Aave brand guidelines",
+      "licenseURL": "https://aave.com/brand",
+      "attribution": "Aave Labs, official artwork used to identify this integration"
+    }
+  ]
 }

@@ -15,9 +15,20 @@
     "license": "MIT",
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
-      "Wrote English and Simplified Chinese setup and usage guidance"
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Packaged the upstream service icon as a local PNG"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://brand.posthog.com/favicon-96x96.png",
+      "sourceSHA256": "a5e3a36d87adaf040a7061d116c5eae5c1fa39c5d39035e1d509e4588bf4f027",
+      "sha256": "b764cff9fb4d446abf2a86b595d38e7be37813fd7768fac014c1dd96cbb78b1e",
+      "license": "PostHog brand asset usage terms; trademark rights reserved",
+      "licenseURL": "https://posthog.com/handbook/brand/assets",
+      "attribution": "PostHog; shown to identify the connected service, without endorsement"
+    }
+  ]
 }

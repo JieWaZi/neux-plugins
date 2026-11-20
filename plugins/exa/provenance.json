@@ -19,5 +19,26 @@
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://exa.ai/assets/Exa%20Brand%20Assets.zip",
+      "sourcePath": "Exa Brand Assets/Logo/PNGs/Logomark/Exa Logomark Blue.png",
+      "sourceSHA256": "d74e880f9b188a164186f08f062814beb9d1665087e344b749612218aca41cdc",
+      "sha256": "2e46d1646ca1a47fb2d9d4aa975c9098ae613e02e05a15e6f45a49287bde700c",
+      "license": "Exa brand guidelines",
+      "licenseURL": "https://exa.ai/brand",
+      "attribution": "Exa, official artwork used to identify this integration"
+    },
+    {
+      "path": "assets/icon-dark.png",
+      "sourceURL": "https://exa.ai/assets/Exa%20Brand%20Assets.zip",
+      "sourcePath": "Exa Brand Assets/Logo/PNGs/Logomark/Exa Logomark White.png",
+      "sourceSHA256": "d74e880f9b188a164186f08f062814beb9d1665087e344b749612218aca41cdc",
+      "sha256": "4e7efd7e083dbaf5789997e2fdd334072616981bb369cc94fe2dc1b7c21bd572",
+      "license": "Exa brand guidelines",
+      "licenseURL": "https://exa.ai/brand",
+      "attribution": "Exa, official artwork used to identify this integration"
+    }
+  ]
 }

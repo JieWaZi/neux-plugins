@@ -1,6 +1,6 @@
 {
   "name": "1inch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Find 1inch Business API documentation, SDK examples and public Aqua liquidity analytics.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Inspect public Aqua strategy data"
         ],
         "websiteURL": "https://business.1inch.com",
-        "supportURL": "https://business.1inch.com/portal/documentation/ai-integration/mcp-server"
+        "supportURL": "https://business.1inch.com/portal/documentation/ai-integration/mcp-server",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

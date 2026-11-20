@@ -1,6 +1,6 @@
 {
   "name": "svelte",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Look up Svelte and SvelteKit documentation, check component code and prepare examples for the Svelte Playground.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Create a Playground link for a self-contained example"
         ],
         "websiteURL": "https://svelte.dev",
-        "supportURL": "https://svelte.dev/docs/ai/remote-setup"
+        "supportURL": "https://svelte.dev/docs/ai/remote-setup",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

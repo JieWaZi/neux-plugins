@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "posthog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Explore product events, inspect feature flags, and query PostHog analytics.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
         ],
         "defaultPrompt": [
           "Show the feature flags in my PostHog project and identify which ones are active."
-        ]
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

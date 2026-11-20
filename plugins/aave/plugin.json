@@ -1,6 +1,6 @@
 {
   "name": "aave",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Inspect Aave lending markets, public wallet positions and governance across V3 and V4.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Review governance proposals and preview protocol actions"
         ],
         "websiteURL": "https://aave.com",
-        "supportURL": "https://aave.com/docs/mcp/getting-started"
+        "supportURL": "https://aave.com/docs/mcp/getting-started",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

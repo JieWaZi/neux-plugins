@@ -1,6 +1,6 @@
 {
   "name": "parallel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Search the public web, retrieve source pages and organize evidence for a decision.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Compare options with supporting sources"
         ],
         "websiteURL": "https://parallel.ai",
-        "supportURL": "https://parallel.ai/mcp"
+        "supportURL": "https://parallel.ai/mcp",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

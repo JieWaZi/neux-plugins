@@ -15,9 +15,20 @@
     "license": "MIT",
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
-      "Wrote English and Simplified Chinese setup and usage guidance"
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Added an original pictogram for the connector",
+      "Vendor trademark terms: https://www.gohighlevel.com/terms-of-service"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://github.com/JieWaZi/neux-plugins",
+      "sha256": "d3f0dbd5cb25182ea0f59a1dc1c86d7cb6896dddbbe02d3e9990b7806b3daad9",
+      "license": "MIT",
+      "licenseURL": "https://github.com/JieWaZi/neux-plugins/blob/main/LICENSE",
+      "attribution": "NeuxBot contributors; original service-specific pictogram"
+    }
+  ]
 }

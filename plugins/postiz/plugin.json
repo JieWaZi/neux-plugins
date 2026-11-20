@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "postiz",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Review connected social channels and work with posts scheduled in Postiz.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
         ],
         "defaultPrompt": [
           "List my connected social channels and show which posts are scheduled for the next seven days."
-        ]
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

@@ -19,5 +19,16 @@
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://3936590801-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FuBDUa2ODcAkHHV15nEGc%2Fuploads%2FwxPh8w7T5qZabdC5qb0i%2FCG-GT%20Logos.zip?alt=media",
+      "sourcePath": "CG-GT Logos/ios-default.png",
+      "sourceSHA256": "985fea053aab114b5dbed667174c229bbe1bfb140cc8296bca15aea33dc201ab",
+      "sha256": "8abd8037cf9025bcb1ea195499426a4b088a796eac58f8bbad42ba6ac82b7fcd",
+      "license": "CoinGecko brand guidelines",
+      "licenseURL": "https://brand.coingecko.com/visual-identity/logo/symbol",
+      "attribution": "CoinGecko, official artwork used to identify this integration"
+    }
+  ]
 }

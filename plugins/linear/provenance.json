@@ -19,5 +19,16 @@
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://static.linear.app/design-assets/Linear-Brand-Assets.zip?v=3",
+      "sourcePath": "linear-app-icon.png",
+      "sourceSHA256": "94e12fb9c93933e85e2e81cfeb535636ae535a82303fe9ee355e93cd35cc920a",
+      "sha256": "c9f33d2eef6e6c00ac837eb63ab87d2ef7082ded97257a0680e5b8f2407da46a",
+      "license": "Linear brand guidelines",
+      "licenseURL": "https://linear.app/brand",
+      "attribution": "Linear, official artwork used to identify this integration"
+    }
+  ]
 }

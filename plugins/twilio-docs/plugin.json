@@ -1,6 +1,6 @@
 {
   "name": "twilio-docs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Search public Twilio developer documentation and retrieve API endpoints, parameters and response schemas.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Look up documented responses and developer guidance"
         ],
         "websiteURL": "https://www.twilio.com",
-        "supportURL": "https://www.twilio.com/docs/ai/mcp"
+        "supportURL": "https://www.twilio.com/docs/ai/mcp",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

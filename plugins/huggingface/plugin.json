@@ -1,6 +1,6 @@
 {
   "name": "huggingface",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Discover public models, datasets and Spaces, and inspect repository metadata and files on the Hugging Face Hub.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Browse files in public Hub repositories"
         ],
         "websiteURL": "https://huggingface.co",
-        "supportURL": "https://huggingface.co/docs/hub/en/agents-mcp"
+        "supportURL": "https://huggingface.co/docs/hub/en/agents-mcp",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

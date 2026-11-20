@@ -15,9 +15,20 @@
     "license": "MIT",
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
-      "Wrote English and Simplified Chinese setup and usage guidance"
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Added an original pictogram for the connector",
+      "Vendor trademark terms: https://www.tessie.com/terms"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://github.com/JieWaZi/neux-plugins",
+      "sha256": "4082d17567308e989e0fea10deef4a65134c2f9d75cc8986d7215f94654c88b4",
+      "license": "MIT",
+      "licenseURL": "https://github.com/JieWaZi/neux-plugins/blob/main/LICENSE",
+      "attribution": "NeuxBot contributors; original service-specific pictogram"
+    }
+  ]
 }

@@ -15,9 +15,20 @@
     "license": "MIT",
     "changes": [
       "Author the standard manifest and bilingual presentation",
-      "Declare the vendor-operated MCP endpoint for anonymous access"
+      "Declare the vendor-operated MCP endpoint for anonymous access",
+      "Packaged the upstream service icon as a local PNG"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://parallel.ai/brand/parallel-ai-avatar-light.png",
+      "sourceSHA256": "e42e21e0e5875fbe7d801778ef727c8fde66060fc50551ca5ed67553e4ab8666",
+      "sha256": "d964a684a2595c632949d1b18b5011a7190a1869f75d2c0d57cb656700cae08a",
+      "license": "Parallel brand assets usage terms; trademark rights reserved",
+      "licenseURL": "https://parallel.ai/brand",
+      "attribution": "Parallel Web Systems; shown to identify the connected service, without endorsement"
+    }
+  ]
 }

@@ -15,9 +15,20 @@
     "license": "MIT",
     "changes": [
       "Author the standard manifest and bilingual presentation",
-      "Declare the vendor-operated MCP endpoint for anonymous access"
+      "Declare the vendor-operated MCP endpoint for anonymous access",
+      "Packaged the upstream service icon as a local PNG"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://raw.githubusercontent.com/sveltejs/branding/2af7bc72f1bf5152dab89bee1ee2093b1be0824d/svelte-logo-square.png",
+      "sourceSHA256": "59e74a11a4582592d344a45f614c311fb2b44ef81eef654921516515fc7163a7",
+      "sha256": "2c4ddbbe7156307477866941ab6868255cf6f0846a37728408ab2951b3fecee3",
+      "license": "Svelte project branding; trademark rights reserved",
+      "licenseURL": "https://github.com/sveltejs/branding",
+      "attribution": "Svelte project; shown to identify the connected service, without endorsement"
+    }
+  ]
 }

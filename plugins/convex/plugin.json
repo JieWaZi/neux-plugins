@@ -1,6 +1,6 @@
 {
   "name": "convex",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Get Convex guidance for new apps, existing projects and backends that need to scale.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Find scaling guidance for a Convex application"
         ],
         "websiteURL": "https://www.convex.dev",
-        "supportURL": "https://mcp.convex.dev/"
+        "supportURL": "https://mcp.convex.dev/",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

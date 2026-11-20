@@ -19,5 +19,16 @@
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.convex.dev/resources/logos.zip",
+      "sourcePath": "Logos/PNG/symbol-color.png",
+      "sourceSHA256": "1e9388d33c057aeb9732e4714ee3af1a0c5d301b9795fbe61f7c129e9788993d",
+      "sha256": "94f9a1da39f424cbe8d22dc67c6611864f007cf52078246cce3b7a18c2ebe22e",
+      "license": "Convex brand guidelines",
+      "licenseURL": "https://www.convex.dev/brand",
+      "attribution": "Convex, official artwork used to identify this integration"
+    }
+  ]
 }

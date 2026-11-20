@@ -15,9 +15,20 @@
     "license": "MIT",
     "changes": [
       "Author the standard manifest and bilingual presentation",
-      "Declare the vendor-operated MCP endpoint for anonymous access"
+      "Declare the vendor-operated MCP endpoint for anonymous access",
+      "Added an original pictogram for the connector",
+      "Vendor trademark terms: https://www.twilio.com/en-us/legal/trademark"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://github.com/JieWaZi/neux-plugins",
+      "sha256": "67b6c75fa9f36293cadcd1ae1b6daaa9423fb634713a4c789281dd760a2597d7",
+      "license": "MIT",
+      "licenseURL": "https://github.com/JieWaZi/neux-plugins/blob/main/LICENSE",
+      "attribution": "NeuxBot contributors; original service-specific pictogram"
+    }
+  ]
 }

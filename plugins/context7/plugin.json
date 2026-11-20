@@ -1,6 +1,6 @@
 {
   "name": "context7",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Find indexed library documentation and code examples for the version your project uses.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Find examples for an API or a configuration option"
         ],
         "websiteURL": "https://context7.com",
-        "supportURL": "https://context7.com/docs"
+        "supportURL": "https://context7.com/docs",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "notion",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Search and work with pages and databases in a Notion workspace.",
   "author": {
     "name": "NeuxBot contributors"
@@ -19,7 +19,9 @@
         "supportURL": "https://developers.notion.com/docs/mcp",
         "defaultPrompt": [
           "Find the project plan in Notion and summarize open decisions."
-        ]
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

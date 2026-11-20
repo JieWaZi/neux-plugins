@@ -1,6 +1,6 @@
 {
   "name": "excalidraw",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Create sketch-style diagrams and export them to Excalidraw for editing.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Export diagrams to Excalidraw for further editing"
         ],
         "websiteURL": "https://excalidraw.com",
-        "supportURL": "https://github.com/excalidraw/excalidraw-mcp"
+        "supportURL": "https://github.com/excalidraw/excalidraw-mcp",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

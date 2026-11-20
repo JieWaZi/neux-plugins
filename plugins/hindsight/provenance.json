@@ -15,9 +15,20 @@
     "license": "MIT",
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
-      "Wrote English and Simplified Chinese setup and usage guidance"
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Packaged the upstream service icon as a local PNG"
     ]
   },
   "dependencies": [],
-  "assets": []
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://raw.githubusercontent.com/vectorize-io/hindsight/55dde528ce978d1d583056275c96825274079a88/hindsight-favicon.png",
+      "sourceSHA256": "6a9f82908ded489a9b86777e9bde54efb3652384abf87dc299616b45fdc915cb",
+      "sha256": "b8e5fa04c3c6b27ad84128c8c06f120d035f4003254fb91ad7da93d5bbf287cb",
+      "license": "MIT (source asset); trademark rights reserved",
+      "licenseURL": "https://github.com/vectorize-io/hindsight/blob/55dde528ce978d1d583056275c96825274079a88/LICENSE",
+      "attribution": "Vectorize; shown to identify the connected service, without endorsement"
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "aws-knowledge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Search official AWS documentation and verify service, API and CloudFormation availability by region.",
   "author": {
     "name": "NeuxBot contributors"
@@ -24,7 +24,9 @@
           "Look up CDK, CloudFormation and Strands Agents guidance"
         ],
         "websiteURL": "https://aws.amazon.com",
-        "supportURL": "https://awslabs.github.io/mcp/servers/aws-knowledge-mcp-server"
+        "supportURL": "https://awslabs.github.io/mcp/servers/aws-knowledge-mcp-server",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {
