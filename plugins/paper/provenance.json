@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Paper",
+    "repository": "https://paper.design/docs/mcp",
+    "license": "Paper Desktop under Paper Terms of Service",
+    "distribution": {
+      "mode": "local-service",
+      "url": "http://127.0.0.1:29979/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declared the documented Paper Desktop loopback MCP endpoint",
+      "Wrote setup and usage guidance in English and Simplified Chinese",
+      "Used the vendor icon URL declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://paper.design/apple-touch-icon.png",
+      "sourceSHA256": "e8dc40642957fcf5b6f7efd0d7faa94b5a7d4ee9ccd4280a7b1745cf41701b47",
+      "sha256": "e8dc40642957fcf5b6f7efd0d7faa94b5a7d4ee9ccd4280a7b1745cf41701b47",
+      "license": "Vendor brand artwork; copyright and trademark rights reserved",
+      "attribution": "Paper; identifies the service without endorsement"
+    }
+  ]
+}

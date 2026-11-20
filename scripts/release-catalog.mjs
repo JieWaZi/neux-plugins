@@ -35,6 +35,19 @@ export function validateCatalog(catalog) {
   return catalog;
 }
 
+// Core falls back to icon when icons.default is absent. Archive and details bindings are untouched.
+export function encodeCatalog(catalog) {
+  validateCatalog(catalog);
+  const entries = catalog.entries.map(entry => {
+    if (!entry.icon || entry.icons?.default !== entry.icon) return entry;
+    const { icons, ...data } = entry;
+    return icons.dark ? { ...data, icons: { dark: icons.dark } } : data;
+  });
+  const content = Buffer.from(JSON.stringify({ ...catalog, entries }) + '\n');
+  if (content.length > maxCatalogBytes) throw new Error('merged catalog exceeds the client size limit');
+  return content;
+}
+
 export function readCatalog(bytes) {
   if (bytes.length > maxCatalogBytes) throw new Error('release catalog exceeds the client size limit');
   return validateCatalog(JSON.parse(bytes));

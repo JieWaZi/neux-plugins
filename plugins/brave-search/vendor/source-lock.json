@@ -10,6 +10,7 @@
     "version": "0.28.2",
     "target": "node20"
   },
+  "bundlePath": "vendor/server.mjs",
   "bundleSHA256": "1d691373719440232af323b359063d3de283538e209502d771c81b8f9d6a3744",
   "dependencies": [
     {

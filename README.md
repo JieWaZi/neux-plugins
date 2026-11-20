@@ -17,7 +17,7 @@ Each package owns its manifest and version. Packages declare the MCP services, s
 - `plugins/github/`: one standard manifest, one official GitHub MCP declaration, business documentation, brand assets and package-owned device authorization.
 - `plugins/feishu-office/`: one standard manifest, complete official skills and relative resources, business documentation, brand assets and package-owned authorization.
 - `plugins/wecom-office/`: one standard manifest, 15 fixed official skills and their resources, bilingual descriptions and package-owned QR authorization.
-- Other directories under [plugins/](plugins/) contain hosted MCP packages and their bilingual documentation. Their READMEs describe any required provider account or API key.
+- The other [plugin directories](plugins/) include hosted and local MCP packages with bilingual documentation. Their READMEs describe provider accounts, API keys, or local application requirements.
 - `patches/`: reviewed provider isolation patches, regression sources, original licenses and provenance.
 - `scripts/`: deterministic catalog/ZIP builds and independent fixed-source provider builds. Ignored `dist/` contains release artifacts; `.cache/` contains verified build inputs.
 
@@ -49,7 +49,7 @@ MCP services and skill components remain declared by their standard files. Optio
 
 Packages with an interactive authorization bridge use `extensions.com.neuxbot.authentication.strategy: plugin-command`, `protocol: neuxbot-auth/1`, trusted Node and a package-relative bridge entry. The frontend displays safe actions supplied by Core and sends cancellation requests. Optional [challenge notices](docs/AUTH-CHALLENGE-NOTICES.md) are declared by the package, apply only to the current challenge and use the host's fixed warning style. Core owns sessions, leases and private execution bindings. The bridge interprets its vendor flow; raw provider frames, credentials and private bindings do not enter the frontend.
 
-Hosted MCP packages that use an API key declare required secret fields in `extensions.com.neuxbot.configuration` and bind each secret to its intended MCP request header. The current connector uses the configured key when calling the service.
+Packages that use an API key declare a required secret in `extensions.com.neuxbot.configuration`. Hosted services such as Gojiberry bind the key to an MCP request header. Brave Search supplies the key to its bundled stdio server through an environment variable. Figma Desktop and Paper Desktop use the local application’s loopback MCP service.
 
 - GitHub uses the official device OAuth flow through a fixed isolated GitHub CLI. It emits the actual `https://github.com/login/device` URL and one-time code, verifies account and granted scopes online, and resolves a private OAuth Bearer header only for the exact `github` MCP at `https://api.githubcopilot.com/mcp/`. The exact component binding is shared across supported CLI targets; target-specific differences must be declared explicitly. No PAT placeholder or managed app connector is bundled. `preferredAction: open-url` does not imply QR support.
 - Feishu uses successive official application-creation and user-authorization QR challenges. An existing application without a user identity is a valid pending stage; only final online identity/scope verification marks it available. `preferredAction: show-qr` allows the frontend to prepare a QR placeholder while waiting for actual challenge actions. See the [Feishu bridge contract](plugins/feishu-office/.neuxbot/auth/README.md) and [GitHub bridge contract](plugins/github/.neuxbot/auth/README.md).
@@ -101,7 +101,7 @@ The host must support PNG data URLs for `show-qr` challenges and merging verifie
 
 Details and SKILL text are available before installation or authorization through digest-bound [read-only details sidecars](docs/DETAILS.md), independently of the complete installation ZIP.
 
-The [latest catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) uses schema version 1 and lists one stable version per plugin key. Each entry has its own source commit, version, package path, archive URL and digest, and a fixed details URL with its size and digest.
+The [full catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog-v2.json) includes hosted OAuth plugins. The [compatibility catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) retains stable versions supported by older hosts. Both use schema version 1 and list one stable version per plugin key. Each entry binds its source commit, package path, archive URL and digest, and details URL, size, and digest.
 
 A ZIP contains its complete standard package, source and license evidence, and the selected plugin's provider patches. Installation and portable catalog builds read the complete package. Separate business services and first-use provider dependencies still require network access. Clients verify the archive digest before extraction.
 
@@ -109,7 +109,7 @@ A ZIP contains its complete standard package, source and license evidence, and t
 
 1. Bump the affected plugin's stable SemVer in `plugins/<key>/plugin.json` and merge the change into `main`. Keep the package key and name. For example, the first GitHub release after the existing `0.1.1` can use `0.1.2`. If a shared input changes several packages, bump and release each affected package.
 2. Tag the merged commit as `<key>@<version>`, for example `github@0.1.2`, and push the tag. A release maintainer starts **Release plugin** from the protected `main` branch and passes the tag as input. Every job runs the reviewed scripts from that `main` commit. The build checks the tagged commit and manifest, then the publish job uploads the unified ZIP, public details and single-entry catalog to the fixed tag with Latest disabled.
-3. The catalog job reads the current Latest release, updates that plugin's entry, and publishes a complete `catalog.json` as Latest. Re-run failed jobs to resume. The workflow verifies existing assets before reusing them, fails on a same-version binding conflict, and retains a newer version already in the catalog.
+3. The catalog job reads the current Latest release, updates its catalog entries, and publishes both catalog files together as Latest. Re-run failed jobs to resume. The workflow verifies existing assets before reusing them, fails on a same-version binding conflict, and retains a newer version already in the catalog.
 
 Keep published tags, assets, and all provider binaries and notices referenced by package locks. See the [release guide](docs/RELEASING.md) for repository setup, the dispatch command, and recovery.
 

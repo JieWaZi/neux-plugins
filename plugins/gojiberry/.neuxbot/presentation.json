@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Gojiberry",
+    "zh-CN": "Gojiberry"
+  },
+  "localizedDescriptions": {
+    "en": "Find leads, inspect outreach campaigns, and review conversations in Gojiberry.",
+    "zh-CN": "在 Gojiberry 中查找销售线索、查看拓客活动并回顾对话。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Summarize the highest-intent contacts in my active prospect list."
+    ],
+    "zh-CN": [
+      "汇总当前潜客名单中意向最强的联系人。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Copy the API key from Account Settings → API in Gojiberry and enter the key in plugin settings.",
+      "zh-CN": "在 Gojiberry 的 Account Settings → API 中复制 API 密钥，再填入插件设置。"
+    },
+    "helpURL": "https://help.gojiberry.ai/en/articles/14540015-using-the-gojiberry-mcp-server"
+  }
+}

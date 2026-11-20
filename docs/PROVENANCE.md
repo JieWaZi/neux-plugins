@@ -46,6 +46,8 @@ Example shape (replace illustrative facts with verified values):
 
 ## Validation and updates
 
+If a dependency lock declares a bundled executable, it must supply both a package-relative `bundlePath` and a lowercase hexadecimal `bundleSHA256`. The builder hashes the file from the fixed Git snapshot before packaging it.
+
 The builder reads the fixed commit, validates every package's required provenance against the shared schema, verifies dependency repository/commit/version against its actual asset lock, and hashes declared local assets. Both manifest icon fields must reference a declared local asset. Unknown fields, legacy `packaging`/`capability`/`logo`/`cli` top-level layouts, missing source commits, malformed values, Chinese `wrapper.changes`, digest drift and source/lock disagreement fail before replacing output. `scripts/provenance.mjs` implements the simple schema keywords used here; extend the validator and regression cases together when extending the schema.
 
 Brand icons are copied into each package's `assets/` directory after reviewing their official source and usage terms. The catalog embeds their verified bytes for discovery before installation. No runtime image request or supplier plugin marketplace is involved. Copying a mark is not claiming authorship or applying the wrapper's MIT license to that mark. Preserve actual source and applicable brand terms in this file's asset records and [third-party notices](../THIRD_PARTY_NOTICES.md).

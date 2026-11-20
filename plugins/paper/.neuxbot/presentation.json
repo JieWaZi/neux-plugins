@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Paper Desktop",
+    "zh-CN": "Paper Desktop"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect and edit the open design file in Paper Desktop on the same computer.",
+    "zh-CN": "在同一台电脑上查看和编辑 Paper Desktop 当前打开的设计文件。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Summarize the open design file and list the styles used by the selected design."
+    ],
+    "zh-CN": [
+      "概述当前打开的设计文件，列出所选设计使用的样式。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Open a design file in Paper Desktop on the same computer as NeuxBot Core. Keep Paper Desktop and the file open while using the connection.",
+      "zh-CN": "在运行 NeuxBot Core 的同一台电脑上打开 Paper Desktop 和设计文件。使用期间保持应用和文件开启。"
+    },
+    "helpURL": "https://paper.design/docs/mcp"
+  }
+}
