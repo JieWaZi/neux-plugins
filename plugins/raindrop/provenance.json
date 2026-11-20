@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Raindrop.io",
+    "repository": "https://raindrop.io",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://api.raindrop.io/rest/v2/ai/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/49/b9/ba/49b9baac-3b05-16fa-3fc4-5cf90840efb0/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "1a598041800dcaa365db45771df2553fbdc33d51796387573514c542a580325d",
+      "sha256": "c12521e096a56f6c0db727c9e58f5eaaa6a4ae0994eb5eedc3c0e2d927aab965",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Raindrop.io branding used to identify the service"
+    }
+  ]
+}

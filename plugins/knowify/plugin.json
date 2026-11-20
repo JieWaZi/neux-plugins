@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "knowify",
+  "version": "0.1.0",
+  "description": "Review jobs and commercial project records in Knowify.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://knowify.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Knowify",
+        "shortDescription": "Review jobs and commercial project records in Knowify.",
+        "developerName": "Knowify",
+        "category": "productivity",
+        "websiteURL": "https://knowify.com",
+        "supportURL": "https://knowify.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Knowify."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

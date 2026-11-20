@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "readwise",
+  "version": "0.1.0",
+  "description": "Find saved highlights and reading material in Readwise.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://readwise.io",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Readwise",
+        "shortDescription": "Find saved highlights and reading material in Readwise.",
+        "developerName": "Readwise",
+        "category": "research",
+        "websiteURL": "https://readwise.io",
+        "supportURL": "https://readwise.io",
+        "defaultPrompt": [
+          "Explain what I can research with Readwise and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

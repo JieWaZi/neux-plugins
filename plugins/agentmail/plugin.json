@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "agentmail",
+  "version": "0.1.0",
+  "description": "Bring authorized AgentMail inboxes and email conversations into your work.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.agentmail.to",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "AgentMail",
+        "shortDescription": "Bring authorized AgentMail inboxes and email conversations into your work.",
+        "developerName": "AgentMail",
+        "category": "automation",
+        "websiteURL": "https://www.agentmail.to",
+        "supportURL": "https://www.agentmail.to",
+        "defaultPrompt": [
+          "Show the resources available to me in AgentMail without making changes."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

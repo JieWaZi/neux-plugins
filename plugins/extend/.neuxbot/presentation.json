@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Extend",
+    "zh-CN": "Extend"
+  },
+  "localizedDescriptions": {
+    "en": "Review virtual card and spending activity available in Extend.",
+    "zh-CN": "查看 Extend 中可访问的虚拟卡及支出活动。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Extend."
+    ],
+    "zh-CN": [
+      "查看我在 Extend 中可以访问哪些资源。"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Fireflies.ai",
+    "zh-CN": "Fireflies.ai"
+  },
+  "localizedDescriptions": {
+    "en": "Search Fireflies meeting transcripts and review recorded takeaways.",
+    "zh-CN": "检索 Fireflies 的会议转录并查看已记录的要点。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Fireflies.ai."
+    ],
+    "zh-CN": [
+      "查看我在 Fireflies.ai 中可以访问哪些资源。"
+    ]
+  }
+}

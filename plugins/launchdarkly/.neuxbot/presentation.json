@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "LaunchDarkly",
+    "zh-CN": "LaunchDarkly"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect feature flags and environment configuration in LaunchDarkly.",
+    "zh-CN": "查看 LaunchDarkly 中的功能开关和环境配置。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in LaunchDarkly."
+    ],
+    "zh-CN": [
+      "查看我可以在 LaunchDarkly 中访问的项目或开发资源。"
+    ]
+  }
+}

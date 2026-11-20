@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ryze",
+  "version": "0.1.0",
+  "description": "Review advertising campaign performance from accounts connected to Ryze AI.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.get-ryze.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Ryze AI",
+        "shortDescription": "Review advertising campaign performance from accounts connected to Ryze AI.",
+        "developerName": "Ryze AI",
+        "category": "data-analytics",
+        "websiteURL": "https://www.get-ryze.ai",
+        "supportURL": "https://www.get-ryze.ai",
+        "defaultPrompt": [
+          "Show what information I can read in Ryze AI."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

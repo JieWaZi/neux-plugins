@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "atlassian",
+  "version": "0.1.0",
+  "description": "Find and work with Jira issues and Confluence content through Atlassian Rovo.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://developer.atlassian.com/cloud/rovo-mcp/guides/authentication-and-authorization/",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Atlassian",
+        "shortDescription": "Find and work with Jira issues and Confluence content through Atlassian Rovo.",
+        "developerName": "Atlassian",
+        "category": "productivity",
+        "websiteURL": "https://www.atlassian.com",
+        "supportURL": "https://developer.atlassian.com/cloud/rovo-mcp/guides/authentication-and-authorization/",
+        "defaultPrompt": [
+          "Show which resources I can access in Atlassian."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "airtable",
+  "version": "0.1.0",
+  "description": "Read and update records and inspect base schemas in Airtable.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://airtable.com/developers/agents/mcp/getting-started",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Airtable",
+        "shortDescription": "Read and update records and inspect base schemas in Airtable.",
+        "developerName": "Airtable",
+        "category": "productivity",
+        "websiteURL": "https://www.airtable.com",
+        "supportURL": "https://airtable.com/developers/agents/mcp/getting-started",
+        "privacyPolicyURL": "https://www.airtable.com/privacy",
+        "termsOfServiceURL": "https://www.airtable.com/tos",
+        "capabilities": [
+          "Read and update records in selected bases",
+          "Inspect tables, fields, and base schema",
+          "Read comments when the token permits access"
+        ],
+        "defaultPrompt": [
+          "Show the tables and key fields in my project base, then report the status of the active records."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "AIRTABLE_PERSONAL_ACCESS_TOKEN",
+            "label": "Personal access token",
+            "description": "Use an Airtable personal access token with access to the bases and operations you need.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "airtable",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${AIRTABLE_PERSONAL_ACCESS_TOKEN}"
+          }
+        ]
+      }
+    }
+  }
+}

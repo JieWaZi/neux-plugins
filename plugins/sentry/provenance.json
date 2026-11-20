@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Sentry",
+    "repository": "https://mcp.sentry.dev/",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.sentry.dev/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://sentry.io/favicon.ico",
+      "sourceSHA256": "49a1d2db07116397feff5454872ecec134df7cad81aa366c0ced3a2940f13355",
+      "sha256": "8e3b6ea964bad48d97ee8dbed5c7a12a3c0293c0f49b50a9056b87b2c6058c51",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Sentry branding used to identify the service"
+    }
+  ]
+}

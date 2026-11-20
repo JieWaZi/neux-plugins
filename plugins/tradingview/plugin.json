@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "tradingview",
+  "version": "0.1.0",
+  "description": "Look up TradingView market information for research.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.tradingview.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "TradingView",
+        "shortDescription": "Look up TradingView market information for research.",
+        "developerName": "TradingView",
+        "category": "data-analytics",
+        "websiteURL": "https://www.tradingview.com",
+        "supportURL": "https://www.tradingview.com",
+        "defaultPrompt": [
+          "Show what information I can read in TradingView."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

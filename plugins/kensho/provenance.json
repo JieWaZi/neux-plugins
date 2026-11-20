@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Kensho Technologies",
+    "repository": "https://kensho.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://kfinance.kensho.com/integrations/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://kensho.com/favicon.ico",
+      "sourceSHA256": "4c4c3f44acf96a54267911f08800630714dc4a953c170aecf0772f56934117bd",
+      "sha256": "c0f9cdb53c170bbbaa0088dae915dfe149a36fa82a85ac4956079d084cc29e0a",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Kensho Technologies branding used to identify the service"
+    }
+  ]
+}

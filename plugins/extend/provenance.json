@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Extend",
+    "repository": "https://www.paywithextend.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.paywithextend.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/d8/85/10/d885108f-802a-1620-923f-08d99dec774b/AppIcon-0-0-1x_U007emarketing-0-3-0-sRGB-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "a4dc17211db1632ec3f6e87b186059ee8c925f5025781cdf819af662bf89f00f",
+      "sha256": "d602d55173bd575ff024179cab3296c22d8831b9831ffa9546d892f62d23e0ca",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Extend branding used to identify the service"
+    }
+  ]
+}

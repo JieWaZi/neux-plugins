@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Amplemarket",
+    "zh-CN": "Amplemarket"
+  },
+  "localizedDescriptions": {
+    "en": "Research leads and review sales outreach in Amplemarket.",
+    "zh-CN": "在 Amplemarket 中研究潜在客户并查看销售触达进展。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with Amplemarket and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 Amplemarket 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

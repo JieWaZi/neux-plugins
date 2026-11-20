@@ -18,6 +18,7 @@ Every maintained package owns `provenance.json` with the same [schema](../schema
 
 - `distribution.mode: vendored-source`: reviewed source, skills or other business implementation is copied into the maintained package. A full lowercase 40-character `commit` is required; record the true source `tag` or `version` when available. Preserve source-relative resources, original licenses and explicit wrapper changes. Do not fetch upstream content during a catalog build or installation.
 - `distribution.mode: hosted-service`: the package declares a service at `distribution.url` rather than redistributing its implementation. Do not set `commit`, `tag` or `version` for an unpinned hosted service. GitHub uses its official hosted MCP endpoint; GitHub CLI is a separate authorization dependency with its own lock. The host leaves the absent capability version unspecified. The upstream project license does not grant rights to its hosted service or trademarks.
+- `distribution.mode: local-service` identifies a separately installed application that provides the MCP service on the same computer as Core. The URL must match a credential-free Streamable HTTP declaration exactly and use a canonical numeric loopback address. The package does not ship the application or assign it a server version.
 
 Example shape (replace illustrative facts with verified values):
 

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Quo",
+    "zh-CN": "Quo"
+  },
+  "localizedDescriptions": {
+    "en": "Review authorized business calls, text conversations, and contacts in Quo.",
+    "zh-CN": "在 Quo 中查看授权的商务通话、短信会话和联系人。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Quo."
+    ],
+    "zh-CN": [
+      "查看我在 Quo 中可以访问哪些资源。"
+    ]
+  }
+}

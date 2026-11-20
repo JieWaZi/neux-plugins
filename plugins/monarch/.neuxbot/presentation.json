@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Monarch",
+    "zh-CN": "Monarch"
+  },
+  "localizedDescriptions": {
+    "en": "Review personal account activity and budgets in Monarch.",
+    "zh-CN": "查看 Monarch 中的个人账户活动和预算。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Monarch."
+    ],
+    "zh-CN": [
+      "查看我在 Monarch 中可以访问哪些资源。"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "vidIQ",
+    "zh-CN": "vidIQ"
+  },
+  "localizedDescriptions": {
+    "en": "Review video, channel, and topic research from vidIQ.",
+    "zh-CN": "查看 vidIQ 提供的视频、频道和选题研究资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in vidIQ."
+    ],
+    "zh-CN": [
+      "查看我可以在 vidIQ 中读取哪些资料。"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "trello",
+  "version": "0.1.0",
+  "description": "Review boards, lists, and cards you can access in Trello.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://trello.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Trello",
+        "shortDescription": "Review boards, lists, and cards you can access in Trello.",
+        "developerName": "Atlassian",
+        "category": "productivity",
+        "websiteURL": "https://trello.com",
+        "supportURL": "https://trello.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Trello."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

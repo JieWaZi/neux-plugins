@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hex",
+  "version": "0.1.0",
+  "description": "Explore projects, notebooks, and analysis available through your Hex workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://hex.tech",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Hex",
+        "shortDescription": "Explore projects, notebooks, and analysis available through your Hex workspace.",
+        "developerName": "Hex Technologies",
+        "category": "data-analytics",
+        "websiteURL": "https://hex.tech",
+        "supportURL": "https://hex.tech",
+        "defaultPrompt": [
+          "Show what information I can read in Hex."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

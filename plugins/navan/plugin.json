@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "navan",
+  "version": "0.1.0",
+  "description": "Review available business travel and expense records in Navan.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://navan.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Navan",
+        "shortDescription": "Review available business travel and expense records in Navan.",
+        "developerName": "Navan",
+        "category": "data-analytics",
+        "websiteURL": "https://navan.com",
+        "supportURL": "https://navan.com",
+        "defaultPrompt": [
+          "Show what information I can read in Navan."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

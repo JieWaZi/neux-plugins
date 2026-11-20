@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "craft",
+  "version": "0.1.0",
+  "description": "Find and work with documents in your Craft spaces.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.craft.do",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Craft",
+        "shortDescription": "Find and work with documents in your Craft spaces.",
+        "developerName": "Craft Docs",
+        "category": "documents",
+        "websiteURL": "https://www.craft.do",
+        "supportURL": "https://www.craft.do",
+        "defaultPrompt": [
+          "Show which documents I can read in Craft."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

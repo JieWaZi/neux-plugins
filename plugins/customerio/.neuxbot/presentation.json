@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Customer.io",
+    "zh-CN": "Customer.io"
+  },
+  "localizedDescriptions": {
+    "en": "Review customer profiles and campaign information in Customer.io.",
+    "zh-CN": "在 Customer.io 中查看客户档案和营销活动资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the resources available to me in Customer.io without making changes."
+    ],
+    "zh-CN": [
+      "查看我在 Customer.io 中可以使用的资源，先不要执行更改。"
+    ]
+  }
+}

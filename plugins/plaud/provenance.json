@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Plaud",
+    "repository": "https://www.plaud.ai",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.plaud.ai/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.plaud.ai/cdn/shop/files/plaud-fa.png?crop=center&height=180&v=1765790183&width=180",
+      "sourceSHA256": "bbf0b5d63ee457ffddeaebac3fda828277b5548cec88a995926d194bed6b9534",
+      "sha256": "d0aa9efb3bd10acc84381d7b1f1bf4dcbac54636847dbe490e8fc3568b34b9da",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Plaud branding used to identify the service"
+    }
+  ]
+}

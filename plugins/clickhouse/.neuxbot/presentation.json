@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "ClickHouse Cloud",
+    "zh-CN": "ClickHouse Cloud"
+  },
+  "localizedDescriptions": {
+    "en": "Explore databases and query resources in ClickHouse Cloud.",
+    "zh-CN": "探索 ClickHouse Cloud 中的数据库和查询资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in ClickHouse Cloud."
+    ],
+    "zh-CN": [
+      "查看我可以在 ClickHouse Cloud 中读取哪些资料。"
+    ]
+  }
+}

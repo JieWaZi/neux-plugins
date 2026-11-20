@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "quo",
+  "version": "0.1.0",
+  "description": "Review authorized business calls, text conversations, and contacts in Quo.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.quo.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Quo",
+        "shortDescription": "Review authorized business calls, text conversations, and contacts in Quo.",
+        "developerName": "Quo",
+        "category": "productivity",
+        "websiteURL": "https://www.quo.com",
+        "supportURL": "https://www.quo.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Quo."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

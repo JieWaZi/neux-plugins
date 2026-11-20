@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Harmonic",
+    "zh-CN": "Harmonic"
+  },
+  "localizedDescriptions": {
+    "en": "Research companies, people, and investors using Harmonic data.",
+    "zh-CN": "使用 Harmonic 数据研究企业、人员和投资人。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with Harmonic and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 Harmonic 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

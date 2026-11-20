@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "beehiiv",
+    "repository": "https://www.beehiiv.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.beehiiv.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://avatars.githubusercontent.com/u/73256842?s=256&v=4",
+      "sourceSHA256": "0148f74d0058a8b1f6de638a6274a7cfc398fb463379e139114de35fcf0b80c6",
+      "sha256": "d191b1ac661d5bf41c87a8c92cf040ff599b6ef918e51901cc02ea8018bf6b73",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "beehiiv branding used to identify the service"
+    }
+  ]
+}

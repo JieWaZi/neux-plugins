@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Buildkite",
+    "repository": "https://buildkite.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.buildkite.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://buildkite.com/apple-touch-icon.png",
+      "sourceSHA256": "3a91da1a06c57a3584b188b2463492d65124d427f281821d8be3bbb2e41e5f9b",
+      "sha256": "40d6e280b22c7c5ba2de37ca75964906440a20bb824b16c7f07a7ae87a12f05a",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Buildkite branding used to identify the service"
+    }
+  ]
+}

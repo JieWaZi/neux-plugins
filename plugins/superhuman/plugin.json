@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "superhuman",
+  "version": "0.1.0",
+  "description": "Find messages and related threads in Superhuman Mail.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://superhuman.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Superhuman Mail",
+        "shortDescription": "Find messages and related threads in Superhuman Mail.",
+        "developerName": "Superhuman",
+        "category": "productivity",
+        "websiteURL": "https://superhuman.com",
+        "supportURL": "https://superhuman.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Superhuman Mail."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

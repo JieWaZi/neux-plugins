@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Atlassian",
+    "repository": "https://trello.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.trello.com/v1"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://trello.com/favicon.ico",
+      "sourceSHA256": "6245384a876e446ac4c95de04e2598c8d68023d845f4151599584afabc6203ab",
+      "sha256": "3270e3a32254a224c43feb579b5d3e1472cdbf38fb8bbfb4193f4b62fdb90fc9",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Atlassian branding used to identify the service"
+    }
+  ]
+}

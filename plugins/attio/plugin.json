@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "attio",
+  "version": "0.1.0",
+  "description": "Look up people, companies, and deal records in your Attio workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://attio.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Attio",
+        "shortDescription": "Look up people, companies, and deal records in your Attio workspace.",
+        "developerName": "Attio",
+        "category": "productivity",
+        "websiteURL": "https://attio.com",
+        "supportURL": "https://attio.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Attio."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

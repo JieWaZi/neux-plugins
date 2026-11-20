@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Supermemory",
+    "zh-CN": "Supermemory"
+  },
+  "localizedDescriptions": {
+    "en": "Find saved information and manage knowledge available in Supermemory.",
+    "zh-CN": "在 Supermemory 中查找已保存的信息并管理可用知识。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Supermemory."
+    ],
+    "zh-CN": [
+      "查看我在 Supermemory 中可以访问哪些资源。"
+    ]
+  }
+}

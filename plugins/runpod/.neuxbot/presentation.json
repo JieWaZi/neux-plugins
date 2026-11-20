@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Runpod",
+    "zh-CN": "Runpod"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect the cloud compute resources available in Runpod.",
+    "zh-CN": "查看 Runpod 中可访问的云计算资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Runpod."
+    ],
+    "zh-CN": [
+      "查看我可以在 Runpod 中访问的项目或开发资源。"
+    ]
+  }
+}

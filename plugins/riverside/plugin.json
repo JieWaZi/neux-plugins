@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "riverside",
+  "version": "0.1.0",
+  "description": "Work with studio recordings and media projects in Riverside.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://riverside.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Riverside",
+        "shortDescription": "Work with studio recordings and media projects in Riverside.",
+        "developerName": "Riverside",
+        "category": "design",
+        "websiteURL": "https://riverside.com",
+        "supportURL": "https://riverside.com",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Riverside."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

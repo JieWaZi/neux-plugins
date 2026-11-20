@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "bird",
+  "version": "0.1.0",
+  "description": "Review available messaging and customer communication records in Bird.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://bird.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Bird",
+        "shortDescription": "Review available messaging and customer communication records in Bird.",
+        "developerName": "Bird",
+        "category": "automation",
+        "websiteURL": "https://bird.com",
+        "supportURL": "https://bird.com",
+        "defaultPrompt": [
+          "Show the resources available to me in Bird without making changes."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

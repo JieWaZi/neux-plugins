@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Fireflies.ai",
+    "repository": "https://fireflies.ai",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://api.fireflies.ai/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9c/f8/a6/9cf8a6d8-e782-75a0-40b5-6a7e24e49f88/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "c5545a6b4291f7cf624eb8f1584d55ed5c1f089b3c191806a953191495ae2d54",
+      "sha256": "14e68d6f827d9c52dc2264bc1336f1e9aadcbb0947e75596ab6a41d0d5914adc",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Fireflies.ai branding used to identify the service"
+    }
+  ]
+}

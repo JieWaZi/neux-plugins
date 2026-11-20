@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Figma",
+    "repository": "https://developers.figma.com/docs/figma-mcp-server/local-server-installation/",
+    "license": "Figma Desktop under Figma Terms of Service",
+    "distribution": {
+      "mode": "local-service",
+      "url": "http://127.0.0.1:3845/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declared the documented Figma Desktop MCP endpoint",
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Used the vendor icon URL declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://static.figma.com/app/icon/2/icon-256.png",
+      "sourceSHA256": "b418ebb4a1d9d27cbeca7276b178f980bdaaeb8cffd998098136e21d8425ec69",
+      "sha256": "b418ebb4a1d9d27cbeca7276b178f980bdaaeb8cffd998098136e21d8425ec69",
+      "license": "Vendor brand artwork; copyright and trademark rights reserved",
+      "attribution": "Figma; identifies the service without endorsement"
+    }
+  ]
+}

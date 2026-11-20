@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "you",
+  "version": "0.1.0",
+  "description": "Research web sources and retrieve supporting information through You.com.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://you.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "You.com",
+        "shortDescription": "Research web sources and retrieve supporting information through You.com.",
+        "developerName": "You.com",
+        "category": "research",
+        "websiteURL": "https://you.com",
+        "supportURL": "https://you.com",
+        "defaultPrompt": [
+          "Explain what I can research with You.com and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

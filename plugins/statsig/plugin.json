@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "statsig",
+  "version": "0.1.0",
+  "description": "Explore feature gates and experiment information in Statsig.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://statsig.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Statsig",
+        "shortDescription": "Explore feature gates and experiment information in Statsig.",
+        "developerName": "Statsig",
+        "category": "coding",
+        "websiteURL": "https://statsig.com",
+        "supportURL": "https://statsig.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Statsig."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

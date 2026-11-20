@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "speko",
+  "version": "0.1.0",
+  "description": "Review voice agents and associated call records in Speko.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://speko.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Speko",
+        "shortDescription": "Review voice agents and associated call records in Speko.",
+        "developerName": "Speko",
+        "category": "automation",
+        "websiteURL": "https://speko.ai",
+        "supportURL": "https://speko.ai",
+        "defaultPrompt": [
+          "Show the resources available to me in Speko without making changes."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

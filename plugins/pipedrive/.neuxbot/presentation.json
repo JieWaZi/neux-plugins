@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Pipedrive",
+    "zh-CN": "Pipedrive"
+  },
+  "localizedDescriptions": {
+    "en": "Review deals, contacts, and pipeline progress in Pipedrive.",
+    "zh-CN": "查看 Pipedrive 中的交易、联系人和销售管道进度。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Pipedrive."
+    ],
+    "zh-CN": [
+      "查看我在 Pipedrive 中可以访问哪些资源。"
+    ]
+  }
+}

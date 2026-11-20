@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Sanity",
+    "zh-CN": "Sanity"
+  },
+  "localizedDescriptions": {
+    "en": "Explore structured content in your Sanity projects and datasets.",
+    "zh-CN": "查看 Sanity 项目和数据集中的结构化内容。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Sanity."
+    ],
+    "zh-CN": [
+      "查看我可以在 Sanity 中访问的项目或开发资源。"
+    ]
+  }
+}

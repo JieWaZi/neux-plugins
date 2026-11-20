@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Coinbase",
+    "repository": "https://www.coinbase.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://agents.coinbase.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/78/92/8c/78928ca2-63ef-1ae1-4b55-2be4bdc8f2e4/AppIcon-0-0-1x_U007ephone-0-1-0-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "bc59c71bfb2e8c012f43336a109223cbbdee6279a2b77a29351cf5993e448813",
+      "sha256": "32a2af2bd62f64ba33b7c49a669e4c210b7f9058446822d89ee7960e19206730",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Coinbase branding used to identify the service"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Mural",
+    "zh-CN": "Mural"
+  },
+  "localizedDescriptions": {
+    "en": "Find and use visual collaboration boards in Mural.",
+    "zh-CN": "在 Mural 中查找和使用视觉协作白板。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Mural."
+    ],
+    "zh-CN": [
+      "查看我可以在 Mural 中访问的素材或创意资源。"
+    ]
+  }
+}

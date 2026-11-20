@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "TryPost",
+    "zh-CN": "TryPost"
+  },
+  "localizedDescriptions": {
+    "en": "Review connected social channels and prepare publishing schedules in TryPost.",
+    "zh-CN": "查看 TryPost 已连接的社交渠道并制定发布计划。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the resources available to me in TryPost without making changes."
+    ],
+    "zh-CN": [
+      "查看我在 TryPost 中可以使用的资源，先不要执行更改。"
+    ]
+  }
+}

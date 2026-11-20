@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Prisma",
+    "zh-CN": "Prisma"
+  },
+  "localizedDescriptions": {
+    "en": "Review database and project resources in Prisma.",
+    "zh-CN": "查看 Prisma 中的数据库和项目资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Prisma."
+    ],
+    "zh-CN": [
+      "查看我可以在 Prisma 中访问的项目或开发资源。"
+    ]
+  }
+}

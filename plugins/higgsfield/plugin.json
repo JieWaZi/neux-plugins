@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "higgsfield",
+  "version": "0.1.0",
+  "description": "Work with creative projects and media generation in Higgsfield.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://higgsfield.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Higgsfield",
+        "shortDescription": "Work with creative projects and media generation in Higgsfield.",
+        "developerName": "Higgsfield",
+        "category": "design",
+        "websiteURL": "https://higgsfield.ai",
+        "supportURL": "https://higgsfield.ai",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Higgsfield."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

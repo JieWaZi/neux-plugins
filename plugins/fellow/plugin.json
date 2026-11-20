@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "fellow",
+  "version": "0.1.0",
+  "description": "Find meeting notes, decisions, and assignments in Fellow.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://fellow.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Fellow",
+        "shortDescription": "Find meeting notes, decisions, and assignments in Fellow.",
+        "developerName": "Fellow",
+        "category": "productivity",
+        "websiteURL": "https://fellow.ai",
+        "supportURL": "https://fellow.ai",
+        "defaultPrompt": [
+          "Show which resources I can access in Fellow."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

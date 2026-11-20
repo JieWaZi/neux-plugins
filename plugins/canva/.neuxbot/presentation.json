@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Canva",
+    "zh-CN": "Canva"
+  },
+  "localizedDescriptions": {
+    "en": "Find designs and work with creative assets available in your Canva account.",
+    "zh-CN": "查找 Canva 账户可访问的设计并使用相关素材。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Canva."
+    ],
+    "zh-CN": [
+      "查看我可以在 Canva 中访问的素材或创意资源。"
+    ]
+  }
+}

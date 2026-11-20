@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Cobrain",
+    "zh-CN": "Cobrain"
+  },
+  "localizedDescriptions": {
+    "en": "Retrieve shared notes and project context from Cobrain memory.",
+    "zh-CN": "从 Cobrain 的共享记忆中查找笔记和项目上下文。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Cobrain."
+    ],
+    "zh-CN": [
+      "查看我在 Cobrain 中可以访问哪些资源。"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Wix",
+    "zh-CN": "Wix"
+  },
+  "localizedDescriptions": {
+    "en": "Work with the sites and business resources available in Wix.",
+    "zh-CN": "处理 Wix 中可访问的网站和业务资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Wix."
+    ],
+    "zh-CN": [
+      "查看我可以在 Wix 中访问的项目或开发资源。"
+    ]
+  }
+}

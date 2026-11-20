@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "railway",
+  "version": "0.1.0",
+  "description": "Inspect Railway projects, service deployments, and their status.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://railway.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Railway",
+        "shortDescription": "Inspect Railway projects, service deployments, and their status.",
+        "developerName": "Railway",
+        "category": "coding",
+        "websiteURL": "https://railway.com",
+        "supportURL": "https://railway.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Railway."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

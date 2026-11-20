@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Tavily",
+    "zh-CN": "Tavily"
+  },
+  "localizedDescriptions": {
+    "en": "Research public web sources with Tavily search and extraction capabilities.",
+    "zh-CN": "使用 Tavily 的搜索和提取能力研究公开网络资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with Tavily and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 Tavily 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

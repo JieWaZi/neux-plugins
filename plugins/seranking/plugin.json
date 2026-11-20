@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "seranking",
+  "version": "0.1.0",
+  "description": "Review ranking, website, and keyword research in SE Ranking.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://seranking.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "SE Ranking",
+        "shortDescription": "Review ranking, website, and keyword research in SE Ranking.",
+        "developerName": "SE Ranking",
+        "category": "research",
+        "websiteURL": "https://seranking.com",
+        "supportURL": "https://seranking.com",
+        "defaultPrompt": [
+          "Explain what I can research with SE Ranking and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

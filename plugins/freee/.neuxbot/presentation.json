@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "freee",
+    "zh-CN": "freee"
+  },
+  "localizedDescriptions": {
+    "en": "Review the accounting records available to your freee organization.",
+    "zh-CN": "查看 freee 组织中可访问的会计记录。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in freee."
+    ],
+    "zh-CN": [
+      "查看我在 freee 中可以访问哪些资源。"
+    ]
+  }
+}

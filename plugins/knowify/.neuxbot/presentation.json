@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Knowify",
+    "zh-CN": "Knowify"
+  },
+  "localizedDescriptions": {
+    "en": "Review jobs and commercial project records in Knowify.",
+    "zh-CN": "查看 Knowify 中的施工任务和商业项目记录。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Knowify."
+    ],
+    "zh-CN": [
+      "查看我在 Knowify 中可以访问哪些资源。"
+    ]
+  }
+}

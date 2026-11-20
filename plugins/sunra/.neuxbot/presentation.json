@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Sunra",
+    "zh-CN": "Sunra"
+  },
+  "localizedDescriptions": {
+    "en": "Use media generation resources available in your Sunra projects.",
+    "zh-CN": "使用 Sunra 项目中可访问的媒体生成资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Sunra."
+    ],
+    "zh-CN": [
+      "查看我可以在 Sunra 中访问的素材或创意资源。"
+    ]
+  }
+}

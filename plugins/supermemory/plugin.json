@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "supermemory",
+  "version": "0.1.0",
+  "description": "Find saved information and manage knowledge available in Supermemory.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://supermemory.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Supermemory",
+        "shortDescription": "Find saved information and manage knowledge available in Supermemory.",
+        "developerName": "Supermemory",
+        "category": "productivity",
+        "websiteURL": "https://supermemory.ai",
+        "supportURL": "https://supermemory.ai",
+        "defaultPrompt": [
+          "Show which resources I can access in Supermemory."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

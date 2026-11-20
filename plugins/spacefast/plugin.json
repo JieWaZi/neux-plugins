@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "spacefast",
+  "version": "0.1.0",
+  "description": "Find the hosted pages and Spaces available in Spacefast.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://spacefast.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Spacefast",
+        "shortDescription": "Find the hosted pages and Spaces available in Spacefast.",
+        "developerName": "Automattic",
+        "category": "productivity",
+        "websiteURL": "https://spacefast.com",
+        "supportURL": "https://spacefast.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Spacefast."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

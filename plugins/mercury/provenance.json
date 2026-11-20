@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Mercury",
+    "repository": "https://mercury.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.mercury.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://mercury.com/apple-icon.png",
+      "sourceSHA256": "f7edf495198e57f6bcdcdebf10e2a974c59a86c87ca37bba7d2923a3bc045904",
+      "sha256": "bccdb92da40919129d7a6172db442b70a71d8dba020b3d614f0b1d958aa42f55",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Mercury branding used to identify the service"
+    }
+  ]
+}

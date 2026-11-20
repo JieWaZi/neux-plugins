@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "granola",
+  "version": "0.1.0",
+  "description": "Find your Granola meeting notes and revisit decisions from past conversations.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.granola.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Granola",
+        "shortDescription": "Find your Granola meeting notes and revisit decisions from past conversations.",
+        "developerName": "Granola",
+        "category": "productivity",
+        "websiteURL": "https://www.granola.ai",
+        "supportURL": "https://www.granola.ai",
+        "defaultPrompt": [
+          "Show which resources I can access in Granola."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

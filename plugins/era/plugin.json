@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "era",
+  "version": "0.1.0",
+  "description": "Review accounts, transactions, and spending insights connected to Era.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://era.app",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Era",
+        "shortDescription": "Review accounts, transactions, and spending insights connected to Era.",
+        "developerName": "Era",
+        "category": "productivity",
+        "websiteURL": "https://era.app",
+        "supportURL": "https://era.app",
+        "defaultPrompt": [
+          "Show which resources I can access in Era."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Speko",
+    "zh-CN": "Speko"
+  },
+  "localizedDescriptions": {
+    "en": "Review voice agents and associated call records in Speko.",
+    "zh-CN": "查看 Speko 中的语音智能体及相关通话记录。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the resources available to me in Speko without making changes."
+    ],
+    "zh-CN": [
+      "查看我在 Speko 中可以使用的资源，先不要执行更改。"
+    ]
+  }
+}

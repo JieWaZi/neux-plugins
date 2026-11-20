@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Massive",
+    "zh-CN": "Massive"
+  },
+  "localizedDescriptions": {
+    "en": "Look up market data available to your Massive subscription.",
+    "zh-CN": "查询 Massive 订阅可访问的市场数据。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Massive."
+    ],
+    "zh-CN": [
+      "查看我可以在 Massive 中读取哪些资料。"
+    ]
+  }
+}

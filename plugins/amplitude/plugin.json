@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "amplitude",
+  "version": "0.1.0",
+  "description": "Investigate product usage and behavioral analytics in Amplitude.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://amplitude.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Amplitude",
+        "shortDescription": "Investigate product usage and behavioral analytics in Amplitude.",
+        "developerName": "Amplitude",
+        "category": "data-analytics",
+        "websiteURL": "https://amplitude.com",
+        "supportURL": "https://amplitude.com",
+        "defaultPrompt": [
+          "Show what information I can read in Amplitude."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

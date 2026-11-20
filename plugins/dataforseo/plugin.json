@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "dataforseo",
+  "version": "0.1.0",
+  "description": "Retrieve search rankings, keyword data, and related SEO research.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://dataforseo.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "DataForSEO",
+        "shortDescription": "Retrieve search rankings, keyword data, and related SEO research.",
+        "developerName": "DataForSEO",
+        "category": "research",
+        "websiteURL": "https://dataforseo.com",
+        "supportURL": "https://dataforseo.com",
+        "defaultPrompt": [
+          "Explain what I can research with DataForSEO and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

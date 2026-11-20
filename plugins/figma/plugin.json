@@ -1,0 +1,38 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "figma",
+  "version": "0.1.0",
+  "description": "Inspect design context from Figma Desktop on the same computer.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://developers.figma.com/docs/figma-mcp-server/local-server-installation/",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Figma Desktop",
+        "shortDescription": "Inspect design context from Figma Desktop on the same computer.",
+        "developerName": "Figma",
+        "category": "design",
+        "websiteURL": "https://www.figma.com",
+        "supportURL": "https://developers.figma.com/docs/figma-mcp-server/local-server-installation/",
+        "privacyPolicyURL": "https://www.figma.com/privacy/",
+        "termsOfServiceURL": "https://www.figma.com/tos/",
+        "capabilities": [
+          "Read design context for the current selection",
+          "Inspect layout, components, and styles"
+        ],
+        "defaultPrompt": [
+          "Summarize the selected frame and list its main components and layout rules."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

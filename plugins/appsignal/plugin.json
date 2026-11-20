@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "appsignal",
+  "version": "0.1.0",
+  "description": "Investigate application errors and performance using AppSignal data.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.appsignal.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "AppSignal",
+        "shortDescription": "Investigate application errors and performance using AppSignal data.",
+        "developerName": "AppSignal",
+        "category": "coding",
+        "websiteURL": "https://www.appsignal.com",
+        "supportURL": "https://www.appsignal.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in AppSignal."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "harmonic",
+  "version": "0.1.0",
+  "description": "Research companies, people, and investors using Harmonic data.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://support.harmonic.ai/en/articles/16400174-connect-harmonic-mcp-to-copilot-studio",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Harmonic",
+        "shortDescription": "Research companies, people, and investors using Harmonic data.",
+        "developerName": "Harmonic",
+        "category": "research",
+        "websiteURL": "https://harmonic.ai",
+        "supportURL": "https://support.harmonic.ai/en/articles/16400174-connect-harmonic-mcp-to-copilot-studio",
+        "defaultPrompt": [
+          "Explain what I can research with Harmonic and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "sanity",
+  "version": "0.1.0",
+  "description": "Explore structured content in your Sanity projects and datasets.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.sanity.io",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Sanity",
+        "shortDescription": "Explore structured content in your Sanity projects and datasets.",
+        "developerName": "Sanity",
+        "category": "coding",
+        "websiteURL": "https://www.sanity.io",
+        "supportURL": "https://www.sanity.io",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Sanity."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

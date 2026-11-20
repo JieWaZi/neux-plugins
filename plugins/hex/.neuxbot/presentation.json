@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Hex",
+    "zh-CN": "Hex"
+  },
+  "localizedDescriptions": {
+    "en": "Explore projects, notebooks, and analysis available through your Hex workspace.",
+    "zh-CN": "查看 Hex 工作区中可访问的项目、笔记本和分析。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Hex."
+    ],
+    "zh-CN": [
+      "查看我可以在 Hex 中读取哪些资料。"
+    ]
+  }
+}

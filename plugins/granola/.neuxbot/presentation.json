@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Granola",
+    "zh-CN": "Granola"
+  },
+  "localizedDescriptions": {
+    "en": "Find your Granola meeting notes and revisit decisions from past conversations.",
+    "zh-CN": "查找 Granola 的会议笔记并回顾讨论中的决定。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Granola."
+    ],
+    "zh-CN": [
+      "查看我在 Granola 中可以访问哪些资源。"
+    ]
+  }
+}

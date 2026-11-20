@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Roam Research",
+    "zh-CN": "Roam Research"
+  },
+  "localizedDescriptions": {
+    "en": "Search the notes and linked ideas in your Roam Research graph.",
+    "zh-CN": "检索 Roam Research 知识图中的笔记和相互关联的想法。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Roam Research."
+    ],
+    "zh-CN": [
+      "查看我在 Roam Research 中可以访问哪些资源。"
+    ]
+  }
+}

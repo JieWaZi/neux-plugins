@@ -85,8 +85,11 @@ export function validateStandardPackage({ manifest, packagePath, names, has, rea
         const resource = server.type === 'streamable-http' ? new URL(server.url) : null;
         const hostname = resource?.hostname.replace(/^\[|\]$/g, '').replace(/\.$/, '');
         const hasSkills = names().some(name => name.startsWith(`${packagePath}/skills/`));
-        if (!resource || resource.protocol !== 'https:' || resource.href !== server.url ||
-            resource.pathname === '/' || /[?#%]/.test(server.url) || !hostname ||
+        // Preserve the published MCP resource identity even when URL adds a root slash.
+        const exactResource = resource && (resource.href === server.url ||
+          (resource.pathname === '/' && resource.origin === server.url));
+        if (!resource || resource.protocol !== 'https:' || !exactResource ||
+            /[?#%]/.test(server.url) || !hostname ||
             !hostname.includes('.') || hostname.endsWith('.localhost') || isIP(hostname) ||
             Object.keys(server.headers ?? {}).length !== 0 || Object.keys(auth).length !== 1 ||
             Object.keys(servers).length !== 1 || hasSkills ||

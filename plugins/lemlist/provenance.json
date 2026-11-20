@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "lemlist",
+    "repository": "https://www.lemlist.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://app.lemlist.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.lemlist.com/favicon.ico",
+      "sourceSHA256": "aacb304c53716e87e05a7eea7a7d395ec2f298c6c49294886c5f71ad6465f095",
+      "sha256": "e1621b6facad023a5a25cabdd78f2850f7a82b7ae988b4d3a51eed45875df480",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "lemlist branding used to identify the service"
+    }
+  ]
+}

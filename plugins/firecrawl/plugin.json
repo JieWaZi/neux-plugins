@@ -1,0 +1,58 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "firecrawl",
+  "version": "0.1.0",
+  "description": "Search public web pages and collect structured content with Firecrawl.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/firecrawl/firecrawl-mcp-server",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Firecrawl",
+        "shortDescription": "Search public web pages and collect structured content with Firecrawl.",
+        "developerName": "Firecrawl",
+        "category": "research",
+        "websiteURL": "https://www.firecrawl.dev",
+        "supportURL": "https://docs.firecrawl.dev/mcp-server/keyless#add-an-api-key",
+        "privacyPolicyURL": "https://www.firecrawl.dev/privacy",
+        "termsOfServiceURL": "https://www.firecrawl.dev/terms",
+        "capabilities": [
+          "Search the web and scrape public pages",
+          "Parse supported documents to extract text",
+          "Map and crawl sites within team limits"
+        ],
+        "defaultPrompt": [
+          "Find the latest public release notes for the named project and summarize their breaking changes with links."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "FIRECRAWL_API_KEY",
+            "label": "API key",
+            "description": "Create an API key in your Firecrawl team dashboard.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "firecrawl",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${FIRECRAWL_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

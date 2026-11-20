@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Raindrop.io",
+    "zh-CN": "Raindrop.io"
+  },
+  "localizedDescriptions": {
+    "en": "Search and organize bookmarks from your Raindrop.io collections.",
+    "zh-CN": "检索和整理 Raindrop.io 收藏夹中的书签。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Raindrop.io."
+    ],
+    "zh-CN": [
+      "查看我在 Raindrop.io 中可以访问哪些资源。"
+    ]
+  }
+}

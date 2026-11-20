@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Circleback",
+    "repository": "https://circleback.ai",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://circleback.ai/api/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://circleback.ai/apple-touch-icon.png",
+      "sourceSHA256": "debf4cc62986840c43c255e165fc9486e86926a61cdc2395fde544af48ce83c4",
+      "sha256": "9c4d7123addd732e1624332f08aed8ed1e09bac323faa30f0affac7d8e4302f2",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Circleback branding used to identify the service"
+    }
+  ]
+}

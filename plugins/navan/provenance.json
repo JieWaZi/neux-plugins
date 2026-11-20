@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Navan",
+    "repository": "https://navan.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.navan.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://navan.com/favicon.ico",
+      "sourceSHA256": "7f9d2dd6cb655f0bd30ae77067f1c2e2fc08af5b7623f179cbad920e046e4354",
+      "sha256": "4b4f66843b10ee3031d6c95c6ac940a1505b812cf35011bc27dae2db611708d2",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Navan branding used to identify the service"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "roam",
+  "version": "0.1.0",
+  "description": "Search the notes and linked ideas in your Roam Research graph.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://roamresearch.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Roam Research",
+        "shortDescription": "Search the notes and linked ideas in your Roam Research graph.",
+        "developerName": "Roam Research",
+        "category": "productivity",
+        "websiteURL": "https://roamresearch.com",
+        "supportURL": "https://roamresearch.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Roam Research."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

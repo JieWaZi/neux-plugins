@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Clerk",
+    "repository": "https://clerk.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.clerk.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://avatars.githubusercontent.com/u/49538330?s=256&v=4",
+      "sourceSHA256": "9fad7e37feee495e3dd100b378f679baa9f9289c3efe673b381113d2c4c6b07d",
+      "sha256": "14ee37cd5b3102f802c5a3335069ca75fb5d2d4d8d185733060d832e82cb0cba",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Clerk branding used to identify the service"
+    }
+  ]
+}

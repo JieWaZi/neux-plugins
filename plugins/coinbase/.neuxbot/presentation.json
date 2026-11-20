@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Coinbase",
+    "zh-CN": "Coinbase"
+  },
+  "localizedDescriptions": {
+    "en": "Look up Coinbase market information and the records available to your account.",
+    "zh-CN": "查找 Coinbase 的市场资料及账户可访问的记录。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Coinbase."
+    ],
+    "zh-CN": [
+      "查看我可以在 Coinbase 中读取哪些资料。"
+    ]
+  }
+}

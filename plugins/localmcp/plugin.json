@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "localmcp",
+  "version": "0.1.0",
+  "description": "Access the computer apps you have shared through LMCP.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.local-mcp.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "LMCP",
+        "shortDescription": "Access the computer apps you have shared through LMCP.",
+        "developerName": "Colibird",
+        "category": "productivity",
+        "websiteURL": "https://www.local-mcp.com",
+        "supportURL": "https://www.local-mcp.com",
+        "defaultPrompt": [
+          "Show which resources I can access in LMCP."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "artie",
+  "version": "0.1.0",
+  "description": "Inspect database replication pipelines and their status in Artie.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.artie.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Artie",
+        "shortDescription": "Inspect database replication pipelines and their status in Artie.",
+        "developerName": "Artie",
+        "category": "data-analytics",
+        "websiteURL": "https://www.artie.com",
+        "supportURL": "https://www.artie.com",
+        "defaultPrompt": [
+          "Show what information I can read in Artie."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

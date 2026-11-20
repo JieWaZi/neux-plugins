@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "21st",
+    "zh-CN": "21st"
+  },
+  "localizedDescriptions": {
+    "en": "Explore reusable interface components and design references for web projects.",
+    "zh-CN": "查找网页项目可复用的界面组件和设计参考。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in 21st."
+    ],
+    "zh-CN": [
+      "查看我可以在 21st 中访问的项目或开发资源。"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "opusclip",
+  "version": "0.1.0",
+  "description": "Review video projects and short clips in OpusClip.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.opus.pro",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "OpusClip",
+        "shortDescription": "Review video projects and short clips in OpusClip.",
+        "developerName": "OpusClip",
+        "category": "design",
+        "websiteURL": "https://www.opus.pro",
+        "supportURL": "https://www.opus.pro",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in OpusClip."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

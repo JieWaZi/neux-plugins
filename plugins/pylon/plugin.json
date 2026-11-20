@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "pylon",
+  "version": "0.1.0",
+  "description": "Find customer requests, accounts, and support history in Pylon.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.usepylon.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Pylon",
+        "shortDescription": "Find customer requests, accounts, and support history in Pylon.",
+        "developerName": "Pylon",
+        "category": "productivity",
+        "websiteURL": "https://www.usepylon.com",
+        "supportURL": "https://www.usepylon.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Pylon."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

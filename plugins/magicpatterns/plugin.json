@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "magicpatterns",
+  "version": "0.1.0",
+  "description": "Work with interface designs and prototypes in Magic Patterns.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.magicpatterns.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Magic Patterns",
+        "shortDescription": "Work with interface designs and prototypes in Magic Patterns.",
+        "developerName": "Magic Patterns",
+        "category": "design",
+        "websiteURL": "https://www.magicpatterns.com",
+        "supportURL": "https://www.magicpatterns.com",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Magic Patterns."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

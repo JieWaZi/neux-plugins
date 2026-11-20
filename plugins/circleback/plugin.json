@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "circleback",
+  "version": "0.1.0",
+  "description": "Find meeting notes and follow-up items in Circleback.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://circleback.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Circleback",
+        "shortDescription": "Find meeting notes and follow-up items in Circleback.",
+        "developerName": "Circleback",
+        "category": "productivity",
+        "websiteURL": "https://circleback.ai",
+        "supportURL": "https://circleback.ai",
+        "defaultPrompt": [
+          "Show which resources I can access in Circleback."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Ando",
+    "repository": "https://www.ando.so",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.ando.so/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.ando.so/icon.png",
+      "sourceSHA256": "4a6dd3a25ea4391082760fb629626e3e8dbd942f84b6a988606d516ba911ea3b",
+      "sha256": "e01eda0d2dfd9ef584e7c014d18d7799d853776408f28b30a5cb156f4761d377",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Ando branding used to identify the service"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "postman",
+  "version": "0.1.0",
+  "description": "Inspect API collections, workspaces, and other Postman resources.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.postman.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Postman",
+        "shortDescription": "Inspect API collections, workspaces, and other Postman resources.",
+        "developerName": "Postman",
+        "category": "coding",
+        "websiteURL": "https://www.postman.com",
+        "supportURL": "https://www.postman.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Postman."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

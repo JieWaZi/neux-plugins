@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "alphavantage",
+  "version": "0.1.0",
+  "description": "Look up financial time series and market information from Alpha Vantage.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.alphavantage.co",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Alpha Vantage",
+        "shortDescription": "Look up financial time series and market information from Alpha Vantage.",
+        "developerName": "Alpha Vantage",
+        "category": "data-analytics",
+        "websiteURL": "https://www.alphavantage.co",
+        "supportURL": "https://www.alphavantage.co",
+        "defaultPrompt": [
+          "Show what information I can read in Alpha Vantage."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

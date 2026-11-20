@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Neon",
+    "zh-CN": "Neon"
+  },
+  "localizedDescriptions": {
+    "en": "Work with the Postgres projects and branches available in Neon.",
+    "zh-CN": "处理 Neon 中可访问的 Postgres 项目和分支。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Neon."
+    ],
+    "zh-CN": [
+      "查看我可以在 Neon 中访问的项目或开发资源。"
+    ]
+  }
+}

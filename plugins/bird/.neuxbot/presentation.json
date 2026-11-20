@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Bird",
+    "zh-CN": "Bird"
+  },
+  "localizedDescriptions": {
+    "en": "Review available messaging and customer communication records in Bird.",
+    "zh-CN": "查看 Bird 中的消息及客户沟通记录。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the resources available to me in Bird without making changes."
+    ],
+    "zh-CN": [
+      "查看我在 Bird 中可以使用的资源，先不要执行更改。"
+    ]
+  }
+}

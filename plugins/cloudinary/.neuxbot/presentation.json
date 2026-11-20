@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Cloudinary",
+    "zh-CN": "Cloudinary"
+  },
+  "localizedDescriptions": {
+    "en": "Find and manage digital media available through Cloudinary's asset service.",
+    "zh-CN": "在 Cloudinary 的素材服务中查找和管理数字媒体。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Cloudinary."
+    ],
+    "zh-CN": [
+      "查看我可以在 Cloudinary 中访问的素材或创意资源。"
+    ]
+  }
+}

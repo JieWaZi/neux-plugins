@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "klaviyo",
+  "version": "0.1.0",
+  "description": "Review audience and campaign data in your Klaviyo account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.klaviyo.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Klaviyo",
+        "shortDescription": "Review audience and campaign data in your Klaviyo account.",
+        "developerName": "Klaviyo",
+        "category": "productivity",
+        "websiteURL": "https://www.klaviyo.com",
+        "supportURL": "https://www.klaviyo.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Klaviyo."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

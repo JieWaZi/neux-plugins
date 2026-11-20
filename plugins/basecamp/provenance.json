@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "37signals",
+    "repository": "https://basecamp.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.basecamp.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://basecamp.com/assets/images/general/apple-touch-icon.png",
+      "sourceSHA256": "645e9c53b0367bb458b5d0144292e912c4a646a66593712c3c4e3440120414e1",
+      "sha256": "a8238ff60c6839502da35d6d1be9343d66254aa4901815bbd1832855ca7834e0",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "37signals branding used to identify the service"
+    }
+  ]
+}

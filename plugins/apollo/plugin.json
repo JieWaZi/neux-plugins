@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "apollo",
+  "version": "0.1.0",
+  "description": "Research companies, contacts, and sales prospects in Apollo.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.apollo.io",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Apollo",
+        "shortDescription": "Research companies, contacts, and sales prospects in Apollo.",
+        "developerName": "Apollo.io",
+        "category": "research",
+        "websiteURL": "https://www.apollo.io",
+        "supportURL": "https://www.apollo.io",
+        "defaultPrompt": [
+          "Explain what I can research with Apollo and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

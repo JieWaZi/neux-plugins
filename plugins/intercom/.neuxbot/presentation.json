@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Intercom",
+    "zh-CN": "Intercom"
+  },
+  "localizedDescriptions": {
+    "en": "Find customer conversations and support records in Intercom.",
+    "zh-CN": "在 Intercom 中查找客户对话和支持记录。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Intercom."
+    ],
+    "zh-CN": [
+      "查看我在 Intercom 中可以访问哪些资源。"
+    ]
+  }
+}

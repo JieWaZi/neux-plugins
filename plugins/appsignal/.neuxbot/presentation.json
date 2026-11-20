@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "AppSignal",
+    "zh-CN": "AppSignal"
+  },
+  "localizedDescriptions": {
+    "en": "Investigate application errors and performance using AppSignal data.",
+    "zh-CN": "通过 AppSignal 数据排查应用错误和性能问题。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in AppSignal."
+    ],
+    "zh-CN": [
+      "查看我可以在 AppSignal 中访问的项目或开发资源。"
+    ]
+  }
+}

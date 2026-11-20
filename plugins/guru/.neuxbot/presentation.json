@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Guru",
+    "zh-CN": "Guru"
+  },
+  "localizedDescriptions": {
+    "en": "Search the verified knowledge available in your Guru workspace.",
+    "zh-CN": "检索 Guru 工作区内可访问的已验证知识。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which documents I can read in Guru."
+    ],
+    "zh-CN": [
+      "查看我可以在 Guru 中读取哪些文档。"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Magnific",
+    "repository": "https://www.magnific.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.magnific.com"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://media.magnific.com/magnific-favicons/apple-touch-icon.png?w=180&v=2",
+      "sourceSHA256": "9cf2cdefc95157533e7e51646618ef5fe536c69f90b29ba4a2f57e66971dc854",
+      "sha256": "6e5e399405d642d513cf577c8610aca5fdcfe1885e6b8d2b583d461dfad4b2ae",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Magnific branding used to identify the service"
+    }
+  ]
+}

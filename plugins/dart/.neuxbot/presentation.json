@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Dart",
+    "zh-CN": "Dart"
+  },
+  "localizedDescriptions": {
+    "en": "Work with project tasks and team planning in Dart.",
+    "zh-CN": "在 Dart 中处理项目任务和团队计划。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Dart."
+    ],
+    "zh-CN": [
+      "查看我在 Dart 中可以访问哪些资源。"
+    ]
+  }
+}

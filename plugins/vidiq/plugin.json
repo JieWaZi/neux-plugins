@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "vidiq",
+  "version": "0.1.0",
+  "description": "Review video, channel, and topic research from vidIQ.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://vidiq.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "vidIQ",
+        "shortDescription": "Review video, channel, and topic research from vidIQ.",
+        "developerName": "vidIQ",
+        "category": "data-analytics",
+        "websiteURL": "https://vidiq.com",
+        "supportURL": "https://vidiq.com",
+        "defaultPrompt": [
+          "Show what information I can read in vidIQ."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

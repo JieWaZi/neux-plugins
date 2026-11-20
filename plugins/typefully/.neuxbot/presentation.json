@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Typefully",
+    "zh-CN": "Typefully"
+  },
+  "localizedDescriptions": {
+    "en": "Find social writing drafts and review scheduled posts in Typefully.",
+    "zh-CN": "在 Typefully 中查找社交内容草稿并查看排定的帖子。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Typefully."
+    ],
+    "zh-CN": [
+      "查看我在 Typefully 中可以访问哪些资源。"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Buffer",
+    "zh-CN": "Buffer"
+  },
+  "localizedDescriptions": {
+    "en": "Review connected social channels and publishing schedules in Buffer.",
+    "zh-CN": "查看 Buffer 中已连接的社交渠道和发布计划。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the resources available to me in Buffer without making changes."
+    ],
+    "zh-CN": [
+      "查看我在 Buffer 中可以使用的资源，先不要执行更改。"
+    ]
+  }
+}

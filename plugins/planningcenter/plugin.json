@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "planningcenter",
+  "version": "0.1.0",
+  "description": "Review the people and organizational resources available in Planning Center.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.planningcenter.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Planning Center",
+        "shortDescription": "Review the people and organizational resources available in Planning Center.",
+        "developerName": "Planning Center",
+        "category": "productivity",
+        "websiteURL": "https://www.planningcenter.com",
+        "supportURL": "https://www.planningcenter.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Planning Center."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

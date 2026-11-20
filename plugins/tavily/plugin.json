@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "tavily",
+  "version": "0.1.0",
+  "description": "Research public web sources with Tavily search and extraction capabilities.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.tavily.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Tavily",
+        "shortDescription": "Research public web sources with Tavily search and extraction capabilities.",
+        "developerName": "Tavily",
+        "category": "research",
+        "websiteURL": "https://www.tavily.com",
+        "supportURL": "https://www.tavily.com",
+        "defaultPrompt": [
+          "Explain what I can research with Tavily and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

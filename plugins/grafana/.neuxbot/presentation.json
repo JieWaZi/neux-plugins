@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Grafana Cloud",
+    "zh-CN": "Grafana Cloud"
+  },
+  "localizedDescriptions": {
+    "en": "Investigate metrics, logs, and dashboards in Grafana Cloud.",
+    "zh-CN": "在 Grafana Cloud 中查看指标、日志和仪表板。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Grafana Cloud."
+    ],
+    "zh-CN": [
+      "查看我可以在 Grafana Cloud 中访问的项目或开发资源。"
+    ]
+  }
+}

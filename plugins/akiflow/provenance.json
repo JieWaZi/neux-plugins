@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Akiflow",
+    "repository": "https://akiflow.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.akiflow.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://framerusercontent.com/images/6iPdkAmt5PSRYjZma5sMZn2QrhM.png",
+      "sourceSHA256": "034dcc03250e0a6dc41b02d9109cea13842fe64d239851b4bdb293eb28a5b497",
+      "sha256": "27c29b66c40859c1478b2e001c3a9d8be94afca95e81e4ea31403687b54ac9c6",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Akiflow branding used to identify the service"
+    }
+  ]
+}

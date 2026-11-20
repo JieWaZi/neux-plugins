@@ -33,7 +33,7 @@
     },
     {
       "path": "provenance.schema.json",
-      "sha256": "1935a410c7bc4da94a8fe990ad5bf42e65d9e518a02e8de54aa18b24be8e5de8",
+      "sha256": "a7ce90f138724a8957f478287ea20f2a7f77928688f012634c141da11cd6813a",
       "source": "NeuxBot phase-one target profile"
     },
     {

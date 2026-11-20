@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "SE Ranking",
+    "zh-CN": "SE Ranking"
+  },
+  "localizedDescriptions": {
+    "en": "Review ranking, website, and keyword research in SE Ranking.",
+    "zh-CN": "查看 SE Ranking 中的排名、网站及关键词研究资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with SE Ranking and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 SE Ranking 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

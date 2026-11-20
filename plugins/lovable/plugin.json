@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "lovable",
+  "version": "0.1.0",
+  "description": "Review the app projects available in your Lovable workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://lovable.dev",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Lovable",
+        "shortDescription": "Review the app projects available in your Lovable workspace.",
+        "developerName": "Lovable",
+        "category": "coding",
+        "websiteURL": "https://lovable.dev",
+        "supportURL": "https://lovable.dev",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Lovable."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

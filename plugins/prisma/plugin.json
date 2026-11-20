@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "prisma",
+  "version": "0.1.0",
+  "description": "Review database and project resources in Prisma.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.prisma.io",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Prisma",
+        "shortDescription": "Review database and project resources in Prisma.",
+        "developerName": "Prisma",
+        "category": "coding",
+        "websiteURL": "https://www.prisma.io",
+        "supportURL": "https://www.prisma.io",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Prisma."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

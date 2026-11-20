@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ibkr",
+  "version": "0.1.0",
+  "description": "Review the account and market information available through Interactive Brokers.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.interactivebrokers.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "IBKR",
+        "shortDescription": "Review the account and market information available through Interactive Brokers.",
+        "developerName": "Interactive Brokers",
+        "category": "data-analytics",
+        "websiteURL": "https://www.interactivebrokers.com",
+        "supportURL": "https://www.interactivebrokers.com",
+        "defaultPrompt": [
+          "Show what information I can read in IBKR."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

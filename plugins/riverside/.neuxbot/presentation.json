@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Riverside",
+    "zh-CN": "Riverside"
+  },
+  "localizedDescriptions": {
+    "en": "Work with studio recordings and media projects in Riverside.",
+    "zh-CN": "在 Riverside 中处理录制内容和媒体项目。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Riverside."
+    ],
+    "zh-CN": [
+      "查看我可以在 Riverside 中访问的素材或创意资源。"
+    ]
+  }
+}

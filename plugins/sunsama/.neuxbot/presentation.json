@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Sunsama",
+    "zh-CN": "Sunsama"
+  },
+  "localizedDescriptions": {
+    "en": "Review your daily plan, tasks, and calendar information in Sunsama.",
+    "zh-CN": "查看 Sunsama 中的每日计划、任务和日历信息。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Sunsama."
+    ],
+    "zh-CN": [
+      "查看我在 Sunsama 中可以访问哪些资源。"
+    ]
+  }
+}

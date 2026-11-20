@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Base44",
+    "zh-CN": "Base44"
+  },
+  "localizedDescriptions": {
+    "en": "Access Base44 app projects and the resources available in your workspace.",
+    "zh-CN": "访问 Base44 应用项目及工作区内可用的资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Base44."
+    ],
+    "zh-CN": [
+      "查看我可以在 Base44 中访问的项目或开发资源。"
+    ]
+  }
+}

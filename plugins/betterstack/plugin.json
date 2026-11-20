@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "betterstack",
+  "version": "0.1.0",
+  "description": "Check observability and incident information in Better Stack.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://betterstack.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Better Stack",
+        "shortDescription": "Check observability and incident information in Better Stack.",
+        "developerName": "Better Stack",
+        "category": "coding",
+        "websiteURL": "https://betterstack.com",
+        "supportURL": "https://betterstack.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Better Stack."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Lovable",
+    "repository": "https://lovable.dev",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.lovable.dev"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/a7/07/33/a707336e-9828-a75d-44a6-927076691dfd/app-icon-0-0-1x_U007epad-0-0-0-1-0-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "b1104c3689937b084eb9bb923fad8d47f24335750d0529fe28d57b9d9f8d5f1b",
+      "sha256": "cbbe0d8220e99caff36f0276dcc7fcf5841a36f7022c69c50ac6cf607aecf306",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Lovable branding used to identify the service"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Harmonic",
+    "repository": "https://support.harmonic.ai/en/articles/16400174-connect-harmonic-mcp-to-copilot-studio",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.api.harmonic.ai/"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the provider-documented root slash URI with exact protected-resource metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/84/11/02/8411025a-7712-ec5b-cbe7-9b5039030f94/AppIcon-0-0-1x_U007ephone-0-1-0-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "2df7c03ddf9d034e51ff1c43b6c2d6fc6d53e737a9c44a7d3d0d499f8acf70f2",
+      "sha256": "f721b36a808cc665e4e984a1495ef0d7819cf0775e315589cddac7b5ef7a2c84",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Harmonic branding used to identify the service"
+    }
+  ]
+}

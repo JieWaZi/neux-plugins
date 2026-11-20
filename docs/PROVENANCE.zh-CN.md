@@ -18,6 +18,7 @@
 
 - `distribution.mode: vendored-source`：经核验的源码、技能或其他业务实现复制到维护包中。必须提供完整 40 位小写提交 `commit`，有真实来源标签或版本时填写 `tag` 或 `version`。保留相对资源、原始许可并说明封装改动；目录构建及安装不再抓取上游源码。
 - `distribution.mode: hosted-service`：包只通过 `distribution.url` 声明远程服务，不分发其服务实现。未固定服务端版本时不填造 `commit`、`tag` 或 `version`。GitHub 使用官方托管 MCP，辅助授权的 GitHub CLI 是单独锁定的依赖；宿主不补造缺失的业务版本。项目开源许可不等于远程服务或商标使用权。
+- `distribution.mode: local-service` 表示由另行安装的应用在 Core 所在电脑上提供 MCP 服务。URL 必须是规范的数字回环 HTTP 地址，并与无需凭据的 Streamable HTTP 声明完全一致。插件包不包含该应用，也不声明其服务版本。
 
 结构示例（示意值须替换为实际核验结果）：
 

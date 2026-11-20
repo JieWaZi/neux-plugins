@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Granola",
+    "repository": "https://www.granola.ai",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.granola.ai/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.granola.ai/favicon/apple-touch-icon.png",
+      "sourceSHA256": "906af4dff73c2ea4cc10601974f9855ae25d965c09679e62ffe84091e29dafbd",
+      "sha256": "906af4dff73c2ea4cc10601974f9855ae25d965c09679e62ffe84091e29dafbd",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Granola branding used to identify the service"
+    }
+  ]
+}

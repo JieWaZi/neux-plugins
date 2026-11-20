@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "amplemarket",
+  "version": "0.1.0",
+  "description": "Research leads and review sales outreach in Amplemarket.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.amplemarket.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Amplemarket",
+        "shortDescription": "Research leads and review sales outreach in Amplemarket.",
+        "developerName": "Amplemarket",
+        "category": "research",
+        "websiteURL": "https://www.amplemarket.com",
+        "supportURL": "https://www.amplemarket.com",
+        "defaultPrompt": [
+          "Explain what I can research with Amplemarket and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Cloudinary",
+    "repository": "https://cloudinary.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://asset-management.mcp.cloudinary.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://cloudinary.com/favicon.ico",
+      "sourceSHA256": "6921180d2f5aa10f464c8daee904d5adfab0765f0bb763edbdd323017fb11204",
+      "sha256": "2957d261569bb782248dfcd6fbf8f478ed9977d811f3296cf3b8655056432231",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Cloudinary branding used to identify the service"
+    }
+  ]
+}

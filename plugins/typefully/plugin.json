@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "typefully",
+  "version": "0.1.0",
+  "description": "Find social writing drafts and review scheduled posts in Typefully.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://typefully.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Typefully",
+        "shortDescription": "Find social writing drafts and review scheduled posts in Typefully.",
+        "developerName": "Typefully",
+        "category": "productivity",
+        "websiteURL": "https://typefully.com",
+        "supportURL": "https://typefully.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Typefully."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

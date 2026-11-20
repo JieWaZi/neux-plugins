@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Readwise",
+    "repository": "https://readwise.io",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp2.readwise.io/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://readwise.io/favicon.ico",
+      "sourceSHA256": "d7bd9c0d30a6f5bf92ca3074141b16a41f7449945154af2e31b51a2ca7938069",
+      "sha256": "a7600fef6775cb7777112619f76f6f632d788f91a94553b3f7c1be5e1b20c864",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Readwise branding used to identify the service"
+    }
+  ]
+}

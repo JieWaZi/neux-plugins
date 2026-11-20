@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Zapier",
+    "zh-CN": "Zapier"
+  },
+  "localizedDescriptions": {
+    "en": "Use the connected app capabilities you have configured in Zapier.",
+    "zh-CN": "使用在 Zapier 中配置的已连接应用能力。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the resources available to me in Zapier without making changes."
+    ],
+    "zh-CN": [
+      "查看我在 Zapier 中可以使用的资源，先不要执行更改。"
+    ]
+  }
+}

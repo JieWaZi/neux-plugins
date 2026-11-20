@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "LMCP",
+    "zh-CN": "LMCP"
+  },
+  "localizedDescriptions": {
+    "en": "Access the computer apps you have shared through LMCP.",
+    "zh-CN": "访问通过 LMCP 共享的本机应用。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in LMCP."
+    ],
+    "zh-CN": [
+      "查看我在 LMCP 中可以访问哪些资源。"
+    ]
+  }
+}

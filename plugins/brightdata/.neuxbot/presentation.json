@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Bright Data",
+    "zh-CN": "Bright Data"
+  },
+  "localizedDescriptions": {
+    "en": "Retrieve public web data through the services enabled in Bright Data.",
+    "zh-CN": "通过 Bright Data 中已启用的服务获取公开网页数据。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with Bright Data and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 Bright Data 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

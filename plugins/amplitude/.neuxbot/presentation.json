@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Amplitude",
+    "zh-CN": "Amplitude"
+  },
+  "localizedDescriptions": {
+    "en": "Investigate product usage and behavioral analytics in Amplitude.",
+    "zh-CN": "在 Amplitude 中分析产品使用情况和用户行为。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Amplitude."
+    ],
+    "zh-CN": [
+      "查看我可以在 Amplitude 中读取哪些资料。"
+    ]
+  }
+}

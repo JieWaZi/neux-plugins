@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ifttt",
+  "version": "0.1.0",
+  "description": "Review connected services and available automations in IFTTT.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://ifttt.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "IFTTT",
+        "shortDescription": "Review connected services and available automations in IFTTT.",
+        "developerName": "IFTTT",
+        "category": "automation",
+        "websiteURL": "https://ifttt.com",
+        "supportURL": "https://ifttt.com",
+        "defaultPrompt": [
+          "Show the resources available to me in IFTTT without making changes."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

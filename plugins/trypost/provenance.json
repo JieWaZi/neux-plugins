@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "TryPost",
+    "repository": "https://trypost.it",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://app.trypost.it/mcp/trypost"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://app.trypost.it/images/integrations/openbot.png",
+      "sourceSHA256": "14627fbb071fafaa397863a5a772e0a2e573c626fb286cdeac5041be12c912ce",
+      "sha256": "850b7992956b09a5c4cf1681006aeba29b562ff1a7a4f3b76418761f991bac18",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "TryPost branding used to identify the service"
+    }
+  ]
+}

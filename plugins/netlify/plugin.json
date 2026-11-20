@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "netlify",
+  "version": "0.1.0",
+  "description": "Inspect sites, deploys, and project resources in Netlify.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.netlify.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Netlify",
+        "shortDescription": "Inspect sites, deploys, and project resources in Netlify.",
+        "developerName": "Netlify",
+        "category": "coding",
+        "websiteURL": "https://www.netlify.com",
+        "supportURL": "https://www.netlify.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Netlify."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

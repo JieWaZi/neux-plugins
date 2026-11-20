@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "WorkOS",
+    "zh-CN": "WorkOS"
+  },
+  "localizedDescriptions": {
+    "en": "Review identity and organization resources available in WorkOS.",
+    "zh-CN": "查看 WorkOS 中可访问的身份和组织资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in WorkOS."
+    ],
+    "zh-CN": [
+      "查看我可以在 WorkOS 中访问的项目或开发资源。"
+    ]
+  }
+}

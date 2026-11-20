@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Craft",
+    "zh-CN": "Craft"
+  },
+  "localizedDescriptions": {
+    "en": "Find and work with documents in your Craft spaces.",
+    "zh-CN": "在 Craft 空间中查找和处理文档。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which documents I can read in Craft."
+    ],
+    "zh-CN": [
+      "查看我可以在 Craft 中读取哪些文档。"
+    ]
+  }
+}

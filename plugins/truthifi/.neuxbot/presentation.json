@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Truthifi",
+    "zh-CN": "Truthifi"
+  },
+  "localizedDescriptions": {
+    "en": "Review data from investment accounts connected to Truthifi.",
+    "zh-CN": "查看关联至 Truthifi 的投资账户资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Truthifi."
+    ],
+    "zh-CN": [
+      "查看我可以在 Truthifi 中读取哪些资料。"
+    ]
+  }
+}

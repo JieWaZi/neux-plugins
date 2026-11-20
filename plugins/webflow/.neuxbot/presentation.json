@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Webflow",
+    "zh-CN": "Webflow"
+  },
+  "localizedDescriptions": {
+    "en": "Explore websites and CMS content in your Webflow account.",
+    "zh-CN": "查看 Webflow 账户中的网站和 CMS 内容。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Webflow."
+    ],
+    "zh-CN": [
+      "查看我可以在 Webflow 中访问的素材或创意资源。"
+    ]
+  }
+}

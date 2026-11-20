@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "IFTTT",
+    "zh-CN": "IFTTT"
+  },
+  "localizedDescriptions": {
+    "en": "Review connected services and available automations in IFTTT.",
+    "zh-CN": "查看 IFTTT 中已连接的服务和可用的自动化流程。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the resources available to me in IFTTT without making changes."
+    ],
+    "zh-CN": [
+      "查看我在 IFTTT 中可以使用的资源，先不要执行更改。"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "webflow",
+  "version": "0.1.0",
+  "description": "Explore websites and CMS content in your Webflow account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://webflow.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Webflow",
+        "shortDescription": "Explore websites and CMS content in your Webflow account.",
+        "developerName": "Webflow",
+        "category": "design",
+        "websiteURL": "https://webflow.com",
+        "supportURL": "https://webflow.com",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Webflow."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

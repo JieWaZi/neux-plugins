@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "browserless",
+  "version": "0.1.0",
+  "description": "Use Browserless capabilities for browser-based tasks and page extraction.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.browserless.io",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Browserless",
+        "shortDescription": "Use Browserless capabilities for browser-based tasks and page extraction.",
+        "developerName": "Browserless",
+        "category": "automation",
+        "websiteURL": "https://www.browserless.io",
+        "supportURL": "https://www.browserless.io",
+        "defaultPrompt": [
+          "Show the resources available to me in Browserless without making changes."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Ryze AI",
+    "zh-CN": "Ryze AI"
+  },
+  "localizedDescriptions": {
+    "en": "Review advertising campaign performance from accounts connected to Ryze AI.",
+    "zh-CN": "查看与 Ryze AI 连接的广告账户及投放表现。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Ryze AI."
+    ],
+    "zh-CN": [
+      "查看我可以在 Ryze AI 中读取哪些资料。"
+    ]
+  }
+}

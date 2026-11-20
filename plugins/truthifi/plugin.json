@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "truthifi",
+  "version": "0.1.0",
+  "description": "Review data from investment accounts connected to Truthifi.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://truthifi.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Truthifi",
+        "shortDescription": "Review data from investment accounts connected to Truthifi.",
+        "developerName": "Truthifi",
+        "category": "data-analytics",
+        "websiteURL": "https://truthifi.com",
+        "supportURL": "https://truthifi.com",
+        "defaultPrompt": [
+          "Show what information I can read in Truthifi."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

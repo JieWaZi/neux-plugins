@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "helpscout",
+  "version": "0.1.0",
+  "description": "Look up customer conversations and mailbox activity in Help Scout.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.helpscout.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Help Scout",
+        "shortDescription": "Look up customer conversations and mailbox activity in Help Scout.",
+        "developerName": "Help Scout",
+        "category": "productivity",
+        "websiteURL": "https://www.helpscout.com",
+        "supportURL": "https://www.helpscout.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Help Scout."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

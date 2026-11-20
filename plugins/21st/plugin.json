@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "21st",
+  "version": "0.1.0",
+  "description": "Explore reusable interface components and design references for web projects.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://21st.dev",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "21st",
+        "shortDescription": "Explore reusable interface components and design references for web projects.",
+        "developerName": "21st",
+        "category": "coding",
+        "websiteURL": "https://21st.dev",
+        "supportURL": "https://21st.dev",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in 21st."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

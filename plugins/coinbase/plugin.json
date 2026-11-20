@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "coinbase",
+  "version": "0.1.0",
+  "description": "Look up Coinbase market information and the records available to your account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.coinbase.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Coinbase",
+        "shortDescription": "Look up Coinbase market information and the records available to your account.",
+        "developerName": "Coinbase",
+        "category": "data-analytics",
+        "websiteURL": "https://www.coinbase.com",
+        "supportURL": "https://www.coinbase.com",
+        "defaultPrompt": [
+          "Show what information I can read in Coinbase."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}
