@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { readFileSync } from 'node:fs';
 import { validateProvenance } from '../provenance.mjs';
 
 const source = { schemaVersion: 1, upstream: { author: 'Example contributors', repository: 'https://github.com/example/example', license: 'MIT', commit: 'a'.repeat(40), tag: 'v1.2.3', distribution: { mode: 'vendored-source' } }, wrapper: { maintainer: 'NeuxBot contributors', repository: 'https://github.com/JieWaZi/neux-plugins', license: 'MIT', changes: ['Maintained manifest and authorization bridge'] }, dependencies: [], assets: [] };
@@ -14,9 +15,14 @@ test('维护包统一来源结构，业务署名版本直接来自upstream而非
     const data = JSON.parse(await readFile(new URL('provenance.json', base), 'utf8'));
     const manifest = JSON.parse(await readFile(new URL('plugin.json', base), 'utf8'));
     const files = new Map();
-    for (const asset of data.assets ?? []) files.set(`plugins/${key}/${asset.path}`, await readFile(new URL(asset.path, base)));
-    for (const dependency of data.dependencies ?? []) files.set(`plugins/${key}/${dependency.lock}`, await readFile(new URL(dependency.lock, base)));
-    validateProvenance({ data, packagePath: `plugins/${key}`, manifest, read: name => { assert.ok(files.has(name), name); return files.get(name); } });
+    const path = `plugins/${key}`;
+    const read = name => {
+      assert.ok(name.startsWith(`${path}/`), name);
+      const relative = name.slice(path.length + 1);
+      if (!files.has(name)) files.set(name, readFileSync(new URL(relative, base)));
+      return files.get(name);
+    };
+    validateProvenance({ data, packagePath: path, manifest, read });
     assert.deepEqual(Object.keys(data), ['schemaVersion', 'upstream', 'wrapper', 'dependencies', 'assets']);
     assert.match(manifest.version, /^(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)$/);
     assert.equal(data.wrapper.maintainer, manifest.author.name);

@@ -12,10 +12,12 @@ test('托管 OAuth 仅允许单个公开 HTTPS MCP 服务和宿主授权', () =>
     url: 'https://example.com/mcp',
     extensions: { 'com.openai': { auth: { type: 'oauth' } } },
   };
-  fixture({}, { remote }).run();
+  for (const url of [remote.url, 'https://example.com', 'https://example.com/']) {
+    fixture({}, { remote: { ...remote, url } }).run();
+  }
   for (const change of [
     { url: 'https://127.0.0.1/mcp' }, { url: 'https://example.com/mcp?token=secret' },
-    { url: 'https://example.com/' }, { type: 'sse' }, { headers: { Authorization: 'literal-secret' } },
+    { type: 'sse' }, { headers: { Authorization: 'literal-secret' } },
     { extensions: { 'com.openai': { auth: { type: 'oauth', clientId: 'external-client' } } } },
   ]) {
     assert.throws(() => fixture({}, { remote: { ...remote, ...change } }).run(), /OAuth/i);
