@@ -16,19 +16,19 @@
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
       "Wrote English and Simplified Chinese setup and usage guidance",
-      "Added an original pictogram for the connector",
-      "Vendor trademark terms: https://www.gohighlevel.com/terms-of-service"
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
     ]
   },
   "dependencies": [],
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://github.com/JieWaZi/neux-plugins",
-      "sha256": "d3f0dbd5cb25182ea0f59a1dc1c86d7cb6896dddbbe02d3e9990b7806b3daad9",
-      "license": "MIT",
-      "licenseURL": "https://github.com/JieWaZi/neux-plugins/blob/main/LICENSE",
-      "attribution": "NeuxBot contributors; original service-specific pictogram"
+      "sourceURL": "https://storage.googleapis.com/msgsndr/knES3eSWYIsc5YSZ3YLl/media/62b48689c85eccb36ca941fc.png",
+      "sourceSHA256": "4b58c79e1162b0c4159b14ed8cf1edd1816b38f98844f245e839d347fa5bf80d",
+      "sha256": "4b58c79e1162b0c4159b14ed8cf1edd1816b38f98844f245e839d347fa5bf80d",
+      "license": "Service branding; copyright and trademark rights reserved",
+      "licenseURL": "https://www.gohighlevel.com/terms-of-service",
+      "attribution": "HighLevel; shown to identify the service, without endorsement"
     }
   ]
 }

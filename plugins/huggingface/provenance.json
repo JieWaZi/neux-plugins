@@ -16,19 +16,20 @@
     "changes": [
       "Author the standard manifest and bilingual presentation",
       "Declare the vendor-operated MCP endpoint for anonymous access",
-      "Packaged the upstream service icon as a local PNG"
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Encoded the original icon pixels as a compatible eight-bit PNG"
     ]
   },
   "dependencies": [],
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.png",
-      "sourceSHA256": "9cf16f4f32604eaf76dabbdf47701eea5a768ebcc7296acc1d1758181f71db73",
-      "sha256": "c7317f811ae0c1c517dc6839f684ae838df2e1fad7911d76c2be9f4fd7bd61b1",
-      "license": "Hugging Face brand assets usage terms; trademark rights reserved",
+      "sourceURL": "https://huggingface.co/favicon.ico",
+      "sourceSHA256": "7266292a5073388702cfca169d26766460cb90ba978bacc95c914ad7a5c611cb",
+      "sha256": "51bb4f17d97409b4398cce000e15fc183df068806821b460d5f236dd7f880a9d",
+      "license": "Service branding; copyright and trademark rights reserved",
       "licenseURL": "https://huggingface.co/brand",
-      "attribution": "Hugging Face; shown to identify the connected service, without endorsement"
+      "attribution": "Hugging Face; shown to identify the service, without endorsement"
     }
   ]
 }

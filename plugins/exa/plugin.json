@@ -1,6 +1,6 @@
 {
   "name": "exa",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Search the public web and retrieve page content through Exa.",
   "author": {
     "name": "NeuxBot contributors"
@@ -26,9 +26,7 @@
         "websiteURL": "https://exa.ai",
         "supportURL": "https://exa.ai/mcp",
         "logo": "./assets/icon.png",
-        "logoDark": "./assets/icon-dark.png",
-        "composerIcon": "./assets/icon.png",
-        "composerIconDark": "./assets/icon-dark.png"
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

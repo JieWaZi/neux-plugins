@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "revenuecat",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Review RevenueCat subscription products, offerings, and entitlements for a project.",
   "author": {
     "name": "NeuxBot contributors"

@@ -16,19 +16,19 @@
     "changes": [
       "Author the standard manifest and bilingual presentation",
       "Declare the vendor-operated MCP endpoint for anonymous access",
-      "Packaged the upstream service icon as a local PNG"
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
     ]
   },
   "dependencies": [],
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://parallel.ai/brand/parallel-ai-avatar-light.png",
-      "sourceSHA256": "e42e21e0e5875fbe7d801778ef727c8fde66060fc50551ca5ed67553e4ab8666",
-      "sha256": "d964a684a2595c632949d1b18b5011a7190a1869f75d2c0d57cb656700cae08a",
-      "license": "Parallel brand assets usage terms; trademark rights reserved",
+      "sourceURL": "https://parallel.ai/apple-icon.png",
+      "sourceSHA256": "c58ef509050d979286cdeeb392cc0fe62a1878a6176c8c30b4c8dda6b35650ed",
+      "sha256": "c58ef509050d979286cdeeb392cc0fe62a1878a6176c8c30b4c8dda6b35650ed",
+      "license": "Service branding; copyright and trademark rights reserved",
       "licenseURL": "https://parallel.ai/brand",
-      "attribution": "Parallel Web Systems; shown to identify the connected service, without endorsement"
+      "attribution": "Parallel Web Systems; shown to identify the service, without endorsement"
     }
   ]
 }

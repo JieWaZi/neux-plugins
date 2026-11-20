@@ -1,6 +1,6 @@
 {
   "name": "coingecko",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Retrieve cryptocurrency prices, historical market data and decentralized exchange pool data from CoinGecko.",
   "author": {
     "name": "NeuxBot contributors"

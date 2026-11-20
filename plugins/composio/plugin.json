@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "composio",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Discover and use the actions available in apps linked to Composio Connect.",
   "author": {
     "name": "NeuxBot contributors"
@@ -25,9 +25,7 @@
           "List the apps already connected to my Composio account and summarize what each one can do."
         ],
         "logo": "./assets/icon.png",
-        "logoDark": "./assets/icon-dark.png",
-        "composerIcon": "./assets/icon.png",
-        "composerIconDark": "./assets/icon-dark.png"
+        "composerIcon": "./assets/icon.png"
       }
     },
     "com.neuxbot": {

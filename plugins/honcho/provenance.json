@@ -16,20 +16,20 @@
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
       "Wrote English and Simplified Chinese setup and usage guidance",
-      "Packaged the upstream service icon as a local PNG"
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Encoded the original icon pixels as a compatible eight-bit PNG"
     ]
   },
   "dependencies": [],
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://honcho.dev/brand/honcho-brand-kit.zip",
-      "sourceSHA256": "b50592952d3f1b9738bb7c44f285fe5c29dbe2a230a555c9be48cc89a58fa4aa",
-      "sha256": "0f7b18e41285ff166124528d7b331a2b7edd0e4d945280c238e1509875ac8f74",
-      "license": "Honcho Brand Kit usage terms; trademark rights reserved",
+      "sourceURL": "https://honcho.dev/favicon.ico",
+      "sourceSHA256": "98ea7aee6ef254ef76758f6b398a5ec1a2090d41225a18c91ae0fe116efc6b76",
+      "sha256": "df965bbff9e5a00f5a0b344d9f2927fb9ef379cf8e046f1d807c447d86a61171",
+      "license": "Service branding; copyright and trademark rights reserved",
       "licenseURL": "https://honcho.dev",
-      "attribution": "Plastic Labs; shown to identify the connected service, without endorsement",
-      "sourcePath": "Honcho Brand Kit/8-bit/png/honcho-8bit-circle.png"
+      "attribution": "Plastic Labs; shown to identify the service, without endorsement"
     }
   ]
 }

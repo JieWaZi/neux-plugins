@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "highlevel",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Find CRM records, review opportunities, and check calendars in a HighLevel sub-account.",
   "author": {
     "name": "NeuxBot contributors"

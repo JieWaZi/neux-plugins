@@ -1,6 +1,6 @@
 {
   "name": "aws-knowledge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Search official AWS documentation and verify service, API and CloudFormation availability by region.",
   "author": {
     "name": "NeuxBot contributors"

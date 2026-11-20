@@ -16,28 +16,19 @@
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
       "Wrote English and Simplified Chinese setup and usage guidance",
-      "Packaged the upstream service icon as a local PNG"
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
     ]
   },
   "dependencies": [],
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://brand.posthog.com/logo/posthog-logomark-square.png",
-      "sourceSHA256": "33a43032529f4f71c8190fa19d1a5ef7ecac1493d2ff520d666a3bbe8a87f47f",
-      "sha256": "1a73da3f5a97af7ae93d634044b93d4799b4e425c3c1e2cbb3d54883eea654ac",
-      "license": "PostHog brand asset usage terms; trademark rights reserved",
+      "sourceURL": "https://app.posthog.com/static/icons/apple-touch-icon.png",
+      "sourceSHA256": "e9fff0f8ea0659969396c1ff833fe20cff342a185107e11d58e1bba0a5699245",
+      "sha256": "e9fff0f8ea0659969396c1ff833fe20cff342a185107e11d58e1bba0a5699245",
+      "license": "Service branding; copyright and trademark rights reserved",
       "licenseURL": "https://posthog.com/handbook/brand/assets",
-      "attribution": "PostHog; shown to identify the connected service, without endorsement"
-    },
-    {
-      "path": "assets/icon-dark.png",
-      "sourceURL": "https://brand.posthog.com/logo/posthog-logomark-square-white.png",
-      "sourceSHA256": "23256174f8b093a619f6bb109bf9546b9ec046f85e258bc3d9834ef3f1fa7a49",
-      "sha256": "47115b4bdc6bb4353823226140dcaf04897dcf582d9b91e13bbcc98c33ff2ee9",
-      "license": "PostHog brand asset usage terms; trademark rights reserved",
-      "licenseURL": "https://posthog.com/handbook/brand/assets",
-      "attribution": "PostHog; shown to identify the connected service, without endorsement"
+      "attribution": "PostHog; shown to identify the service, without endorsement"
     }
   ]
 }

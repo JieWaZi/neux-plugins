@@ -1,6 +1,6 @@
 {
   "name": "parallel",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Search the public web, retrieve source pages and organize evidence for a decision.",
   "author": {
     "name": "NeuxBot contributors"

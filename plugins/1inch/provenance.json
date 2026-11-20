@@ -22,12 +22,12 @@
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://github.com/JieWaZi/neux-plugins",
-      "sourcePath": "plugins/1inch/assets/icon.png",
-      "sha256": "0034b317af2efda562cf193ba1ee62ac5e3b8e2d357f78b9f45aff609c8fd17d",
-      "license": "MIT",
-      "licenseURL": "https://github.com/JieWaZi/neux-plugins/blob/main/LICENSE",
-      "attribution": "NeuxBot contributors, original artwork for this integration"
+      "sourceURL": "https://business.1inch.com/favicon/apple-touch-icon.png",
+      "sourceSHA256": "6ea20e4d18a5fdd64ffd9e4ee7122cca5499a837e6b115aebb25321a2d1652f6",
+      "sha256": "6ea20e4d18a5fdd64ffd9e4ee7122cca5499a837e6b115aebb25321a2d1652f6",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://business.1inch.com/portal/commercial-terms-of-service",
+      "attribution": "1inch, vendor artwork used to identify this integration"
     }
   ]
 }

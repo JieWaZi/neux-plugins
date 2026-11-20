@@ -22,12 +22,12 @@
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://github.com/JieWaZi/neux-plugins",
-      "sourcePath": "plugins/aws-knowledge/assets/icon.png",
-      "sha256": "30a799dc717faf1dfd291ac97a557fa749c07e5dbda72bf13c068c87bd6a97cf",
-      "license": "MIT",
-      "licenseURL": "https://github.com/JieWaZi/neux-plugins/blob/main/LICENSE",
-      "attribution": "NeuxBot contributors, original artwork for this integration"
+      "sourceURL": "https://a0.awsstatic.com/libra-css/images/site/touch-icon-ipad-144-smile.png",
+      "sourceSHA256": "f80d3ec6c5b2adee55267ecfcf2fc4131aa8551a546b7a1971b5e465c05c2403",
+      "sha256": "f80d3ec6c5b2adee55267ecfcf2fc4131aa8551a546b7a1971b5e465c05c2403",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://aws.amazon.com/trademark-guidelines/",
+      "attribution": "Amazon Web Services, vendor artwork used to identify this integration"
     }
   ]
 }

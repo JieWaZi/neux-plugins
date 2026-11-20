@@ -22,13 +22,12 @@
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://www.convex.dev/resources/logos.zip",
-      "sourcePath": "Logos/PNG/symbol-color.png",
-      "sourceSHA256": "1e9388d33c057aeb9732e4714ee3af1a0c5d301b9795fbe61f7c129e9788993d",
-      "sha256": "94f9a1da39f424cbe8d22dc67c6611864f007cf52078246cce3b7a18c2ebe22e",
-      "license": "Convex brand guidelines",
+      "sourceURL": "https://www.convex.dev/favicon.ico",
+      "sourceSHA256": "94b770b9ce98a9b4c79443215c96dea2a3d9ba6f6bf1cd5a613c62b277dc3cba",
+      "sha256": "7e69d61e0da59cb4231de3a3a7fd4cee5e3805ddca9d00a0deb39ec25519e049",
+      "license": "Vendor brand artwork, trademark rights reserved",
       "licenseURL": "https://www.convex.dev/brand",
-      "attribution": "Convex, official artwork used to identify this integration"
+      "attribution": "Convex, vendor artwork used to identify this integration"
     }
   ]
 }

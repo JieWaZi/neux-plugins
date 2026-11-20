@@ -16,19 +16,19 @@
     "changes": [
       "Declared the vendor-hosted MCP connection and its API key binding",
       "Wrote English and Simplified Chinese setup and usage guidance",
-      "Packaged the upstream service icon as a local PNG"
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
     ]
   },
   "dependencies": [],
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://raw.githubusercontent.com/vectorize-io/hindsight/55dde528ce978d1d583056275c96825274079a88/hindsight-favicon.png",
-      "sourceSHA256": "6a9f82908ded489a9b86777e9bde54efb3652384abf87dc299616b45fdc915cb",
-      "sha256": "b8e5fa04c3c6b27ad84128c8c06f120d035f4003254fb91ad7da93d5bbf287cb",
-      "license": "MIT (source asset); trademark rights reserved",
-      "licenseURL": "https://github.com/vectorize-io/hindsight/blob/55dde528ce978d1d583056275c96825274079a88/LICENSE",
-      "attribution": "Vectorize; shown to identify the connected service, without endorsement"
+      "sourceURL": "https://ui.hindsight.vectorize.io/apple-touch-icon.png",
+      "sourceSHA256": "361e0947c8820aa8ee3e0edacc1fd60f39a2719ab72cd14a2d6f3bf0b86a05ab",
+      "sha256": "361e0947c8820aa8ee3e0edacc1fd60f39a2719ab72cd14a2d6f3bf0b86a05ab",
+      "license": "Service branding; copyright and trademark rights reserved",
+      "licenseURL": "https://hindsight.vectorize.io",
+      "attribution": "Vectorize; shown to identify the service, without endorsement"
     }
   ]
 }

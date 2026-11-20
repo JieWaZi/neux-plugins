@@ -1,6 +1,6 @@
 {
   "name": "deepwiki",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Navigate generated documentation for public GitHub repositories and ask questions about their code.",
   "author": {
     "name": "NeuxBot contributors"

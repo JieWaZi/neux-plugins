@@ -16,19 +16,19 @@
     "changes": [
       "Author the standard manifest and bilingual presentation",
       "Declare the vendor-operated MCP endpoint for anonymous access",
-      "Added an original pictogram for the connector",
-      "Vendor trademark terms: https://www.twilio.com/en-us/legal/trademark"
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
     ]
   },
   "dependencies": [],
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://github.com/JieWaZi/neux-plugins",
-      "sha256": "67b6c75fa9f36293cadcd1ae1b6daaa9423fb634713a4c789281dd760a2597d7",
-      "license": "MIT",
-      "licenseURL": "https://github.com/JieWaZi/neux-plugins/blob/main/LICENSE",
-      "attribution": "NeuxBot contributors; original service-specific pictogram"
+      "sourceURL": "https://www.twilio.com/content/dam/twilio-com/core-assets/social/apple-touch-icon.png",
+      "sourceSHA256": "7581560d34436634899041fdc9ae63c75d6950a9b1c4965912ad22b6bddb488f",
+      "sha256": "7581560d34436634899041fdc9ae63c75d6950a9b1c4965912ad22b6bddb488f",
+      "license": "Service branding; copyright and trademark rights reserved",
+      "licenseURL": "https://www.twilio.com/en-us/legal/trademark",
+      "attribution": "Twilio; shown to identify the service, without endorsement"
     }
   ]
 }

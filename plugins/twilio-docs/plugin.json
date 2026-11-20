@@ -1,6 +1,6 @@
 {
   "name": "twilio-docs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Search public Twilio developer documentation and retrieve API endpoints, parameters and response schemas.",
   "author": {
     "name": "NeuxBot contributors"
