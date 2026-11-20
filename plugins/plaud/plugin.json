@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "plaud",
+  "version": "0.1.0",
+  "description": "Find Plaud recordings, transcripts, and meeting records.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.plaud.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Plaud",
+        "shortDescription": "Find Plaud recordings, transcripts, and meeting records.",
+        "developerName": "Plaud",
+        "category": "productivity",
+        "websiteURL": "https://www.plaud.ai",
+        "supportURL": "https://www.plaud.ai",
+        "defaultPrompt": [
+          "Show which resources I can access in Plaud."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

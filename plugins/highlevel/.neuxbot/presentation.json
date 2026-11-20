@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "HighLevel",
+    "zh-CN": "HighLevel"
+  },
+  "localizedDescriptions": {
+    "en": "Find CRM records, review opportunities, and check calendars in a HighLevel sub-account.",
+    "zh-CN": "搜索 HighLevel 子账号的 CRM 记录、查看销售机会和日历。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "List the open opportunities in this HighLevel location, grouped by pipeline stage."
+    ],
+    "zh-CN": [
+      "按销售阶段列出此 HighLevel 子账号中尚未关闭的销售机会。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Open Settings → Private Integrations in the HighLevel sub-account, create a token with the scopes you need, and enter the token and the Location ID from the same sub-account.",
+      "zh-CN": "在目标 HighLevel 子账号的「设置 → 私有集成」中创建令牌，勾选需要的权限，再填写该令牌和同一子账号的位置 ID。"
+    },
+    "helpURL": "https://marketplace.gohighlevel.com/docs/Authorization/PrivateIntegrationsToken/"
+  }
+}

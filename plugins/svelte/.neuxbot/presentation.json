@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Svelte",
+    "zh-CN": "Svelte"
+  },
+  "localizedDescriptions": {
+    "en": "Look up Svelte and SvelteKit documentation, check component code and prepare examples for the Svelte Playground.",
+    "zh-CN": "查阅 Svelte 与 SvelteKit 文档、检查组件代码并生成 Svelte Playground 示例。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Check a Svelte 5 component for issues and cite the documentation behind each suggested change."
+    ],
+    "zh-CN": [
+      "检查 Svelte 5 组件的问题，并为每条修正建议列出对应文档。"
+    ]
+  }
+}

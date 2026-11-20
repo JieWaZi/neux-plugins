@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "mobbin",
+  "version": "0.1.0",
+  "description": "Find interface examples and product design references in Mobbin.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://mobbin.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Mobbin",
+        "shortDescription": "Find interface examples and product design references in Mobbin.",
+        "developerName": "Mobbin",
+        "category": "design",
+        "websiteURL": "https://mobbin.com",
+        "supportURL": "https://mobbin.com",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Mobbin."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Interactive Brokers",
+    "repository": "https://www.interactivebrokers.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://api.ibkr.com/v1/api/mcp-public"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.interactivebrokers.com/images/web/favicons/home-screen-icon-192x192.png",
+      "sourceSHA256": "5c658db5247eccd8ecda0e8fe17434b9cb4e999a501677e35910504fd0419261",
+      "sha256": "0702f213ff098319d8f9af1f9ed8abb06607358b35bec65ab6335a0e16ea6d05",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Interactive Brokers branding used to identify the service"
+    }
+  ]
+}

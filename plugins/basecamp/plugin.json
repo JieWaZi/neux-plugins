@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "basecamp",
+  "version": "0.1.0",
+  "description": "Review project messages, to-dos, and progress in Basecamp.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://basecamp.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Basecamp",
+        "shortDescription": "Review project messages, to-dos, and progress in Basecamp.",
+        "developerName": "37signals",
+        "category": "productivity",
+        "websiteURL": "https://basecamp.com",
+        "supportURL": "https://basecamp.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Basecamp."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

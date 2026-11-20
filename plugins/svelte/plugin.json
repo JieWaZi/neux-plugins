@@ -1,0 +1,37 @@
+{
+  "name": "svelte",
+  "version": "0.1.2",
+  "description": "Look up Svelte and SvelteKit documentation, check component code and prepare examples for the Svelte Playground.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/sveltejs/ai-tools",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Svelte",
+        "shortDescription": "Look up Svelte and SvelteKit documentation, check component code and prepare examples for the Svelte Playground.",
+        "developerName": "Svelte",
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Check a Svelte 5 component for issues and cite the documentation behind each suggested change."
+        ],
+        "capabilities": [
+          "Retrieve relevant Svelte and SvelteKit documentation",
+          "Check Svelte code and get suggested fixes",
+          "Create a Playground link for a self-contained example"
+        ],
+        "websiteURL": "https://svelte.dev",
+        "supportURL": "https://svelte.dev/docs/ai/remote-setup",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

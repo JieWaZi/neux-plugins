@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "launchdarkly",
+  "version": "0.1.0",
+  "description": "Inspect feature flags and environment configuration in LaunchDarkly.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://launchdarkly.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "LaunchDarkly",
+        "shortDescription": "Inspect feature flags and environment configuration in LaunchDarkly.",
+        "developerName": "LaunchDarkly",
+        "category": "coding",
+        "websiteURL": "https://launchdarkly.com",
+        "supportURL": "https://launchdarkly.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in LaunchDarkly."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

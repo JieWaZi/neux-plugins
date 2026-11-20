@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "scrapecreators",
+  "version": "0.1.0",
+  "description": "Retrieve public creator and social content data for research.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://scrapecreators.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Scrape Creators",
+        "shortDescription": "Retrieve public creator and social content data for research.",
+        "developerName": "Scrape Creators",
+        "category": "research",
+        "websiteURL": "https://scrapecreators.com",
+        "supportURL": "https://scrapecreators.com",
+        "defaultPrompt": [
+          "Explain what I can research with Scrape Creators and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

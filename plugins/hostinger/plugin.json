@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hostinger",
+  "version": "0.1.0",
+  "description": "Inspect sites and hosting resources available in Hostinger.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.hostinger.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Hostinger",
+        "shortDescription": "Inspect sites and hosting resources available in Hostinger.",
+        "developerName": "Hostinger",
+        "category": "coding",
+        "websiteURL": "https://www.hostinger.com",
+        "supportURL": "https://www.hostinger.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Hostinger."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

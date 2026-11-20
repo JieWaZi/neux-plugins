@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Hindsight",
+    "zh-CN": "Hindsight"
+  },
+  "localizedDescriptions": {
+    "en": "Search and summarize memories across Hindsight Cloud memory banks.",
+    "zh-CN": "搜索并总结 Hindsight Cloud 各记忆库中的内容。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Search my Hindsight memory bank for earlier decisions about this project and summarize them."
+    ],
+    "zh-CN": [
+      "搜索我的 Hindsight 记忆库，归纳此前关于此项目的决策。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Create an API key in the Connect tab in Hindsight Cloud and enter it in the plugin settings.",
+      "zh-CN": "在 Hindsight Cloud 的 Connect 页面创建 API Key，然后填入插件设置。"
+    },
+    "helpURL": "https://docs.hindsight.vectorize.io/cloud/mcp/"
+  }
+}

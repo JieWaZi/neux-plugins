@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "DeepWiki",
+    "zh-CN": "DeepWiki"
+  },
+  "localizedDescriptions": {
+    "en": "Navigate generated documentation for public GitHub repositories and ask questions about their code.",
+    "zh-CN": "浏览公开 GitHub 仓库的生成式文档，并查询代码相关问题。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Map the major components in a public repository and explain how they fit together."
+    ],
+    "zh-CN": [
+      "梳理某个公开仓库的主要组件，并说明它们如何协作。"
+    ]
+  }
+}

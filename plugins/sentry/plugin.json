@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "sentry",
+  "version": "0.1.0",
+  "description": "Investigate errors and performance issues in your Sentry projects.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://mcp.sentry.dev/",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Sentry",
+        "shortDescription": "Investigate errors and performance issues in your Sentry projects.",
+        "developerName": "Sentry",
+        "category": "coding",
+        "websiteURL": "https://sentry.io",
+        "supportURL": "https://mcp.sentry.dev/",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Sentry."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

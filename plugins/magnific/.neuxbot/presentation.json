@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Magnific",
+    "zh-CN": "Magnific"
+  },
+  "localizedDescriptions": {
+    "en": "Use the creative media tools available to your Magnific account.",
+    "zh-CN": "使用 Magnific 账户可访问的创意媒体工具。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Magnific."
+    ],
+    "zh-CN": [
+      "查看我可以在 Magnific 中访问的素材或创意资源。"
+    ]
+  }
+}

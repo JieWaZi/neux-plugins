@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Mobbin",
+    "repository": "https://mobbin.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://api.mobbin.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://mobbin.com/mobbin-marketing-pages/images/apple-touch-icon.png",
+      "sourceSHA256": "318687e4dbcb4f13fd4395e49322f24561a138087453b815f7843a88216c5b62",
+      "sha256": "493fb3539c90be2d0023f4a82e442808cd100f59f578357454f47533b8f882b4",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Mobbin branding used to identify the service"
+    }
+  ]
+}

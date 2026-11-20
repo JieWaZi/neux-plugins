@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "picsart",
+  "version": "0.1.0",
+  "description": "Use creative editing and media generation services from Picsart.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://picsart.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Picsart",
+        "shortDescription": "Use creative editing and media generation services from Picsart.",
+        "developerName": "Picsart",
+        "category": "design",
+        "websiteURL": "https://picsart.com",
+        "supportURL": "https://picsart.com",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Picsart."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

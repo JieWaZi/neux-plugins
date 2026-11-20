@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "ClickUp",
+    "zh-CN": "ClickUp"
+  },
+  "localizedDescriptions": {
+    "en": "Review tasks and project information in your ClickUp workspace.",
+    "zh-CN": "查看 ClickUp 工作区中的任务和项目资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in ClickUp."
+    ],
+    "zh-CN": [
+      "查看我在 ClickUp 中可以访问哪些资源。"
+    ]
+  }
+}

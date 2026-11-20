@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Windsor.ai",
+    "repository": "https://mcp.windsor.ai/docs",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.windsor.ai/"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the provider-documented root slash URI with exact protected-resource metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://windsor.ai/wp-content/uploads/2020/02/favicon-310-300x300.png",
+      "sourceSHA256": "0fd54d0fe1df834bbf86e1f738d7bdf1a26a89da9fc4e7d3b7c61e2ab2d81c57",
+      "sha256": "89c391a630d3230c6d05c7d9114fdee73ab16924952c397ec214e352c7fa78f0",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Windsor.ai branding used to identify the service"
+    }
+  ]
+}

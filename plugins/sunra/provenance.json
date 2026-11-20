@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Sunra",
+    "repository": "https://sunra.ai",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.sunra.ai"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://sunra.ai/apple-icon.png",
+      "sourceSHA256": "f14a66ae6c166fa37c62c703225c09d15fe0e8fd4ba579ba93b340a392d7fdb8",
+      "sha256": "f14a66ae6c166fa37c62c703225c09d15fe0e8fd4ba579ba93b340a392d7fdb8",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Sunra branding used to identify the service"
+    }
+  ]
+}

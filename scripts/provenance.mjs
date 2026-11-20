@@ -1,10 +1,13 @@
 import { createHash } from 'node:crypto';
+import { sha256Pattern } from './release-tags.mjs';
+import { validateSchema } from './schema.mjs';
 
 const fail = message => { throw new Error(`invalid provenance: ${message}`); };
-import { validateSchema } from './schema.mjs';
+const bundlePathPattern = /^(?:[\w.-]+\/)*[\w.-]+$/;
 
 export function validateProvenance({ data, packagePath, manifest, read }) {
   try { validateSchema('provenance.schema.json', data); } catch(error) { fail(error.message); }
+  if (data.upstream.distribution.mode === 'local-service') validateLocalService(data.upstream.distribution.url, packagePath, manifest, read);
   if (manifest.author?.name && manifest.author.name !== data.wrapper.maintainer) fail('wrapper maintainer differs from manifest author');
   if (manifest.license && manifest.license !== data.wrapper.license) fail('wrapper license differs from manifest license');
   const assets = new Set();
@@ -22,6 +25,39 @@ export function validateProvenance({ data, packagePath, manifest, read }) {
     dependencies.add(dependency.name);
     const lock = JSON.parse(read(`${packagePath}/${dependency.lock}`));
     if (lock.version !== dependency.version || lock.source?.repository !== dependency.repository || lock.source?.commit !== dependency.commit) fail(`dependency lock source or version mismatch: ${dependency.name}`);
+    if ('bundlePath' in lock || 'bundleSHA256' in lock) {
+      const { bundlePath, bundleSHA256 } = lock;
+      if (typeof bundlePath !== 'string' || bundlePathPattern.exec(bundlePath)?.[0] !== bundlePath ||
+          bundlePath.split('/').some(part => part === '.' || part === '..') ||
+          typeof bundleSHA256 !== 'string' || !sha256Pattern.test(bundleSHA256)) {
+        fail(`invalid dependency bundle lock: ${dependency.name}`);
+      }
+      const actual = createHash('sha256').update(read(`${packagePath}/${bundlePath}`)).digest('hex');
+      if (actual !== bundleSHA256) fail(`bundle sha256 digest mismatch: ${bundlePath}`);
+    }
   }
   return data;
+}
+
+function validateLocalService(url, packagePath, manifest, read) {
+  let address;
+  try { address = new URL(url); } catch { fail('local-service requires a fixed numeric loopback HTTP URL'); }
+  const loopback = address.hostname === '[::1]' || /^127(?:\.[0-9]{1,3}){3}$/.test(address.hostname);
+  if (!loopback || address.protocol !== 'http:' || address.href !== url ||
+      address.username || address.password || /[?#%]/.test(url)) {
+    fail('local-service requires a fixed numeric loopback HTTP URL');
+  }
+
+  let servers;
+  try { servers = JSON.parse(read(`${packagePath}/mcp.json`)).mcpServers; }
+  catch { fail('local-service requires an exact declared MCP component'); }
+  const server = Object.values(servers ?? {}).find(component => component?.type === 'streamable-http' && component.url === url);
+  if (!server) fail('local-service requires an exact declared MCP component');
+
+  const auth = server.extensions?.['com.openai']?.auth;
+  const extension = manifest.extensions?.['com.neuxbot'];
+  if ((auth && auth.type !== 'none') || Object.keys(server.headers ?? {}).length !== 0 ||
+      extension?.authentication !== undefined || extension?.configuration !== undefined) {
+    fail('local-service requires credential-free MCP access');
+  }
 }

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Truthifi",
+    "repository": "https://truthifi.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://api.truthifi.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://framerusercontent.com/images/u37AxMviOa9x9r67PQkR35LJQ.png",
+      "sourceSHA256": "110b4f9baf64d95cb8af1fdee7d9909bc2e089aa8ac2e3812cb3270f2b819113",
+      "sha256": "e088b5be9ed08f2eceb4103c01eb4caa8c7be9c592a15efcbf6bc9bcbd7e479e",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Truthifi branding used to identify the service"
+    }
+  ]
+}

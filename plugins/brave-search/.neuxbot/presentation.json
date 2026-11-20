@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Brave Search",
+    "zh-CN": "Brave Search"
+  },
+  "localizedDescriptions": {
+    "en": "Search the public web, news, images, videos, and places with Brave Search.",
+    "zh-CN": "使用 Brave Search 搜索公开网页、新闻、图片、视频及地点。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Find reputable sources on a recent public technology announcement and summarize the key facts with links."
+    ],
+    "zh-CN": [
+      "查找关于近期一项公开技术发布的可靠来源，并附链接概述主要事实。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Install Node.js 20 or later on the host. Create a Brave Search API key and enter it in plugin settings.",
+      "zh-CN": "在宿主机安装 Node.js 20 或更高版本。创建 Brave Search API 密钥后，填入插件设置。"
+    },
+    "helpURL": "https://github.com/brave/brave-search-mcp-server#configuration"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Stripe",
+    "repository": "https://stripe.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.stripe.com"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://stripe.com/favicon.ico",
+      "sourceSHA256": "50630726cbd85299c64dbb510f051e5d70013abcd620fa2b23be82e618140150",
+      "sha256": "432cf58486d5b38dd609c49de2e4bc15ce1d8fda2366113137763917feafab38",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Stripe branding used to identify the service"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "OpusClip",
+    "zh-CN": "OpusClip"
+  },
+  "localizedDescriptions": {
+    "en": "Review video projects and short clips in OpusClip.",
+    "zh-CN": "查看 OpusClip 中的视频项目和短片。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in OpusClip."
+    ],
+    "zh-CN": [
+      "查看我可以在 OpusClip 中访问的素材或创意资源。"
+    ]
+  }
+}

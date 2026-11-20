@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "zapier",
+  "version": "0.1.0",
+  "description": "Use the connected app capabilities you have configured in Zapier.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://zapier.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Zapier",
+        "shortDescription": "Use the connected app capabilities you have configured in Zapier.",
+        "developerName": "Zapier",
+        "category": "automation",
+        "websiteURL": "https://zapier.com",
+        "supportURL": "https://zapier.com",
+        "defaultPrompt": [
+          "Show the resources available to me in Zapier without making changes."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

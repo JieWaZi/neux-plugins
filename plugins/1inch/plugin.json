@@ -1,0 +1,37 @@
+{
+  "name": "1inch",
+  "version": "0.1.2",
+  "description": "Find 1inch Business API documentation, SDK examples and public Aqua liquidity analytics.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://business.1inch.com/portal/documentation/ai-integration/mcp-server",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "1inch",
+        "shortDescription": "Find 1inch Business API documentation, SDK examples and public Aqua liquidity analytics.",
+        "developerName": "1inch",
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Compare TypeScript and Python examples for a 1inch integration."
+        ],
+        "capabilities": [
+          "Search 1inch API reference material",
+          "Find SDK examples by language",
+          "Inspect public Aqua strategy data"
+        ],
+        "websiteURL": "https://business.1inch.com",
+        "supportURL": "https://business.1inch.com/portal/documentation/ai-integration/mcp-server",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

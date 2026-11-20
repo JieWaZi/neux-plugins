@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Linear",
+    "repository": "https://linear.app/docs/mcp",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.linear.app/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain bilingual package documentation"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://linear.app/favicon.ico",
+      "sourceSHA256": "0e05c8b9f5a4a1b7ef3083d57df0184185e748978f93ca5bd94509280f0e918e",
+      "sha256": "e59ec96e9904b261825dbb0801332a1bbc8a38d72fabe81af20e4e78496b6b3d",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://linear.app/brand",
+      "attribution": "Linear, vendor artwork used to identify this integration"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Akiflow",
+    "zh-CN": "Akiflow"
+  },
+  "localizedDescriptions": {
+    "en": "Review your Akiflow tasks and calendar when planning a workday.",
+    "zh-CN": "结合 Akiflow 的任务和日历安排工作日程。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Akiflow."
+    ],
+    "zh-CN": [
+      "查看我在 Akiflow 中可以访问哪些资源。"
+    ]
+  }
+}

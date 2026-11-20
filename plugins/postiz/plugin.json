@@ -1,0 +1,56 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "postiz",
+  "version": "0.1.2",
+  "description": "Review connected social channels and work with posts scheduled in Postiz.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://docs.postiz.com/mcp/introduction",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Postiz",
+        "shortDescription": "Review connected social channels and work with posts scheduled in Postiz.",
+        "developerName": "Postiz",
+        "category": "automation",
+        "websiteURL": "https://postiz.com",
+        "supportURL": "https://docs.postiz.com/general/settings/developers",
+        "capabilities": [
+          "List connected channels",
+          "Review the publishing schedule",
+          "Schedule social posts"
+        ],
+        "defaultPrompt": [
+          "List my connected social channels and show which posts are scheduled for the next seven days."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "POSTIZ_API_KEY",
+            "label": "Postiz API key",
+            "description": "Copy the API key from Settings → Developers in Postiz Cloud.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "postiz",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${POSTIZ_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

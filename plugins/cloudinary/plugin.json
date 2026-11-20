@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cloudinary",
+  "version": "0.1.0",
+  "description": "Find and manage digital media available through Cloudinary's asset service.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://cloudinary.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Cloudinary",
+        "shortDescription": "Find and manage digital media available through Cloudinary's asset service.",
+        "developerName": "Cloudinary",
+        "category": "design",
+        "websiteURL": "https://cloudinary.com",
+        "supportURL": "https://cloudinary.com",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Cloudinary."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

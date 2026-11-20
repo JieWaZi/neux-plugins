@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "clickup",
+  "version": "0.1.0",
+  "description": "Review tasks and project information in your ClickUp workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://clickup.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "ClickUp",
+        "shortDescription": "Review tasks and project information in your ClickUp workspace.",
+        "developerName": "ClickUp",
+        "category": "productivity",
+        "websiteURL": "https://clickup.com",
+        "supportURL": "https://clickup.com",
+        "defaultPrompt": [
+          "Show which resources I can access in ClickUp."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "OpenArt",
+    "zh-CN": "OpenArt"
+  },
+  "localizedDescriptions": {
+    "en": "Work with your creative media projects and assets in OpenArt.",
+    "zh-CN": "在 OpenArt 中使用创意媒体项目和素材。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in OpenArt."
+    ],
+    "zh-CN": [
+      "查看我可以在 OpenArt 中访问的素材或创意资源。"
+    ]
+  }
+}

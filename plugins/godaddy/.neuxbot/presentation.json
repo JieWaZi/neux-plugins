@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "GoDaddy",
+    "zh-CN": "GoDaddy"
+  },
+  "localizedDescriptions": {
+    "en": "Generate domain name ideas and check public availability through GoDaddy.",
+    "zh-CN": "通过 GoDaddy 获取域名建议并查询公开的可注册状态。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Check the availability of a name under .com and .org and find alternatives."
+    ],
+    "zh-CN": [
+      "查询某个名称在 .com 和 .org 下是否可注册，并列出备选名称。"
+    ]
+  }
+}

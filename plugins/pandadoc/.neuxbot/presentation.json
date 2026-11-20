@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "PandaDoc",
+    "zh-CN": "PandaDoc"
+  },
+  "localizedDescriptions": {
+    "en": "Find proposals, contracts, and other available PandaDoc documents.",
+    "zh-CN": "查找 PandaDoc 中可访问的提案、合同及其他文档。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which documents I can read in PandaDoc."
+    ],
+    "zh-CN": [
+      "查看我可以在 PandaDoc 中读取哪些文档。"
+    ]
+  }
+}

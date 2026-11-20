@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Airwallex",
+    "repository": "https://www.airwallex.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.airwallex.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/90/b5/18/90b5186a-c2cc-d29d-9511-832e2292175a/AppIcon-0-0-1x_U007epad-0-1-0-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "db013206c0e35239aa1a86c6685ccc0164e21a397a9c892910bd68861ab61ee3",
+      "sha256": "3e804ac2688a9ec2408397a7d50dbbf30a35e429bc6e4f50853e47928da7422d",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Airwallex branding used to identify the service"
+    }
+  ]
+}

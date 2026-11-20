@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cobrain",
+  "version": "0.1.0",
+  "description": "Retrieve shared notes and project context from Cobrain memory.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://cobrain.space",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Cobrain",
+        "shortDescription": "Retrieve shared notes and project context from Cobrain memory.",
+        "developerName": "Cobrain",
+        "category": "productivity",
+        "websiteURL": "https://cobrain.space",
+        "supportURL": "https://cobrain.space",
+        "defaultPrompt": [
+          "Show which resources I can access in Cobrain."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

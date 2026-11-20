@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "freee",
+  "version": "0.1.0",
+  "description": "Review the accounting records available to your freee organization.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.freee.co.jp",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "freee",
+        "shortDescription": "Review the accounting records available to your freee organization.",
+        "developerName": "freee",
+        "category": "other",
+        "websiteURL": "https://www.freee.co.jp",
+        "supportURL": "https://www.freee.co.jp",
+        "defaultPrompt": [
+          "Show which resources I can access in freee."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

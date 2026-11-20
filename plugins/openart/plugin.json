@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "openart",
+  "version": "0.1.0",
+  "description": "Work with your creative media projects and assets in OpenArt.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://openart.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "OpenArt",
+        "shortDescription": "Work with your creative media projects and assets in OpenArt.",
+        "developerName": "OpenArt",
+        "category": "design",
+        "websiteURL": "https://openart.ai",
+        "supportURL": "https://openart.ai",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in OpenArt."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

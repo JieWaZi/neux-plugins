@@ -1,0 +1,37 @@
+{
+  "name": "godaddy",
+  "version": "0.1.2",
+  "description": "Generate domain name ideas and check public availability through GoDaddy.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://developer.godaddy.com/en/docs/api-users/mcp",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "GoDaddy",
+        "shortDescription": "Generate domain name ideas and check public availability through GoDaddy.",
+        "developerName": "GoDaddy",
+        "category": "other",
+        "defaultPrompt": [
+          "Check the availability of a name under .com and .org and find alternatives."
+        ],
+        "capabilities": [
+          "Check whether a domain name is available",
+          "Generate alternatives from a name or short description",
+          "Review listed pricing and registration links"
+        ],
+        "websiteURL": "https://www.godaddy.com",
+        "supportURL": "https://developer.godaddy.com/en/docs/api-users/mcp",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "grafana",
+  "version": "0.1.0",
+  "description": "Investigate metrics, logs, and dashboards in Grafana Cloud.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://grafana.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Grafana Cloud",
+        "shortDescription": "Investigate metrics, logs, and dashboards in Grafana Cloud.",
+        "developerName": "Grafana Labs",
+        "category": "coding",
+        "websiteURL": "https://grafana.com",
+        "supportURL": "https://grafana.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Grafana Cloud."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

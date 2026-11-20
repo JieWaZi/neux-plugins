@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Artie",
+    "zh-CN": "Artie"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect database replication pipelines and their status in Artie.",
+    "zh-CN": "查看 Artie 中的数据库复制管道及其运行状态。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Artie."
+    ],
+    "zh-CN": [
+      "查看我可以在 Artie 中读取哪些资料。"
+    ]
+  }
+}

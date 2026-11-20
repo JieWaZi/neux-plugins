@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Resend",
+    "zh-CN": "Resend"
+  },
+  "localizedDescriptions": {
+    "en": "Review email delivery and manage Resend email resources within the API key's permissions.",
+    "zh-CN": "在 API 密钥权限范围内查看投递情况并管理 Resend 邮件资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Review recent transactional email deliveries and summarize any failures by reason."
+    ],
+    "zh-CN": [
+      "检查最近的事务邮件投递情况，并按原因汇总失败项。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Create a Resend API key in your account and enter it in plugin settings. Sending requires a permitted sender.",
+      "zh-CN": "在 Resend 账号中创建 API 密钥，再填入插件设置。发送邮件需要获准的发件人。"
+    },
+    "helpURL": "https://resend.com/docs/mcp-server"
+  }
+}

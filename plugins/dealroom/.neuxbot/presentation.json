@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Dealroom",
+    "zh-CN": "Dealroom"
+  },
+  "localizedDescriptions": {
+    "en": "Research startups, investors, and funding activity with Dealroom data.",
+    "zh-CN": "通过 Dealroom 数据研究初创企业、投资人和融资动态。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with Dealroom and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 Dealroom 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

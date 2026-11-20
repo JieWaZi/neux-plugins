@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Aave",
+    "zh-CN": "Aave"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect Aave lending markets, public wallet positions and governance across V3 and V4.",
+    "zh-CN": "查看 Aave V3 与 V4 的借贷市场、公开钱包仓位和治理信息。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Compare liquidity and interest-rate history for USDC across Aave markets."
+    ],
+    "zh-CN": [
+      "比较不同 Aave 市场中 USDC 的流动性与利率历史。"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Alpha Vantage",
+    "repository": "https://www.alphavantage.co",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.alphavantage.co/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.alphavantage.co/static/img/favicon.ico",
+      "sourceSHA256": "457a3385daa9f9cb953fdae5c9a2ed7a4eafb573f24f25b7eefc27b1e9003025",
+      "sha256": "b8e013718357b60228409db838974565681341b9d4bc26586800c630ec54c754",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Alpha Vantage branding used to identify the service"
+    }
+  ]
+}

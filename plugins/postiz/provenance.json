@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Postiz",
+    "repository": "https://docs.postiz.com/mcp/introduction",
+    "license": "Vendor hosted-service terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.postiz.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declared the vendor-hosted MCP connection and its API key binding",
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Encoded the original icon pixels as a compatible eight-bit PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://postiz.com/favicon.ico",
+      "sourceSHA256": "b10d127281e19bf9918df06bc192fd2fb29e19a8ebc8f4c6104d6740094caa8b",
+      "sha256": "e3a57da407cd17a69c33c948d8de8d4aae3f7d3ea1dfea742bbe87bfd06fefd6",
+      "license": "Service branding; copyright and trademark rights reserved",
+      "licenseURL": "https://postiz.com/terms",
+      "attribution": "Postiz; shown to identify the service, without endorsement"
+    }
+  ]
+}

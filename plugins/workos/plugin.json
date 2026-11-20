@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "workos",
+  "version": "0.1.0",
+  "description": "Review identity and organization resources available in WorkOS.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://workos.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "WorkOS",
+        "shortDescription": "Review identity and organization resources available in WorkOS.",
+        "developerName": "WorkOS",
+        "category": "coding",
+        "websiteURL": "https://workos.com",
+        "supportURL": "https://workos.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in WorkOS."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

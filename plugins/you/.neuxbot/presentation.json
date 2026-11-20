@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "You.com",
+    "zh-CN": "You.com"
+  },
+  "localizedDescriptions": {
+    "en": "Research web sources and retrieve supporting information through You.com.",
+    "zh-CN": "通过 You.com 研究网络来源并查找相关资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with You.com and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 You.com 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "whop",
+  "version": "0.1.0",
+  "description": "Explore the products and community resources available to your Whop account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://whop.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Whop",
+        "shortDescription": "Explore the products and community resources available to your Whop account.",
+        "developerName": "Whop",
+        "category": "other",
+        "websiteURL": "https://whop.com",
+        "supportURL": "https://whop.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Whop."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

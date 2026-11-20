@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Typefully",
+    "repository": "https://typefully.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.typefully.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://typefully.com/icon/apple-icon.png",
+      "sourceSHA256": "f39874e63779396a8be98aa5aef6db1e6bff463aa68cd203a26775c3d85ec396",
+      "sha256": "5ad5589730ba69d7126e3ae5a7a9c85bbc5a607ec6ef24f4cb927bd11deaedc9",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Typefully branding used to identify the service"
+    }
+  ]
+}

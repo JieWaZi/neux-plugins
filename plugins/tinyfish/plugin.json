@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "tinyfish",
+  "version": "0.1.0",
+  "description": "Run supported browser-based research and web automation tasks through TinyFish.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.tinyfish.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "TinyFish",
+        "shortDescription": "Run supported browser-based research and web automation tasks through TinyFish.",
+        "developerName": "TinyFish",
+        "category": "automation",
+        "websiteURL": "https://www.tinyfish.ai",
+        "supportURL": "https://www.tinyfish.ai",
+        "defaultPrompt": [
+          "Show the resources available to me in TinyFish without making changes."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

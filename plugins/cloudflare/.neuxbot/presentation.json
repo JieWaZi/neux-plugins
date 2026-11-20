@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Cloudflare",
+    "zh-CN": "Cloudflare"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect the Cloudflare account resources available through its MCP service.",
+    "zh-CN": "查看 Cloudflare MCP 服务提供的账户资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Cloudflare."
+    ],
+    "zh-CN": [
+      "查看我可以在 Cloudflare 中访问的项目或开发资源。"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "lemlist",
+  "version": "0.1.0",
+  "description": "Review sales campaigns and prospect activity in lemlist.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.lemlist.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "lemlist",
+        "shortDescription": "Review sales campaigns and prospect activity in lemlist.",
+        "developerName": "lemlist",
+        "category": "productivity",
+        "websiteURL": "https://www.lemlist.com",
+        "supportURL": "https://www.lemlist.com",
+        "defaultPrompt": [
+          "Show which resources I can access in lemlist."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

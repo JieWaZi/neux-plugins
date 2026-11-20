@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Runway",
+    "zh-CN": "Runway"
+  },
+  "localizedDescriptions": {
+    "en": "Work with Runway media generation and your creative workspace.",
+    "zh-CN": "在 Runway 创意工作区开展媒体生成相关工作。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Runway."
+    ],
+    "zh-CN": [
+      "查看我可以在 Runway 中访问的素材或创意资源。"
+    ]
+  }
+}

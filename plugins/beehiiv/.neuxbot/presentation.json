@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "beehiiv",
+    "zh-CN": "beehiiv"
+  },
+  "localizedDescriptions": {
+    "en": "Review beehiiv publications, newsletter activity, and audience data.",
+    "zh-CN": "查看 beehiiv 刊物、通讯活动和受众数据。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in beehiiv."
+    ],
+    "zh-CN": [
+      "查看我在 beehiiv 中可以访问哪些资源。"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "monday.com",
+    "zh-CN": "monday.com"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect work boards, items, and team project status in monday.com.",
+    "zh-CN": "查看 monday.com 中的工作看板、条目和团队项目状态。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in monday.com."
+    ],
+    "zh-CN": [
+      "查看我在 monday.com 中可以访问哪些资源。"
+    ]
+  }
+}

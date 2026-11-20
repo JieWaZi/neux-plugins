@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Kensho",
+    "zh-CN": "Kensho"
+  },
+  "localizedDescriptions": {
+    "en": "Explore the financial research and company data available to your Kensho account.",
+    "zh-CN": "查看 Kensho 账户可访问的金融研究和企业数据。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Kensho."
+    ],
+    "zh-CN": [
+      "查看我可以在 Kensho 中读取哪些资料。"
+    ]
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "composio",
+  "version": "0.1.2",
+  "description": "Discover and use the actions available in apps linked to Composio Connect.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://docs.composio.dev/kb/guide/consumer-project-boundaries-and-auth-selection",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Composio",
+        "shortDescription": "Discover and use the actions available in apps linked to Composio Connect.",
+        "developerName": "Composio",
+        "category": "Automation",
+        "websiteURL": "https://composio.dev",
+        "supportURL": "https://docs.composio.dev/kb/guide/consumer-project-boundaries-and-auth-selection",
+        "capabilities": [
+          "Discover available apps and actions",
+          "Use authorized app connections"
+        ],
+        "defaultPrompt": [
+          "List the apps already connected to my Composio account and summarize what each one can do."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "COMPOSIO_CONSUMER_API_KEY",
+            "label": "Connect consumer API key",
+            "description": "Copy the Connect consumer key from Sessions & API Key in your Composio account.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "composio",
+            "target": "header",
+            "name": "x-consumer-api-key",
+            "value": "${COMPOSIO_CONSUMER_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

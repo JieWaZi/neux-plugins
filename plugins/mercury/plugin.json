@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "mercury",
+  "version": "0.1.0",
+  "description": "Review banking activity and transaction records in Mercury.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://mercury.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Mercury",
+        "shortDescription": "Review banking activity and transaction records in Mercury.",
+        "developerName": "Mercury",
+        "category": "other",
+        "websiteURL": "https://mercury.com",
+        "supportURL": "https://mercury.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Mercury."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

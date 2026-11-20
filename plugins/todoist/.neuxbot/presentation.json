@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Todoist",
+    "zh-CN": "Todoist"
+  },
+  "localizedDescriptions": {
+    "en": "Review the projects and tasks in your Todoist account.",
+    "zh-CN": "查看 Todoist 账户中的项目和任务。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Todoist."
+    ],
+    "zh-CN": [
+      "查看我在 Todoist 中可以访问哪些资源。"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Tessie",
+    "zh-CN": "Tessie"
+  },
+  "localizedDescriptions": {
+    "en": "Check vehicle status, battery charge, and recent charging activity from Tessie.",
+    "zh-CN": "通过 Tessie 查看车辆状态、电池电量及近期充电记录。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Summarize the current battery level and charging status for my vehicle."
+    ],
+    "zh-CN": [
+      "总结我的车辆当前的电池电量和充电状态。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Generate an access token in Tessie Developer Settings and enter it in the plugin settings.",
+      "zh-CN": "在 Tessie 的开发者设置中生成访问令牌，再填入插件设置。"
+    },
+    "helpURL": "https://developer.tessie.com/reference/mcp"
+  }
+}

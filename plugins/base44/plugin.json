@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "base44",
+  "version": "0.1.0",
+  "description": "Access Base44 app projects and the resources available in your workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://base44.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Base44",
+        "shortDescription": "Access Base44 app projects and the resources available in your workspace.",
+        "developerName": "Base44",
+        "category": "coding",
+        "websiteURL": "https://base44.com",
+        "supportURL": "https://base44.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Base44."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

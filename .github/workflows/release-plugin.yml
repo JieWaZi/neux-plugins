@@ -58,7 +58,7 @@ jobs:
     permissions:
       contents: write
     concurrency:
-      group: plugin-release-${{ inputs.tag }}
+      group: plugin-release-publication
       queue: max
       cancel-in-progress: false
     steps:
@@ -104,7 +104,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci --ignore-scripts
-      - name: Merge and promote the latest full catalog
+      - name: Merge and promote the plugin catalog
         env:
           GH_TOKEN: ${{ github.token }}
           SOURCE_COMMIT: ${{ needs.build.outputs.source_commit }}

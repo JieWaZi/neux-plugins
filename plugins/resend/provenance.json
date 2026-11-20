@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Resend",
+    "repository": "https://github.com/resend/resend-mcp",
+    "license": "MIT",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.resend.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declared the vendor-hosted MCP connection with the documented API key binding",
+      "Wrote setup and usage guidance in English and Simplified Chinese",
+      "Used the vendor icon URL declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Encoded the highest-resolution original icon frame as an eight-bit PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://resend.com/static/favicons/favicon.ico",
+      "sourceSHA256": "066049f8253a0e1c654ec0089583cc653e3288845d4820609ac86b6036367823",
+      "sha256": "65d7c967d729713ec72d7dd1203557724ea9eeadd9bcd092c7a2d6d8adb450af",
+      "license": "Vendor brand artwork; copyright and trademark rights reserved",
+      "attribution": "Resend; identifies the service without endorsement"
+    }
+  ]
+}

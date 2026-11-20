@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Algolia",
+    "zh-CN": "Algolia"
+  },
+  "localizedDescriptions": {
+    "en": "Search the Algolia indexes available to your account.",
+    "zh-CN": "查询账户有权访问的 Algolia 索引。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Algolia."
+    ],
+    "zh-CN": [
+      "查看我可以在 Algolia 中访问的项目或开发资源。"
+    ]
+  }
+}

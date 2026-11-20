@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Kajabi",
+    "zh-CN": "Kajabi"
+  },
+  "localizedDescriptions": {
+    "en": "Review the products, content, and account information available in Kajabi.",
+    "zh-CN": "查看 Kajabi 中可访问的产品、内容和账户资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Kajabi."
+    ],
+    "zh-CN": [
+      "查看我在 Kajabi 中可以访问哪些资源。"
+    ]
+  }
+}

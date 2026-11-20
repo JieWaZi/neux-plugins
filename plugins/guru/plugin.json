@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "guru",
+  "version": "0.1.0",
+  "description": "Search the verified knowledge available in your Guru workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.getguru.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Guru",
+        "shortDescription": "Search the verified knowledge available in your Guru workspace.",
+        "developerName": "Guru",
+        "category": "documents",
+        "websiteURL": "https://www.getguru.com",
+        "supportURL": "https://www.getguru.com",
+        "defaultPrompt": [
+          "Show which documents I can read in Guru."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "WorkOS",
+    "repository": "https://workos.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.workos.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://workos.com/favicon.ico",
+      "sourceSHA256": "0388bfffee94cde48aa60b677c3f54bed033f58a14dbe3f0f3ac00882ea3985d",
+      "sha256": "14205b19b7870ffa7bf8c70cb5a02121a57c5a558c9cb4a9117139bb218061ab",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "WorkOS branding used to identify the service"
+    }
+  ]
+}

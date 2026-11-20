@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Composio",
+    "repository": "https://docs.composio.dev/kb/guide/consumer-project-boundaries-and-auth-selection",
+    "license": "Vendor hosted-service terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://connect.composio.dev/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declared the vendor-hosted MCP connection and its API key binding",
+      "Wrote English and Simplified Chinese setup and usage guidance"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://composio.dev/favicon.ico",
+      "sourceSHA256": "be717ae8ef188e094fbd2565da7b36cd6beda9ea717b7bb5b6925c16b7692cae",
+      "sha256": "bbc4f1ee669ac2df6d02b187fd9d75ed6d0a94575ab3575f3cbd449156cc1bde",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://brand.composio.dev/logo",
+      "attribution": "Composio, vendor artwork used to identify this integration"
+    }
+  ]
+}

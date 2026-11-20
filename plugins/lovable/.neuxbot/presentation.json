@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Lovable",
+    "zh-CN": "Lovable"
+  },
+  "localizedDescriptions": {
+    "en": "Review the app projects available in your Lovable workspace.",
+    "zh-CN": "查看 Lovable 工作区中可访问的应用项目。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Lovable."
+    ],
+    "zh-CN": [
+      "查看我可以在 Lovable 中访问的项目或开发资源。"
+    ]
+  }
+}

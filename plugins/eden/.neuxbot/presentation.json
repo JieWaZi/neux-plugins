@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Eden",
+    "zh-CN": "Eden"
+  },
+  "localizedDescriptions": {
+    "en": "Research social content and review publishing activity in Eden.",
+    "zh-CN": "在 Eden 中研究社交内容并查看发布活动。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Eden."
+    ],
+    "zh-CN": [
+      "查看我在 Eden 中可以访问哪些资源。"
+    ]
+  }
+}

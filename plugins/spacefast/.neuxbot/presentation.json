@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Spacefast",
+    "zh-CN": "Spacefast"
+  },
+  "localizedDescriptions": {
+    "en": "Find the hosted pages and Spaces available in Spacefast.",
+    "zh-CN": "查找 Spacefast 中可访问的托管页面和 Spaces。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Spacefast."
+    ],
+    "zh-CN": [
+      "查看我在 Spacefast 中可以访问哪些资源。"
+    ]
+  }
+}

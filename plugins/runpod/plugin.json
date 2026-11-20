@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "runpod",
+  "version": "0.1.0",
+  "description": "Inspect the cloud compute resources available in Runpod.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.runpod.io",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Runpod",
+        "shortDescription": "Inspect the cloud compute resources available in Runpod.",
+        "developerName": "Runpod",
+        "category": "coding",
+        "websiteURL": "https://www.runpod.io",
+        "supportURL": "https://www.runpod.io",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Runpod."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

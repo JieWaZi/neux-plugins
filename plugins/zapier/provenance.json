@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Zapier",
+    "repository": "https://zapier.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.zapier.com/api/v1/connect"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://zapier.com/favicon.ico",
+      "sourceSHA256": "733fdd5c9e5b3020cbae07b0f9f6b0e21653b4975b400f8fe230c2a4e10f931a",
+      "sha256": "b0c2b3752c165ea825f3fa34123fb907e025b33492df5ca9ad40a13943d799f3",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Zapier branding used to identify the service"
+    }
+  ]
+}

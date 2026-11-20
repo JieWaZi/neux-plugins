@@ -1,0 +1,58 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "resend",
+  "version": "0.1.0",
+  "description": "Review email delivery and manage Resend email resources within the API key's permissions.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/resend/resend-mcp",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Resend",
+        "shortDescription": "Review email delivery and manage Resend email resources within the API key's permissions.",
+        "developerName": "Resend",
+        "category": "productivity",
+        "websiteURL": "https://resend.com",
+        "supportURL": "https://resend.com/docs/mcp-server",
+        "privacyPolicyURL": "https://resend.com/legal/privacy-policy",
+        "termsOfServiceURL": "https://resend.com/legal/terms",
+        "capabilities": [
+          "Review email delivery and request logs",
+          "Inspect templates and email domains",
+          "Send transactional emails with a permitted key"
+        ],
+        "defaultPrompt": [
+          "Review recent transactional email deliveries and summarize any failures by reason."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "RESEND_API_KEY",
+            "label": "API key",
+            "description": "Create a Resend API key with permission for the actions you need.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "resend",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${RESEND_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

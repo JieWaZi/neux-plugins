@@ -1,0 +1,97 @@
+name: Release plugin batch
+
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: Existing plugin tags (one key@X.Y.Z per line, up to 25)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  PLUGIN_RELEASE_TAGS: ${{ inputs.tags }}
+
+jobs:
+  build:
+    if: github.repository == 'JieWaZi/neux-plugins' && github.ref == 'refs/heads/main' && github.ref_protected
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Verify tags and build independent package assets
+        run: |
+          output="$RUNNER_TEMP/plugin-release-batch"
+          node scripts/release-plugin-batch.mjs build "$output"
+          tar -cf "$RUNNER_TEMP/plugin-release-batch.tar" -C "$output" .
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: plugin-release-batch
+          path: ${{ runner.temp }}/plugin-release-batch.tar
+          if-no-files-found: error
+          overwrite: true
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    concurrency:
+      group: plugin-release-publication
+      queue: max
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: plugin-release-batch
+          path: ${{ runner.temp }}
+      - name: Verify and publish each fixed plugin release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          output="$RUNNER_TEMP/plugin-release-batch"
+          mkdir -p "$output"
+          tar -xf "$RUNNER_TEMP/plugin-release-batch.tar" -C "$output"
+          node scripts/release-plugin-batch.mjs publish "$output"
+
+  promote-catalog:
+    needs: [build, publish]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    concurrency:
+      group: plugin-catalog-promotion
+      queue: max
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Merge the batch and promote the plugin catalog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/release-plugin-batch.mjs promote

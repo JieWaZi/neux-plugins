@@ -42,3 +42,10 @@ The authorization bridge and asset loader are maintained by NeuxBot contributors
 `plugins/wecom-office/assets/icon.png` is losslessly re-encoded as RGBA PNG from the application's indexed WeCom brand asset, originally obtained from the [official WeCom CDN](https://wwcdn.weixin.qq.com/node/wework/images/wecom_20.c2xok7bh.png). WeCom names and marks belong to Tencent and their respective owners. No separate open-source brand license was found; the wrapper MIT license does not cover trademark rights and does not imply official endorsement.
 
 - `plugins/github/assets/icon-dark.png` 原样提取自同一 [GitHub 官方品牌资源包](https://brand.github.com/GitHub_Logos.zip) 的 `GitHub Logos/PNG/GitHub_Invertocat_White_Clearspace.png`，ZIP SHA-256 `e2a67d6cc51d990a52c46c1cf6bcab688db4830982174bca50e0be7a5c2f3194`，PNG SHA-256 `cf4271d46677de6414a91e58b6ccc9e7975e5d5ec9000a6e4a206115c60d8f21`。官方白色透明标志用于暗色主题，未改色、重绘或添加效果；同样保留 GitHub 商标与[品牌使用规则](https://brand.github.com/foundations/logo)，仅用于标识集成且不表示背书。
+
+
+## Gojiberry 与 Paper Desktop
+
+Gojiberry 插件使用用户 API 密钥连接厂商托管 MCP。Paper 插件连接本机的 Paper Desktop MCP。桌面应用按 Paper 服务条款另行安装。两包的自编清单与说明采用 MIT。 [Gojiberry MCP](https://help.gojiberry.ai/en/articles/14540015-using-the-gojiberry-mcp-server) · [Paper Desktop MCP](https://paper.design/docs/mcp)
+
+两个图标取自 OpenBot 固定版本记载的厂商地址。Gojiberry 图标提取最高分辨率的原帧并编码为 PNG。Paper 图标保留原始 PNG 字节。各包 `provenance.json` 记录源文件和包内文件摘要。品牌素材保留实际著作权与商标权。 [Gojiberry 图标](https://app.gojiberry.ai/favicon.ico) · [Paper 图标](https://paper.design/apple-touch-icon.png)

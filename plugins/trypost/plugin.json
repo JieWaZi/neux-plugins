@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "trypost",
+  "version": "0.1.0",
+  "description": "Review connected social channels and prepare publishing schedules in TryPost.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://trypost.it",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "TryPost",
+        "shortDescription": "Review connected social channels and prepare publishing schedules in TryPost.",
+        "developerName": "TryPost",
+        "category": "automation",
+        "websiteURL": "https://trypost.it",
+        "supportURL": "https://trypost.it",
+        "defaultPrompt": [
+          "Show the resources available to me in TryPost without making changes."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

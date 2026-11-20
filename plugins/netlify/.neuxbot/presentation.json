@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Netlify",
+    "zh-CN": "Netlify"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect sites, deploys, and project resources in Netlify.",
+    "zh-CN": "查看 Netlify 中的网站、部署和项目资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Netlify."
+    ],
+    "zh-CN": [
+      "查看我可以在 Netlify 中访问的项目或开发资源。"
+    ]
+  }
+}

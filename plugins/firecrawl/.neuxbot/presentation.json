@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Firecrawl",
+    "zh-CN": "Firecrawl"
+  },
+  "localizedDescriptions": {
+    "en": "Search public web pages and collect structured content with Firecrawl.",
+    "zh-CN": "使用 Firecrawl 搜索公开网页并提取结构化内容。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Find the latest public release notes for the named project and summarize their breaking changes with links."
+    ],
+    "zh-CN": [
+      "查找指定项目最新的公开发布说明，总结其中的破坏性改动并附链接。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Create an API key in your Firecrawl team dashboard and enter it in plugin settings. The available tools and limits depend on the team.",
+      "zh-CN": "在 Firecrawl 团队控制台创建 API 密钥，再填入插件设置。可用工具和额度依团队而定。"
+    },
+    "helpURL": "https://docs.firecrawl.dev/mcp-server/keyless#add-an-api-key"
+  }
+}

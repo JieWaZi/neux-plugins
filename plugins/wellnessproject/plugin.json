@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "wellnessproject",
+  "version": "0.1.0",
+  "description": "Review fitness, nutrition, and other wellness records in Wellness Project.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://wellnessproject.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Wellness Project",
+        "shortDescription": "Review fitness, nutrition, and other wellness records in Wellness Project.",
+        "developerName": "Wellness Project",
+        "category": "other",
+        "websiteURL": "https://wellnessproject.ai",
+        "supportURL": "https://wellnessproject.ai",
+        "defaultPrompt": [
+          "Show which resources I can access in Wellness Project."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

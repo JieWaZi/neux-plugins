@@ -34,7 +34,10 @@ test('真实插件快照只构建NeuxBot统一包、详情和轻目录', async t
   const result = await buildReviewSnapshot({ root, out });
   const catalog = JSON.parse(await readFile(path.join(out, 'catalog.json'), 'utf8'));
   const expectedFiles = ['catalog.json'];
-  assert.equal(result.entries.length, 3);
+  const packages = await readdir(path.join(root, 'plugins'), { withFileTypes: true });
+  const keys = packages.filter(item => item.isDirectory()).map(({ name }) => name).sort();
+  assert.deepEqual(result.entries.map(entry => entry.key).sort(), keys);
+  assert.deepEqual(catalog.entries.map(entry => entry.key).sort(), keys);
   for (const entry of catalog.entries) {
     expectedFiles.push(`${entry.key}.zip`, `${entry.key}.details.json`);
     const manifest = JSON.parse(await readFile(path.join(root, entry.packagePath, 'plugin.json'), 'utf8'));
@@ -43,7 +46,11 @@ test('真实插件快照只构建NeuxBot统一包、详情和轻目录', async t
     assert.equal(createHash('sha256').update(archive).digest('hex'), entry.archiveSHA256);
     const files = execFileSync('unzip', ['-Z1', path.join(out, `${entry.key}.zip`)], { encoding: 'utf8' }).trim().split('\n');
     assert.ok(files.includes(`${entry.packagePath}/plugin.json`));
-    assert.ok(files.includes(`${entry.packagePath}/.neuxbot/auth/authorize.mjs`));
+    const driver = manifest.extensions?.['com.neuxbot']?.authentication;
+    if (driver) {
+      const program = driver.command === 'node' ? driver.args[0] : driver.command;
+      assert.ok(files.includes(`${entry.packagePath}/${program.replace(/^\.\//, '')}`));
+    }
     assert.ok(files.includes(`${entry.packagePath}/LICENSE`));
     assert.ok(!files.some(name => name === '.agents/plugins/marketplace.json' || name.endsWith('/setup.mjs') || name.endsWith('/native-launch.mjs')));
     const details = await readFile(path.join(out, `${entry.key}.details.json`));

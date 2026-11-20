@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "beehiiv",
+  "version": "0.1.0",
+  "description": "Review beehiiv publications, newsletter activity, and audience data.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.beehiiv.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "beehiiv",
+        "shortDescription": "Review beehiiv publications, newsletter activity, and audience data.",
+        "developerName": "beehiiv",
+        "category": "productivity",
+        "websiteURL": "https://www.beehiiv.com",
+        "supportURL": "https://www.beehiiv.com",
+        "defaultPrompt": [
+          "Show which resources I can access in beehiiv."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

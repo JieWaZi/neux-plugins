@@ -18,6 +18,7 @@
 
 - `distribution.mode: vendored-source`：经核验的源码、技能或其他业务实现复制到维护包中。必须提供完整 40 位小写提交 `commit`，有真实来源标签或版本时填写 `tag` 或 `version`。保留相对资源、原始许可并说明封装改动；目录构建及安装不再抓取上游源码。
 - `distribution.mode: hosted-service`：包只通过 `distribution.url` 声明远程服务，不分发其服务实现。未固定服务端版本时不填造 `commit`、`tag` 或 `version`。GitHub 使用官方托管 MCP，辅助授权的 GitHub CLI 是单独锁定的依赖；宿主不补造缺失的业务版本。项目开源许可不等于远程服务或商标使用权。
+- `distribution.mode: local-service` 表示由另行安装的应用在 Core 所在电脑上提供 MCP 服务。URL 必须是规范的数字回环 HTTP 地址，并与无需凭据的 Streamable HTTP 声明完全一致。插件包不包含该应用，也不声明其服务版本。
 
 结构示例（示意值须替换为实际核验结果）：
 
@@ -44,6 +45,8 @@
 ```
 
 ## 验证与更新
+
+依赖锁声明包内程序时，同时记录包内相对路径 `bundlePath` 与小写十六进制摘要 `bundleSHA256`。构建器在归档前读取固定 Git 快照内的文件并核对摘要。
 
 构建器只读取固定提交，逐包验证来源必填字段与共享 schema，核对依赖 `repository`、`commit`、`version` 与实际资产锁，并计算本地图标摘要。两个清单图标字段均须有对应素材声明。未知字段、旧 `packaging`／`capability`／`logo`／`cli` 顶层分支、源码提交缺失、非法字段、中文 `wrapper.changes`、摘要漂移与依赖锁不一致均在替换产物前失败。`scripts/provenance.mjs` 解释当前 schema 使用的基础关键字；扩充 schema 时同步扩充验证器与回归。
 

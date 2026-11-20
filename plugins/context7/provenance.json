@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Upstash",
+    "repository": "https://github.com/upstash/context7",
+    "license": "MIT",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.context7.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Author the standard manifest and bilingual presentation",
+      "Declare the vendor-operated MCP endpoint for anonymous access"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://context7.com/favicon.ico",
+      "sourceSHA256": "5d42a0cad320600ee0ebb805065f212a81a257895e9dc39687b7958602ea4f70",
+      "sha256": "5d42a0cad320600ee0ebb805065f212a81a257895e9dc39687b7958602ea4f70",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://upstash.com/terms",
+      "attribution": "Upstash, vendor artwork used to identify this integration"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Picsart",
+    "zh-CN": "Picsart"
+  },
+  "localizedDescriptions": {
+    "en": "Use creative editing and media generation services from Picsart.",
+    "zh-CN": "使用 Picsart 提供的创意编辑和媒体生成服务。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Picsart."
+    ],
+    "zh-CN": [
+      "查看我可以在 Picsart 中访问的素材或创意资源。"
+    ]
+  }
+}

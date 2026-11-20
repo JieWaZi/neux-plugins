@@ -1,0 +1,58 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "gojiberry",
+  "version": "0.1.0",
+  "description": "Find leads, inspect outreach campaigns, and review conversations in Gojiberry.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://help.gojiberry.ai/en/articles/14540015-using-the-gojiberry-mcp-server",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Gojiberry",
+        "shortDescription": "Find leads, inspect outreach campaigns, and review conversations in Gojiberry.",
+        "developerName": "Gojiberry",
+        "category": "research",
+        "websiteURL": "https://gojiberry.ai",
+        "supportURL": "https://help.gojiberry.ai/en/articles/14540015-using-the-gojiberry-mcp-server",
+        "privacyPolicyURL": "https://gojiberry.ai/privacy-policy",
+        "termsOfServiceURL": "https://gojiberry.ai/general-terms",
+        "capabilities": [
+          "Find and organize contacts and prospect lists",
+          "Review campaigns and outreach conversations",
+          "Update contacts and list membership"
+        ],
+        "defaultPrompt": [
+          "Summarize the highest-intent contacts in my active prospect list."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "GOJIBERRY_API_KEY",
+            "label": "API key",
+            "description": "Copy the API key from Account Settings → API.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "gojiberry",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${GOJIBERRY_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

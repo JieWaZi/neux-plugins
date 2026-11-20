@@ -1,0 +1,56 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "revenuecat",
+  "version": "0.1.2",
+  "description": "Review RevenueCat subscription products, offerings, and entitlements for a project.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.revenuecat.com/docs/tools/mcp/setup",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "RevenueCat",
+        "shortDescription": "Review RevenueCat subscription products, offerings, and entitlements for a project.",
+        "developerName": "RevenueCat",
+        "category": "other",
+        "websiteURL": "https://www.revenuecat.com",
+        "supportURL": "https://www.revenuecat.com/docs/tools/mcp/setup",
+        "capabilities": [
+          "Inspect offerings and packages",
+          "Review products and entitlements",
+          "Look up customer subscription information"
+        ],
+        "defaultPrompt": [
+          "Summarize the current offerings and the packages available in each one."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "REVENUECAT_API_V2_SECRET_KEY",
+            "label": "API v2 secret key",
+            "description": "Create a RevenueCat v2 secret API key in the project you want to connect.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "revenuecat",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${REVENUECAT_API_V2_SECRET_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

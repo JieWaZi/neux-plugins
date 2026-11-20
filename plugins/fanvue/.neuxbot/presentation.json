@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Fanvue",
+    "zh-CN": "Fanvue"
+  },
+  "localizedDescriptions": {
+    "en": "Work with creator account information available through Fanvue.",
+    "zh-CN": "查看和处理 Fanvue 中可访问的创作者账户资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Fanvue."
+    ],
+    "zh-CN": [
+      "查看我在 Fanvue 中可以访问哪些资源。"
+    ]
+  }
+}

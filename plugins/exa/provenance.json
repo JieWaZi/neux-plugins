@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Exa",
+    "repository": "https://github.com/exa-labs/exa-mcp-server",
+    "license": "MIT",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.exa.ai/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Author the standard manifest and bilingual presentation",
+      "Declare the vendor-operated MCP endpoint for anonymous access"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://exa.ai/images/favicon-32x32.png",
+      "sourceSHA256": "4710f29ee916cecca32c61f3a15ecf939399f74faef6aea861a333ecc910d37b",
+      "sha256": "4710f29ee916cecca32c61f3a15ecf939399f74faef6aea861a333ecc910d37b",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://exa.ai/brand",
+      "attribution": "Exa, vendor artwork used to identify this integration"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Exa",
+    "zh-CN": "Exa"
+  },
+  "localizedDescriptions": {
+    "en": "Search the public web and retrieve page content through Exa.",
+    "zh-CN": "通过 Exa 搜索公开网页并提取正文。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Find primary sources about a technical topic and fetch the most relevant pages."
+    ],
+    "zh-CN": [
+      "查找某个技术主题的一手资料，并提取最相关网页的正文。"
+    ]
+  }
+}

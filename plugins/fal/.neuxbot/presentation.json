@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "fal",
+    "zh-CN": "fal"
+  },
+  "localizedDescriptions": {
+    "en": "Use hosted media models and inspect generation results in fal.",
+    "zh-CN": "使用 fal 托管的媒体模型并查看生成结果。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in fal."
+    ],
+    "zh-CN": [
+      "查看我可以在 fal 中访问的素材或创意资源。"
+    ]
+  }
+}

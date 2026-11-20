@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Clerk",
+    "zh-CN": "Clerk"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect users and organizations in the Clerk projects you can access.",
+    "zh-CN": "查看有权访问的 Clerk 项目中的用户和组织。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Clerk."
+    ],
+    "zh-CN": [
+      "查看我可以在 Clerk 中访问的项目或开发资源。"
+    ]
+  }
+}

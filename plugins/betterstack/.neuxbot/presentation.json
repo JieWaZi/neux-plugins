@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Better Stack",
+    "zh-CN": "Better Stack"
+  },
+  "localizedDescriptions": {
+    "en": "Check observability and incident information in Better Stack.",
+    "zh-CN": "查看 Better Stack 中的可观测数据和事件信息。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Better Stack."
+    ],
+    "zh-CN": [
+      "查看我可以在 Better Stack 中访问的项目或开发资源。"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "honcho",
+  "version": "0.1.2",
+  "description": "Find prior conversation context and retrieve what Honcho remembers about people and projects.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/plastic-labs/honcho/tree/main/mcp",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Honcho",
+        "shortDescription": "Find prior conversation context and retrieve what Honcho remembers about people and projects.",
+        "developerName": "Plastic Labs",
+        "category": "productivity",
+        "websiteURL": "https://honcho.dev",
+        "supportURL": "https://honcho.dev/docs/v3/guides/integrations/mcp",
+        "capabilities": [
+          "List accessible workspaces",
+          "Retrieve session history",
+          "Query peer context"
+        ],
+        "defaultPrompt": [
+          "List the Honcho workspaces available to me."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "HONCHO_API_KEY",
+            "label": "Honcho API key",
+            "description": "Copy your API key from the Honcho dashboard.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "honcho",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${HONCHO_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

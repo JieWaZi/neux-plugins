@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "canva",
+  "version": "0.1.0",
+  "description": "Find designs and work with creative assets available in your Canva account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.canva.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Canva",
+        "shortDescription": "Find designs and work with creative assets available in your Canva account.",
+        "developerName": "Canva",
+        "category": "design",
+        "websiteURL": "https://www.canva.com",
+        "supportURL": "https://www.canva.com",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Canva."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

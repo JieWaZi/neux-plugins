@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Postiz",
+    "zh-CN": "Postiz"
+  },
+  "localizedDescriptions": {
+    "en": "Review connected social channels and work with posts scheduled in Postiz.",
+    "zh-CN": "查看 Postiz 已连接的社交渠道，并管理排期中的帖子。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "List my connected social channels and show which posts are scheduled for the next seven days."
+    ],
+    "zh-CN": [
+      "列出我已连接的社交渠道，并查看未来七天的帖子排期。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "In Postiz Cloud, go to Settings → Developers and copy your API key into the plugin settings. Postiz documents this setting for Standard plans and above.",
+      "zh-CN": "在 Postiz Cloud 的「设置 → 开发者」中复制 API Key，再填入插件设置。根据 Postiz 文档，开发者设置适用于 Standard 及以上套餐。"
+    },
+    "helpURL": "https://docs.postiz.com/general/settings/developers"
+  }
+}

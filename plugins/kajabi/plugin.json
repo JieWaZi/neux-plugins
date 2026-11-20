@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "kajabi",
+  "version": "0.1.0",
+  "description": "Review the products, content, and account information available in Kajabi.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.kajabi.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Kajabi",
+        "shortDescription": "Review the products, content, and account information available in Kajabi.",
+        "developerName": "Kajabi",
+        "category": "productivity",
+        "websiteURL": "https://www.kajabi.com",
+        "supportURL": "https://www.kajabi.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Kajabi."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

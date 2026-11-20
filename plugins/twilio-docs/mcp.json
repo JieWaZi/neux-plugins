@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "twilio-docs": {
+      "type": "streamable-http",
+      "url": "https://mcp.twilio.com/docs"
+    }
+  },
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "sunsama",
+  "version": "0.1.0",
+  "description": "Review your daily plan, tasks, and calendar information in Sunsama.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.sunsama.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Sunsama",
+        "shortDescription": "Review your daily plan, tasks, and calendar information in Sunsama.",
+        "developerName": "Sunsama",
+        "category": "productivity",
+        "websiteURL": "https://www.sunsama.com",
+        "supportURL": "https://www.sunsama.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Sunsama."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

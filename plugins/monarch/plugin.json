@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "monarch",
+  "version": "0.1.0",
+  "description": "Review personal account activity and budgets in Monarch.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.monarch.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Monarch",
+        "shortDescription": "Review personal account activity and budgets in Monarch.",
+        "developerName": "Monarch",
+        "category": "other",
+        "websiteURL": "https://www.monarch.com",
+        "supportURL": "https://www.monarch.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Monarch."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

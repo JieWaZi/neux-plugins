@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Hostinger",
+    "zh-CN": "Hostinger"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect sites and hosting resources available in Hostinger.",
+    "zh-CN": "查看 Hostinger 中可访问的网站和托管资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Hostinger."
+    ],
+    "zh-CN": [
+      "查看我可以在 Hostinger 中访问的项目或开发资源。"
+    ]
+  }
+}

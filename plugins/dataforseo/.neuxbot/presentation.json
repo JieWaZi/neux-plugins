@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "DataForSEO",
+    "zh-CN": "DataForSEO"
+  },
+  "localizedDescriptions": {
+    "en": "Retrieve search rankings, keyword data, and related SEO research.",
+    "zh-CN": "获取搜索排名、关键词数据以及相关 SEO 研究资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with DataForSEO and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 DataForSEO 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

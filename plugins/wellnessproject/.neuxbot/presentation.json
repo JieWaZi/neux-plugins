@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Wellness Project",
+    "zh-CN": "Wellness Project"
+  },
+  "localizedDescriptions": {
+    "en": "Review fitness, nutrition, and other wellness records in Wellness Project.",
+    "zh-CN": "查看 Wellness Project 中的健身、营养和其他健康记录。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Wellness Project."
+    ],
+    "zh-CN": [
+      "查看我在 Wellness Project 中可以访问哪些资源。"
+    ]
+  }
+}

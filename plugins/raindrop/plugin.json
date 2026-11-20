@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "raindrop",
+  "version": "0.1.0",
+  "description": "Search and organize bookmarks from your Raindrop.io collections.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://raindrop.io",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Raindrop.io",
+        "shortDescription": "Search and organize bookmarks from your Raindrop.io collections.",
+        "developerName": "Raindrop.io",
+        "category": "productivity",
+        "websiteURL": "https://raindrop.io",
+        "supportURL": "https://raindrop.io",
+        "defaultPrompt": [
+          "Show which resources I can access in Raindrop.io."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

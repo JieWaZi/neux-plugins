@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Windsor.ai",
+    "zh-CN": "Windsor.ai"
+  },
+  "localizedDescriptions": {
+    "en": "Explore marketing and analytics data from your connected Windsor.ai sources.",
+    "zh-CN": "查看通过 Windsor.ai 接入的营销和分析数据。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Windsor.ai."
+    ],
+    "zh-CN": [
+      "查看我可以在 Windsor.ai 中读取哪些资料。"
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "21st",
+    "repository": "https://21st.dev",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://21st.dev/api/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://21st.dev/apple-touch-icon.png",
+      "sourceSHA256": "e7c444bf3ebc8d8c6b9980832627ea6c86669ae672eef29c67cfbf6327aa2a50",
+      "sha256": "e7c444bf3ebc8d8c6b9980832627ea6c86669ae672eef29c67cfbf6327aa2a50",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "21st branding used to identify the service"
+    }
+  ]
+}

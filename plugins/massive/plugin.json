@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "massive",
+  "version": "0.1.0",
+  "description": "Look up market data available to your Massive subscription.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://massive.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Massive",
+        "shortDescription": "Look up market data available to your Massive subscription.",
+        "developerName": "Massive",
+        "category": "data-analytics",
+        "websiteURL": "https://massive.com",
+        "supportURL": "https://massive.com",
+        "defaultPrompt": [
+          "Show what information I can read in Massive."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

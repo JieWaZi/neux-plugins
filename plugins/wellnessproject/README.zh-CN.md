@@ -1,0 +1,9 @@
+# Wellness Project
+
+查看 Wellness Project 中的健身、营养和其他健康记录。
+
+## 权限前提
+
+在浏览器登录 Wellness Project，批准你愿意授予的访问权限。可访问的资源和工具取决于账户权限及订阅计划。
+
+[供应商文档](https://wellnessproject.ai)

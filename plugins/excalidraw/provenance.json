@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Excalidraw",
+    "repository": "https://github.com/excalidraw/excalidraw-mcp",
+    "license": "MIT",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.excalidraw.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Author the standard manifest and bilingual presentation",
+      "Declare the vendor-operated MCP endpoint for anonymous access"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://excalidraw.com/apple-touch-icon.png",
+      "sourceSHA256": "b6a6c4464319a3b1faeb310bcb8ac24061b2301ce19ddc81453675bbd461ed8f",
+      "sha256": "ea037f224e6b2b99c289928ffcaa9429fef4d794544960a707b9154f2d6d9862",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://plus.excalidraw.com/terms-of-service",
+      "attribution": "Excalidraw, vendor artwork used to identify this integration"
+    }
+  ]
+}

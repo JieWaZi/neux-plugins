@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "deepledger",
+  "version": "0.1.0",
+  "description": "Review bookkeeping records from services connected to DeepLedger.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://deepledger.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "DeepLedger",
+        "shortDescription": "Review bookkeeping records from services connected to DeepLedger.",
+        "developerName": "DeepLedger",
+        "category": "other",
+        "websiteURL": "https://deepledger.ai",
+        "supportURL": "https://deepledger.ai",
+        "defaultPrompt": [
+          "Show which resources I can access in DeepLedger."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

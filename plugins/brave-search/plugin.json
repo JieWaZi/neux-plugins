@@ -1,0 +1,58 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "brave-search",
+  "version": "0.1.0",
+  "description": "Search the public web, news, images, videos, and places with Brave Search.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/brave/brave-search-mcp-server",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Brave Search",
+        "shortDescription": "Search the public web, news, images, videos, and places with Brave Search.",
+        "developerName": "Brave",
+        "category": "research",
+        "websiteURL": "https://brave.com/search/api/",
+        "supportURL": "https://github.com/brave/brave-search-mcp-server#configuration",
+        "privacyPolicyURL": "https://brave.com/privacy/",
+        "termsOfServiceURL": "https://brave.com/terms-of-use/",
+        "capabilities": [
+          "Search public web pages",
+          "Find news, image, and video results",
+          "Look up places where the plan permits"
+        ],
+        "defaultPrompt": [
+          "Find reputable sources on a recent public technology announcement and summarize the key facts with links."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "BRAVE_API_KEY",
+            "label": "API key",
+            "description": "Create a key in the Brave Search API dashboard for the plan you want to use.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "brave-search",
+            "target": "env",
+            "name": "BRAVE_API_KEY",
+            "value": "${BRAVE_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

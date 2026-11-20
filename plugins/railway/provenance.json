@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Railway",
+    "repository": "https://railway.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.railway.com"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://railway.com/apple-touch-icon.png",
+      "sourceSHA256": "018a86de433081830621999d347d2752c810e9d839e6631138ccc9493443c3af",
+      "sha256": "6d005193620146e12dd30f6bc5c7589034bb7d2b4e04bf46fc048f41d264f921",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Railway branding used to identify the service"
+    }
+  ]
+}

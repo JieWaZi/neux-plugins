@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "RevenueCat",
+    "repository": "https://www.revenuecat.com/docs/tools/mcp/setup",
+    "license": "Vendor hosted-service terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.revenuecat.ai/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declared the vendor-hosted MCP connection and its API key binding",
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Encoded the original icon pixels as a compatible eight-bit PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.revenuecat.com/favicon/favicon-192x192.png",
+      "sourceSHA256": "4088eec2301f583a9e684a7ac4b20cfc45c75321615733e139f61d3a666b1dd2",
+      "sha256": "aa591bcd95b0c7a903037a1d6ba52157397efd9e6f13f53a1ce24d475e6f4ef8",
+      "license": "Service branding; copyright and trademark rights reserved",
+      "licenseURL": "https://www.revenuecat.com/press-kit",
+      "attribution": "RevenueCat; shown to identify the service, without endorsement"
+    }
+  ]
+}

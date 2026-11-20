@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Figma Desktop",
+    "zh-CN": "Figma Desktop"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect design context from Figma Desktop on the same computer.",
+    "zh-CN": "读取同一台电脑上 Figma Desktop 的设计信息。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Summarize the selected frame and list its main components and layout rules."
+    ],
+    "zh-CN": [
+      "概述当前选中的画框，列出其中的主要组件和布局规则。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Sign in to Figma Desktop on the same computer as NeuxBot Core. Open a Figma Design file, switch to Dev Mode and enable the desktop MCP server in the right sidebar. A Dev or Full seat on an eligible Figma plan is required.",
+      "zh-CN": "在运行 NeuxBot Core 的同一台电脑上登录 Figma Desktop。打开 Figma Design 文件，切换到 Dev Mode，在右侧栏启用桌面 MCP 服务。此功能需要符合条件的 Figma 套餐及 Dev 或 Full 席位。"
+    },
+    "helpURL": "https://developers.figma.com/docs/figma-mcp-server/local-server-installation/"
+  }
+}

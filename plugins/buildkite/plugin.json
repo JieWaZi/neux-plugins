@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "buildkite",
+  "version": "0.1.0",
+  "description": "Inspect Buildkite pipelines, recent builds, and job outcomes.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://buildkite.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Buildkite",
+        "shortDescription": "Inspect Buildkite pipelines, recent builds, and job outcomes.",
+        "developerName": "Buildkite",
+        "category": "coding",
+        "websiteURL": "https://buildkite.com",
+        "supportURL": "https://buildkite.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Buildkite."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "TradingView",
+    "zh-CN": "TradingView"
+  },
+  "localizedDescriptions": {
+    "en": "Look up TradingView market information for research.",
+    "zh-CN": "查找 TradingView 的市场资料用于研究。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in TradingView."
+    ],
+    "zh-CN": [
+      "查看我可以在 TradingView 中读取哪些资料。"
+    ]
+  }
+}

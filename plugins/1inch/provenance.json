@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "1inch",
+    "repository": "https://business.1inch.com/portal/documentation/ai-integration/mcp-server",
+    "license": "1inch Business Terms of Service for the hosted service",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://api.1inch.com/mcp/protocol"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Author the standard manifest and bilingual presentation",
+      "Declare the vendor-operated MCP endpoint for anonymous access"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://business.1inch.com/favicon/apple-touch-icon.png",
+      "sourceSHA256": "6ea20e4d18a5fdd64ffd9e4ee7122cca5499a837e6b115aebb25321a2d1652f6",
+      "sha256": "6ea20e4d18a5fdd64ffd9e4ee7122cca5499a837e6b115aebb25321a2d1652f6",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://business.1inch.com/portal/commercial-terms-of-service",
+      "attribution": "1inch, vendor artwork used to identify this integration"
+    }
+  ]
+}

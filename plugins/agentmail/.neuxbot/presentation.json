@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "AgentMail",
+    "zh-CN": "AgentMail"
+  },
+  "localizedDescriptions": {
+    "en": "Bring authorized AgentMail inboxes and email conversations into your work.",
+    "zh-CN": "在工作中访问已授权的 AgentMail 邮箱和邮件会话。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the resources available to me in AgentMail without making changes."
+    ],
+    "zh-CN": [
+      "查看我在 AgentMail 中可以使用的资源，先不要执行更改。"
+    ]
+  }
+}

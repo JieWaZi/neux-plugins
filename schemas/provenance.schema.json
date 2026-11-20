@@ -69,13 +69,14 @@
               "type": "string",
               "enum": [
                 "vendored-source",
-                "hosted-service"
+                "hosted-service",
+                "local-service"
               ]
             },
             "url": {
               "type": "string",
               "minLength": 1,
-              "pattern": "^https://[^\\s]+$"
+              "pattern": "^https?://[^\\s]+$"
             }
           }
         }
@@ -104,7 +105,16 @@
               "commit"
             ],
             "properties": {
-              "commit": {}
+              "commit": {},
+              "distribution": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "pattern": "^https://[^\\s]+$",
+                    "type": "string"
+                  }
+                }
+              }
             }
           }
         },
@@ -134,7 +144,47 @@
                   "url"
                 ],
                 "properties": {
-                  "url": {}
+                  "url": {
+                    "pattern": "^https://[^\\s]+$",
+                    "type": "string"
+                  }
+                }
+              },
+              "commit": false,
+              "tag": false,
+              "version": false
+            }
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "distribution": {
+                "type": "object",
+                "properties": {
+                  "mode": {
+                    "enum": [
+                      "local-service"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "distribution": {
+                "type": "object",
+                "required": [
+                  "url"
+                ],
+                "properties": {
+                  "url": {
+                    "pattern": "^http://[^\\s]+$",
+                    "type": "string"
+                  }
                 }
               },
               "commit": false,

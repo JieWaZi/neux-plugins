@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "fireflies",
+  "version": "0.1.0",
+  "description": "Search Fireflies meeting transcripts and review recorded takeaways.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://fireflies.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Fireflies.ai",
+        "shortDescription": "Search Fireflies meeting transcripts and review recorded takeaways.",
+        "developerName": "Fireflies.ai",
+        "category": "productivity",
+        "websiteURL": "https://fireflies.ai",
+        "supportURL": "https://fireflies.ai",
+        "defaultPrompt": [
+          "Show which resources I can access in Fireflies.ai."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

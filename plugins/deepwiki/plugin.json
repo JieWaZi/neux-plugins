@@ -1,0 +1,37 @@
+{
+  "name": "deepwiki",
+  "version": "0.1.2",
+  "description": "Navigate generated documentation for public GitHub repositories and ask questions about their code.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/CognitionAI/deepwiki",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "DeepWiki",
+        "shortDescription": "Navigate generated documentation for public GitHub repositories and ask questions about their code.",
+        "developerName": "Cognition",
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Map the major components in a public repository and explain how they fit together."
+        ],
+        "capabilities": [
+          "List sections in a public repository wiki",
+          "Read generated repository documentation",
+          "Ask technical questions about a public codebase"
+        ],
+        "websiteURL": "https://deepwiki.com",
+        "supportURL": "https://docs.devin.ai/work-with-devin/deepwiki-mcp",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

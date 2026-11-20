@@ -3,8 +3,10 @@ import { openAsBlob } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { maxDetailsBytes } from './details.mjs';
+import { validateSchema } from './schema.mjs';
 import { GitHubReleases, assetBinding } from './github-releases.mjs';
-import { catalogAsset, catalogTagPattern, entryAsset, isCatalogReleaseTag, latestCatalogURL, maxCatalogBytes, mergeCatalog, readCatalog, readEntry } from './release-catalog.mjs';
+import { catalogAsset, catalogTagPattern, encodeCatalog, entryAsset, isCatalogReleaseTag, latestCatalogURL, maxCatalogBytes, mergeCatalog, readCatalog, readEntry } from './release-catalog.mjs';
 import { commitPattern, parsePluginTag, repository, verifyPluginTag } from './release-tags.mjs';
 
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -27,12 +29,28 @@ async function builtAssets({ directory, tag, sourceCommit }) {
     }
     return { name, body, size: body.size, sha256 };
   }
+  if (entry.detailsSize > maxDetailsBytes) throw new Error('built plugin details exceed the client size limit');
+  const detailAsset = await verifiedAsset(details, details, entry.detailsSHA256, entry.detailsSize);
+  validateEntryDetails(Buffer.from(await detailAsset.body.arrayBuffer()), entry);
   const assets = [
     makeAsset(entryAsset, entryBytes),
     await verifiedAsset(portable, portable, entry.archiveSHA256),
-    await verifiedAsset(details, details, entry.detailsSHA256, entry.detailsSize),
+    detailAsset,
   ];
   return { entry, assets };
+}
+
+function validateEntryDetails(content, entry) {
+  const details = validateSchema('details.schema.json', JSON.parse(content));
+  if (details.sourceCommit !== entry.sourceCommit || details.archiveSHA256 !== entry.archiveSHA256 ||
+      details.packagePath !== entry.packagePath || details.package.manifest.name !== entry.name ||
+      details.package.manifest.version !== entry.version) {
+    throw new Error(`plugin details do not match the catalog entry: ${entry.key}`);
+  }
+  const hostedOAuth = details.package.integration?.authentication?.strategy === 'mcp-oauth';
+  if (hostedOAuth !== details.package.servers.some(server => server.authentication?.type === 'oauth')) {
+    throw new Error(`inconsistent hosted OAuth declaration in plugin details: ${entry.key}`);
+  }
 }
 
 function checkRelease(release, tag, draft) {
@@ -62,7 +80,9 @@ function checkAssetInventory(release, expected, allowMissing) {
 
 async function publishRelease({ api, tag, sourceCommit, assets, latest, beforePublish, allowNew = true }) {
   const expected = new Map(assets.map(asset => [asset.name, asset]));
-  const body = `Source commit: ${sourceCommit}\n\n${assets[0].name} SHA-256: ${assets[0].sha256}`;
+  const source = latest ? 'Catalog entries bind their own source commits.' : `Source commit: ${sourceCommit}`;
+  const [index] = assets;
+  const body = `${source}\n\n${index.name} SHA-256: ${index.sha256}`;
   // The catalog has per-entry source commits. Its own tag points at main when GitHub publishes the draft.
   const targetCommitish = latest ? 'main' : sourceCommit;
   let release = await api.findRelease(tag);
@@ -100,18 +120,30 @@ async function publishRelease({ api, tag, sourceCommit, assets, latest, beforePu
 }
 
 export async function publishPlugin({ api, directory, tag, sourceCommit }) {
-  const { entry, assets } = await builtAssets({ directory, tag, sourceCommit });
-  await api.verifyTag(tag, sourceCommit);
-  // Catch legacy same-version conflicts before creating the new fixed release.
-  const base = await readLatest(api);
-  const { status } = mergeCatalog(base.catalog, entry);
-  await publishRelease({
-    api, tag, sourceCommit, assets, latest: false, allowNew: status !== 'superseded',
-    beforePublish: () => api.verifyTag(tag, sourceCommit),
-  });
+  return publishPluginBatch({ api, candidates: [{ directory, tag, sourceCommit }] });
 }
 
-async function candidateFromRelease(api, tag, sourceCommit) {
+export async function publishPluginBatch({ api, candidates }) {
+  validateCandidates(candidates);
+  const built = [];
+  for (const candidate of candidates) {
+    const { entry, assets } = await builtAssets(candidate);
+    await api.verifyTag(candidate.tag, candidate.sourceCommit);
+    built.push({ ...candidate, entry, assets });
+  }
+  // Verify all bindings and the final catalog size before creating any fixed release.
+  const base = await readLatest(api);
+  const { status, statuses, catalog } = mergeReleaseEntries(base.catalog, built.map(({ entry }) => entry));
+  if (status === 'changed') encodeCatalog(catalog);
+  for (const [i, { tag, sourceCommit, assets }] of built.entries()) {
+    await publishRelease({
+      api, tag, sourceCommit, assets, latest: false, allowNew: statuses[i] !== 'superseded',
+      beforePublish: () => api.verifyTag(tag, sourceCommit),
+    });
+  }
+}
+
+async function candidateFromRelease(api, { tag, sourceCommit }) {
   await api.verifyTag(tag, sourceCommit);
   return api.retryRead(async () => {
     const release = checkRelease(await api.releaseByTag(tag), tag, false);
@@ -123,16 +155,22 @@ async function candidateFromRelease(api, tag, sourceCommit) {
     if (portable.sha256 !== entry.archiveSHA256 || details.sha256 !== entry.detailsSHA256 || details.size !== entry.detailsSize) {
       throw new Error(`published package assets do not match the catalog entry: ${tag}`);
     }
+    if (details.size > maxDetailsBytes) throw new Error('published plugin details exceed the client size limit');
+    validateEntryDetails(await api.downloadAsset(release, details), entry);
     return entry;
   });
 }
 
+async function checkLatest(api, release, asset) {
+  const current = checkRelease(await api.latestRelease(), release.tag_name, false);
+  if (current.id !== release.id || !sameAsset(assetBinding(current, catalogAsset), asset)) {
+    throw new Error(`latest catalog release binding changed: ${release.tag_name}`);
+  }
+}
+
 async function verifyLatest(api, release, asset) {
   await api.retryRead(async () => {
-    const current = checkRelease(await api.latestRelease(), release.tag_name, false);
-    if (current.id !== release.id || !sameAsset(assetBinding(current, catalogAsset), asset)) {
-      throw new Error(`latest catalog release binding changed: ${release.tag_name}`);
-    }
+    await checkLatest(api, release, asset);
     await api.download(latestCatalogURL, asset);
   });
 }
@@ -149,30 +187,58 @@ function readLatest(api) {
   });
 }
 
+function mergeReleaseEntries(catalog, entries) {
+  const statuses = [];
+  for (const entry of entries) {
+    const merged = mergeCatalog(catalog, entry);
+    catalog = merged.catalog;
+    statuses.push(merged.status);
+  }
+  const status = statuses.includes('changed') ? 'changed' : statuses.includes('current') ? 'current' : 'superseded';
+  return { status, statuses, catalog };
+}
+
 export async function promoteCatalog({ api, tag, sourceCommit, catalogTag }) {
+  return promoteCatalogBatch({ api, candidates: [{ tag, sourceCommit }], catalogTag });
+}
+
+function validateCandidates(candidates) {
+  if (candidates.length === 0) throw new Error('at least one plugin release is required');
+  const keys = new Set();
+  for (const { tag, sourceCommit } of candidates) {
+    const { key } = parsePluginTag(tag);
+    if (keys.has(key)) throw new Error(`duplicate plugin release: ${key}`);
+    if (!commitPattern.test(sourceCommit)) throw new Error('sourceCommit must be a full Git commit');
+    keys.add(key);
+  }
+}
+
+export async function promoteCatalogBatch({ api, candidates, catalogTag }) {
   if (!catalogTagPattern.test(catalogTag)) throw new Error('invalid catalog promotion tag');
-  parsePluginTag(tag);
-  const candidate = await candidateFromRelease(api, tag, sourceCommit);
+  validateCandidates(candidates);
+  const entries = [];
+  for (const candidate of candidates) entries.push(await candidateFromRelease(api, candidate));
   const base = await readLatest(api);
-  const { status, catalog } = mergeCatalog(base.catalog, candidate);
+  const { status, catalog } = mergeReleaseEntries(base.catalog, entries);
   if (status !== 'changed') {
     await verifyLatest(api, base.release, base.asset);
     return status;
   }
-  const content = Buffer.from(`${JSON.stringify(catalog, null, 2)}\n`);
-  if (content.length > maxCatalogBytes) throw new Error('merged catalog exceeds the client size limit');
-  const asset = makeAsset(catalogAsset, content);
+  const asset = makeAsset(catalogAsset, encodeCatalog(catalog));
   const release = await publishRelease({
-    api, tag: catalogTag, sourceCommit, assets: [asset], latest: true,
-    beforePublish: async () => {
-      const current = checkRelease(await api.latestRelease(), base.release.tag_name, false);
-      if (current.id !== base.release.id || !sameAsset(assetBinding(current, catalogAsset), base.asset)) {
-        throw new Error('latest catalog changed while preparing the draft');
-      }
-    },
+    api, tag: catalogTag, assets: [asset], latest: true,
+    beforePublish: () => checkLatest(api, base.release, base.asset),
   });
   await verifyLatest(api, release, asset);
-  return status;
+  return 'changed';
+}
+
+export function mainRefGuard(env = process.env) {
+  const { GITHUB_ACTIONS, GITHUB_EVENT_NAME, GITHUB_REF, GITHUB_REF_PROTECTED, GITHUB_REPOSITORY } = env;
+  if (GITHUB_ACTIONS !== 'true' || GITHUB_EVENT_NAME !== 'workflow_dispatch' || GITHUB_REF !== 'refs/heads/main' ||
+      GITHUB_REF_PROTECTED !== 'true' || GITHUB_REPOSITORY !== repository) {
+    throw new Error('publishing requires a dispatch from main with branch protection in the maintained plugin repository');
+  }
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -182,11 +248,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const verified = verifyPluginTag({ root, tag, sourceCommit });
     console.log(`key=${verified.key}\nsource_commit=${verified.sourceCommit}`);
   } else {
-    const { GITHUB_ACTIONS, GITHUB_EVENT_NAME, GITHUB_REF, GITHUB_REF_PROTECTED, GITHUB_REPOSITORY, GITHUB_RUN_ID, GITHUB_RUN_ATTEMPT, GH_TOKEN } = process.env;
-    if (GITHUB_ACTIONS !== 'true' || GITHUB_EVENT_NAME !== 'workflow_dispatch' || GITHUB_REF !== 'refs/heads/main' ||
-        GITHUB_REF_PROTECTED !== 'true' || GITHUB_REPOSITORY !== repository) {
-      throw new Error('publishing requires a dispatch from main with branch protection in the maintained plugin repository');
-    }
+    mainRefGuard();
+    const { GITHUB_RUN_ID, GITHUB_RUN_ATTEMPT, GH_TOKEN } = process.env;
     if (!commitPattern.test(sourceCommit)) throw new Error('sourceCommit must be a full Git commit');
     verifyPluginTag({ root, tag, sourceCommit });
     const api = new GitHubReleases({ token: GH_TOKEN });

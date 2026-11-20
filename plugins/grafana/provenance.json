@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Grafana Labs",
+    "repository": "https://grafana.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.grafana.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/1a/d7/9d/1ad79d36-8142-fb4a-0b83-61747215388e/AppIcon-0-0-1x_U007ephone-0-1-sRGB-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "d79f2b3c64fd2f0cb12a718e3de57627be0fd1839a9b7d8d38dd14df12c797e1",
+      "sha256": "9081ebe0cc7d6d2b4a1694d7badb7ef9b80e8bd5e3b49bb072d8bf680aaf6c28",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Grafana Labs branding used to identify the service"
+    }
+  ]
+}

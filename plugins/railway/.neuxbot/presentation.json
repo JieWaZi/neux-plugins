@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Railway",
+    "zh-CN": "Railway"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect Railway projects, service deployments, and their status.",
+    "zh-CN": "查看 Railway 项目、服务部署及其状态。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Railway."
+    ],
+    "zh-CN": [
+      "查看我可以在 Railway 中访问的项目或开发资源。"
+    ]
+  }
+}

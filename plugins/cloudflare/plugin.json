@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "cloudflare",
+  "version": "0.1.0",
+  "description": "Inspect the Cloudflare account resources available through its MCP service.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.cloudflare.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Cloudflare",
+        "shortDescription": "Inspect the Cloudflare account resources available through its MCP service.",
+        "developerName": "Cloudflare",
+        "category": "coding",
+        "websiteURL": "https://www.cloudflare.com",
+        "supportURL": "https://www.cloudflare.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Cloudflare."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

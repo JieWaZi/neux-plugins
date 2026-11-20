@@ -15,12 +15,42 @@ const bytes = value => Buffer.from(JSON.stringify(value));
 const sha = content => createHash('sha256').update(content).digest('hex');
 const fixed = (tag, name) => `https://github.com/${repo}/releases/download/${tag}/${name}`;
 
-function entry(key, version, tag, commit = sourceCommit) {
-  return {
+function detailsBytes(entry, hosted = false) {
+  const plugin = {
+    contractVersion: 'neuxbot-plugin/1',
+    manifest: {
+      $schema: 'https://agent-plugins.org/schemas/1.0.0/plugin.schema.json',
+      name: entry.name, version: entry.version, description: entry.description, author: {}, keywords: [],
+    },
+    format: 'agent-plugins', presentation: {},
+    upstream: {
+      author: 'Example', repository: 'https://example.com', license: 'Example terms',
+      distribution: { mode: 'hosted-service', url: 'https://example.com/mcp' },
+    },
+    skills: [], servers: [], diagnostics: [],
+  };
+  if (hosted) {
+    plugin.servers = [{
+      key: entry.key, type: 'streamable-http', url: 'https://example.com/mcp', authentication: { type: 'oauth' },
+    }];
+    plugin.integration = {
+      authentication: { strategy: 'mcp-oauth', protocol: 'neuxbot-auth/1', preferredAction: 'open-url', scopes: [] },
+    };
+  }
+  return bytes({
+    schemaVersion: 1, sourceCommit: entry.sourceCommit, archiveSHA256: entry.archiveSHA256,
+    packagePath: entry.packagePath, package: plugin, readmes: {}, skillContents: {},
+  });
+}
+
+function entry(key, version, tag, commit = sourceCommit, hosted = false) {
+  const value = {
     key, name: key, version, description: 'A plugin', packagePath: `plugins/${key}`, format: 'agent-plugins',
     sourceCommit: commit, archiveURL: fixed(tag, `${key}.zip`), archiveSHA256: sha(Buffer.from('portable package')),
-    detailsURL: fixed(tag, `${key}.details.json`), detailsSHA256: sha(Buffer.from('{}')), detailsSize: 2,
+    detailsURL: fixed(tag, `${key}.details.json`),
   };
+  const details = detailsBytes(value, hosted);
+  return { ...value, detailsSHA256: sha(details), detailsSize: details.length };
 }
 
 const original = {
@@ -29,14 +59,14 @@ const original = {
 };
 const candidate = entry('github', '0.1.2', 'github@0.1.2');
 
-async function buildFixture(t) {
+async function buildFixture(t, plugin = candidate, hosted = false) {
   const directory = await mkdtemp(path.join(tmpdir(), 'publish-plugin-'));
   t.after(() => rm(directory, { recursive: true, force: true }));
-  const put = (name, value) => writeFile(path.join(directory, name), typeof value === 'string' ? value : bytes(value));
+  const put = (name, value) => writeFile(path.join(directory, name), value);
   await Promise.all([
-    put('catalog.json', { schemaVersion: 1, entries: [candidate] }),
-    put('github.zip', 'portable package'),
-    put('github.details.json', '{}'),
+    put('catalog.json', bytes({ schemaVersion: 1, entries: [plugin] })),
+    put(`${plugin.key}.zip`, 'portable package'),
+    put(`${plugin.key}.details.json`, detailsBytes(plugin, hosted)),
   ]);
   return directory;
 }

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Sentry",
+    "zh-CN": "Sentry"
+  },
+  "localizedDescriptions": {
+    "en": "Investigate errors and performance issues in your Sentry projects.",
+    "zh-CN": "在 Sentry 项目中排查错误和性能问题。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Sentry."
+    ],
+    "zh-CN": [
+      "查看我可以在 Sentry 中访问的项目或开发资源。"
+    ]
+  }
+}

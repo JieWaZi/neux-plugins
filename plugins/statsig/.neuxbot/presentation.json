@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Statsig",
+    "zh-CN": "Statsig"
+  },
+  "localizedDescriptions": {
+    "en": "Explore feature gates and experiment information in Statsig.",
+    "zh-CN": "查看 Statsig 中的功能门控和实验信息。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Statsig."
+    ],
+    "zh-CN": [
+      "查看我可以在 Statsig 中访问的项目或开发资源。"
+    ]
+  }
+}

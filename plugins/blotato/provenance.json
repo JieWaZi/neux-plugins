@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Blotato",
+    "repository": "https://www.blotato.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.blotato.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.blotato.com/favicon.webp",
+      "sourceSHA256": "3cda51cd321f51840edae5c10e84883737e92f4959fd4ff82ff8840c4abdcf84",
+      "sha256": "e512fa52c81e11a45fa77e1801a3a5b54c1452ca9453a33befc7694eddfff7a3",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Blotato branding used to identify the service"
+    }
+  ]
+}

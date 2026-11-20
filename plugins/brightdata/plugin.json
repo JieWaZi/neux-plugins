@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "brightdata",
+  "version": "0.1.0",
+  "description": "Retrieve public web data through the services enabled in Bright Data.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://brightdata.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Bright Data",
+        "shortDescription": "Retrieve public web data through the services enabled in Bright Data.",
+        "developerName": "Bright Data",
+        "category": "research",
+        "websiteURL": "https://brightdata.com",
+        "supportURL": "https://brightdata.com",
+        "defaultPrompt": [
+          "Explain what I can research with Bright Data and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

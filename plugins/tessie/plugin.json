@@ -1,0 +1,55 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "tessie",
+  "version": "0.1.2",
+  "description": "Check vehicle status, battery charge, and recent charging activity from Tessie.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://developer.tessie.com/reference/mcp",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Tessie",
+        "shortDescription": "Check vehicle status, battery charge, and recent charging activity from Tessie.",
+        "developerName": "Tessie",
+        "category": "other",
+        "websiteURL": "https://www.tessie.com",
+        "supportURL": "https://developer.tessie.com/reference/mcp",
+        "capabilities": [
+          "Check vehicle status",
+          "Check battery and charging activity"
+        ],
+        "defaultPrompt": [
+          "Summarize the current battery level and charging status for my vehicle."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "TESSIE_ACCESS_TOKEN",
+            "label": "Tessie access token",
+            "description": "Generate an access token in Tessie Developer Settings.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "tessie",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${TESSIE_ACCESS_TOKEN}"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Buildkite",
+    "zh-CN": "Buildkite"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect Buildkite pipelines, recent builds, and job outcomes.",
+    "zh-CN": "查看 Buildkite 流水线、近期构建及作业结果。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Buildkite."
+    ],
+    "zh-CN": [
+      "查看我可以在 Buildkite 中访问的项目或开发资源。"
+    ]
+  }
+}

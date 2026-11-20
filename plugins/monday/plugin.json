@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "monday",
+  "version": "0.1.0",
+  "description": "Inspect work boards, items, and team project status in monday.com.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://monday.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "monday.com",
+        "shortDescription": "Inspect work boards, items, and team project status in monday.com.",
+        "developerName": "monday.com",
+        "category": "productivity",
+        "websiteURL": "https://monday.com",
+        "supportURL": "https://monday.com",
+        "defaultPrompt": [
+          "Show which resources I can access in monday.com."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

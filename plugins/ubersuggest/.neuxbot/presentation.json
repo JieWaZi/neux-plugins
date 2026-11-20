@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Ubersuggest",
+    "zh-CN": "Ubersuggest"
+  },
+  "localizedDescriptions": {
+    "en": "Research search terms and site visibility with Ubersuggest data.",
+    "zh-CN": "使用 Ubersuggest 数据研究搜索词和网站曝光度。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Ubersuggest."
+    ],
+    "zh-CN": [
+      "查看我可以在 Ubersuggest 中读取哪些资料。"
+    ]
+  }
+}

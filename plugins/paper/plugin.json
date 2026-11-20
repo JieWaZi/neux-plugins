@@ -1,0 +1,38 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "paper",
+  "version": "0.1.0",
+  "description": "Inspect and edit the open design file in Paper Desktop on the same computer.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://paper.design/docs/mcp",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Paper Desktop",
+        "shortDescription": "Inspect and edit the open design file in Paper Desktop on the same computer.",
+        "developerName": "Paper",
+        "category": "design",
+        "websiteURL": "https://paper.design",
+        "supportURL": "https://paper.design/docs/mcp",
+        "privacyPolicyURL": "https://paper.design/legal/privacy",
+        "termsOfServiceURL": "https://paper.design/legal/tos",
+        "capabilities": [
+          "Inspect designs, styles, and tokens in the open file",
+          "Create or update layout, text, and styles"
+        ],
+        "defaultPrompt": [
+          "Summarize the open design file and list the styles used by the selected design."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

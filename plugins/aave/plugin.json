@@ -1,0 +1,37 @@
+{
+  "name": "aave",
+  "version": "0.1.2",
+  "description": "Inspect Aave lending markets, public wallet positions and governance across V3 and V4.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://aave.com/docs/mcp",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Aave",
+        "shortDescription": "Inspect Aave lending markets, public wallet positions and governance across V3 and V4.",
+        "developerName": "Aave Labs",
+        "category": "Data & Analytics",
+        "defaultPrompt": [
+          "Compare liquidity and interest-rate history for USDC across Aave markets."
+        ],
+        "capabilities": [
+          "Compare lending reserves, liquidity and rate history",
+          "Inspect public wallet positions and health factors",
+          "Review governance proposals and preview protocol actions"
+        ],
+        "websiteURL": "https://aave.com",
+        "supportURL": "https://aave.com/docs/mcp/getting-started",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

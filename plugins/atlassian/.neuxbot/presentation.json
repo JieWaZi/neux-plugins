@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Atlassian",
+    "zh-CN": "Atlassian"
+  },
+  "localizedDescriptions": {
+    "en": "Find and work with Jira issues and Confluence content through Atlassian Rovo.",
+    "zh-CN": "通过 Atlassian Rovo 查找 Jira 工单和 Confluence 内容。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Atlassian."
+    ],
+    "zh-CN": [
+      "查看我在 Atlassian 中可以访问哪些资源。"
+    ]
+  }
+}

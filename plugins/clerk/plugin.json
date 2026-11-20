@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "clerk",
+  "version": "0.1.0",
+  "description": "Inspect users and organizations in the Clerk projects you can access.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://clerk.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Clerk",
+        "shortDescription": "Inspect users and organizations in the Clerk projects you can access.",
+        "developerName": "Clerk",
+        "category": "coding",
+        "websiteURL": "https://clerk.com",
+        "supportURL": "https://clerk.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Clerk."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

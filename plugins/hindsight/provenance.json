@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Vectorize",
+    "repository": "https://docs.hindsight.vectorize.io/cloud/mcp/",
+    "license": "Vendor hosted-service terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://api.hindsight.vectorize.io/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declared the vendor-hosted MCP connection and its API key binding",
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Used the service iconUrl declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://ui.hindsight.vectorize.io/apple-touch-icon.png",
+      "sourceSHA256": "361e0947c8820aa8ee3e0edacc1fd60f39a2719ab72cd14a2d6f3bf0b86a05ab",
+      "sha256": "361e0947c8820aa8ee3e0edacc1fd60f39a2719ab72cd14a2d6f3bf0b86a05ab",
+      "license": "Service branding; copyright and trademark rights reserved",
+      "licenseURL": "https://hindsight.vectorize.io",
+      "attribution": "Vectorize; shown to identify the service, without endorsement"
+    }
+  ]
+}

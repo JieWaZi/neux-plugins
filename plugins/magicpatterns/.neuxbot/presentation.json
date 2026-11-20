@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Magic Patterns",
+    "zh-CN": "Magic Patterns"
+  },
+  "localizedDescriptions": {
+    "en": "Work with interface designs and prototypes in Magic Patterns.",
+    "zh-CN": "在 Magic Patterns 中处理界面设计和原型。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Magic Patterns."
+    ],
+    "zh-CN": [
+      "查看我可以在 Magic Patterns 中访问的素材或创意资源。"
+    ]
+  }
+}

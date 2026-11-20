@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Context7",
+    "zh-CN": "Context7"
+  },
+  "localizedDescriptions": {
+    "en": "Find indexed library documentation and code examples for the version your project uses.",
+    "zh-CN": "查找项目所用版本对应的库文档和代码示例。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Find documentation for the Next.js version declared in this project."
+    ],
+    "zh-CN": [
+      "查找当前项目所声明的 Next.js 版本对应的文档。"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "1inch": {
+      "type": "streamable-http",
+      "url": "https://api.1inch.com/mcp/protocol"
+    }
+  },
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+}

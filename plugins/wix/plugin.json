@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "wix",
+  "version": "0.1.0",
+  "description": "Work with the sites and business resources available in Wix.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.wix.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Wix",
+        "shortDescription": "Work with the sites and business resources available in Wix.",
+        "developerName": "Wix",
+        "category": "coding",
+        "websiteURL": "https://www.wix.com",
+        "supportURL": "https://www.wix.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Wix."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

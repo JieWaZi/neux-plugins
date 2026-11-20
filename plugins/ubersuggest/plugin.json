@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ubersuggest",
+  "version": "0.1.0",
+  "description": "Research search terms and site visibility with Ubersuggest data.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://ubersuggest.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Ubersuggest",
+        "shortDescription": "Research search terms and site visibility with Ubersuggest data.",
+        "developerName": "NP Digital",
+        "category": "data-analytics",
+        "websiteURL": "https://ubersuggest.com",
+        "supportURL": "https://ubersuggest.com",
+        "defaultPrompt": [
+          "Show what information I can read in Ubersuggest."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

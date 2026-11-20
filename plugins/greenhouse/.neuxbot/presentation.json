@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Greenhouse",
+    "zh-CN": "Greenhouse"
+  },
+  "localizedDescriptions": {
+    "en": "Review roles and recruiting activity in Greenhouse.",
+    "zh-CN": "查看 Greenhouse 中的职位和招聘进展。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Greenhouse."
+    ],
+    "zh-CN": [
+      "查看我在 Greenhouse 中可以访问哪些资源。"
+    ]
+  }
+}

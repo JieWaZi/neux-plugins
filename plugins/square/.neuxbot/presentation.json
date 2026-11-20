@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Square",
+    "zh-CN": "Square"
+  },
+  "localizedDescriptions": {
+    "en": "Review available merchant, payment, and order information in Square.",
+    "zh-CN": "查看 Square 中可访问的商户、付款和订单信息。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Square."
+    ],
+    "zh-CN": [
+      "查看我在 Square 中可以访问哪些资源。"
+    ]
+  }
+}

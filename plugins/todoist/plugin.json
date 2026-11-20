@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "todoist",
+  "version": "0.1.0",
+  "description": "Review the projects and tasks in your Todoist account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.todoist.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Todoist",
+        "shortDescription": "Review the projects and tasks in your Todoist account.",
+        "developerName": "Doist",
+        "category": "productivity",
+        "websiteURL": "https://www.todoist.com",
+        "supportURL": "https://www.todoist.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Todoist."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Excalidraw",
+    "zh-CN": "Excalidraw"
+  },
+  "localizedDescriptions": {
+    "en": "Create sketch-style diagrams and export them to Excalidraw for editing.",
+    "zh-CN": "绘制手绘风格的示意图，并导出到 Excalidraw 继续编辑。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Sketch the handoff between a support team and engineering as a flow diagram."
+    ],
+    "zh-CN": [
+      "将客服团队与研发团队之间的问题交接过程绘制成流程图。"
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Higgsfield",
+    "zh-CN": "Higgsfield"
+  },
+  "localizedDescriptions": {
+    "en": "Work with creative projects and media generation in Higgsfield.",
+    "zh-CN": "在 Higgsfield 中处理创意项目和媒体生成。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Higgsfield."
+    ],
+    "zh-CN": [
+      "查看我可以在 Higgsfield 中访问的素材或创意资源。"
+    ]
+  }
+}

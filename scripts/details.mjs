@@ -80,6 +80,9 @@ export function packageDetails({ sourceCommit, archiveSHA256, packagePath, manif
   }
   const auth = manifest.extensions?.['com.neuxbot']?.authentication;
   if (auth) pkg.integration = { authentication: { ...pick(auth, ['strategy', 'protocol', 'preferredAction']), scopes: strings(auth.scopes) } };
+  if (pkg.servers.some(server => server.authentication?.type === 'oauth')) {
+    pkg.integration = { authentication: { strategy: 'mcp-oauth', protocol: 'neuxbot-auth/1', preferredAction: 'open-url', scopes: [] } };
+  }
   const result = { schemaVersion: 1, sourceCommit, archiveSHA256, packagePath, package: pkg, readmes, skillContents };
   validateSchema('details.schema.json', result); return result;
 }

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Stripe",
+    "zh-CN": "Stripe"
+  },
+  "localizedDescriptions": {
+    "en": "Review the payment and billing resources available to your Stripe account.",
+    "zh-CN": "查看 Stripe 账户可访问的付款和账单资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in Stripe."
+    ],
+    "zh-CN": [
+      "查看我在 Stripe 中可以访问哪些资源。"
+    ]
+  }
+}

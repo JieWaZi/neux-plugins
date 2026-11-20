@@ -1,0 +1,37 @@
+{
+  "name": "convex",
+  "version": "0.1.2",
+  "description": "Get Convex guidance for new apps, existing projects and backends that need to scale.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://mcp.convex.dev/",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Convex",
+        "shortDescription": "Get Convex guidance for new apps, existing projects and backends that need to scale.",
+        "developerName": "Convex",
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Outline the steps to add Convex to an existing TypeScript application."
+        ],
+        "capabilities": [
+          "Get a runbook for starting a Convex app",
+          "Plan how to add Convex to an existing project",
+          "Find scaling guidance for a Convex application"
+        ],
+        "websiteURL": "https://www.convex.dev",
+        "supportURL": "https://mcp.convex.dev/",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

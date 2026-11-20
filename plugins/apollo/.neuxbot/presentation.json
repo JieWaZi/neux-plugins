@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Apollo",
+    "zh-CN": "Apollo"
+  },
+  "localizedDescriptions": {
+    "en": "Research companies, contacts, and sales prospects in Apollo.",
+    "zh-CN": "在 Apollo 中查找企业、联系人和销售线索。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with Apollo and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 Apollo 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "intercom",
+  "version": "0.1.0",
+  "description": "Find customer conversations and support records in Intercom.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.intercom.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Intercom",
+        "shortDescription": "Find customer conversations and support records in Intercom.",
+        "developerName": "Intercom",
+        "category": "productivity",
+        "websiteURL": "https://www.intercom.com",
+        "supportURL": "https://www.intercom.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Intercom."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

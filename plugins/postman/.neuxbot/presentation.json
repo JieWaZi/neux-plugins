@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Postman",
+    "zh-CN": "Postman"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect API collections, workspaces, and other Postman resources.",
+    "zh-CN": "查看 Postman 中的 API 集合、工作区和其他资源。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the project or developer resources I can access in Postman."
+    ],
+    "zh-CN": [
+      "查看我可以在 Postman 中访问的项目或开发资源。"
+    ]
+  }
+}

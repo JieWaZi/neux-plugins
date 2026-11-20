@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Blotato",
+    "zh-CN": "Blotato"
+  },
+  "localizedDescriptions": {
+    "en": "Review connected social channels and prepare content with Blotato.",
+    "zh-CN": "查看 Blotato 已连接的社交渠道并准备内容。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the resources available to me in Blotato without making changes."
+    ],
+    "zh-CN": [
+      "查看我在 Blotato 中可以使用的资源，先不要执行更改。"
+    ]
+  }
+}

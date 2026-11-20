@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "airwallex",
+  "version": "0.1.0",
+  "description": "Review balances, payment activity, and other records available in Airwallex.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.airwallex.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Airwallex",
+        "shortDescription": "Review balances, payment activity, and other records available in Airwallex.",
+        "developerName": "Airwallex",
+        "category": "other",
+        "websiteURL": "https://www.airwallex.com",
+        "supportURL": "https://www.airwallex.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Airwallex."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Linear",
+    "zh-CN": "Linear"
+  },
+  "localizedDescriptions": {
+    "en": "Search issues, inspect projects, and manage work items in a Linear workspace.",
+    "zh-CN": "搜索 Linear 工作区的问题、查看项目并管理工作事项。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Summarize unresolved issues blocking the current Linear project."
+    ],
+    "zh-CN": [
+      "归纳当前 Linear 项目中尚未解决的阻塞问题。"
+    ]
+  }
+}

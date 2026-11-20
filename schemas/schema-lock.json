@@ -33,12 +33,12 @@
     },
     {
       "path": "provenance.schema.json",
-      "sha256": "1935a410c7bc4da94a8fe990ad5bf42e65d9e518a02e8de54aa18b24be8e5de8",
+      "sha256": "a7ce90f138724a8957f478287ea20f2a7f77928688f012634c141da11cd6813a",
       "source": "NeuxBot phase-one target profile"
     },
     {
       "path": "details.schema.json",
-      "sha256": "d3ea3c8254578720bdaf87f1cd3dfea58d30d36400bddf3fe48ce96d6ee3286e",
+      "sha256": "105c15bb54e4d5a7e841bfef955017b6bcf30d527b1e65cfdcc2b900cb2eab12",
       "source": "NeuxBot phase-one target profile"
     },
     {

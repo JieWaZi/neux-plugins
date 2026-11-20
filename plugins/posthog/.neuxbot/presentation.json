@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "PostHog",
+    "zh-CN": "PostHog"
+  },
+  "localizedDescriptions": {
+    "en": "Explore product events, inspect feature flags, and query PostHog analytics.",
+    "zh-CN": "探索 PostHog 产品事件、检查功能开关并查询分析数据。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the feature flags in my PostHog project and identify which ones are active."
+    ],
+    "zh-CN": [
+      "列出我的 PostHog 项目中的功能开关，并指出哪些处于启用状态。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Create a personal API key in PostHog and enter it in the plugin settings. Limit the key to the relevant projects and permissions.",
+      "zh-CN": "在 PostHog 创建个人 API Key，并填入插件设置。请将密钥的项目和权限限定在实际需要的范围内。"
+    },
+    "helpURL": "https://github.com/PostHog/posthog/tree/master/services/mcp#quick-start"
+  }
+}

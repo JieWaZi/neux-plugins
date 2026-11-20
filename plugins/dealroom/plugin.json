@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "dealroom",
+  "version": "0.1.0",
+  "description": "Research startups, investors, and funding activity with Dealroom data.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://dealroom.co",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Dealroom",
+        "shortDescription": "Research startups, investors, and funding activity with Dealroom data.",
+        "developerName": "Dealroom.co",
+        "category": "research",
+        "websiteURL": "https://dealroom.co",
+        "supportURL": "https://dealroom.co",
+        "defaultPrompt": [
+          "Explain what I can research with Dealroom and where the information comes from."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

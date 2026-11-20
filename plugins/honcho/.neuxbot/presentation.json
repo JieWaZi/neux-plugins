@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Honcho",
+    "zh-CN": "Honcho"
+  },
+  "localizedDescriptions": {
+    "en": "Find prior conversation context and retrieve what Honcho remembers about people and projects.",
+    "zh-CN": "查找过往对话的上下文，读取 Honcho 保存的人员和项目相关记忆。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "List the Honcho workspaces available to me."
+    ],
+    "zh-CN": [
+      "列出我可以访问的 Honcho 工作区。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Copy your API key from the Honcho dashboard and enter it in the plugin settings. Select the workspace you want to use when asking for stored context.",
+      "zh-CN": "从 Honcho 控制台复制 API Key 并填入插件设置。查询已存储的上下文时，请指定需要使用的工作区。"
+    },
+    "helpURL": "https://honcho.dev/docs/v3/guides/integrations/mcp"
+  }
+}

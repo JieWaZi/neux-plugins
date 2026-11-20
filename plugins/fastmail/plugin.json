@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "fastmail",
+  "version": "0.1.0",
+  "description": "Find information in your authorized Fastmail messages and calendars.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.fastmail.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Fastmail",
+        "shortDescription": "Find information in your authorized Fastmail messages and calendars.",
+        "developerName": "Fastmail",
+        "category": "productivity",
+        "websiteURL": "https://www.fastmail.com",
+        "supportURL": "https://www.fastmail.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Fastmail."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

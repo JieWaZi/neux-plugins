@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "pandadoc",
+  "version": "0.1.0",
+  "description": "Find proposals, contracts, and other available PandaDoc documents.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.pandadoc.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "PandaDoc",
+        "shortDescription": "Find proposals, contracts, and other available PandaDoc documents.",
+        "developerName": "PandaDoc",
+        "category": "documents",
+        "websiteURL": "https://www.pandadoc.com",
+        "supportURL": "https://www.pandadoc.com",
+        "defaultPrompt": [
+          "Show which documents I can read in PandaDoc."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

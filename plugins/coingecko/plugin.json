@@ -1,0 +1,37 @@
+{
+  "name": "coingecko",
+  "version": "0.1.2",
+  "description": "Retrieve cryptocurrency prices, historical market data and decentralized exchange pool data from CoinGecko.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/coingecko/coingecko-typescript/tree/main/packages/mcp-server",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "CoinGecko",
+        "shortDescription": "Retrieve cryptocurrency prices, historical market data and decentralized exchange pool data from CoinGecko.",
+        "developerName": "CoinGecko",
+        "category": "Data & Analytics",
+        "defaultPrompt": [
+          "Compare the last seven days of price and volume for two supported assets."
+        ],
+        "capabilities": [
+          "Look up token prices and market activity",
+          "Retrieve historical price and volume series",
+          "Explore decentralized exchange pools"
+        ],
+        "websiteURL": "https://www.coingecko.com",
+        "supportURL": "https://docs.coingecko.com/ai-integration/mcp-server",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

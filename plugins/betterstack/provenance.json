@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Better Stack",
+    "repository": "https://betterstack.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.betterstack.com"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert the vendor artwork to PNG"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://betterstack.com/assets/favicon-64296699.png",
+      "sourceSHA256": "5592cdca916a7426077a9a6915db7ef0b350beeb06e90f704d713f53c9ec5b59",
+      "sha256": "43d5a4968c5caadc7bea300f3a8a412a564559ed6479367d01c95f29ab97d1d7",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Better Stack branding used to identify the service"
+    }
+  ]
+}

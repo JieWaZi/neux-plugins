@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Airtable",
+    "repository": "https://airtable.com/developers/agents/mcp/getting-started",
+    "license": "Airtable hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.airtable.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declared the vendor-hosted MCP connection with the documented API key binding",
+      "Wrote setup and usage guidance in English and Simplified Chinese",
+      "Used the vendor icon URL declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://static.airtable.com/images/favicon/baymax/apple-touch-icon.png",
+      "sourceSHA256": "5a25699b1e1f5ab5131151a9aa106edcdf3c3df96612cf05ae263561cb579ffb",
+      "sha256": "5a25699b1e1f5ab5131151a9aa106edcdf3c3df96612cf05ae263561cb579ffb",
+      "license": "Vendor brand artwork; copyright and trademark rights reserved",
+      "attribution": "Airtable; identifies the service without endorsement"
+    }
+  ]
+}

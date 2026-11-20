@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "CoinGecko",
+    "repository": "https://github.com/coingecko/coingecko-typescript/tree/main/packages/mcp-server",
+    "license": "Apache-2.0",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.api.coingecko.com/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Author the standard manifest and bilingual presentation",
+      "Declare the vendor-operated MCP endpoint for anonymous access"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0a/b6/e7/0ab6e79d-7aee-d6dd-f978-88e5763e5af6/CoinGecko_Liquid_Glass-0-0-1x_U007epad-0-1-0-sRGB-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "007cb7fcf96e0e9608ceaa89dc323c13e0c5802b944316e8f7834411d83e393f",
+      "sha256": "cd3e1da1602b717a56cbe116dc7eb4487bc0e00ea705ceab9d67bdde359c9b52",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://brand.coingecko.com/visual-identity/logo/symbol",
+      "attribution": "CoinGecko, vendor artwork used to identify this integration"
+    }
+  ]
+}

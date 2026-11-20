@@ -1,0 +1,37 @@
+{
+  "name": "aws-knowledge",
+  "version": "0.1.2",
+  "description": "Search official AWS documentation and verify service, API and CloudFormation availability by region.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://awslabs.github.io/mcp/servers/aws-knowledge-mcp-server",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "AWS Knowledge",
+        "shortDescription": "Search official AWS documentation and verify service, API and CloudFormation availability by region.",
+        "developerName": "Amazon Web Services",
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Check where a proposed AWS service and its CloudFormation resource type are available."
+        ],
+        "capabilities": [
+          "Search and retrieve AWS documentation and code examples",
+          "List regions and check regional availability",
+          "Look up CDK, CloudFormation and Strands Agents guidance"
+        ],
+        "websiteURL": "https://aws.amazon.com",
+        "supportURL": "https://awslabs.github.io/mcp/servers/aws-knowledge-mcp-server",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

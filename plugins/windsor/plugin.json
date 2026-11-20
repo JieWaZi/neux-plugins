@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "windsor",
+  "version": "0.1.0",
+  "description": "Explore marketing and analytics data from your connected Windsor.ai sources.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://mcp.windsor.ai/docs",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Windsor.ai",
+        "shortDescription": "Explore marketing and analytics data from your connected Windsor.ai sources.",
+        "developerName": "Windsor.ai",
+        "category": "data-analytics",
+        "websiteURL": "https://windsor.ai",
+        "supportURL": "https://mcp.windsor.ai/docs",
+        "defaultPrompt": [
+          "Show what information I can read in Windsor.ai."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

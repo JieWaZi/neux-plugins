@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Statsig",
+    "repository": "https://statsig.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://api.statsig.com/v3/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://statsig.com/images/favicons/favicon256.png",
+      "sourceSHA256": "326e420db748304465618e09a827d194c1b56f0dc385441e4bf41b9ebdf1c0da",
+      "sha256": "9e7ecea00dc4e0805bfeb0db10a04218d59951f2df30f636a5cc7e3c53f9002e",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Statsig branding used to identify the service"
+    }
+  ]
+}

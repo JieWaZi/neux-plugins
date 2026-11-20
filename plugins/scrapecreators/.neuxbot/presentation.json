@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Scrape Creators",
+    "zh-CN": "Scrape Creators"
+  },
+  "localizedDescriptions": {
+    "en": "Retrieve public creator and social content data for research.",
+    "zh-CN": "获取公开的创作者与社交内容数据用于研究。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Explain what I can research with Scrape Creators and where the information comes from."
+    ],
+    "zh-CN": [
+      "介绍 Scrape Creators 能研究哪些内容以及资料来源。"
+    ]
+  }
+}

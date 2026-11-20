@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Mobbin",
+    "zh-CN": "Mobbin"
+  },
+  "localizedDescriptions": {
+    "en": "Find interface examples and product design references in Mobbin.",
+    "zh-CN": "在 Mobbin 中查找界面示例和产品设计参考。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the creative assets or resources I can access in Mobbin."
+    ],
+    "zh-CN": [
+      "查看我可以在 Mobbin 中访问的素材或创意资源。"
+    ]
+  }
+}

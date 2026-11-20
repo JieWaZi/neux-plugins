@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "pipedrive",
+  "version": "0.1.0",
+  "description": "Review deals, contacts, and pipeline progress in Pipedrive.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.pipedrive.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Pipedrive",
+        "shortDescription": "Review deals, contacts, and pipeline progress in Pipedrive.",
+        "developerName": "Pipedrive",
+        "category": "productivity",
+        "websiteURL": "https://www.pipedrive.com",
+        "supportURL": "https://www.pipedrive.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Pipedrive."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "algolia",
+  "version": "0.1.0",
+  "description": "Search the Algolia indexes available to your account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.algolia.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Algolia",
+        "shortDescription": "Search the Algolia indexes available to your account.",
+        "developerName": "Algolia",
+        "category": "coding",
+        "websiteURL": "https://www.algolia.com",
+        "supportURL": "https://www.algolia.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Algolia."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

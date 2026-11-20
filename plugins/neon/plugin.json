@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "neon",
+  "version": "0.1.0",
+  "description": "Work with the Postgres projects and branches available in Neon.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://neon.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Neon",
+        "shortDescription": "Work with the Postgres projects and branches available in Neon.",
+        "developerName": "Neon",
+        "category": "coding",
+        "websiteURL": "https://neon.com",
+        "supportURL": "https://neon.com",
+        "defaultPrompt": [
+          "Show the project or developer resources I can access in Neon."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

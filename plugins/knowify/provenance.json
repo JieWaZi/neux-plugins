@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Knowify",
+    "repository": "https://knowify.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://assistant.knowify.com/api/v2/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a1/ec/6a/a1ec6a35-0919-3461-bb60-12a380637d44/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "95a16c7bfc6175b5b39ae5c36a0d87c9453e8d98d742ddc438079f59403c663e",
+      "sha256": "58925f10e2b90c5456ad2eb0dd61b3f7d54a08b4027c2c21b5896fcb91781862",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Knowify branding used to identify the service"
+    }
+  ]
+}

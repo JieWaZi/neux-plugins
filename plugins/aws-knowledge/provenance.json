@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Amazon Web Services",
+    "repository": "https://awslabs.github.io/mcp/servers/aws-knowledge-mcp-server",
+    "license": "Hosted service (no public server source license identified)",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://knowledge-mcp.global.api.aws"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Author the standard manifest and bilingual presentation",
+      "Declare the vendor-operated MCP endpoint for anonymous access"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://a0.awsstatic.com/libra-css/images/site/touch-icon-ipad-144-smile.png",
+      "sourceSHA256": "f80d3ec6c5b2adee55267ecfcf2fc4131aa8551a546b7a1971b5e465c05c2403",
+      "sha256": "f80d3ec6c5b2adee55267ecfcf2fc4131aa8551a546b7a1971b5e465c05c2403",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://aws.amazon.com/trademark-guidelines/",
+      "attribution": "Amazon Web Services, vendor artwork used to identify this integration"
+    }
+  ]
+}

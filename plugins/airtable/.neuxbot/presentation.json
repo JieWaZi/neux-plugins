@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Airtable",
+    "zh-CN": "Airtable"
+  },
+  "localizedDescriptions": {
+    "en": "Read and update records and inspect base schemas in Airtable.",
+    "zh-CN": "读取和更新 Airtable 记录，并查看数据表结构。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show the tables and key fields in my project base, then report the status of the active records."
+    ],
+    "zh-CN": [
+      "查看项目数据库中的数据表和关键字段，并汇报进行中的记录状态。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Create a personal access token in the Airtable developer hub. Select the bases and scopes this connection needs, then enter the token in plugin settings.",
+      "zh-CN": "在 Airtable 开发者中心创建个人访问令牌，选定需要访问的数据库和权限，然后把令牌填入插件设置。"
+    },
+    "helpURL": "https://airtable.com/developers/agents/mcp/getting-started"
+  }
+}

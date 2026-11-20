@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Navan",
+    "zh-CN": "Navan"
+  },
+  "localizedDescriptions": {
+    "en": "Review available business travel and expense records in Navan.",
+    "zh-CN": "查看 Navan 中可访问的商务出行和费用记录。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Navan."
+    ],
+    "zh-CN": [
+      "查看我可以在 Navan 中读取哪些资料。"
+    ]
+  }
+}

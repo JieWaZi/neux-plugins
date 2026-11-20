@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "fal",
+  "version": "0.1.0",
+  "description": "Use hosted media models and inspect generation results in fal.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://fal.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "fal",
+        "shortDescription": "Use hosted media models and inspect generation results in fal.",
+        "developerName": "fal",
+        "category": "design",
+        "websiteURL": "https://fal.ai",
+        "supportURL": "https://fal.ai",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in fal."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

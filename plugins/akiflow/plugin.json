@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "akiflow",
+  "version": "0.1.0",
+  "description": "Review your Akiflow tasks and calendar when planning a workday.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://akiflow.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Akiflow",
+        "shortDescription": "Review your Akiflow tasks and calendar when planning a workday.",
+        "developerName": "Akiflow",
+        "category": "productivity",
+        "websiteURL": "https://akiflow.com",
+        "supportURL": "https://akiflow.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Akiflow."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

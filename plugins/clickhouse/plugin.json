@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "clickhouse",
+  "version": "0.1.0",
+  "description": "Explore databases and query resources in ClickHouse Cloud.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://clickhouse.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "ClickHouse Cloud",
+        "shortDescription": "Explore databases and query resources in ClickHouse Cloud.",
+        "developerName": "ClickHouse",
+        "category": "data-analytics",
+        "websiteURL": "https://clickhouse.com",
+        "supportURL": "https://clickhouse.com",
+        "defaultPrompt": [
+          "Show what information I can read in ClickHouse Cloud."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

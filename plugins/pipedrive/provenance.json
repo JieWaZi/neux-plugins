@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Pipedrive",
+    "repository": "https://www.pipedrive.com",
+    "license": "Hosted service under provider terms",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.pipedrive.ai/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Declare the vendor-operated MCP endpoint and standard browser OAuth",
+      "Maintain original bilingual package documentation",
+      "Verified the endpoint against OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326 and public OAuth metadata",
+      "Use the service iconUrl from OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Convert and resize the vendor artwork for the catalog icon size"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7d/43/00/7d43004f-75f0-48b0-cd19-469cc0f738f3/AppIcon-0-0-1x_U007epad-0-1-sRGB-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "d95afbeea1c6d5fa1e8a5781e0e1f76a1d48da51c928b792e634be1cd136475b",
+      "sha256": "8bceb48806f652a6ffd030403c7f1a776ea3b0e44b1d4cee685d191d1e81e111",
+      "license": "Service branding, copyright and trademark rights reserved",
+      "attribution": "Pipedrive branding used to identify the service"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "greenhouse",
+  "version": "0.1.0",
+  "description": "Review roles and recruiting activity in Greenhouse.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.greenhouse.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Greenhouse",
+        "shortDescription": "Review roles and recruiting activity in Greenhouse.",
+        "developerName": "Greenhouse",
+        "category": "productivity",
+        "websiteURL": "https://www.greenhouse.com",
+        "supportURL": "https://www.greenhouse.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Greenhouse."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

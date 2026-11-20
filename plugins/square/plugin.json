@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "square",
+  "version": "0.1.0",
+  "description": "Review available merchant, payment, and order information in Square.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://squareup.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Square",
+        "shortDescription": "Review available merchant, payment, and order information in Square.",
+        "developerName": "Block",
+        "category": "other",
+        "websiteURL": "https://squareup.com",
+        "supportURL": "https://squareup.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Square."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

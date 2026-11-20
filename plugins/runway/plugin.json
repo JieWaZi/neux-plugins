@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "runway",
+  "version": "0.1.0",
+  "description": "Work with Runway media generation and your creative workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://runway.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Runway",
+        "shortDescription": "Work with Runway media generation and your creative workspace.",
+        "developerName": "Runway",
+        "category": "design",
+        "websiteURL": "https://runway.com",
+        "supportURL": "https://runway.com",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Runway."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

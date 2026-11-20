@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "MailerLite",
+    "zh-CN": "MailerLite"
+  },
+  "localizedDescriptions": {
+    "en": "Review subscribers and email campaign activity in MailerLite.",
+    "zh-CN": "查看 MailerLite 中的订阅者和邮件营销活动。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show which resources I can access in MailerLite."
+    ],
+    "zh-CN": [
+      "查看我在 MailerLite 中可以访问哪些资源。"
+    ]
+  }
+}

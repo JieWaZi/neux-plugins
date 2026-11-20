@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "magnific",
+  "version": "0.1.0",
+  "description": "Use the creative media tools available to your Magnific account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.magnific.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Magnific",
+        "shortDescription": "Use the creative media tools available to your Magnific account.",
+        "developerName": "Magnific",
+        "category": "design",
+        "websiteURL": "https://www.magnific.com",
+        "supportURL": "https://www.magnific.com",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Magnific."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

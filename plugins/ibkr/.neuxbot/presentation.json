@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "IBKR",
+    "zh-CN": "IBKR"
+  },
+  "localizedDescriptions": {
+    "en": "Review the account and market information available through Interactive Brokers.",
+    "zh-CN": "查看盈透证券提供的账户和市场资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in IBKR."
+    ],
+    "zh-CN": [
+      "查看我可以在 IBKR 中读取哪些资料。"
+    ]
+  }
+}

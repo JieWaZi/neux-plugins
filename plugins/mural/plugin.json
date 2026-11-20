@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "mural",
+  "version": "0.1.0",
+  "description": "Find and use visual collaboration boards in Mural.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.mural.co",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Mural",
+        "shortDescription": "Find and use visual collaboration boards in Mural.",
+        "developerName": "Mural",
+        "category": "design",
+        "websiteURL": "https://www.mural.co",
+        "supportURL": "https://www.mural.co",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Mural."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Brave",
+    "repository": "https://github.com/brave/brave-search-mcp-server",
+    "license": "MIT",
+    "commit": "78f32e1d552231638d3f1afd9bc1572db635a651",
+    "version": "2.2.0",
+    "distribution": {
+      "mode": "vendored-source"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Bundled the fixed Brave Search MCP stdio server and preserved all bundled dependency licenses",
+      "Added a stdio-only entry point with the API key supplied by plugin settings",
+      "Wrote English and Simplified Chinese setup and usage guidance",
+      "Used the vendor icon URL declared in OpenBot catalog revision 8fc29851e68976b5d408fda0aeaf5d60f3826326",
+      "Encoded the downloaded brand image as an eight-bit PNG"
+    ]
+  },
+  "dependencies": [
+    {
+      "name": "brave-search-mcp-server",
+      "repository": "https://github.com/brave/brave-search-mcp-server",
+      "commit": "78f32e1d552231638d3f1afd9bc1572db635a651",
+      "version": "2.2.0",
+      "license": "MIT",
+      "lock": "vendor/source-lock.json"
+    }
+  ],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/9e/b3/b2/9eb3b277-5183-0072-1921-39787c42ab35/AppIcon-0-0-1x_U007epad-0-1-0-sRGB-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "44e9105fbe33ae937ba9c40faed973f6c586b43d2bc6563c82934c2a2b5acb7a",
+      "sha256": "d5aa0e1f73e7f84ea8cc4741e02d74eeea94e4cc3dffdef48395524b1d3e50f5",
+      "license": "Vendor brand artwork; copyright and trademark rights reserved",
+      "attribution": "Brave; identifies the service without endorsement"
+    }
+  ]
+}

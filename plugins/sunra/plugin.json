@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "sunra",
+  "version": "0.1.0",
+  "description": "Use media generation resources available in your Sunra projects.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://sunra.ai",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Sunra",
+        "shortDescription": "Use media generation resources available in your Sunra projects.",
+        "developerName": "Sunra",
+        "category": "design",
+        "websiteURL": "https://sunra.ai",
+        "supportURL": "https://sunra.ai",
+        "defaultPrompt": [
+          "Show the creative assets or resources I can access in Sunra."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

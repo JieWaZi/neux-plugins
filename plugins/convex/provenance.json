@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "Convex",
+    "repository": "https://mcp.convex.dev/",
+    "license": "Hosted service (no public server source license identified)",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.convex.dev/mcp"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Author the standard manifest and bilingual presentation",
+      "Declare the vendor-operated MCP endpoint for anonymous access"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://www.convex.dev/favicon.ico",
+      "sourceSHA256": "94b770b9ce98a9b4c79443215c96dea2a3d9ba6f6bf1cd5a613c62b277dc3cba",
+      "sha256": "7e69d61e0da59cb4231de3a3a7fd4cee5e3805ddca9d00a0deb39ec25519e049",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://www.convex.dev/brand",
+      "attribution": "Convex, vendor artwork used to identify this integration"
+    }
+  ]
+}

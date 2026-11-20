@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "extend",
+  "version": "0.1.0",
+  "description": "Review virtual card and spending activity available in Extend.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.paywithextend.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Extend",
+        "shortDescription": "Review virtual card and spending activity available in Extend.",
+        "developerName": "Extend",
+        "category": "other",
+        "websiteURL": "https://www.paywithextend.com",
+        "supportURL": "https://www.paywithextend.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Extend."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

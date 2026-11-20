@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Notion",
+    "zh-CN": "Notion"
+  },
+  "localizedDescriptions": {
+    "en": "Search and work with pages and databases in a Notion workspace.",
+    "zh-CN": "搜索和管理 Notion 工作区中的页面和数据库。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Find the project plan in Notion and summarize open decisions."
+    ],
+    "zh-CN": [
+      "在 Notion 中找到项目计划，归纳尚未定下的事项。"
+    ]
+  }
+}

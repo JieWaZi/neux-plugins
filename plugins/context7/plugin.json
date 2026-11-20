@@ -1,0 +1,37 @@
+{
+  "name": "context7",
+  "version": "0.1.2",
+  "description": "Find indexed library documentation and code examples for the version your project uses.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/upstash/context7",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Context7",
+        "shortDescription": "Find indexed library documentation and code examples for the version your project uses.",
+        "developerName": "Upstash",
+        "category": "research",
+        "defaultPrompt": [
+          "Find documentation for the Next.js version declared in this project."
+        ],
+        "capabilities": [
+          "Identify the right library in the documentation index",
+          "Retrieve version-specific reference material",
+          "Find examples for an API or a configuration option"
+        ],
+        "websiteURL": "https://context7.com",
+        "supportURL": "https://context7.com/docs",
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "stripe",
+  "version": "0.1.0",
+  "description": "Review the payment and billing resources available to your Stripe account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://stripe.com",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Stripe",
+        "shortDescription": "Review the payment and billing resources available to your Stripe account.",
+        "developerName": "Stripe",
+        "category": "other",
+        "websiteURL": "https://stripe.com",
+        "supportURL": "https://stripe.com",
+        "defaultPrompt": [
+          "Show which resources I can access in Stripe."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

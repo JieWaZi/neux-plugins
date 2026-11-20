@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ando",
+  "version": "0.1.0",
+  "description": "Bring context from Ando team channels and discussion threads into a task.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://www.ando.so",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Ando",
+        "shortDescription": "Bring context from Ando team channels and discussion threads into a task.",
+        "developerName": "Ando",
+        "category": "productivity",
+        "websiteURL": "https://www.ando.so",
+        "supportURL": "https://www.ando.so",
+        "defaultPrompt": [
+          "Show which resources I can access in Ando."
+        ],
+        "logo": "./assets/icon.png",
+        "composerIcon": "./assets/icon.png"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

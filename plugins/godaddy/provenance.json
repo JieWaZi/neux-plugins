@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "author": "GoDaddy",
+    "repository": "https://developer.godaddy.com/en/docs/api-users/mcp",
+    "license": "Hosted service (no public server source license identified)",
+    "distribution": {
+      "mode": "hosted-service",
+      "url": "https://mcp.godaddy.com"
+    }
+  },
+  "wrapper": {
+    "maintainer": "NeuxBot contributors",
+    "repository": "https://github.com/JieWaZi/neux-plugins",
+    "license": "MIT",
+    "changes": [
+      "Author the standard manifest and bilingual presentation",
+      "Declare the vendor-operated MCP endpoint for anonymous access"
+    ]
+  },
+  "dependencies": [],
+  "assets": [
+    {
+      "path": "assets/icon.png",
+      "sourceURL": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/71/70/4f/71704f77-7c26-d166-ec77-ebcf5235e269/GoDaddy-App-Icon-0-0-1x_U007epad-0-1-0-0-85-220.png/512x512bb.jpg",
+      "sourceSHA256": "9ac1105706652f649ce22fe01723522f8d0051f74d8b75a07c0453b4b6900dc3",
+      "sha256": "61225df592be0fbb8428527163df9156490f7dd831d6bcd427ad13cb8aae9e21",
+      "license": "Vendor brand artwork, trademark rights reserved",
+      "licenseURL": "https://www.godaddy.com/legal/agreements/brand-guidelines-and-permissions",
+      "attribution": "GoDaddy, vendor artwork used to identify this integration"
+    }
+  ]
+}

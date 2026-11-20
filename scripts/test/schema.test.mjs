@@ -6,7 +6,30 @@ function fixture(extra = {}, servers) { const manifest = {$schema:schema,name:'e
 
 test('标准纯技能与匿名MCP不要求宿主账号或展示资料',()=>{fixture().run();fixture({}, {remote:{type:'streamable-http',url:'https://example.com/mcp',extensions:{'com.openai':{auth:{type:'none'}}}}}).run()});
 test('标准api_key必须有显式required secret精确头绑定',()=>{const server={type:'streamable-http',url:'https://example.com/mcp',extensions:{'com.openai':{auth:{type:'api_key',headerScheme:'bearer'}}}};const f=fixture({extensions:{'com.neuxbot':{schemaVersion:1,configuration:{fields:[{key:'TOKEN',secret:true,required:true}],bindings:[{server:'remote',target:'header',name:'Authorization',value:'Bearer ${TOKEN}'}]}}}},{remote:server});f.run();f.manifest.extensions['com.neuxbot'].configuration.fields[0].required=false;assert.throws(()=>f.run(),/required secret|binding/);assert.throws(()=>fixture({}, {remote:server}).run(),/explicit|binding/)});
-test('OAuth/mixed和阶段二management明确unsupported，不降级匿名',()=>{for(const type of ['oauth','mixed'])assert.throws(()=>fixture({}, {remote:{type:'streamable-http',url:'https://example.com/mcp',extensions:{'com.openai':{auth:{type}}}}}).run(),/unsupported MCP authentication/);assert.throws(()=>fixture({extensions:{'com.neuxbot':{schemaVersion:1,management:{}}}}).run(),/unsupported management/)});
+test('托管 OAuth 仅允许单个公开 HTTPS MCP 服务和宿主授权', () => {
+  const remote = {
+    type: 'streamable-http',
+    url: 'https://example.com/mcp',
+    extensions: { 'com.openai': { auth: { type: 'oauth' } } },
+  };
+  for (const url of [remote.url, 'https://example.com', 'https://example.com/']) {
+    fixture({}, { remote: { ...remote, url } }).run();
+  }
+  for (const change of [
+    { url: 'https://127.0.0.1/mcp' }, { url: 'https://example.com/mcp?token=secret' },
+    { type: 'sse' }, { headers: { Authorization: 'literal-secret' } },
+    { extensions: { 'com.openai': { auth: { type: 'oauth', clientId: 'external-client' } } } },
+  ]) {
+    assert.throws(() => fixture({}, { remote: { ...remote, ...change } }).run(), /OAuth/i);
+  }
+  assert.throws(() => fixture({}, { remote, another: { type: 'streamable-http', url: 'https://example.com/another' } }).run(), /OAuth/i);
+  assert.throws(() => fixture({ extensions: { 'com.neuxbot': { schemaVersion: 1, configuration: {} } } }, { remote }).run(), /OAuth/i);
+  const withSkill = fixture({}, { remote });
+  withSkill.files.set('plugins/example/skills/search/SKILL.md', Buffer.from(''));
+  assert.throws(() => withSkill.run(), /OAuth/i);
+  assert.throws(() => fixture({}, { remote: { ...remote, extensions: { 'com.openai': { auth: { type: 'mixed' } } } } }).run(), /unsupported MCP authentication/);
+  assert.throws(() => fixture({ extensions: { 'com.neuxbot': { schemaVersion: 1, management: {} } } }).run(), /unsupported management/);
+});
 test('新授权驱动和技能环境绑定以实际固定技能为准',()=>{const f=fixture({extensions:{'com.neuxbot':{schemaVersion:1,authentication:{strategy:'plugin-command',protocol:'neuxbot-auth/1',command:'node',args:['./.neuxbot/auth.mjs'],skillBindings:[{runtime:'codex',skill:'skills/tool',environmentKeys:['TOOL_HOME','PATH'],privatePathKeys:['TOOL_HOME','PATH']}]}}}});f.files.set('plugins/example/.neuxbot/auth.mjs',Buffer.from('// driver'));f.files.set('plugins/example/skills/tool/SKILL.md',Buffer.from('---\nname: tool\ndescription: Tool\n---\n'));f.run();f.manifest.extensions['com.neuxbot'].authentication.skillBindings[0].environmentKeys.push('HOME');assert.throws(()=>f.run(),/unsafe skill environment/)});
 test('提示词翻译错长、旧命名空间、旧manifest和旧wire被拒绝',()=>{const f=fixture({extensions:{'com.openai':{interface:{defaultPrompt:['One']}},'com.neuxbot':{schemaVersion:1,presentation:'.neuxbot/presentation.json'}}});f.files.set('plugins/example/.neuxbot/presentation.json',Buffer.from(JSON.stringify({defaultPromptLocalizations:{'zh-CN':['一','二']}})));assert.throws(()=>f.run(),/length differs/);assert.throws(()=>fixture({extensions:{'com.ally':{}}}).run(),/legacy namespace/);const old=fixture();old.files.set('plugins/example/.codex-plugin/plugin.json',Buffer.from('{}'));assert.throws(()=>old.run(),/legacy/);assert.throws(()=>fixture({extensions:{'com.neuxbot':{schemaVersion:1,authentication:{strategy:'plugin-command',protocol:'neuxally-auth/1',command:'node'}}}}).run(),/neuxbot-extension/)});
 

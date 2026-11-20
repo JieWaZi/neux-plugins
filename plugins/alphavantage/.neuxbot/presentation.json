@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Alpha Vantage",
+    "zh-CN": "Alpha Vantage"
+  },
+  "localizedDescriptions": {
+    "en": "Look up financial time series and market information from Alpha Vantage.",
+    "zh-CN": "查找 Alpha Vantage 提供的金融时间序列和市场资料。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Show what information I can read in Alpha Vantage."
+    ],
+    "zh-CN": [
+      "查看我可以在 Alpha Vantage 中读取哪些资料。"
+    ]
+  }
+}
