@@ -5,7 +5,7 @@
   "author": {
     "name": "NeuxBot contributors"
   },
-  "repository": "https://docs.coingecko.com/ai-integration/mcp-server",
+  "repository": "https://github.com/coingecko/coingecko-typescript/tree/main/packages/mcp-server",
   "license": "MIT",
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "extensions": {

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "upstream": {
     "author": "CoinGecko",
-    "repository": "https://docs.coingecko.com/ai-integration/mcp-server",
-    "license": "Hosted service (no public server source license identified)",
+    "repository": "https://github.com/coingecko/coingecko-typescript/tree/main/packages/mcp-server",
+    "license": "Apache-2.0",
     "distribution": {
       "mode": "hosted-service",
       "url": "https://mcp.api.coingecko.com/mcp"
