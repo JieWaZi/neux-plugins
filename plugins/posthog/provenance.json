@@ -23,9 +23,18 @@
   "assets": [
     {
       "path": "assets/icon.png",
-      "sourceURL": "https://brand.posthog.com/favicon-96x96.png",
-      "sourceSHA256": "a5e3a36d87adaf040a7061d116c5eae5c1fa39c5d39035e1d509e4588bf4f027",
-      "sha256": "b764cff9fb4d446abf2a86b595d38e7be37813fd7768fac014c1dd96cbb78b1e",
+      "sourceURL": "https://brand.posthog.com/logo/posthog-logomark-square.png",
+      "sourceSHA256": "33a43032529f4f71c8190fa19d1a5ef7ecac1493d2ff520d666a3bbe8a87f47f",
+      "sha256": "1a73da3f5a97af7ae93d634044b93d4799b4e425c3c1e2cbb3d54883eea654ac",
+      "license": "PostHog brand asset usage terms; trademark rights reserved",
+      "licenseURL": "https://posthog.com/handbook/brand/assets",
+      "attribution": "PostHog; shown to identify the connected service, without endorsement"
+    },
+    {
+      "path": "assets/icon-dark.png",
+      "sourceURL": "https://brand.posthog.com/logo/posthog-logomark-square-white.png",
+      "sourceSHA256": "23256174f8b093a619f6bb109bf9546b9ec046f85e258bc3d9834ef3f1fa7a49",
+      "sha256": "47115b4bdc6bb4353823226140dcaf04897dcf582d9b91e13bbcc98c33ff2ee9",
       "license": "PostHog brand asset usage terms; trademark rights reserved",
       "licenseURL": "https://posthog.com/handbook/brand/assets",
       "attribution": "PostHog; shown to identify the connected service, without endorsement"

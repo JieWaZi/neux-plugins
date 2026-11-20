@@ -26,7 +26,9 @@
           "Show the feature flags in my PostHog project and identify which ones are active."
         ],
         "logo": "./assets/icon.png",
-        "composerIcon": "./assets/icon.png"
+        "composerIcon": "./assets/icon.png",
+        "logoDark": "./assets/icon-dark.png",
+        "composerIconDark": "./assets/icon-dark.png"
       }
     },
     "com.neuxbot": {
