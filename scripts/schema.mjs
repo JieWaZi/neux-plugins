@@ -2,6 +2,7 @@ import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { isIP } from 'node:net';
 
 const schemaRoot = new URL('../schemas/', import.meta.url);
 const lock = JSON.parse(readFileSync(new URL('schema-lock.json', schemaRoot), 'utf8'));
@@ -79,7 +80,20 @@ export function validateStandardPackage({ manifest, packagePath, names, has, rea
       }
       if (server.extensions) { if (!object(server.extensions)) throw new Error('invalid MCP extension'); if (server.extensions['com.openai']) validateSchema('openai-mcp.schema.json', server.extensions['com.openai']); }
       const auth = server.extensions?.['com.openai']?.auth;
-      if (auth && ['oauth', 'mixed'].includes(auth.type)) throw new Error('unsupported MCP authentication mode in phase one');
+      if (auth?.type === 'mixed') throw new Error('unsupported MCP authentication mode: mixed');
+      if (auth?.type === 'oauth') {
+        const resource = server.type === 'streamable-http' ? new URL(server.url) : null;
+        const hostname = resource?.hostname.replace(/^\[|\]$/g, '').replace(/\.$/, '');
+        const hasSkills = names().some(name => name.startsWith(`${packagePath}/skills/`));
+        if (!resource || resource.protocol !== 'https:' || resource.href !== server.url ||
+            resource.pathname === '/' || /[?#%]/.test(server.url) || !hostname ||
+            !hostname.includes('.') || hostname.endsWith('.localhost') || isIP(hostname) ||
+            Object.keys(server.headers ?? {}).length !== 0 || Object.keys(auth).length !== 1 ||
+            Object.keys(servers).length !== 1 || hasSkills ||
+            extension?.authentication !== undefined || extension?.configuration !== undefined) {
+          throw new Error('hosted MCP OAuth requires one public HTTPS server and cannot include skills or package-managed authorization and configuration');
+        }
+      }
       if (auth?.type === 'api_key') {
         if (server.type === 'stdio') throw new Error('unsupported stdio API key');
         const header = auth.headerScheme === 'custom_header' ? auth.headerName : 'Authorization';

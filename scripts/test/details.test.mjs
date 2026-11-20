@@ -31,6 +31,23 @@ test('公开侧车仅投射白名单，不复制执行入口、凭据及未声�
   assert.equal(pkg.readme, undefined); assert.equal(pkg.skills[0].digest, undefined);
 });
 
+test('公开侧车从标准 MCP 声明派生托管 OAuth 标记', () => {
+  const f = fixture();
+  delete f.options.manifest.extensions['com.neuxbot'];
+  f.files.set('plugins/example/mcp.json', Buffer.from(JSON.stringify({
+    mcpServers: {
+      remote: { type: 'streamable-http', url: 'https://example.com/mcp', extensions: { 'com.openai': { auth: { type: 'oauth' } } } },
+    },
+  })));
+  const details = packageDetails(f.options);
+  assert.deepEqual(details.package.servers, [{
+    key: 'remote', type: 'streamable-http', url: 'https://example.com/mcp', authentication: { type: 'oauth' },
+  }]);
+  assert.deepEqual(details.package.integration.authentication, {
+    strategy: 'mcp-oauth', protocol: 'neuxbot-auth/1', preferredAction: 'open-url', scopes: [],
+  });
+});
+
 for (const [label, yaml] of [['重复键','name: one\nname: two\ndescription: Test'],['非法YAML','name: [\ndescription: Test'],['非字符串描述','name: example\ndescription: [one, two]']]) {
   test(`可靠YAML解析拒绝${label}，不发布误解析技能`, () => {
     const f=fixture();f.files.set('plugins/example/skills/example/SKILL.md',Buffer.from(`---\n${yaml}\n---\nBody`));

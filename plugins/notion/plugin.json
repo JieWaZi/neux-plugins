@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "notion",
+  "version": "0.1.0",
+  "description": "Search and work with pages and databases in a Notion workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://developers.notion.com/docs/mcp",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Notion",
+        "shortDescription": "Search and work with pages and databases in a Notion workspace.",
+        "developerName": "Notion",
+        "category": "productivity",
+        "websiteURL": "https://www.notion.com",
+        "supportURL": "https://developers.notion.com/docs/mcp",
+        "defaultPrompt": [
+          "Find the project plan in Notion and summarize open decisions."
+        ]
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

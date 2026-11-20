@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "linear",
+  "version": "0.1.0",
+  "description": "Search issues, inspect projects, and manage work items in a Linear workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://linear.app/docs/mcp",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Linear",
+        "shortDescription": "Search issues, inspect projects, and manage work items in a Linear workspace.",
+        "developerName": "Linear",
+        "category": "coding",
+        "websiteURL": "https://linear.app",
+        "supportURL": "https://linear.app/docs/mcp",
+        "defaultPrompt": [
+          "Summarize unresolved issues blocking the current Linear project."
+        ]
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}
