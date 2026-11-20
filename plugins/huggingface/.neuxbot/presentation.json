@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Hugging Face",
+    "zh-CN": "Hugging Face"
+  },
+  "localizedDescriptions": {
+    "en": "Discover public models, datasets and Spaces, and inspect repository metadata and files on the Hugging Face Hub.",
+    "zh-CN": "发现 Hugging Face Hub 上的公开模型、数据集与 Spaces，并查看仓库元数据和文件。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Find public multilingual embedding models and compare their model cards."
+    ],
+    "zh-CN": [
+      "查找公开的多语言嵌入模型，并比较它们的模型卡。"
+    ]
+  }
+}

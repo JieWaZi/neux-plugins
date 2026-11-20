@@ -1,0 +1,67 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "highlevel",
+  "version": "0.1.0",
+  "description": "Find CRM records, review opportunities, and check calendars in a HighLevel sub-account.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://help.gohighlevel.com/support/solutions/articles/155000005741-how-to-use-the-highlevel-mcp-server",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "HighLevel",
+        "shortDescription": "Find CRM records, review opportunities, and check calendars in a HighLevel sub-account.",
+        "developerName": "HighLevel",
+        "category": "CRM",
+        "websiteURL": "https://www.gohighlevel.com",
+        "supportURL": "https://help.gohighlevel.com/support/solutions/articles/155000005741-how-to-use-the-highlevel-mcp-server",
+        "capabilities": [
+          "Search CRM contacts",
+          "Review opportunities and conversations",
+          "Inspect calendars"
+        ],
+        "defaultPrompt": [
+          "List the open opportunities in this HighLevel location, grouped by pipeline stage."
+        ]
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "HIGHLEVEL_PRIVATE_INTEGRATION_TOKEN",
+            "label": "Private Integration Token",
+            "description": "Create a token in Private Integrations for the HighLevel sub-account you want to connect.",
+            "secret": true,
+            "required": true
+          },
+          {
+            "key": "HIGHLEVEL_LOCATION_ID",
+            "label": "Location ID",
+            "description": "Enter the ID of the same HighLevel sub-account that issued the token.",
+            "secret": false,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "highlevel",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${HIGHLEVEL_PRIVATE_INTEGRATION_TOKEN}"
+          },
+          {
+            "server": "highlevel",
+            "target": "header",
+            "name": "locationId",
+            "value": "${HIGHLEVEL_LOCATION_ID}"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "posthog",
+  "version": "0.1.0",
+  "description": "Explore product events, inspect feature flags, and query PostHog analytics.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/PostHog/posthog/tree/master/services/mcp",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "PostHog",
+        "shortDescription": "Explore product events, inspect feature flags, and query PostHog analytics.",
+        "developerName": "PostHog",
+        "category": "Analytics",
+        "websiteURL": "https://posthog.com",
+        "supportURL": "https://github.com/PostHog/posthog/tree/master/services/mcp#quick-start",
+        "capabilities": [
+          "Query product events",
+          "Inspect feature flags",
+          "Review analytics and experiments"
+        ],
+        "defaultPrompt": [
+          "Show the feature flags in my PostHog project and identify which ones are active."
+        ]
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "POSTHOG_PERSONAL_API_KEY",
+            "label": "Personal API key",
+            "description": "Create a PostHog personal API key for the organization and project you want to query.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "posthog",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${POSTHOG_PERSONAL_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

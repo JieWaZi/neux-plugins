@@ -1,0 +1,35 @@
+{
+  "name": "parallel",
+  "version": "0.1.0",
+  "description": "Search the public web, retrieve source pages and organize evidence for a decision.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://parallel.ai/mcp",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Parallel",
+        "shortDescription": "Search the public web, retrieve source pages and organize evidence for a decision.",
+        "developerName": "Parallel Web Systems",
+        "category": "Research",
+        "defaultPrompt": [
+          "Compare several open-source project management tools using current public sources."
+        ],
+        "capabilities": [
+          "Search for sources that address a specific question",
+          "Fetch relevant content from selected web pages",
+          "Compare options with supporting sources"
+        ],
+        "websiteURL": "https://parallel.ai",
+        "supportURL": "https://parallel.ai/mcp"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

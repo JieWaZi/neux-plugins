@@ -8,7 +8,7 @@
 
 `plugins/<key>` 自有包的 `plugin.json` 默认使用英文，身份与版本只在该清单维护。设置已支持的 `extensions.com.openai.interface.displayName`、`shortDescription`、`developerName`、`logo` 和 `composerIcon`。`developerName` 使用真实业务能力品牌（GitHub / 飞书），`repository` 指向官方能力项目；封装作者与源码/许可证据分别保留，不冒充官方编写了我们的封装。图标使用包内 `./assets/` 相对路径，字段与路径约定见[官方打包文档](https://developers.openai.com/plugins/build/plugins)。
 
-插件信息面板只读取 `provenance.upstream`：开发者取 `author`，版本先取 `tag` 再取 `version`，许可取 `license`，源码取 `repository`。飞书因此显示 `Lark Suite CLI contributors` 和 `v1.0.98`，不再分列上游版本。`manifest.version`（`0.1.x`）及清单作者继续如实标识内部维护包。GitHub 托管 MCP 没有固定服务版本，不能拿授权 CLI 版本代替。三个包统一遵循[来源规范](PROVENANCE.zh-CN.md)与 [JSON schema](../schemas/provenance.schema.json)。
+插件信息面板只读取 `provenance.upstream`：开发者取 `author`，版本先取 `tag` 再取 `version`，许可取 `license`，源码取 `repository`。飞书因此显示 `Lark Suite CLI contributors` 和 `v1.0.98`，不再分列上游版本。`manifest.version`（`0.1.x`）及清单作者继续如实标识内部维护包。GitHub 托管 MCP 没有固定服务版本，不能拿授权 CLI 版本代替。所有包统一遵循[来源规范](PROVENANCE.zh-CN.md)与 [JSON schema](../schemas/provenance.schema.json)。
 
 `README.md` 提供英文，`README.zh-CN.md` 提供简体中文，插件说明不添加语言导航，由宿主按系统语言选择对应文档，缺少翻译时回退英文。
 

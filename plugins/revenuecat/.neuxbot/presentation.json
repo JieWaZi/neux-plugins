@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "RevenueCat",
+    "zh-CN": "RevenueCat"
+  },
+  "localizedDescriptions": {
+    "en": "Review RevenueCat subscription products, offerings, and entitlements for a project.",
+    "zh-CN": "查看 RevenueCat 项目的订阅商品、套餐和订阅权益。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Summarize the current offerings and the packages available in each one."
+    ],
+    "zh-CN": [
+      "总结当前的 RevenueCat 套餐，以及每个套餐中可用的订阅选项。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "In your RevenueCat project settings, open API Keys and create an API v2 secret key. Enter the key in the plugin settings.",
+      "zh-CN": "进入 RevenueCat 项目设置的「API Keys」，创建 API v2 私密密钥，再填入插件设置。"
+    },
+    "helpURL": "https://www.revenuecat.com/docs/tools/mcp/setup"
+  }
+}

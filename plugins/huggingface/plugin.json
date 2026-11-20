@@ -1,0 +1,35 @@
+{
+  "name": "huggingface",
+  "version": "0.1.0",
+  "description": "Discover public models, datasets and Spaces, and inspect repository metadata and files on the Hugging Face Hub.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/huggingface/hf-mcp-server",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Hugging Face",
+        "shortDescription": "Discover public models, datasets and Spaces, and inspect repository metadata and files on the Hugging Face Hub.",
+        "developerName": "Hugging Face",
+        "category": "Research",
+        "defaultPrompt": [
+          "Find public multilingual embedding models and compare their model cards."
+        ],
+        "capabilities": [
+          "Search the Hub for models, datasets and Spaces",
+          "Inspect model cards and repository metadata",
+          "Browse files in public Hub repositories"
+        ],
+        "websiteURL": "https://huggingface.co",
+        "supportURL": "https://huggingface.co/docs/hub/en/agents-mcp"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

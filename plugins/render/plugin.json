@@ -1,0 +1,54 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "render",
+  "version": "0.1.0",
+  "description": "Inspect Render services, deployments, and operational logs in your workspace.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/render-oss/render-mcp-server",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Render",
+        "shortDescription": "Inspect Render services, deployments, and operational logs in your workspace.",
+        "developerName": "Render",
+        "category": "Developer Tools",
+        "websiteURL": "https://render.com",
+        "supportURL": "https://render.com/docs/mcp-server",
+        "capabilities": [
+          "List workspace services",
+          "Review deployments",
+          "Inspect logs and metrics"
+        ],
+        "defaultPrompt": [
+          "In my Render workspace, show the latest deployment status for each web service."
+        ]
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "RENDER_API_KEY",
+            "label": "Render API key",
+            "description": "Create an API key in Render Account Settings.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "render",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${RENDER_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

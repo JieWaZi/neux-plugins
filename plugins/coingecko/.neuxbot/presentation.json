@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "CoinGecko",
+    "zh-CN": "CoinGecko"
+  },
+  "localizedDescriptions": {
+    "en": "Retrieve cryptocurrency prices, historical market data and decentralized exchange pool data from CoinGecko.",
+    "zh-CN": "从 CoinGecko 查询加密资产价格、历史行情和去中心化交易所的资金池数据。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Compare the last seven days of price and volume for two supported assets."
+    ],
+    "zh-CN": [
+      "比较两种受支持资产最近七天的价格与成交量。"
+    ]
+  }
+}

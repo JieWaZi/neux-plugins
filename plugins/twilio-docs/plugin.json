@@ -1,0 +1,35 @@
+{
+  "name": "twilio-docs",
+  "version": "0.1.0",
+  "description": "Search public Twilio developer documentation and retrieve API endpoints, parameters and response schemas.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/twilio/ai/tree/main/mcp",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Twilio Docs",
+        "shortDescription": "Search public Twilio developer documentation and retrieve API endpoints, parameters and response schemas.",
+        "developerName": "Twilio",
+        "category": "Developer Tools",
+        "defaultPrompt": [
+          "Find the Twilio Messaging API documentation for sending an SMS and interpreting its response."
+        ],
+        "capabilities": [
+          "Find API operations across documented Twilio products",
+          "Retrieve endpoint details and required parameters",
+          "Look up documented responses and developer guidance"
+        ],
+        "websiteURL": "https://www.twilio.com",
+        "supportURL": "https://www.twilio.com/docs/ai/mcp"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

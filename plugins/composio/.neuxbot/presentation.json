@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Composio",
+    "zh-CN": "Composio"
+  },
+  "localizedDescriptions": {
+    "en": "Discover and use the actions available in apps linked to Composio Connect.",
+    "zh-CN": "通过 Composio Connect 查找并使用已连接应用的操作。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "List the apps already connected to my Composio account and summarize what each one can do."
+    ],
+    "zh-CN": [
+      "列出已连接到我 Composio 账号的应用，并总结每个应用可用的操作。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "In Composio For You, open Settings → Sessions & API Key. Copy the Connect consumer key beginning with ck_ into the plugin settings.",
+      "zh-CN": "在 Composio For You 的「设置 → Sessions & API Key」中复制以 ck_ 开头的 Connect 用户密钥，再填入插件设置。"
+    },
+    "helpURL": "https://docs.composio.dev/kb/guide/consumer-project-boundaries-and-auth-selection"
+  }
+}

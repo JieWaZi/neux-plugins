@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { validateProvenance } from '../provenance.mjs';
 
@@ -8,7 +8,8 @@ const source = { schemaVersion: 1, upstream: { author: 'Example contributors', r
 const validate = data => validateProvenance({ data, packagePath: 'plugins/example', manifest: {}, read: () => { throw new Error('unexpected file read'); } });
 
 test('维护包统一来源结构，业务署名版本直接来自upstream而非包装和授权CLI', async () => {
-  for (const key of ['github', 'feishu-office', 'wecom-office']) {
+  const packages = await readdir(new URL('../../plugins/', import.meta.url), { withFileTypes: true });
+  for (const { name: key } of packages.filter(entry => entry.isDirectory())) {
     const base = new URL(`../../plugins/${key}/`, import.meta.url);
     const data = JSON.parse(await readFile(new URL('provenance.json', base), 'utf8'));
     const manifest = JSON.parse(await readFile(new URL('plugin.json', base), 'utf8'));
@@ -21,7 +22,7 @@ test('维护包统一来源结构，业务署名版本直接来自upstream而非
     assert.equal(data.wrapper.maintainer, manifest.author.name);
     if (key === 'feishu-office') { assert.equal(data.upstream.author, 'Lark Suite CLI contributors'); assert.equal(data.upstream.tag, 'v1.0.98'); }
     else if (key === 'wecom-office') { assert.equal(data.upstream.author, 'WeCom'); assert.equal(data.upstream.version, '1.3.4'); assert.equal(data.upstream.commit, 'f9b28151dc8d42f703db624fc9b26723c3c93fc5'); }
-    else { assert.equal(data.upstream.author, 'GitHub'); assert.equal(data.upstream.distribution.mode, 'hosted-service'); assert.equal(data.upstream.version, undefined); assert.equal(data.upstream.tag, undefined); assert.equal(data.upstream.commit, undefined); assert.match(data.assets[0].sourceURL, /^https:\/\/brand\.github\.com\//); }
+    else if (key === 'github') { assert.equal(data.upstream.author, 'GitHub'); assert.equal(data.upstream.distribution.mode, 'hosted-service'); assert.equal(data.upstream.version, undefined); assert.equal(data.upstream.tag, undefined); assert.equal(data.upstream.commit, undefined); assert.match(data.assets[0].sourceURL, /^https:\/\/brand\.github\.com\//); }
     for (const asset of data.assets) assert.equal(createHash('sha256').update(files.get(`plugins/${key}/${asset.path}`)).digest('hex'), asset.sha256);
   }
 });

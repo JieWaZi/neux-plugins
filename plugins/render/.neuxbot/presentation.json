@@ -1,0 +1,25 @@
+{
+  "displayNames": {
+    "en": "Render",
+    "zh-CN": "Render"
+  },
+  "localizedDescriptions": {
+    "en": "Inspect Render services, deployments, and operational logs in your workspace.",
+    "zh-CN": "检查 Render 工作区的服务、部署和运行日志。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "In my Render workspace, show the latest deployment status for each web service."
+    ],
+    "zh-CN": [
+      "查看我的 Render 工作区中每个 Web 服务最近一次部署的状态。"
+    ]
+  },
+  "setup": {
+    "instructions": {
+      "en": "Create an API key in Render Account Settings and enter it in the plugin settings. After connecting, tell the assistant which Render workspace to use.",
+      "zh-CN": "在 Render 账号设置中创建 API Key，再填入插件设置。连接后，请告知助手要使用的 Render 工作区。"
+    },
+    "helpURL": "https://render.com/docs/mcp-server"
+  }
+}

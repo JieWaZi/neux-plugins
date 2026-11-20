@@ -1,0 +1,35 @@
+{
+  "name": "excalidraw",
+  "version": "0.1.0",
+  "description": "Create sketch-style diagrams and export them to Excalidraw for editing.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/excalidraw/excalidraw-mcp",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Excalidraw",
+        "shortDescription": "Create sketch-style diagrams and export them to Excalidraw for editing.",
+        "developerName": "Excalidraw",
+        "category": "Design",
+        "defaultPrompt": [
+          "Sketch the handoff between a support team and engineering as a flow diagram."
+        ],
+        "capabilities": [
+          "Create sketches for workflows and architectures",
+          "Review diagrams in an interactive canvas when supported",
+          "Export diagrams to Excalidraw for further editing"
+        ],
+        "websiteURL": "https://excalidraw.com",
+        "supportURL": "https://github.com/excalidraw/excalidraw-mcp"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}

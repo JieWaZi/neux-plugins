@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "AWS Knowledge",
+    "zh-CN": "AWS Knowledge"
+  },
+  "localizedDescriptions": {
+    "en": "Search official AWS documentation and verify service, API and CloudFormation availability by region.",
+    "zh-CN": "查询 AWS 官方文档，并按区域核实服务、API 与 CloudFormation 资源的可用性。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Check where a proposed AWS service and its CloudFormation resource type are available."
+    ],
+    "zh-CN": [
+      "核实计划使用的 AWS 服务及其 CloudFormation 资源类型在哪些区域可用。"
+    ]
+  }
+}

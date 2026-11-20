@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Convex",
+    "zh-CN": "Convex"
+  },
+  "localizedDescriptions": {
+    "en": "Get Convex guidance for new apps, existing projects and backends that need to scale.",
+    "zh-CN": "获取 Convex 新建应用、接入现有项目和后端扩容的开发指引。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Outline the steps to add Convex to an existing TypeScript application."
+    ],
+    "zh-CN": [
+      "梳理在现有 TypeScript 应用中接入 Convex 的步骤。"
+    ]
+  }
+}

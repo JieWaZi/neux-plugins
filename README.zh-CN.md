@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-面向 NeuxBot 维护的插件库，提供 GitHub 代码审查与协作，以及飞书、企业微信文档、表格、日程和任务能力。每个插件在 `plugins/` 下维护一份完整 Agent Plugins 标准包和自己的版本号。
+面向 NeuxBot 维护的插件库，涵盖办公协作、开发工具、搜索、数据分析及其他托管 MCP 服务。每个插件在 `plugins/` 下维护一份完整 Agent Plugins 标准包和自己的版本号。
 
 | 插件 | 业务能力 |
 | --- | --- |
@@ -10,13 +10,14 @@
 | [飞书办公](plugins/feishu-office/README.zh-CN.md) | 创建和整理文档、管理表格记录、安排日程并跟进任务 |
 | [企业微信办公](plugins/wecom-office/README.zh-CN.md) | 管理文档与表格、安排会议、跟进待办及处理邮件和文件 |
 
-每个插件保存自己的清单、Skills、MCP 组件、授权桥接和独立版本。NeuxBot 负责安装、更新、共享账号及所选智能体的交付。本仓库按插件发布统一包。
+每个插件维护自己的清单与版本，并声明所使用的 MCP 服务、技能和授权方式。NeuxBot 负责安装、更新、共享账号及所选智能体的交付。本仓库按插件发布统一包。
 
 ## 插件源码
 
 - `plugins/github/`：一份标准清单、一项官方 GitHub MCP 声明、业务说明、品牌资产和包内设备授权。
 - `plugins/feishu-office/`：一份标准清单、完整官方技能及相对资料、业务说明、品牌资产和包内授权。
 - `plugins/wecom-office/`：一份标准清单、15 项固定版本官方技能及引用资料、双语说明和包内二维码授权。
+- [plugins/](plugins/) 下的其余目录是托管 MCP 插件及中英文说明。所需的厂商账号和 API Key 见各插件 README。
 - `patches/`：供应商隔离补丁、回归源码、原始许可与来源记录。
 - `scripts/`：确定性目录/ZIP 构建和独立固定源码程序构建；忽略的 `dist/` 保存发布资产，`.cache/` 保存核验后的构建输入。
 

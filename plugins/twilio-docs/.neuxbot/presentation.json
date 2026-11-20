@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Twilio Docs",
+    "zh-CN": "Twilio Docs"
+  },
+  "localizedDescriptions": {
+    "en": "Search public Twilio developer documentation and retrieve API endpoints, parameters and response schemas.",
+    "zh-CN": "检索 Twilio 公开开发文档，查阅 API 端点、参数及响应结构。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Find the Twilio Messaging API documentation for sending an SMS and interpreting its response."
+    ],
+    "zh-CN": [
+      "查找发送短信的 Twilio Messaging API 文档，并核对响应含义。"
+    ]
+  }
+}

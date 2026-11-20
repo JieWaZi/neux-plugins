@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "svelte": {
+      "type": "streamable-http",
+      "url": "https://mcp.svelte.dev/mcp"
+    }
+  },
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
+}

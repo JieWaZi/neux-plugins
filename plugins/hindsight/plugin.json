@@ -1,0 +1,54 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "hindsight",
+  "version": "0.1.0",
+  "description": "Search and summarize memories across Hindsight Cloud memory banks.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://docs.hindsight.vectorize.io/cloud/mcp/",
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Hindsight",
+        "shortDescription": "Search and summarize memories across Hindsight Cloud memory banks.",
+        "developerName": "Vectorize",
+        "category": "Memory",
+        "websiteURL": "https://hindsight.vectorize.io",
+        "supportURL": "https://docs.hindsight.vectorize.io/cloud/mcp/",
+        "capabilities": [
+          "Search and summarize memories",
+          "List available memory banks",
+          "Query a specified memory bank"
+        ],
+        "defaultPrompt": [
+          "Search my Hindsight memory bank for earlier decisions about this project and summarize them."
+        ]
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json",
+      "configuration": {
+        "fields": [
+          {
+            "key": "HINDSIGHT_API_KEY",
+            "label": "Hindsight API key",
+            "description": "Create a key from the Connect tab in Hindsight Cloud.",
+            "secret": true,
+            "required": true
+          }
+        ],
+        "bindings": [
+          {
+            "server": "hindsight",
+            "target": "header",
+            "name": "Authorization",
+            "value": "Bearer ${HINDSIGHT_API_KEY}"
+          }
+        ]
+      }
+    }
+  }
+}

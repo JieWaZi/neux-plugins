@@ -1,10 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 
 // 插件说明不能重新混入宿主身份、安装步骤或聊天引导；维护说明保留在仓库开发指南。
 test('维护包中英文业务说明不包含宿主角色或聊天安装引导', async () => {
-  for (const plugin of ['github', 'feishu-office', 'wecom-office']) {
+  const packages = await readdir(new URL('../../plugins/', import.meta.url), { withFileTypes: true });
+  for (const { name: plugin } of packages.filter(entry => entry.isDirectory())) {
     for (const name of ['README.md', 'README.zh-CN.md']) {
       const file = new URL(`../../plugins/${plugin}/${name}`, import.meta.url);
       const content = await readFile(file, 'utf8');

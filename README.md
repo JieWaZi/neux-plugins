@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-A library of plugins maintained for NeuxBot, providing GitHub code review and collaboration, and Feishu and WeCom documents, tables, calendars and tasks. Each plugin has one complete Agent Plugins standard package and its own version under `plugins/`.
+A library of plugins maintained for NeuxBot, including office integrations, developer tools, search, analytics, and other hosted MCP services. Each plugin has one complete Agent Plugins standard package and its own version under `plugins/`.
 
 | Plugin | Capabilities |
 | --- | --- |
@@ -10,13 +10,14 @@ A library of plugins maintained for NeuxBot, providing GitHub code review and co
 | [Feishu Office](plugins/feishu-office/README.md) | Create and organize documents, manage table records, arrange events and follow up on tasks |
 | [WeCom Office](plugins/wecom-office/README.md) | Manage documents and tables, arrange meetings, track tasks and work with email and files |
 
-Each package owns its manifest, Skills, MCP components, authorization bridge and independent version. NeuxBot owns installation, updates, shared accounts and delivery to the selected runtime. This repository publishes one unified package per plugin.
+Each package owns its manifest and version. Packages declare the MCP services, skills and authorization they use. NeuxBot owns installation, updates, shared accounts and delivery to the selected runtime. This repository publishes one unified package per plugin.
 
 ## Plugin sources
 
 - `plugins/github/`: one standard manifest, one official GitHub MCP declaration, business documentation, brand assets and package-owned device authorization.
 - `plugins/feishu-office/`: one standard manifest, complete official skills and relative resources, business documentation, brand assets and package-owned authorization.
 - `plugins/wecom-office/`: one standard manifest, 15 fixed official skills and their resources, bilingual descriptions and package-owned QR authorization.
+- Other directories under [plugins/](plugins/) contain hosted MCP packages and their bilingual documentation. Their READMEs describe any required provider account or API key.
 - `patches/`: reviewed provider isolation patches, regression sources, original licenses and provenance.
 - `scripts/`: deterministic catalog/ZIP builds and independent fixed-source provider builds. Ignored `dist/` contains release artifacts; `.cache/` contains verified build inputs.
 

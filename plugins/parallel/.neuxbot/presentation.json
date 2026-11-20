@@ -1,0 +1,18 @@
+{
+  "displayNames": {
+    "en": "Parallel",
+    "zh-CN": "Parallel"
+  },
+  "localizedDescriptions": {
+    "en": "Search the public web, retrieve source pages and organize evidence for a decision.",
+    "zh-CN": "搜索公开网页、提取来源内容，并为具体决策整理证据。"
+  },
+  "defaultPromptLocalizations": {
+    "en": [
+      "Compare several open-source project management tools using current public sources."
+    ],
+    "zh-CN": [
+      "依据近期公开资料比较几款开源项目管理工具。"
+    ]
+  }
+}

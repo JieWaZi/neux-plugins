@@ -1,0 +1,35 @@
+{
+  "name": "exa",
+  "version": "0.1.0",
+  "description": "Search the public web and retrieve page content through Exa.",
+  "author": {
+    "name": "NeuxBot contributors"
+  },
+  "repository": "https://github.com/exa-labs/exa-mcp-server",
+  "license": "MIT",
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Exa",
+        "shortDescription": "Search the public web and retrieve page content through Exa.",
+        "developerName": "Exa",
+        "category": "Research",
+        "defaultPrompt": [
+          "Find primary sources about a technical topic and fetch the most relevant pages."
+        ],
+        "capabilities": [
+          "Find web pages relevant to a research question",
+          "Fetch page content from selected URLs",
+          "Collect source links for a research summary"
+        ],
+        "websiteURL": "https://exa.ai",
+        "supportURL": "https://exa.ai/mcp"
+      }
+    },
+    "com.neuxbot": {
+      "schemaVersion": 1,
+      "presentation": ".neuxbot/presentation.json"
+    }
+  }
+}
