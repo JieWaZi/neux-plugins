@@ -14,7 +14,7 @@
         "displayName": "Honcho",
         "shortDescription": "Find prior conversation context and retrieve what Honcho remembers about people and projects.",
         "developerName": "Plastic Labs",
-        "category": "Memory",
+        "category": "productivity",
         "websiteURL": "https://honcho.dev",
         "supportURL": "https://honcho.dev/docs/v3/guides/integrations/mcp",
         "capabilities": [

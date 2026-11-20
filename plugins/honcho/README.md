@@ -10,6 +10,6 @@ Honcho organizes memories by workspace, peer, and session. Use the same workspac
 
 [Vendor setup guide](https://honcho.dev/docs/v3/guides/integrations/mcp)
 
-## Example
+## Practical uses
 
-> List the Honcho workspaces available to me.
+Check the workspaces available for retrieving stored context.

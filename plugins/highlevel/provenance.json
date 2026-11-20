@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "upstream": {
     "author": "HighLevel",
-    "repository": "https://help.gohighlevel.com/support/solutions/articles/155000005741-how-to-use-the-highlevel-mcp-server",
+    "repository": "https://help.gohighlevel.com/support/solutions/articles/155000008391-highlevel-mcp-for-anthropic-increased-scopes",
     "license": "Vendor hosted-service terms",
     "distribution": {
       "mode": "hosted-service",

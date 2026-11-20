@@ -10,6 +10,6 @@
 
 [服务商配置指南](https://www.revenuecat.com/docs/tools/mcp/setup)
 
-## 使用示例
+## 使用场景
 
-> 总结当前的 RevenueCat 套餐，以及每个套餐中可用的订阅选项。
+核对项目中的客户权益或近期订阅活动。

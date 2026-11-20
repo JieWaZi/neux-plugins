@@ -10,6 +10,6 @@
 
 [服务商配置指南](https://github.com/PostHog/posthog/tree/master/services/mcp#quick-start)
 
-## 使用示例
+## 使用场景
 
-> 列出我的 PostHog 项目中的功能开关，并指出哪些处于启用状态。
+对比分析项目近期的用户激活趋势。

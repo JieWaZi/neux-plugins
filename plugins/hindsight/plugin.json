@@ -14,7 +14,7 @@
         "displayName": "Hindsight",
         "shortDescription": "Search and summarize memories across Hindsight Cloud memory banks.",
         "developerName": "Vectorize",
-        "category": "Memory",
+        "category": "productivity",
         "websiteURL": "https://hindsight.vectorize.io",
         "supportURL": "https://docs.hindsight.vectorize.io/cloud/mcp/",
         "capabilities": [

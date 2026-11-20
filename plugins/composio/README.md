@@ -10,6 +10,6 @@ Link each app you want to use in Composio. The tools you can invoke depend on th
 
 [Vendor setup guide](https://docs.composio.dev/kb/guide/consumer-project-boundaries-and-auth-selection)
 
-## Example
+## Practical uses
 
-> List the apps already connected to my Composio account and summarize what each one can do.
+Review upcoming events from a connected calendar.

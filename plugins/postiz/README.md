@@ -10,6 +10,6 @@ Connect the social channels in Postiz first. When scheduling or publishing, spec
 
 [Developer settings](https://docs.postiz.com/general/settings/developers) · [MCP setup with an API key](https://docs.postiz.com/mcp/setup)
 
-## Example
+## Practical uses
 
-> List my connected social channels and show which posts are scheduled for the next seven days.
+Review upcoming posts and their current scheduling status.

@@ -14,7 +14,7 @@
         "displayName": "Context7",
         "shortDescription": "Find indexed library documentation and code examples for the version your project uses.",
         "developerName": "Upstash",
-        "category": "Developer Tools",
+        "category": "research",
         "defaultPrompt": [
           "Find documentation for the Next.js version declared in this project."
         ],

@@ -10,6 +10,6 @@ Tessie access tokens can also authorize vehicle commands. Remove the token in Te
 
 [Vendor setup guide](https://developer.tessie.com/reference/mcp)
 
-## Example
+## Practical uses
 
-> Summarize the current battery level and charging status for my vehicle.
+Check a vehicle's battery level and current charging status.

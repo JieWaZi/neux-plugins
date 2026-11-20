@@ -10,6 +10,6 @@
 
 [开发者设置](https://docs.postiz.com/general/settings/developers) · [使用 API Key 连接 MCP](https://docs.postiz.com/mcp/setup)
 
-## 使用示例
+## 使用场景
 
-> 列出我已连接的社交渠道，并查看未来七天的帖子排期。
+核对即将发布的内容及其排期状态。

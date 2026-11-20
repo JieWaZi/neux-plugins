@@ -14,7 +14,7 @@
         "displayName": "Tessie",
         "shortDescription": "Check vehicle status, battery charge, and recent charging activity from Tessie.",
         "developerName": "Tessie",
-        "category": "Utilities",
+        "category": "other",
         "websiteURL": "https://www.tessie.com",
         "supportURL": "https://developer.tessie.com/reference/mcp",
         "capabilities": [

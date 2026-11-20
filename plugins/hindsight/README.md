@@ -10,6 +10,6 @@ Specify a bank for each task. Calls without a bank use `default`. A bank-scoped 
 
 [Vendor setup guide](https://docs.hindsight.vectorize.io/cloud/mcp/)
 
-## Example
+## Practical uses
 
-> Search my Hindsight memory bank for earlier decisions about this project and summarize them.
+Review prior project decisions from a named memory bank.

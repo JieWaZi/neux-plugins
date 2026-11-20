@@ -10,6 +10,6 @@ A personal API key is typically prefixed with `phx_`. For example, reviewing fea
 
 [Vendor setup guide](https://github.com/PostHog/posthog/tree/master/services/mcp#quick-start)
 
-## Example
+## Practical uses
 
-> Show the feature flags in my PostHog project and identify which ones are active.
+Compare recent activation trends for an analytics project.

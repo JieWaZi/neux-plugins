@@ -14,7 +14,7 @@
         "displayName": "PostHog",
         "shortDescription": "Explore product events, inspect feature flags, and query PostHog analytics.",
         "developerName": "PostHog",
-        "category": "Analytics",
+        "category": "data-analytics",
         "websiteURL": "https://posthog.com",
         "supportURL": "https://github.com/PostHog/posthog/tree/master/services/mcp#quick-start",
         "capabilities": [

@@ -10,6 +10,6 @@ Honcho 按工作区、参与者和会话组织记忆。查询此前保存的上�
 
 [服务商配置指南](https://honcho.dev/docs/v3/guides/integrations/mcp)
 
-## 使用示例
+## 使用场景
 
-> 列出我可以访问的 Honcho 工作区。
+查看可用于检索上下文的工作区。

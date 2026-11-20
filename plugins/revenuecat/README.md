@@ -10,6 +10,6 @@ Choose the permissions needed for your tasks. Use the project's API v2 secret ke
 
 [Vendor setup guide](https://www.revenuecat.com/docs/tools/mcp/setup)
 
-## Example
+## Practical uses
 
-> Summarize the current offerings and the packages available in each one.
+Review customer entitlements or recent subscription activity in a project.

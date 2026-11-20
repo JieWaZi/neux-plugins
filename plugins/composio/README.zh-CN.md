@@ -10,6 +10,6 @@
 
 [服务商配置指南](https://docs.composio.dev/kb/guide/consumer-project-boundaries-and-auth-selection)
 
-## 使用示例
+## 使用场景
 
-> 列出已连接到我 Composio 账号的应用，并总结每个应用可用的操作。
+查看已连接日历里的即将开始事项。

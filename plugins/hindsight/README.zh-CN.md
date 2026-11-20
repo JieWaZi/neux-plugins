@@ -10,6 +10,6 @@
 
 [服务商配置指南](https://docs.hindsight.vectorize.io/cloud/mcp/)
 
-## 使用示例
+## 使用场景
 
-> 搜索我的 Hindsight 记忆库，归纳此前关于此项目的决策。
+从指定记忆库中查找以往的项目决策。

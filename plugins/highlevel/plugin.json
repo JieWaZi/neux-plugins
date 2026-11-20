@@ -6,7 +6,7 @@
   "author": {
     "name": "NeuxBot contributors"
   },
-  "repository": "https://help.gohighlevel.com/support/solutions/articles/155000005741-how-to-use-the-highlevel-mcp-server",
+  "repository": "https://help.gohighlevel.com/support/solutions/articles/155000008391-highlevel-mcp-for-anthropic-increased-scopes",
   "license": "MIT",
   "extensions": {
     "com.openai": {
@@ -14,9 +14,9 @@
         "displayName": "HighLevel",
         "shortDescription": "Find CRM records, review opportunities, and check calendars in a HighLevel sub-account.",
         "developerName": "HighLevel",
-        "category": "CRM",
+        "category": "productivity",
         "websiteURL": "https://www.gohighlevel.com",
-        "supportURL": "https://help.gohighlevel.com/support/solutions/articles/155000005741-how-to-use-the-highlevel-mcp-server",
+        "supportURL": "https://help.gohighlevel.com/support/solutions/articles/155000008391-highlevel-mcp-for-anthropic-increased-scopes",
         "capabilities": [
           "Search CRM contacts",
           "Review opportunities and conversations",

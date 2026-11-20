@@ -10,6 +10,6 @@ The connected key can also permit workspace changes and deployments. Review the 
 
 [Vendor setup guide](https://render.com/docs/mcp-server)
 
-## Example
+## Practical uses
 
-> In my Render workspace, show the latest deployment status for each web service.
+Review recent deployments and their status before a release.

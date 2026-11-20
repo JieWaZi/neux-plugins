@@ -14,7 +14,7 @@
         "displayName": "GoDaddy",
         "shortDescription": "Generate domain name ideas and check public availability through GoDaddy.",
         "developerName": "GoDaddy",
-        "category": "Productivity",
+        "category": "other",
         "defaultPrompt": [
           "Check the availability of a name under .com and .org and find alternatives."
         ],
