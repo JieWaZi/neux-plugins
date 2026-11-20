@@ -91,7 +91,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm ci --ignore-scripts
-      - name: Merge the batch and promote both catalog files
+      - name: Merge the batch and promote the plugin catalog
         env:
           GH_TOKEN: ${{ github.token }}
         run: node scripts/release-plugin-batch.mjs promote

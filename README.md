@@ -101,7 +101,7 @@ The host must support PNG data URLs for `show-qr` challenges and merging verifie
 
 Details and SKILL text are available before installation or authorization through digest-bound [read-only details sidecars](docs/DETAILS.md), independently of the complete installation ZIP.
 
-The [full catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog-v2.json) includes hosted OAuth plugins. The [compatibility catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) retains stable versions supported by older hosts. Both use schema version 1 and list one stable version per plugin key. Each entry binds its source commit, package path, archive URL and digest, and details URL, size, and digest.
+The [plugin catalog](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) lists one stable version per published plugin, including hosted OAuth plugins. It uses schema version 1. Each entry binds its source commit, package path, archive URL and digest, and details URL, size, and digest.
 
 A ZIP contains its complete standard package, source and license evidence, and the selected plugin's provider patches. Installation and portable catalog builds read the complete package. Separate business services and first-use provider dependencies still require network access. Clients verify the archive digest before extraction.
 
@@ -109,7 +109,7 @@ A ZIP contains its complete standard package, source and license evidence, and t
 
 1. Bump the affected plugin's stable SemVer in `plugins/<key>/plugin.json` and merge the change into `main`. Keep the package key and name. For example, the first GitHub release after the existing `0.1.1` can use `0.1.2`. If a shared input changes several packages, bump and release each affected package.
 2. Tag the merged commit as `<key>@<version>`, for example `github@0.1.2`, and push the tag. A release maintainer starts **Release plugin** from the protected `main` branch and passes the tag as input. Every job runs the reviewed scripts from that `main` commit. The build checks the tagged commit and manifest, then the publish job uploads the unified ZIP, public details and single-entry catalog to the fixed tag with Latest disabled.
-3. The catalog job reads the current Latest release, updates its catalog entries, and publishes both catalog files together as Latest. Re-run failed jobs to resume. The workflow verifies existing assets before reusing them, fails on a same-version binding conflict, and retains a newer version already in the catalog.
+3. The catalog job reads the current Latest release, updates its catalog entries, and publishes the complete `catalog.json` as Latest. Re-run failed jobs to resume. The workflow verifies existing assets before reusing them, fails on a same-version binding conflict, and retains a newer version already in the catalog.
 
 Keep published tags, assets, and all provider binaries and notices referenced by package locks. See the [release guide](docs/RELEASING.md) for repository setup, the dispatch command, and recovery.
 

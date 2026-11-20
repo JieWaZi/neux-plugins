@@ -8,7 +8,7 @@ This repository maintains one standard package and one version per NeuxBot plugi
 | `<key>.details.json` | Public metadata and documentation bound to the archive digest |
 | `entry.json` | One catalog entry binding the version, source commit, archive and public details |
 
-The Latest catalog release contains two files. `catalog-v2.json` lists all maintained plugins. `catalog.json` retains versions supported by earlier hosts and excludes new hosted OAuth versions. Both files use catalog schema version 1. NeuxBot downloads the fixed unified archive when needed.
+Every catalog update publishes the same `catalog.json` filename using catalog schema version 1. The catalog lists all published plugins, including hosted OAuth plugins. NeuxBot downloads each fixed unified archive when needed.
 
 ## Build a fixed snapshot
 
@@ -41,17 +41,17 @@ gh workflow run release-plugin.yml --repo JieWaZi/neux-plugins --ref main -f tag
 
 The dispatch commit supplies the workflow, build scripts, dependency locks and publisher for every job. The plugin tag supplies the Git tree for the selected package. Jobs fetch `origin/main` and resolve the full tag ref to a commit on that history. The build has read access, and only the publish and catalog jobs request write access. Those jobs also check the live tag binding through GitHub. [Manual dispatch](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow) · [Workflow dispatch event](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflow_dispatch)
 
-The workflow verifies package details, checks both current catalogs for same-version binding conflicts, and checks the projected catalog sizes before creating a plugin draft. It uploads the unified ZIP, details JSON and single-entry catalog as `entry.json`. It verifies the assets before publishing the plugin release with `make_latest: false`. It then streams and verifies each public fixed-tag download, retrying a failed asset individually.
+The workflow verifies package details, checks the current catalog for same-version binding conflicts, and checks the projected catalog size before creating a plugin draft. It uploads the unified ZIP, details JSON and single-entry catalog as `entry.json`. It verifies the assets before publishing the plugin release with `make_latest: false`. It then streams and verifies each public fixed-tag download, retrying a failed asset individually.
 
-The catalog job waits in the repository's shared promotion queue. It reads the catalog assets from the fixed tag currently marked Latest and uses `catalog.json` as the initial full catalog if `catalog-v2.json` is absent. Each candidate's public details are verified against the fixed release digest and used to identify hosted OAuth. A hosted OAuth update goes into the full catalog and retains any earlier compatible entry in `catalog.json`.
+The catalog job waits in the repository's shared promotion queue. It verifies the candidate's public details against the fixed release digest and reads the current `catalog.json` from the tag marked Latest. It merges the candidate into that catalog and uploads the complete result to a `catalog-<run-id>-<run-attempt>` draft.
 
-The job uploads both complete catalog files to a single `catalog-<run-id>-<run-attempt>` draft. It compares the starting release and both asset bindings with the current Latest again before one API update promotes the draft. It then verifies the Release API and both [full](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog-v2.json) and [compatibility](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json) URLs.
+Before promoting the draft in one API update, the job compares the starting release and catalog digest with the current Latest again. It verifies the result through the Release API and the [stable catalog URL](https://github.com/JieWaZi/neux-plugins/releases/latest/download/catalog.json).
 
 Re-run failed workflow jobs after a transient upload, publication, or read failure. The workflow verifies the existing plugin tag and asset digests, resumes an incomplete draft, and removes only empty upload placeholders left by a failed request. When the publish response is lost, it reads the same release by ID before continuing. The catalog job reads the actual Latest again on every attempt. An equal version with matching bindings is already current. A higher catalog version stays current, and an older tag can only resume an existing draft or release. An equal version with different bindings stops publication or promotion. If a published asset conflicts, keep that release and choose a new plugin version after resolving the discrepancy.
 
 ## Release a batch
 
-For a larger rollout, merge the package changes and push each fixed plugin tag first. Dispatch **Release plugin batch** from protected `main` with one tag per line, up to 25 distinct plugins. A batch still publishes each package as its own immutable release. It checks that each merged catalog fits the 4 MiB client limit before publishing fixed assets, then promotes both catalogs together once.
+For a larger rollout, merge the package changes and push each fixed plugin tag first. Dispatch **Release plugin batch** from protected `main` with one tag per line, up to 25 distinct plugins. A batch still publishes each package as its own immutable release. It checks that the merged catalog fits the 4 MiB client limit before publishing fixed assets, then promotes the catalog once.
 
 ```sh
 gh workflow run release-plugin-batch.yml --repo JieWaZi/neux-plugins --ref main -f tags="$(cat plugin-tags.txt)"

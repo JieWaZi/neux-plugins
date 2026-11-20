@@ -9,8 +9,6 @@ import { GitHubReleases, assetBinding } from './github-releases.mjs';
 import { catalogAsset, catalogTagPattern, encodeCatalog, entryAsset, isCatalogReleaseTag, latestCatalogURL, maxCatalogBytes, mergeCatalog, readCatalog, readEntry } from './release-catalog.mjs';
 import { commitPattern, parsePluginTag, repository, verifyPluginTag } from './release-tags.mjs';
 
-const catalogV2Asset = 'catalog-v2.json';
-const catalogNames = [catalogAsset, catalogV2Asset];
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
 const makeAsset = (name, bytes) => ({ name, body: bytes, size: bytes.length, sha256: digest(bytes) });
 const sameAsset = (a, b) => a.size === b.size && a.sha256 === b.sha256;
@@ -33,16 +31,16 @@ async function builtAssets({ directory, tag, sourceCommit }) {
   }
   if (entry.detailsSize > maxDetailsBytes) throw new Error('built plugin details exceed the client size limit');
   const detailAsset = await verifiedAsset(details, details, entry.detailsSHA256, entry.detailsSize);
-  const legacyCompatible = isLegacyCompatible(Buffer.from(await detailAsset.body.arrayBuffer()), entry);
+  validateEntryDetails(Buffer.from(await detailAsset.body.arrayBuffer()), entry);
   const assets = [
     makeAsset(entryAsset, entryBytes),
     await verifiedAsset(portable, portable, entry.archiveSHA256),
     detailAsset,
   ];
-  return { entry, legacyCompatible, assets };
+  return { entry, assets };
 }
 
-function isLegacyCompatible(content, entry) {
+function validateEntryDetails(content, entry) {
   const details = validateSchema('details.schema.json', JSON.parse(content));
   if (details.sourceCommit !== entry.sourceCommit || details.archiveSHA256 !== entry.archiveSHA256 ||
       details.packagePath !== entry.packagePath || details.package.manifest.name !== entry.name ||
@@ -53,7 +51,6 @@ function isLegacyCompatible(content, entry) {
   if (hostedOAuth !== details.package.servers.some(server => server.authentication?.type === 'oauth')) {
     throw new Error(`inconsistent hosted OAuth declaration in plugin details: ${entry.key}`);
   }
-  return !hostedOAuth;
 }
 
 function checkRelease(release, tag, draft) {
@@ -84,10 +81,8 @@ function checkAssetInventory(release, expected, allowMissing) {
 async function publishRelease({ api, tag, sourceCommit, assets, latest, beforePublish, allowNew = true }) {
   const expected = new Map(assets.map(asset => [asset.name, asset]));
   const source = latest ? 'Catalog entries bind their own source commits.' : `Source commit: ${sourceCommit}`;
-  // Keep the fixed plugin draft body compatible with releases started by the prior publisher.
-  const documentedAssets = latest ? assets : [assets[0]];
-  const hashes = documentedAssets.map(asset => `${asset.name} SHA-256: ${asset.sha256}`).join('\n');
-  const body = `${source}\n\n${hashes}`;
+  const [index] = assets;
+  const body = `${source}\n\n${index.name} SHA-256: ${index.sha256}`;
   // The catalog has per-entry source commits. Its own tag points at main when GitHub publishes the draft.
   const targetCommitish = latest ? 'main' : sourceCommit;
   let release = await api.findRelease(tag);
@@ -132,14 +127,14 @@ export async function publishPluginBatch({ api, candidates }) {
   validateCandidates(candidates);
   const built = [];
   for (const candidate of candidates) {
-    const assets = await builtAssets(candidate);
+    const { entry, assets } = await builtAssets(candidate);
     await api.verifyTag(candidate.tag, candidate.sourceCommit);
-    built.push({ ...candidate, ...assets });
+    built.push({ ...candidate, entry, assets });
   }
   // Verify all bindings and the final catalog size before creating any fixed release.
   const base = await readLatest(api);
-  const { status, statuses, catalogs } = mergeReleaseEntries(base.catalogs, built);
-  if (status === 'changed') catalogAssets(catalogs);
+  const { status, statuses, catalog } = mergeReleaseEntries(base.catalog, built.map(({ entry }) => entry));
+  if (status === 'changed') encodeCatalog(catalog);
   for (const [i, { tag, sourceCommit, assets }] of built.entries()) {
     await publishRelease({
       api, tag, sourceCommit, assets, latest: false, allowNew: statuses[i] !== 'superseded',
@@ -161,34 +156,23 @@ async function candidateFromRelease(api, { tag, sourceCommit }) {
       throw new Error(`published package assets do not match the catalog entry: ${tag}`);
     }
     if (details.size > maxDetailsBytes) throw new Error('published plugin details exceed the client size limit');
-    const legacyCompatible = isLegacyCompatible(await api.downloadAsset(release, details), entry);
-    return { entry, legacyCompatible };
+    validateEntryDetails(await api.downloadAsset(release, details), entry);
+    return entry;
   });
 }
 
-function catalogBindings(release) {
-  const index = assetBinding(release, catalogAsset);
-  const v2 = release.assets.some(asset => asset.name === catalogV2Asset)
-    ? assetBinding(release, catalogV2Asset)
-    : undefined;
-  return v2 ? [index, v2] : [index];
-}
-
-async function checkLatest(api, release, assets) {
+async function checkLatest(api, release, asset) {
   const current = checkRelease(await api.latestRelease(), release.tag_name, false);
-  const bindings = catalogBindings(current);
-  if (current.id !== release.id || bindings.length !== assets.length ||
-      bindings.some((binding, i) => !sameAsset(binding, assets[i]))) {
+  if (current.id !== release.id || !sameAsset(assetBinding(current, catalogAsset), asset)) {
     throw new Error(`latest catalog release binding changed: ${release.tag_name}`);
   }
 }
 
-async function verifyLatest(api, release, assets) {
-  await api.retryRead(() => checkLatest(api, release, assets));
-  for (const asset of assets) {
-    const url = new URL(asset.name, latestCatalogURL).href;
-    await api.retryRead(() => api.download(url, asset));
-  }
+async function verifyLatest(api, release, asset) {
+  await api.retryRead(async () => {
+    await checkLatest(api, release, asset);
+    await api.download(latestCatalogURL, asset);
+  });
 }
 
 function readLatest(api) {
@@ -196,37 +180,22 @@ function readLatest(api) {
     const release = await api.latestRelease();
     if (!isCatalogReleaseTag(release.tag_name)) throw new Error(`latest Release is not a catalog release: ${release.tag_name}`);
     checkRelease(release, release.tag_name, false);
-    const assets = catalogBindings(release);
-    const catalogs = {};
-    for (const asset of assets) {
-      if (asset.size > maxCatalogBytes) throw new Error(`published ${asset.name} exceeds the client size limit`);
-      catalogs[asset.name] = readCatalog(await api.downloadAsset(release, asset));
-    }
-    catalogs[catalogV2Asset] ??= catalogs[catalogAsset];
-    return { release, assets, catalogs };
+    const asset = assetBinding(release, catalogAsset);
+    if (asset.size > maxCatalogBytes) throw new Error('published catalog exceeds the client size limit');
+    const catalog = readCatalog(await api.downloadAsset(release, asset));
+    return { release, asset, catalog };
   });
 }
 
-function mergeStatus(statuses) {
-  if (statuses.includes('changed')) return 'changed';
-  return statuses.includes('current') ? 'current' : 'superseded';
-}
-
-function mergeReleaseEntries(base, candidates) {
-  const catalogs = { ...base };
-  const statuses = candidates.map(({ entry, legacyCompatible }) => {
-    const names = legacyCompatible ? catalogNames : [catalogV2Asset];
-    return mergeStatus(names.map(name => {
-      const { status, catalog } = mergeCatalog(catalogs[name], entry);
-      catalogs[name] = catalog;
-      return status;
-    }));
-  });
-  return { status: mergeStatus(statuses), statuses, catalogs };
-}
-
-function catalogAssets(catalogs) {
-  return catalogNames.map(name => makeAsset(name, encodeCatalog(catalogs[name])));
+function mergeReleaseEntries(catalog, entries) {
+  const statuses = [];
+  for (const entry of entries) {
+    const merged = mergeCatalog(catalog, entry);
+    catalog = merged.catalog;
+    statuses.push(merged.status);
+  }
+  const status = statuses.includes('changed') ? 'changed' : statuses.includes('current') ? 'current' : 'superseded';
+  return { status, statuses, catalog };
 }
 
 export async function promoteCatalog({ api, tag, sourceCommit, catalogTag }) {
@@ -250,18 +219,17 @@ export async function promoteCatalogBatch({ api, candidates, catalogTag }) {
   const entries = [];
   for (const candidate of candidates) entries.push(await candidateFromRelease(api, candidate));
   const base = await readLatest(api);
-  const { status, catalogs } = mergeReleaseEntries(base.catalogs, entries);
-  const bootstrap = status === 'current' && base.assets.length === 1;
-  if (status !== 'changed' && !bootstrap) {
-    await verifyLatest(api, base.release, base.assets);
+  const { status, catalog } = mergeReleaseEntries(base.catalog, entries);
+  if (status !== 'changed') {
+    await verifyLatest(api, base.release, base.asset);
     return status;
   }
-  const assets = catalogAssets(catalogs);
+  const asset = makeAsset(catalogAsset, encodeCatalog(catalog));
   const release = await publishRelease({
-    api, tag: catalogTag, assets, latest: true,
-    beforePublish: () => checkLatest(api, base.release, base.assets),
+    api, tag: catalogTag, assets: [asset], latest: true,
+    beforePublish: () => checkLatest(api, base.release, base.asset),
   });
-  await verifyLatest(api, release, assets);
+  await verifyLatest(api, release, asset);
   return 'changed';
 }
 
